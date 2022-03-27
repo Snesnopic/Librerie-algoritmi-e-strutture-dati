@@ -7,12 +7,7 @@ namespace lasd
 /* ************************************************************************** */
 
 // ...
-template <typename Data>
-void Vector<Data>::Clear()
-{
-    this.size = 0;
-    delete[] array;
-}
+
 template <typename Data>
 Vector<Data>::Vector(unsigned long initialSize)
 {
@@ -23,6 +18,19 @@ Vector<Data>::~Vector()
 {
     delete[] array;
 }
+template <typename Data>
+Vector<Data>::Vector(const Vector<Data> &v)
+{
+    this = v;
+}
+
+template <typename Data>
+Vector<Data>::Vector(Vector<Data> &&v)
+{
+    this = std::move(v);
+}
+
+
 template <typename Data>
 Data& Vector<Data>::operator[](const unsigned long index)
 {
@@ -35,23 +43,7 @@ void Vector<Data>::Resize(const unsigned long newSize)
 {
 
 }
-template <typename Data>
-bool Vector<Data>::operator==(const Vector &v)
-{
-    if(this.size != v.Size())
-        return false;
-    for(int i=0 ; i<this.size; i++)
-    {
-        if(array[i] != v[i])
-            return false;
-    }
-    return true;
-}
-template <typename Data>
-bool Vector<Data>::operator!=(const Vector &v)
-{
-    return !(this == v);
-}
+
 template <typename Data>
 Vector<Data>& Vector<Data>::operator=(Vector<Data> v)
 {
@@ -77,6 +69,32 @@ Vector<Data>& Vector<Data>::operator=(Vector<Data> &&v)
         this.size = std::exchange(v.size,nullptr);
     }
     return *this;
+}
+
+template <typename Data>
+bool Vector<Data>::operator==(const Vector &v)
+{
+    if(this.size != v.Size())
+        return false;
+    for(int i=0 ; i<this.size; i++)
+    {
+        if(array[i] != v[i])
+            return false;
+    }
+    return true;
+}
+
+template <typename Data>
+bool Vector<Data>::operator!=(const Vector &v)
+{
+    return !(this == v);
+}
+
+template <typename Data>
+void Vector<Data>::Clear()
+{
+    this.size = 0;
+    delete[] array;
 }
 /* ************************************************************************** */
 
