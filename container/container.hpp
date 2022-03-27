@@ -186,7 +186,7 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class FoldableContainer : public TestableContainer<Data>  // Must extend TestableContainer<Data>
+class FoldableContainer : virtual public TestableContainer<Data>  // Must extend TestableContainer<Data>
 {
 
 private:
@@ -235,7 +235,7 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class PreOrderMappableContainer : public MappableContainer<Data>  // Must extend MappableContainer<Data>
+class PreOrderMappableContainer : virtual public MappableContainer<Data>  // Must extend MappableContainer<Data>
 {
 
 private:
@@ -284,7 +284,7 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class PreOrderFoldableContainer : public FoldableContainer<Data>  // Must extend FoldableContainer<Data>
+class PreOrderFoldableContainer : virtual public FoldableContainer<Data>  // Must extend FoldableContainer<Data>
 {
 
 private:
@@ -333,7 +333,7 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class PostOrderMappableContainer :MappableContainer<Data>  // Must extend MappableContainer<Data>
+class PostOrderMappableContainer :virtual public MappableContainer<Data>  // Must extend MappableContainer<Data>
 {
 
 private:
@@ -382,7 +382,7 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class PostOrderFoldableContainer : public FoldableContainer<Data>  // Must extend FoldableContainer<Data>
+class PostOrderFoldableContainer : virtual public FoldableContainer<Data>  // Must extend FoldableContainer<Data>
 {
 
 private:
@@ -431,7 +431,7 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class InOrderMappableContainer : public MappableContainer<Data>  // Must extend MappableContainer<Data>
+class InOrderMappableContainer : virtual public MappableContainer<Data>  // Must extend MappableContainer<Data>
 {
 
 private:
@@ -480,7 +480,7 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class InOrderFoldableContainer : FoldableContainer<Data>  // Must extend FoldableContainer<Data>
+class InOrderFoldableContainer : virtual public FoldableContainer<Data>  // Must extend FoldableContainer<Data>
 {
 
 private:
@@ -529,7 +529,7 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class BreadthMappableContainer : public MappableContainer<Data>   // Must extend MappableContainer<Data>
+class BreadthMappableContainer : virtual public MappableContainer<Data>   // Must extend MappableContainer<Data>
 {
 
 private:
@@ -578,7 +578,7 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class BreadthFoldableContainer : public FoldableContainer<Data>  // Must extend FoldableContainer<Data>
+class BreadthFoldableContainer : virtual public FoldableContainer<Data>  // Must extend FoldableContainer<Data>
 {
 
 private:
