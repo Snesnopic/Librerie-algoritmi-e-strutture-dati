@@ -13,7 +13,7 @@ namespace lasd
 /* ************************************************************************** */
 
 template <typename Data>
-class Vector : virtual public LinearContainer<Data>, PreOrderMappableContainer<Data>, PostOrderMappableContainer<Data>, PreOrderFoldableContainer<Data>, PostOrderFoldableContainer<Data>
+class Vector : virtual public LinearContainer<Data>, virtual public PreOrderMappableContainer<Data>, virtual public PostOrderMappableContainer<Data>, virtual public PreOrderFoldableContainer<Data>, virtual public PostOrderFoldableContainer<Data>
 {
     // Must extend LinearContainer<Data>,
     //             PreOrderMappableContainer<Data>,
@@ -28,58 +28,58 @@ private:
 protected:
 
     // using LinearContainer<Data>::???;
-
+    Data *array;
     // ...
 
 public:
 
     // Default constructor
-    // Vector() specifiers;
+    Vector();
 
     /* ************************************************************************ */
 
     // Specific constructors
-    Vector(unsigned long initialSize); // A vector with a given initial dimension
-    Vector(LinearContainer<Data> lc); // A vector obtained from a LinearContainer
+    Vector<Data>(unsigned long initialSize); // A vector with a given initial dimension
+    Vector<Data>(LinearContainer<Data> lc); // A vector obtained from a LinearContainer
 
     /* ************************************************************************ */
 
     // Copy constructor
-    // Vector(argument) specifiers;
+    Vector<Data>(const Vector<Data> &v);
 
     // Move constructor
-    // Vector(argument) specifiers;
+    Vector<Data>(Vector<Data> &&v);
 
     /* ************************************************************************ */
 
     // Destructor
-    // ~Vector() specifiers;
+    ~Vector();
 
     /* ************************************************************************ */
 
     // Copy assignment
-    // type operator=(argument) specifiers;
+    Vector& operator=(const Vector v);
 
     // Move assignment
-    // type operator=(argument) specifiers;
+    Vector& operator=(Vector &&v);
 
     /* ************************************************************************ */
 
     // Comparison operators
-    friend bool operator==(const Vector &v1, const Vector &v2);
-    friend bool operator!=(const Vector &v1, const Vector &v2);
+    bool operator==(const Vector &v);
+    bool operator!=(const Vector &v);
 
     /* ************************************************************************ */
 
     // Specific member functions
 
-    // type Resize(argument) specifiers; // Resize the vector to a given size
+    void Resize(const unsigned long newSize); // Resize the vector to a given size
 
     /* ************************************************************************ */
 
     // Specific member functions (inherited from Container)
 
-    // type Clear() specifiers; // Override Container member
+    void Clear() override; // Override Container member
 
     /* ************************************************************************ */
 
@@ -88,13 +88,13 @@ public:
     // type Front() specifiers; // Override LinearContainer member (must throw std::length_error when empty)
     // type Back() specifiers; // Override LinearContainer member (must throw std::length_error when empty)
 
-    // type operator[](argument) specifiers; // Override LinearContainer member (must throw std::out_of_range when out of range)
+    Data& operator[](const unsigned long index); // Override LinearContainer member (must throw std::out_of_range when out of range)
 
     /* ************************************************************************ */
 
     // Specific member functions (inherited from MappableContainer)
 
-    // using typename MappableContainer<Data>::MapFunctor;
+    using typename MappableContainer<Data>::MapFunctor;
 
     // type Map(arguments) specifiers; // Override MappableContainer member
 
