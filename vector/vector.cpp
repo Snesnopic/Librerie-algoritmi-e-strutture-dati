@@ -40,7 +40,7 @@ bool Vector<Data>::operator==(const Vector &v)
 {
     if(this.size != v.Size())
         return false;
-    for(int i=0 ; i<this.size;i++)
+    for(int i=0 ; i<this.size; i++)
     {
         if(array[i] != v[i])
             return false;
