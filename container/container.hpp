@@ -22,7 +22,7 @@ private:
 
 protected:
 
-    unsigned long size;
+    unsigned long size = 0;
 
 public:
 
@@ -51,7 +51,7 @@ public:
 
     unsigned long Size() const noexcept; // (concrete function should not throw exceptions)
 
-    void Clear();
+    virtual void Clear();
 
 };
 
@@ -95,7 +95,7 @@ public:
     Data Front() const; // (concrete function must throw std::length_error when empty)
     Data Back() const; // (concrete function must throw std::length_error when empty)
 
-    virtual Data& operator[](const int index); // (concrete function must throw std::out_of_range when out of range)
+    virtual Data& operator[](const unsigned long index); // (concrete function must throw std::out_of_range when out of range)
 
 };
 
@@ -177,9 +177,9 @@ public:
 
     // Specific member functions
 
-    // typedef std::function<void(Data&, void*)> MapFunctor;
-
-    // type Map(arguments) specifiers;
+    typedef std::function<void(Data&, void*)> MapFunctor;
+    template <typename Parameter>
+    void Map(MapFunctor mf,Parameter p);
 
 };
 
@@ -220,15 +220,15 @@ public:
 
     // Specific member functions
 
-    // typedef std::function<void(const Data&, const void*, void*)> FoldFunctor;
+    typedef std::function<void(const Data&, const void*, void*)> FoldFunctor;
 
-    // type Fold(arguments) specifiers;
+    virtual void Fold(FoldFunctor ff) = delete;
 
     /* ************************************************************************ */
 
     // Specific member functions (inherited from TestableContainer)
 
-    // type Exists(argument) specifiers; // Override TestableContainer member
+    bool Exists(const Data d); // Override TestableContainer member
 
 };
 
@@ -278,7 +278,7 @@ public:
     // Specific member functions (inherited from MappableContainer)
 
     // type Map(argument) override specifiers; // Override MappableContainer member
-
+    //Map farà stab a MapInOrder
 };
 
 /* ************************************************************************** */
