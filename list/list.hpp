@@ -13,7 +13,7 @@ namespace lasd
 /* ************************************************************************** */
 
 template <typename Data>
-class List : public LinearContainer<Data>, PreOrderMappableContainer<Data>, PostOrderMappableContainer<Data>, PreOrderFoldableContainer<Data>, PostOrderFoldableContainer<Data>
+class List : virtual public LinearContainer<Data>, virtual public PreOrderMappableContainer<Data>, virtual public PostOrderMappableContainer<Data>,virtual public  PreOrderFoldableContainer<Data>, virtual public PostOrderFoldableContainer<Data>
 {
     // Must extend LinearContainer<Data>,
     //             PreOrderMappableContainer<Data>,
