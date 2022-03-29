@@ -19,6 +19,18 @@ void Container::Clear()
     this->size = 0;
 }
 //LinearContainer functions
+
+bool LinearContainer<Data>::operator==(const Vector &v)
+{
+    if(this.size != v.Size())
+        return false;
+    for(int i=0 ; i<this.size; i++)
+    {
+        if(operator[](i) != v[i])
+            return false;
+    }
+    return true;
+}
 template<typename Data>
 Data LinearContainer<Data>::Front() const
 {
@@ -34,11 +46,17 @@ Data LinearContainer<Data>::Back() const
     return this[size-1];
 }
 template <typename Data>
+bool TestableContainer<Data>::Exists(Data &d)
+{
+
+}
 bool FoldableContainer<Data>::Exists(const Data d)
 {
     //chiamata a FoldableContainer::Fold()
     return true;
 }
+
+
 
 
 /* ************************************************************************** */
