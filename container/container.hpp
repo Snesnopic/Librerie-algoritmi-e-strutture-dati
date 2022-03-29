@@ -136,7 +136,7 @@ public:
 
     // Specific member functions
 
-    virtual bool Exists(Data &d) const noexcept; // (concrete function should not throw exceptions)
+    virtual bool Exists(const Data &d) const noexcept = 0; // (concrete function should not throw exceptions)
 
 };
 
@@ -178,8 +178,7 @@ public:
     // Specific member functions
 
     typedef std::function<void(Data&, void*)> MapFunctor;
-    template <typename Parameter>
-    void Map(MapFunctor mf,Parameter p);
+    virtual void Map(MapFunctor,void*) = 0;
 
 };
 
@@ -222,13 +221,13 @@ public:
 
     typedef std::function<void(const Data&, const void*, void*)> FoldFunctor;
 
-    virtual void Fold(FoldFunctor ff) = delete;
+    virtual void Fold(FoldFunctor, const void*,void*)const = delete;
 
     /* ************************************************************************ */
 
     // Specific member functions (inherited from TestableContainer)
 
-    bool Exists(const Data d); // Override TestableContainer member
+   inline virtual bool Exists(const Data &d)const noexcept override; // Override TestableContainer member
 
 };
 
