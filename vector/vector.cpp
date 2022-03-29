@@ -87,7 +87,7 @@ bool Vector<Data>::operator==(const Vector &v)
 template <typename Data>
 bool Vector<Data>::operator!=(const Vector &v)
 {
-    return !(this == v);
+    return !(*this == v);       //questo va anche in linearContainer
 }
 
 template <typename Data>
