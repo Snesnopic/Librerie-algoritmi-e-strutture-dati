@@ -134,7 +134,7 @@ public:
 
     /* ************************************************************************ */
 
-   // Specific member functions (inherited from MappableContainer)
+    // Specific member functions (inherited from MappableContainer)
 
     using typename MappableContainer<Data>::MapFunctor;
 
