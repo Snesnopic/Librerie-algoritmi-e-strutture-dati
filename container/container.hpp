@@ -27,12 +27,12 @@ protected:
 public:
 
     // Destructor
-    virtual ~Container();
+    virtual ~Container() = default;
 
     /* ************************************************************************ */
 
     // Copy assignment
-    virtual Container& operator=(Container c) = delete; // Copy assignment of abstract types should not be possible.
+    virtual Container& operator=(const Container &c) = delete; // Copy assignment of abstract types should not be possible.
 
     // Move assignment
     virtual Container& operator=(Container &&c) = delete; // Move assignment of abstract types should not be possible.
@@ -40,18 +40,18 @@ public:
     /* ************************************************************************ */
 
     // Comparison operators
-    virtual bool operator==(Container &c1) const = delete; // Comparison of abstract types might not be possible.
-    virtual bool operator!=(Container &c1) const = delete; // Comparison of abstract types might not be possible.
+    virtual bool operator==(const Container &c1) const noexcept = delete; // Comparison of abstract types might not be possible.
+    virtual bool operator!=(const Container &c1) const noexcept = delete; // Comparison of abstract types might not be possible.
 
     /* ************************************************************************ */
 
     // Specific member functions
 
-    bool Empty() const noexcept; // (concrete function should not throw exceptions)
+    virtual bool Empty() const noexcept; // (concrete function should not throw exceptions)
 
-    unsigned long Size() const noexcept; // (concrete function should not throw exceptions)
+    virtual unsigned long Size() const noexcept; // (concrete function should not throw exceptions)
 
-    virtual void Clear();
+    virtual void Clear() = 0;
 
 };
 
@@ -72,30 +72,30 @@ protected:
 public:
 
     // Destructor
-    virtual ~LinearContainer();
+    virtual ~LinearContainer() = default;
 
     /* ************************************************************************ */
 
     // Copy assignment
-    virtual LinearContainer& operator=(LinearContainer lc) = delete; // Copy assignment of abstract types should not be possible.
+    virtual LinearContainer& operator=(const LinearContainer &lc) = delete; // Copy assignment of abstract types should not be possible.
 
     // Move assignment
-    virtual LinearContainer& operator=(LinearContainer &&lc) = delete; // Move assignment of abstract types should not be possible.
+    virtual LinearContainer& operator=(LinearContainer &&lc) noexcept = delete; // Move assignment of abstract types should not be possible.
 
     /* ************************************************************************ */
 
     // Comparison operators
-    virtual bool operator==(LinearContainer &c) const = delete; // Comparison of abstract types might not be possible.
-    virtual bool operator!=(LinearContainer &c) const = delete; // Comparison of abstract types is possible.
+    virtual bool operator==(const LinearContainer &c) const noexcept; // Comparison of abstract types might not be possible.
+    virtual bool operator!=(const LinearContainer &c) const noexcept; // Comparison of abstract types is possible.
 
     /* ************************************************************************ */
 
     // Specific member functions
 
-    Data Front() const; // (concrete function must throw std::length_error when empty)
-    Data Back() const; // (concrete function must throw std::length_error when empty)
+    virtual Data& Front() const; // (concrete function must throw std::length_error when empty)
+    virtual Data& Back() const; // (concrete function must throw std::length_error when empty)
 
-    virtual Data& operator[](const unsigned long index); // (concrete function must throw std::out_of_range when out of range)
+    virtual Data& operator[](const unsigned long index) const = 0; // (concrete function must throw std::out_of_range when out of range)
 
 };
 
@@ -116,12 +116,12 @@ protected:
 public:
 
     // Destructor
-    virtual ~TestableContainer();
+    virtual ~TestableContainer() = default;
 
     /* ************************************************************************ */
 
     // Copy assignment
-    virtual TestableContainer& operator=(TestableContainer tc) = delete; // Copy assignment of abstract types should not be possible.
+    virtual TestableContainer& operator=(const TestableContainer &tc) = delete; // Copy assignment of abstract types should not be possible.
 
     // Move assignment
     virtual TestableContainer& operator=(TestableContainer &&tc) = delete; // Move assignment of abstract types should not be possible.
@@ -129,8 +129,8 @@ public:
     /* ************************************************************************ */
 
     // Comparison operators
-    virtual bool operator==(TestableContainer &tc) const = delete; // Comparison of abstract types might not be possible.
-    virtual bool operator!=(TestableContainer &tc) const = delete; // Comparison of abstract types might not be possible.
+    virtual bool operator==(const TestableContainer &tc) const noexcept = delete; // Comparison of abstract types might not be possible.
+    virtual bool operator!=(const TestableContainer &tc) const noexcept = delete; // Comparison of abstract types might not be possible.
 
     /* ************************************************************************ */
 
@@ -157,12 +157,12 @@ protected:
 public:
 
     // Destructor
-    virtual ~MappableContainer();
+    virtual ~MappableContainer() = default;
 
     /* ************************************************************************ */
 
     // Copy assignment
-    virtual MappableContainer& operator=(MappableContainer mc) = delete; // Copy assignment of abstract types should not be possible.
+    virtual MappableContainer& operator=(const MappableContainer &mc) = delete; // Copy assignment of abstract types should not be possible.
 
     // Move assignment
     virtual MappableContainer& operator=(MappableContainer &&mc) = delete; // Move assignment of abstract types should not be possible.
@@ -170,8 +170,8 @@ public:
     /* ************************************************************************ */
 
     // Comparison operators
-    virtual bool operator==(MappableContainer &mc) const = delete; // Comparison of abstract types might not be possible.
-    virtual bool operator!=(MappableContainer &mc) const = delete; // Comparison of abstract types might not be possible.
+    virtual bool operator==(const MappableContainer &mc) const noexcept = delete; // Comparison of abstract types might not be possible.
+    virtual bool operator!=(const MappableContainer &mc) const noexcept = delete; // Comparison of abstract types might not be possible.
 
     /* ************************************************************************ */
 
@@ -199,12 +199,12 @@ protected:
 public:
 
     // Destructor
-    virtual ~FoldableContainer();
+    virtual ~FoldableContainer() = default;
 
     /* ************************************************************************ */
 
     // Copy assignment
-    virtual FoldableContainer& operator=(FoldableContainer fc) = delete; // Copy assignment of abstract types should not be possible.
+    virtual FoldableContainer& operator=(const FoldableContainer &fc) = delete; // Copy assignment of abstract types should not be possible.
 
     // Move assignment
     virtual FoldableContainer& operator=(FoldableContainer &&fc) = delete; // Move assignment of abstract types should not be possible.
@@ -212,8 +212,8 @@ public:
     /* ************************************************************************ */
 
     // Comparison operators
-    virtual bool operator==(FoldableContainer &fc) const = delete; // Comparison of abstract types might not be possible.
-    virtual bool operator!=(FoldableContainer &fc) const = delete; // Comparison of abstract types might not be possible.
+    virtual bool operator==(const FoldableContainer &fc) const noexcept = delete; // Comparison of abstract types might not be possible.
+    virtual bool operator!=(const FoldableContainer &fc) const noexcept = delete; // Comparison of abstract types might not be possible.
 
     /* ************************************************************************ */
 
@@ -221,13 +221,13 @@ public:
 
     typedef std::function<void(const Data&, const void*, void*)> FoldFunctor;
 
-    virtual void Fold(FoldFunctor, const void*,void*)const = delete;
+    virtual void Fold(FoldFunctor, const void*,void*) const = 0;
 
     /* ************************************************************************ */
 
     // Specific member functions (inherited from TestableContainer)
 
-   inline virtual bool Exists(const Data &d)const noexcept override; // Override TestableContainer member
+    virtual bool Exists(const Data &d) const noexcept override;
 
 };
 
@@ -248,12 +248,12 @@ protected:
 public:
 
     // Destructor
-    virtual ~PreOrderMappableContainer();
+    virtual ~PreOrderMappableContainer() = default;
 
     /* ************************************************************************ */
 
     // Copy assignment
-    virtual PreOrderMappableContainer& operator=(PreOrderMappableContainer pomc) = delete; // Copy assignment of abstract types should not be possible.
+    virtual PreOrderMappableContainer& operator=(const PreOrderMappableContainer &pomc) = delete; // Copy assignment of abstract types should not be possible.
 
     // Move assignment
     virtual PreOrderMappableContainer& operator=(PreOrderMappableContainer &&pomc) = delete; // Move assignment of abstract types should not be possible.
@@ -261,23 +261,22 @@ public:
     /* ************************************************************************ */
 
     // Comparison operators
-    virtual bool operator==(PreOrderMappableContainer &pomc) const = delete; // Comparison of abstract types might not be possible.
-    virtual bool operator!=(PreOrderMappableContainer &pomc) const = delete; // Comparison of abstract types might not be possible.
+    virtual bool operator==(const PreOrderMappableContainer &pomc) const noexcept = delete; // Comparison of abstract types might not be possible.
+    virtual bool operator!=(const PreOrderMappableContainer &pomc) const noexcept = delete; // Comparison of abstract types might not be possible.
 
     /* ************************************************************************ */
 
     // Specific member functions
 
-    // using typename MappableContainer<Data>::MapFunctor;
+    using typename MappableContainer<Data>::MapFunctor;
 
-    // type MapInOrder(arguments) specifiers;
+    virtual void MapInOrder(MapFunctor,void*) = 0;
 
     /* ************************************************************************ */
 
     // Specific member functions (inherited from MappableContainer)
 
-    // type Map(argument) override specifiers; // Override MappableContainer member
-    //Map farà stab a MapInOrder
+    virtual Map(MapFunctor,void*) override;
 };
 
 /* ************************************************************************** */
@@ -297,12 +296,12 @@ protected:
 public:
 
     // Destructor
-    virtual ~PreOrderFoldableContainer();
+    virtual ~PreOrderFoldableContainer() = default;
 
     /* ************************************************************************ */
 
     // Copy assignment
-    virtual PreOrderFoldableContainer& operator=(PreOrderFoldableContainer pofc) = delete; // Copy assignment of abstract types should not be possible.
+    virtual PreOrderFoldableContainer& operator=(const PreOrderFoldableContainer &pofc) = delete; // Copy assignment of abstract types should not be possible.
 
     // Move assignment
     virtual PreOrderFoldableContainer& operator=(PreOrderFoldableContainer &&pofc) = delete; // Move assignment of abstract types should not be possible.
@@ -310,22 +309,22 @@ public:
     /* ************************************************************************ */
 
     // Comparison operators
-    virtual bool operator==(PreOrderFoldableContainer &pofc) const = delete; // Comparison of abstract types might not be possible.
-    virtual bool operator!=(PreOrderFoldableContainer &pofc) const = delete; // Comparison of abstract types might not be possible.
+    virtual bool operator==(const PreOrderFoldableContainer &pofc) const noexcept = delete; // Comparison of abstract types might not be possible.
+    virtual bool operator!=(const PreOrderFoldableContainer &pofc) const noexcept = delete; // Comparison of abstract types might not be possible.
 
     /* ************************************************************************ */
 
     // Specific member functions
 
-    // using typename MappableContainer<Data>::MapFunctor;
+    using typename FoldableContainer<Data>::MGoldFunctor;
 
-    // type FoldInOrder(arguments) specifiers;
+    virtual void FoldInOrder(FoldFunctor, const void*,void*) const = 0;
 
     /* ************************************************************************ */
 
     // Specific member functions (inherited from FoldableContainer)
 
-    // type Fold(argument) specifiers; // Override FoldableContainer member
+    virtual Fold(FoldFunctor, const void*,void*) const override; // Override FoldableContainer member
 
 };
 
@@ -346,12 +345,12 @@ protected:
 public:
 
     // Destructor
-    virtual ~PostOrderMappableContainer();
+    virtual ~PostOrderMappableContainer() = default;
 
     /* ************************************************************************ */
 
     // Copy assignment
-    virtual PostOrderMappableContainer operator=(PostOrderMappableContainer pomc) = delete; // Copy assignment of abstract types should not be possible.
+    virtual PostOrderMappableContainer operator=(const PostOrderMappableContainer &pomc) = delete; // Copy assignment of abstract types should not be possible.
 
     // Move assignment
     virtual PostOrderMappableContainer operator=(PostOrderMappableContainer &&pomc) = delete; // Move assignment of abstract types should not be possible.
@@ -359,8 +358,8 @@ public:
     /* ************************************************************************ */
 
     // Comparison operators
-    virtual bool operator==(PostOrderMappableContainer &pomc) const = delete; // Comparison of abstract types might not be possible.
-    virtual bool operator!=(PostOrderMappableContainer &pomc) const = delete; // Comparison of abstract types might not be possible.
+    virtual bool operator==(const PostOrderMappableContainer &pomc) const noexcept = delete; // Comparison of abstract types might not be possible.
+    virtual bool operator!=(const PostOrderMappableContainer &pomc) const noexcept = delete; // Comparison of abstract types might not be possible.
 
     /* ************************************************************************ */
 
@@ -395,12 +394,12 @@ protected:
 public:
 
     // Destructor
-    virtual ~PostOrderFoldableContainer();
+    virtual ~PostOrderFoldableContainer() = default;
 
     /* ************************************************************************ */
 
     // Copy assignment
-    virtual PostOrderFoldableContainer operator=(PostOrderFoldableContainer pofc) = delete; // Copy assignment of abstract types should not be possible.
+    virtual PostOrderFoldableContainer operator=(const PostOrderFoldableContainer &pofc) = delete; // Copy assignment of abstract types should not be possible.
 
     // Move assignment
     virtual PostOrderFoldableContainer operator=(PostOrderFoldableContainer &&pofc) = delete; // Move assignment of abstract types should not be possible.
@@ -408,8 +407,8 @@ public:
     /* ************************************************************************ */
 
     // Comparison operators
-    virtual bool operator==(PostOrderFoldableContainer &pofc) const = delete; // Comparison of abstract types might not be possible.
-    virtual bool operator!=(PostOrderFoldableContainer &pofc) const = delete; // Comparison of abstract types might not be possible.
+    virtual bool operator==(const PostOrderFoldableContainer &pofc) const noexcept = delete; // Comparison of abstract types might not be possible.
+    virtual bool operator!=(const PostOrderFoldableContainer &pofc) const noexcept = delete; // Comparison of abstract types might not be possible.
 
     /* ************************************************************************ */
 
@@ -444,12 +443,12 @@ protected:
 public:
 
     // Destructor
-    virtual ~InOrderMappableContainer();
+    virtual ~InOrderMappableContainer() = default;
 
     /* ************************************************************************ */
 
     // Copy assignment
-    virtual InOrderMappableContainer operator=(InOrderMappableContainer iomc) = delete; // Copy assignment of abstract types should not be possible.
+    virtual InOrderMappableContainer operator=(const InOrderMappableContainer &iomc) = delete; // Copy assignment of abstract types should not be possible.
 
     // Move assignment
     virtual InOrderMappableContainer operator=(InOrderMappableContainer &&iomc) = delete; // Move assignment of abstract types should not be possible.
@@ -457,8 +456,8 @@ public:
     /* ************************************************************************ */
 
     // Comparison operators
-    virtual bool operator==(InOrderMappableContainer &iomc) const = delete; // Comparison of abstract types might not be possible.
-    virtual bool operator!=(InOrderMappableContainer &iomc) const = delete; // Comparison of abstract types might not be possible.
+    virtual bool operator==(const InOrderMappableContainer &iomc) const noexcept = delete; // Comparison of abstract types might not be possible.
+    virtual bool operator!=(const InOrderMappableContainer &iomc) const noexcept = delete; // Comparison of abstract types might not be possible.
 
     /* ************************************************************************ */
 
@@ -493,12 +492,12 @@ protected:
 public:
 
     // Destructor
-    virtual ~InOrderFoldableContainer();
+    virtual ~InOrderFoldableContainer() = default;
 
     /* ************************************************************************ */
 
     // Copy assignment
-    virtual InOrderFoldableContainer operator=(InOrderFoldableContainer iofc) = delete; // Copy assignment of abstract types should not be possible.
+    virtual InOrderFoldableContainer operator=(const InOrderFoldableContainer &iofc) = delete; // Copy assignment of abstract types should not be possible.
 
     // Move assignment
     virtual InOrderFoldableContainer operator=(InOrderFoldableContainer &&iofc) = delete; // Move assignment of abstract types should not be possible.
@@ -506,8 +505,8 @@ public:
     /* ************************************************************************ */
 
     // Comparison operators
-    virtual bool operator==(InOrderFoldableContainer &iofc) const = delete; // Comparison of abstract types might not be possible.
-    virtual bool operator!=(InOrderFoldableContainer &iofc) const = delete; // Comparison of abstract types might not be possible.
+    virtual bool operator==(const InOrderFoldableContainer &iofc) const noexcept = delete; // Comparison of abstract types might not be possible.
+    virtual bool operator!=(const InOrderFoldableContainer &iofc) const noexcept = delete; // Comparison of abstract types might not be possible.
 
     /* ************************************************************************ */
 
@@ -542,12 +541,12 @@ protected:
 public:
 
     // Destructor
-    virtual ~BreadthMappableContainer();
+    virtual ~BreadthMappableContainer() = default;
 
     /* ************************************************************************ */
 
     // Copy assignment
-    virtual BreadthMappableContainer operator=(BreadthMappableContainer bmc) = delete; // Copy assignment of abstract types should not be possible.
+    virtual BreadthMappableContainer operator=(const BreadthMappableContainer &bmc) = delete; // Copy assignment of abstract types should not be possible.
 
     // Move assignment
     virtual BreadthMappableContainer operator=(BreadthMappableContainer &&bmc) = delete; // Move assignment of abstract types should not be possible.
@@ -555,8 +554,8 @@ public:
     /* ************************************************************************ */
 
     // Comparison operators
-    virtual bool operator==(BreadthMappableContainer &bmc) const = delete; // Comparison of abstract types might not be possible.
-    virtual bool operator!=(BreadthMappableContainer &bmc) const = delete; // Comparison of abstract types might not be possible.
+    virtual bool operator==(const BreadthMappableContainer &bmc) const noexcept = delete; // Comparison of abstract types might not be possible.
+    virtual bool operator!=(const BreadthMappableContainer &bmc) const noexcept = delete; // Comparison of abstract types might not be possible.
 
     /* ************************************************************************ */
 
@@ -591,12 +590,12 @@ protected:
 public:
 
     // Destructor
-    virtual ~BreadthFoldableContainer();
+    virtual ~BreadthFoldableContainer() = default;
 
     /* ************************************************************************ */
 
     // Copy assignment
-    virtual BreadthFoldableContainer operator=(BreadthFoldableContainer bfc) = delete; // Copy assignment of abstract types should not be possible.
+    virtual BreadthFoldableContainer operator=(const BreadthFoldableContainer &bfc) = delete; // Copy assignment of abstract types should not be possible.
 
     // Move assignment
     virtual BreadthFoldableContainer operator=(BreadthFoldableContainer &&bfc) = delete; // Move assignment of abstract types should not be possible.
@@ -604,8 +603,8 @@ public:
     /* ************************************************************************ */
 
     // Comparison operators
-    virtual bool operator==(BreadthFoldableContainer &bfc) const = delete; // Comparison of abstract types might not be possible.
-    virtual bool operator!=(BreadthFoldableContainer &bfc) const = delete; // Comparison of abstract types might not be possible.
+    virtual bool operator==(const BreadthFoldableContainer &bfc) const noexcept = delete; // Comparison of abstract types might not be possible.
+    virtual bool operator!=(const BreadthFoldableContainer &bfc) const noexcept = delete; // Comparison of abstract types might not be possible.
 
     /* ************************************************************************ */
 
