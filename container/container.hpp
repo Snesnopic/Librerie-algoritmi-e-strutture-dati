@@ -270,13 +270,13 @@ public:
 
     using typename MappableContainer<Data>::MapFunctor;
 
-    virtual void MapInOrder(MapFunctor,void*) = 0;
+    virtual void MapPreOrder(MapFunctor,void*) = 0;
 
     /* ************************************************************************ */
 
     // Specific member functions (inherited from MappableContainer)
 
-    virtual Map(MapFunctor,void*) override;
+    virtual void Map(MapFunctor,void*) override;
 };
 
 /* ************************************************************************** */
@@ -316,15 +316,15 @@ public:
 
     // Specific member functions
 
-    using typename FoldableContainer<Data>::MGoldFunctor;
+    using typename FoldableContainer<Data>::FoldFunctor;
 
-    virtual void FoldInOrder(FoldFunctor, const void*,void*) const = 0;
+    virtual void FoldPreOrder(FoldFunctor, const void*,void*) const = 0;
 
     /* ************************************************************************ */
 
     // Specific member functions (inherited from FoldableContainer)
 
-    virtual Fold(FoldFunctor, const void*,void*) const override; // Override FoldableContainer member
+    virtual void Fold(FoldFunctor, const void*,void*) const override; // Override FoldableContainer member
 
 };
 
@@ -365,15 +365,15 @@ public:
 
     // Specific member functions
 
-    // using typename MappableContainer<Data>::MapFunctor;
+    using typename MappableContainer<Data>::MapFunctor;
 
-    // type MapInOrder(arguments) specifiers;
+    virtual void MapPostOrder(MapFunctor,void*) = 0;
 
     /* ************************************************************************ */
 
     // Specific member functions (inherited from MappableContainer)
 
-    // type Map(argument) specifiers; // Override MappableContainer member
+    virtual void Map(MapFunctor,void*) override; // Override MappableContainer member
 
 };
 
@@ -414,15 +414,15 @@ public:
 
     // Specific member functions
 
-    // using typename MappableContainer<Data>::MapFunctor;
+    using typename FoldableContainer<Data>::FoldFunctor;
 
-    // type FoldInOrder(arguments) specifiers;
+    virtual void FoldPostOrder(FoldFunctor, const void*,void*) const = 0;
 
     /* ************************************************************************ */
 
     // Specific member functions (inherited from FoldableContainer)
 
-    // type Fold(argument) specifiers; // Override FoldableContainer member
+    virtual void Fold(FoldFunctor, const void*,void*) const override; // Override FoldableContainer member
 
 };
 
@@ -463,15 +463,15 @@ public:
 
     // Specific member functions
 
-    // using typename MappableContainer<Data>::MapFunctor;
+    using typename MappableContainer<Data>::MapFunctor;
 
-    // type MapInOrder(arguments) specifiers;
+    virtual void MapInOrder(MapFunctor,void*) = 0;
 
     /* ************************************************************************ */
 
     // Specific member functions (inherited from MappableContainer)
 
-    // type Map(argument) specifiers; // Override MappableContainer member
+    virtual void Map(MapFunctor,void*) override; // Override MappableContainer member
 
 };
 
@@ -512,15 +512,15 @@ public:
 
     // Specific member functions
 
-    // using typename MappableContainer<Data>::MapFunctor;
+    using typename FoldableContainer<Data>::FoldFunctor;
 
-    // type FoldInOrder(arguments) specifiers;
+    virtual void FoldInOrder(FoldFunctor,const void*,void* )const = 0;
 
     /* ************************************************************************ */
 
     // Specific member functions (inherited from FoldableContainer)
 
-    // type Fold(argument) specifiers; // Override FoldableContainer member
+    virtual void Fold(FoldFunctor,const void*,void*) const override; // Override FoldableContainer member
 
 };
 
@@ -561,15 +561,15 @@ public:
 
     // Specific member functions
 
-    // using typename MappableContainer<Data>::MapFunctor;
+    using typename MappableContainer<Data>::MapFunctor;
 
-    // type MapBreadth(arguments) specifiers;
+    virtual void MapBreadth(MapFunctor,void*) = 0;
 
     /* ************************************************************************ */
 
     // Specific member functions (inherited from MappableContainer)
 
-    // type Map(argument) specifiers; // Override MappableContainer member
+    virtual void Map(MapFunctor,void*) override; // Override MappableContainer member
 
 };
 
@@ -610,15 +610,15 @@ public:
 
     // Specific member functions
 
-    // using typename FoldableContainer<Data>::FoldFunctor;
+    using typename FoldableContainer<Data>::FoldFunctor;
 
-    // type FoldBreadth(arguments) specifiers;
+    virtual void FoldBreadth(FoldFunctor,const void*,void*) const = 0;
 
     /* ************************************************************************ */
 
     // Specific member functions (inherited from FoldableContainer)
 
-    // type Fold(argument) specifiers; // Override FoldableContainer member
+    virtual void Fold(FoldFunctor,const void*,void*) const override; // Override FoldableContainer member
 
 };
 
