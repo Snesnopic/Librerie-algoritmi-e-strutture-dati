@@ -86,7 +86,7 @@ void PostOrderMappableContainer<Data>::Map(MapFunctor fun,void* par)
 template <typename Data>
 void PostOrderFoldableContainer<Data>::Fold(FoldFunctor fun,const void* par,void* acc) const
 {
-    FoldInOrder(fun,par,acc);
+    FoldPostOrder(fun,par,acc);
 }
 //InOrderMappableContainer functions
 template <typename Data>
