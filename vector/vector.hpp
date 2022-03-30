@@ -92,7 +92,7 @@ public:
     Data& Front() const override; // Override LinearContainer member (must throw std::length_error when empty)
     Data& Back() const override; // Override LinearContainer member (must throw std::length_error when empty)
 
-    Data& operator[](const unsigned long index)const override; // Override LinearContainer member (must throw std::out_of_range when out of range)
+    Data& operator[](const unsigned long index) const override; // Override LinearContainer member (must throw std::out_of_range when out of range)
 
     /* ************************************************************************ */
 
