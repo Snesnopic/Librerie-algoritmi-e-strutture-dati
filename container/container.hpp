@@ -350,10 +350,10 @@ public:
     /* ************************************************************************ */
 
     // Copy assignment
-    virtual PostOrderMappableContainer operator=(const PostOrderMappableContainer &pomc) = delete; // Copy assignment of abstract types should not be possible.
+    virtual PostOrderMappableContainer& operator=(const PostOrderMappableContainer &pomc) = delete; // Copy assignment of abstract types should not be possible.
 
     // Move assignment
-    virtual PostOrderMappableContainer operator=(PostOrderMappableContainer &&pomc) = delete; // Move assignment of abstract types should not be possible.
+    virtual PostOrderMappableContainer& operator=(PostOrderMappableContainer &&pomc) = delete; // Move assignment of abstract types should not be possible.
 
     /* ************************************************************************ */
 
@@ -399,10 +399,10 @@ public:
     /* ************************************************************************ */
 
     // Copy assignment
-    virtual PostOrderFoldableContainer operator=(const PostOrderFoldableContainer &pofc) = delete; // Copy assignment of abstract types should not be possible.
+    virtual PostOrderFoldableContainer& operator=(const PostOrderFoldableContainer &pofc) = delete; // Copy assignment of abstract types should not be possible.
 
     // Move assignment
-    virtual PostOrderFoldableContainer operator=(PostOrderFoldableContainer &&pofc) = delete; // Move assignment of abstract types should not be possible.
+    virtual PostOrderFoldableContainer& operator=(PostOrderFoldableContainer &&pofc) = delete; // Move assignment of abstract types should not be possible.
 
     /* ************************************************************************ */
 
@@ -448,10 +448,10 @@ public:
     /* ************************************************************************ */
 
     // Copy assignment
-    virtual InOrderMappableContainer operator=(const InOrderMappableContainer &iomc) = delete; // Copy assignment of abstract types should not be possible.
+    virtual InOrderMappableContainer& operator=(const InOrderMappableContainer &iomc) = delete; // Copy assignment of abstract types should not be possible.
 
     // Move assignment
-    virtual InOrderMappableContainer operator=(InOrderMappableContainer &&iomc) = delete; // Move assignment of abstract types should not be possible.
+    virtual InOrderMappableContainer& operator=(InOrderMappableContainer &&iomc) = delete; // Move assignment of abstract types should not be possible.
 
     /* ************************************************************************ */
 
@@ -497,10 +497,10 @@ public:
     /* ************************************************************************ */
 
     // Copy assignment
-    virtual InOrderFoldableContainer operator=(const InOrderFoldableContainer &iofc) = delete; // Copy assignment of abstract types should not be possible.
+    virtual InOrderFoldableContainer& operator=(const InOrderFoldableContainer &iofc) = delete; // Copy assignment of abstract types should not be possible.
 
     // Move assignment
-    virtual InOrderFoldableContainer operator=(InOrderFoldableContainer &&iofc) = delete; // Move assignment of abstract types should not be possible.
+    virtual InOrderFoldableContainer& operator=(InOrderFoldableContainer &&iofc) = delete; // Move assignment of abstract types should not be possible.
 
     /* ************************************************************************ */
 
@@ -546,10 +546,10 @@ public:
     /* ************************************************************************ */
 
     // Copy assignment
-    virtual BreadthMappableContainer operator=(const BreadthMappableContainer &bmc) = delete; // Copy assignment of abstract types should not be possible.
+    virtual BreadthMappableContainer& operator=(const BreadthMappableContainer &bmc) = delete; // Copy assignment of abstract types should not be possible.
 
     // Move assignment
-    virtual BreadthMappableContainer operator=(BreadthMappableContainer &&bmc) = delete; // Move assignment of abstract types should not be possible.
+    virtual BreadthMappableContainer& operator=(BreadthMappableContainer &&bmc) = delete; // Move assignment of abstract types should not be possible.
 
     /* ************************************************************************ */
 
@@ -595,10 +595,10 @@ public:
     /* ************************************************************************ */
 
     // Copy assignment
-    virtual BreadthFoldableContainer operator=(const BreadthFoldableContainer &bfc) = delete; // Copy assignment of abstract types should not be possible.
+    virtual BreadthFoldableContainer& operator=(const BreadthFoldableContainer &bfc) = delete; // Copy assignment of abstract types should not be possible.
 
     // Move assignment
-    virtual BreadthFoldableContainer operator=(BreadthFoldableContainer &&bfc) = delete; // Move assignment of abstract types should not be possible.
+    virtual BreadthFoldableContainer& operator=(BreadthFoldableContainer &&bfc) = delete; // Move assignment of abstract types should not be possible.
 
     /* ************************************************************************ */
 
