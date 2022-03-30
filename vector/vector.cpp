@@ -150,7 +150,50 @@ Data& Vector<Data>::Back() const
         throw std::out_of_range("Index out of bounds!");
     return array[size-1];
 }
-
+//Map functions
+template<typename Data>
+void Vector<Data>::Map(MapFunctor f,void* par)
+{
+    MapPreOrder(f,par);
+}
+template<typename Data>
+void Vector<Data>::MapPreOrder(MapFunctor f,void* par)
+{
+    for(unsigned long i = 0; i < size; i++)
+    {
+        f(array[i],par);
+    }
+}
+template<typename Data>
+void Vector<Data>::MapPostOrder(MapFunctor f,void* par)
+{
+    for(unsigned long i = size-1; i >= 0; i--)
+    {
+        f(array[i],par);
+    }
+}
+//Fold functions
+template<typename Data>
+void Vector<Data>::Fold(FoldFunctor f,const void* par, void* acc) const
+{
+    FoldPreOrder(f,par,acc);
+}
+template<typename Data>
+void Vector<Data>::FoldPreOrder(FoldFunctor f,const void* par, void* acc) const
+{
+    for(unsigned long i; i < size; i++)
+    {
+        f(array[i],par,acc);
+    }
+}
+template<typename Data>
+void Vector<Data>::FoldPostOrder(FoldFunctor f,const void* par, void* acc) const
+{
+    for(unsigned long i = size-1; i >= 0; i--)
+    {
+        f(array[i],par,acc);
+    }
+}
 /* ************************************************************************** */
 
 }
