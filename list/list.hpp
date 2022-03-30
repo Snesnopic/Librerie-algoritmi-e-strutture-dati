@@ -27,7 +27,7 @@ private:
 
 protected:
 
-    // using LinearContainer<Data>::???;
+    using LinearContainer<Data>::size;
 
     struct Node
     {
@@ -71,39 +71,39 @@ protected:
 public:
 
     // Default constructor
-    // List() specifiers;
+    List() = default;
 
     /* ************************************************************************ */
 
     // Specific constructor
-    // List(argument) specifiers; // A list obtained from a LinearContainer
+    List(const LinearContainer<Data> &lc); // A list obtained from a LinearContainer
 
     /* ************************************************************************ */
 
     // Copy constructor
-    // List(argument) specifiers;
+    List(const List &l);
 
     // Move constructor
-    // List(argument) specifiers;
+    List(List &&l) noexcept;
 
     /* ************************************************************************ */
 
     // Destructor
-    // ~List() specifiers;
+    virtual ~List();
 
     /* ************************************************************************ */
 
     // Copy assignment
-    // type operator=(argument) specifiers;
+    List& operator=(const List &l);
 
     // Move assignment
-    // type operator=(argument) specifiers;
+    List& operator=(List &&l) noexcept;
 
     /* ************************************************************************ */
 
     // Comparison operators
-    // type operator==(argument) specifiers;
-    // type operator!=(argument) specifiers;
+    bool operator==(const List &l) const noexcept;
+    bool operator!=(const List &l) const noexcept;
 
     /* ************************************************************************ */
 
@@ -121,56 +121,56 @@ public:
 
     // Specific member functions (inherited from Container)
 
-    // type Clear() specifiers; // Override Container member
+    void Clear() override; // Override Container member
 
     /* ************************************************************************ */
 
     // Specific member functions (inherited from LinearContainer)
 
-    // type Front() specifiers; // Override LinearContainer member (must throw std::length_error when empty)
-    // type Back() specifiers; // Override LinearContainer member (must throw std::length_error when empty)
+    Data& Front() const override; // Override LinearContainer member (must throw std::length_error when empty)
+    Data& Back() const override; // Override LinearContainer member (must throw std::length_error when empty)
 
-    // type operator[](argument) specifiers; // Override LinearContainer member (must throw std::out_of_range when out of range)
+    Data& operator[](const unsigned long index) const override; // Override LinearContainer member (must throw std::out_of_range when out of range)
 
     /* ************************************************************************ */
 
-    // Specific member functions (inherited from MappableContainer)
+   // Specific member functions (inherited from MappableContainer)
 
-    // using typename MappableContainer<Data>::MapFunctor;
+    using typename MappableContainer<Data>::MapFunctor;
 
-    // type Map(arguments) specifiers; // Override MappableContainer member
+    void Map(MapFunctor,void*) override; // Override MappableContainer member
 
     /* ************************************************************************ */
 
     // Specific member functions (inherited from PreOrderMappableContainer)
 
-    // type MapPreOrder(arguments) specifiers; // Override PreOrderMappableContainer member
+    void MapPreOrder(MapFunctor,void*) override; // Override PreOrderMappableContainer member
 
     /* ************************************************************************ */
 
     // Specific member functions (inherited from PostOrderMappableContainer)
 
-    // type MapPostOrder(arguments) specifiers; // Override PostOrderMappableContainer member
+    void MapPostOrder(MapFunctor,void*) override; // Override PostOrderMappableContainer member
 
     /* ************************************************************************ */
 
     // Specific member functions (inherited from FoldableContainer)
 
-    // using typename FoldableContainer<Data>::FoldFunctor;
+    using typename FoldableContainer<Data>::FoldFunctor;
 
-    // type Fold(arguments) specifiers; // Override FoldableContainer member
+    void Fold(FoldFunctor,const void*,void*) const override; // Override FoldableContainer member
 
     /* ************************************************************************ */
 
     // Specific member functions (inherited from PreOrderFoldableContainer)
 
-    // type FoldPreOrder(arguments) specifiers; // Override FoldableContainer member
+    void FoldPreOrder(FoldFunctor,const void*,void*) const override; // Override FoldableContainer member
 
     /* ************************************************************************ */
 
     // Specific member functions (inherited from PostOrderFoldableContainer)
 
-    // type FoldPostOrder(arguments) specifiers; // Override FoldableContainer member
+    void FoldPostOrder(FoldFunctor,const void*,void*) const override; // Override FoldableContainer member
 
 protected:
 
