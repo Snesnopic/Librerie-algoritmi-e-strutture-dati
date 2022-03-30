@@ -16,36 +16,38 @@ unsigned long Container::Size()const noexcept
 }
 
 //LinearContainer functions
-bool LinearContainer<Data>::operator==(const LinearContainer<Data> &lc) const noexcept
+template <typename Data>
+bool LinearContainer<Data>::operator==(const LinearContainer &lc) const noexcept
 {
-    if(this.size != v.Size())
+    if(size != lc.Size())
         return false;
-    for(unsigned long i=0 ; i<this.size; i++)
+    for(unsigned long i=0 ; i<size; i++)
     {
-        if(operator[](i) != v[i])
+        if(operator[](i) != lc[i])
             return false;
     }
     return true;
 }
-bool LinearContainer<Data>::operator!=(const LinearContainer<Data> &lc) const noexcept
+template <typename Data>
+bool LinearContainer<Data>::operator!=(const LinearContainer &lc) const noexcept
 {
     return !(*this == lc);
 }
 template<typename Data>
 Data& LinearContainer<Data>::Front() const
 {
-    if(this.size == 0)
+    if(size == 0)
         throw std::out_of_range("Index out of bounds!");
     return operator[](0);
 }
 template<typename Data>
 Data& LinearContainer<Data>::Back() const
 {
-    if(this.size == 0)
+    if(size == 0)
         throw std::out_of_range("Index out of bounds!");
     return operator[](size-1);
 }
-template <typename Data>
+
 
 //FoldableContainer functions
 template <typename Data>
