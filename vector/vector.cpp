@@ -19,7 +19,7 @@ Vector<Data>::Vector(const unsigned long initialSize)
 template <typename Data>
 Vector<Data>::Vector(const LinearContainer<Data> &lc)
 {
-    size = lc.size;
+    size = lc.Size();
     array = new Data[size];
     for(unsigned long i = 0; i<size; i++)
         array[i] = lc[i];
@@ -84,7 +84,7 @@ Vector<Data>& Vector<Data>::operator=(Vector<Data> &&v) noexcept
 template <typename Data>
 bool Vector<Data>::operator==(const Vector &v) const noexcept
 {
-    if(this.size != v.Size())
+    if(size != v.Size())
         return false;
     for(unsigned long i=0 ; i<size; i++)
     {
