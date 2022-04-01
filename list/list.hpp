@@ -14,10 +14,10 @@ namespace lasd
 
 template <typename Data>
 class List :virtual public LinearContainer<Data>,
-            virtual public PreOrderMappableContainer<Data>,
-            virtual public PostOrderMappableContainer<Data>,
-            virtual public PreOrderFoldableContainer<Data>,
-            virtual public PostOrderFoldableContainer<Data>
+    virtual public PreOrderMappableContainer<Data>,
+    virtual public PostOrderMappableContainer<Data>,
+    virtual public PreOrderFoldableContainer<Data>,
+    virtual public PostOrderFoldableContainer<Data>
 {
     // Must extend LinearContainer<Data>,
     //             PreOrderMappableContainer<Data>,
@@ -120,13 +120,13 @@ public:
 
     // Specific member functions
 
-    // type InsertAtFront(argument) specifier; // Copy of the value
-    // type InsertAtFront(argument) specifier; // Move of the value
-    // type RemoveFromFront() specifier; // (must throw std::length_error when empty)
-    // type FrontNRemove() specifier; // (must throw std::length_error when empty)
+    void InsertAtFront(const Data &d) noexcept; // Copy of the value
+    void InsertAtFront(Data &d) noexcept; // Move of the value
+    void RemoveFromFront(); // (must throw std::length_error when empty)
+    Data& FrontNRemove(); // (must throw std::length_error when empty)
 
-    // type InsertAtBack(argument) specifier; // Copy of the value
-    // type InsertAtBack(argument) specifier; // Move of the value
+    void InsertAtBack(const Data &d) noexcept; // Copy of the value
+    void InsertAtBack(Data &&d) noexcept; // Move of the value
 
     /* ************************************************************************ */
 
