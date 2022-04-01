@@ -46,23 +46,26 @@ protected:
         Node(const Data& d);
         Node(Data&& d) noexcept;
 
+
         /* ********************************************************************** */
 
         // Copy constructor
-        // ...
+        Node(const Node& n);
 
         // Move constructor
-        // ...
+        Node(Node&& n) noexcept;
 
         /* ********************************************************************** */
 
         // Destructor
-        // ...
+        virtual ~Node();
 
         /* ********************************************************************** */
 
         // Comparison operators
-        // ...
+        bool operator==(const Node& n) const noexcept;
+        bool operator!=(const Node& n) const noexcept;
+
 
         /* ********************************************************************** */
 
@@ -71,6 +74,8 @@ protected:
         // ...
 
     };
+    struct Node *head = nullptr;
+    struct Node *tail = nullptr;
 
     // ...
 
