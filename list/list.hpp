@@ -75,7 +75,6 @@ protected:
 
     };
     struct Node *head = nullptr;
-    struct Node *tail = nullptr;
 
     // ...
 
