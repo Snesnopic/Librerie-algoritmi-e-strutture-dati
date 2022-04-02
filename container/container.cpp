@@ -1,9 +1,9 @@
 #ifndef CONTAINER_CPP
 #define CONTAINER_CPP
+
 #include "container.hpp"
 namespace lasd
 {
-
 /* ************************************************************************** */
 //Container functions
 bool Container::Empty()const noexcept
@@ -117,4 +117,4 @@ void BreadthFoldableContainer<Data>::Fold(FoldFunctor fun, const void* par, void
 /* ************************************************************************** */
 
 }
-#endif
+#endif // CONTAINER_CPP
