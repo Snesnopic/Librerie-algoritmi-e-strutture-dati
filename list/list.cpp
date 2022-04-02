@@ -1,5 +1,6 @@
 #ifndef LIST_CPP
 #define LIST_CPP
+
 #include "list.hpp"
 namespace lasd
 {
@@ -23,12 +24,14 @@ template <typename Data>
 List<Data>::Node::Node(const Node& n)
 {
     dato = n.dato;
+    next = n.next;
 }
 //Node Node move constructor
 template <typename Data>
 List<Data>::Node::Node(Node&& n) noexcept
 {
-    std::swap(dato,n.dato);;
+    std::swap(dato,n.dato);
+    std::swap(next,n.next);
 }
 //Node destructor
 template <typename Data>
@@ -51,14 +54,22 @@ bool List<Data>::Node::operator!=(const Node& n) const noexcept
 }
 //List functions
 //LinearContainer constructor
-/*
 template <typename Data>
 List<Data>::List(const LinearContainer& lc)
 {
     size = lc.size;
-    //
+    for(unsigned long i = 0;i<size;i++)
+    {
+
+    }
 }
-*/
+//Copy constructor
+template <typename Data>
+List<Data>::List(const List &l)
+{
+    size = l.size;
+
+}
 //Clear
 template <typename Data>
 void List<Data>::Clear()
@@ -236,4 +247,4 @@ void List<Data>::FoldPostOrder(FoldFunctor f,const void *par,void *acc,Node *n) 
 /* ************************************************************************** */
 
 }
-#endif
+#endif // LIST_CPP
