@@ -58,7 +58,7 @@ void AuxFoldExists(const Data& dat,const void* val,void* exists) noexcept
 template <typename Data>
 bool FoldableContainer<Data>::Exists(const Data& d) const noexcept
 {
-    bool esiste;
+    bool esiste = false;
     Fold(&AuxFoldExists<Data>,&d,&esiste);
     return esiste;
 }
