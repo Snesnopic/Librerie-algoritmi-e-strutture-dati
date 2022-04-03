@@ -1,16 +1,13 @@
-#ifndef CONTAINER_CPP
-#define CONTAINER_CPP
-
-#include "container.hpp"
+#pragma once
 namespace lasd
 {
 /* ************************************************************************** */
 //Container functions
-bool Container::Empty()const noexcept
+inline bool Container::Empty()const noexcept
 {
     return (size == 0);
 }
-unsigned long Container::Size()const noexcept
+inline unsigned long Container::Size()const noexcept
 {
     return size;
 }
@@ -117,4 +114,3 @@ void BreadthFoldableContainer<Data>::Fold(FoldFunctor fun, const void* par, void
 /* ************************************************************************** */
 
 }
-#endif // CONTAINER_CPP
