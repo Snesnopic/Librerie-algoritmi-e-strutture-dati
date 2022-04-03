@@ -105,13 +105,17 @@ void List<Data>::Clear()
 template <typename Data>
 Data& List<Data>::Front() const
 {
+    if(size == 0)
+        throw std::length_error("Index out of bounds!");
     return head->dato;
 }
 //Back
 template <typename Data>
 Data& List<Data>::Back() const
 {
-    struct Node* tmp = head;
+    if(size == 0)
+        throw std::length_error("Index out of bounds!");
+    Node* tmp = head;
     while(tmp->next != nullptr)
     {
         tmp = tmp->next;
@@ -122,11 +126,20 @@ Data& List<Data>::Back() const
 template <typename Data>
 List<Data>& List<Data>::operator=(const List &l)
 {
-    if(this != &l)
+    Node* prev = l.head;
+    Node* tmp = nullptr;
+    Node* first = nullptr;
+    while(prev != nullptr)
     {
-       size = l.size;
-       head = l.head;
+        Node* n = new Node(prev->dato);
+        if(first == nullptr)
+        {
+            tmp->next = n;
+            tmp = tmp->next;
+        }
+        prev = prev->next;
     }
+    head = first;
     return *this;
 }
 
@@ -252,7 +265,8 @@ void List<Data>::Map(MapFunctor f,void *par)
 template <typename Data>
 void List<Data>::MapPreOrder(MapFunctor f,void *par)
 {
-    MapPreOrder(f,par,head);
+    if(head != nullptr)
+        MapPreOrder(f,par,head);
 }
 //MapPreOrder ricorsiva
 template <typename Data>
@@ -268,18 +282,17 @@ void List<Data>::MapPreOrder(MapFunctor f,void *par,Node *n)
 template <typename Data>
 void List<Data>::MapPostOrder(MapFunctor f,void *par)
 {
-    MapPostOrder(f,par,head);
+    if(head != nullptr)
+        MapPostOrder(f,par,head);
 }
 //MapPostOrder ricorsiva
 template <typename Data>
 void List<Data>::MapPostOrder(MapFunctor f,void *par,Node *n)
 {
-    MapPostOrder(f,par,n->next);
-    while(n != nullptr)
-    {
-        f(n->dato,par);
-        n = n->next;
-    }
+    if(n->next != nullptr)
+        MapPostOrder(f,par,n->next);
+    f(n->dato,par);
+    n = n->next;
 }
 //Fold functions
 //Fold
@@ -292,7 +305,8 @@ void List<Data>::Fold(FoldFunctor f,const void* par,void *acc) const
 template <typename Data>
 void List<Data>::FoldPreOrder(FoldFunctor f, const void *par,void *acc) const
 {
-    FoldPreOrder(f,par,acc,head);
+    if(head != nullptr)
+        FoldPreOrder(f,par,acc,head);
 }
 //FoldPreOrder ricorsiva
 template <typename Data>
@@ -308,18 +322,17 @@ void List<Data>::FoldPreOrder(FoldFunctor f, const void *par,void *acc,Node *n) 
 template <typename Data>
 void List<Data>::FoldPostOrder(FoldFunctor f,const void *par,void *acc) const
 {
-    FoldPostOrder(f,par,acc,head);
+    if(head != nullptr)
+        FoldPostOrder(f,par,acc,head);
 }
 //FoldPostOrder ricorsiva
 template <typename Data>
 void List<Data>::FoldPostOrder(FoldFunctor f,const void *par,void *acc,Node *n) const
 {
-    FoldPostOrder(f,par,acc,n->next);
-    while(n != nullptr)
-    {
-        f(n->dato,par,acc);
-        n = n->next;
-    }
+    if(n->next != nullptr)
+        FoldPostOrder(f,par,acc,n->next);
+    f(n->dato,par,acc);
+    n = n->next;
 }
 /* ************************************************************************** */
 
