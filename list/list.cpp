@@ -143,7 +143,6 @@ List<Data>& List<Data>::operator=(const List &l)
     head->next = nullptr;
     // Point 'current' to 'head'.
     Node* current = head;
-
     // Move to next item in ll's list.
     tmp = tmp->next;
 
@@ -180,7 +179,7 @@ Data& List<Data>::operator[](const unsigned long index) const
 {
     if(size == 0)
         throw std::out_of_range("Index out of bounds!");
-    Node* tmp = head->next;
+    Node* tmp = head;
     for(unsigned long i = 0; i<index; i++)
     {
         tmp = tmp->next;
