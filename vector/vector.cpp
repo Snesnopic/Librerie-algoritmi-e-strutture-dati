@@ -26,7 +26,7 @@ template <typename Data>
 Vector<Data>::Vector(const Vector<Data> &v)
 {
     size = v.size;
-    array = new Data[size];
+    array = new Data[v.size];
     std::copy(v.array,v.array + size,array);
 }
 //Move constructor
@@ -107,19 +107,15 @@ void Vector<Data>::Resize(const unsigned long newSize)
     {
         if(size!=newSize)
         {
-            unsigned long cap;
-            if(size < newSize)
-                cap = size;
-            else
-                cap = newSize;
-            size = newSize;
             Data* tmp = new Data[newSize];
-            for(unsigned long i = 0; i<cap; i++)
+            for(unsigned long i = 0; i<std::min(size,newSize); i++)
             {
                 std::swap(array[i],tmp[i]);
             }
-            std::swap(array,tmp);
-            delete[] tmp;
+            delete[] array;
+            array = tmp;
+            size = std::move(newSize);
+            size = newSize;
         }
     }
 }
@@ -158,15 +154,13 @@ void Vector<Data>::MapPreOrder(MapFunctor f,void* par)
 {
     for(unsigned long i = 0; i < size; i++)
     {
-        printf("Prova 1");
         f(array[i],par);
-        printf("Prova 2");
     }
 }
 template<typename Data>
 void Vector<Data>::MapPostOrder(MapFunctor f,void* par)
 {
-    for(unsigned long i = 0; i < size; i++)
+    for(unsigned long i = 1; i <= size && size != 0; i++)
     {
         f(array[size - i],par);
     }
@@ -180,7 +174,7 @@ void Vector<Data>::Fold(FoldFunctor f,const void* par, void* acc) const
 template<typename Data>
 void Vector<Data>::FoldPreOrder(FoldFunctor f,const void* par, void* acc) const
 {
-    for(unsigned long i; i < size; i++)
+    for(unsigned long i = 0; i < size; i++)
     {
         f(array[i],par,acc);
     }
@@ -188,7 +182,7 @@ void Vector<Data>::FoldPreOrder(FoldFunctor f,const void* par, void* acc) const
 template<typename Data>
 void Vector<Data>::FoldPostOrder(FoldFunctor f,const void* par, void* acc) const
 {
-    for(unsigned long i = size; i < 0; i++)
+    for(unsigned long i = 1; i <= size && size != 0; i++)
     {
         f(array[size - i],par,acc);
     }
