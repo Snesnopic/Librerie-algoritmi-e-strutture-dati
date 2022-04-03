@@ -141,5 +141,4 @@ public:
 }
 
 #include "vector.cpp"
-
 #endif
