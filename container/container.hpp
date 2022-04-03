@@ -1,3 +1,4 @@
+#pragma once
 #ifndef CONTAINER_HPP
 #define CONTAINER_HPP
 
@@ -625,4 +626,5 @@ public:
 /* ************************************************************************** */
 
 }
+#include "container.cpp"
 #endif
