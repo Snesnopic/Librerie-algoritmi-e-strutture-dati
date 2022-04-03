@@ -1,7 +1,3 @@
-#ifndef VECTOR_CPP
-#define VECTOR_CPP
-
-#include "vector.hpp"
 namespace lasd
 {
 
@@ -198,4 +194,3 @@ void Vector<Data>::FoldPostOrder(FoldFunctor f,const void* par, void* acc) const
 /* ************************************************************************** */
 
 }
-#endif // VECTOR_CPP
