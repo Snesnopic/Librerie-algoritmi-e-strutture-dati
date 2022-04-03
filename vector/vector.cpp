@@ -94,7 +94,7 @@ bool Vector<Data>::operator==(const Vector &v) const noexcept
 template <typename Data>
 bool Vector<Data>::operator!=(const Vector &v) const noexcept
 {
-    return !(*this == v);       //questo va anche in linearContainer
+    return !(*this == v);
 }
 //Vector functions
 //Resize
@@ -136,7 +136,7 @@ template <typename Data>
 Data& Vector<Data>::Front() const
 {
     if(size == 0)
-        throw std::out_of_range("Index out of bounds!");
+        throw std::length_error("Index out of bounds!");
     return array[0];
 }
 //Back
@@ -144,7 +144,7 @@ template<typename Data>
 Data& Vector<Data>::Back() const
 {
     if(size == 0)
-        throw std::out_of_range("Index out of bounds!");
+        throw std::length_error("Index out of bounds!");
     return array[size-1];
 }
 //Map functions
@@ -158,15 +158,17 @@ void Vector<Data>::MapPreOrder(MapFunctor f,void* par)
 {
     for(unsigned long i = 0; i < size; i++)
     {
+        printf("Prova 1");
         f(array[i],par);
+        printf("Prova 2");
     }
 }
 template<typename Data>
 void Vector<Data>::MapPostOrder(MapFunctor f,void* par)
 {
-    for(unsigned long i = size-1; i >= 0; i--)
+    for(unsigned long i = 0; i < size; i++)
     {
-        f(array[i],par);
+        f(array[size - i],par);
     }
 }
 //Fold functions
@@ -186,9 +188,9 @@ void Vector<Data>::FoldPreOrder(FoldFunctor f,const void* par, void* acc) const
 template<typename Data>
 void Vector<Data>::FoldPostOrder(FoldFunctor f,const void* par, void* acc) const
 {
-    for(unsigned long i = size-1; i >= 0; i--)
+    for(unsigned long i = size; i < 0; i++)
     {
-        f(array[i],par,acc);
+        f(array[size - i],par,acc);
     }
 }
 /* ************************************************************************** */
