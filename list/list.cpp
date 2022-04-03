@@ -1,7 +1,3 @@
-#ifndef LIST_CPP
-#define LIST_CPP
-
-#include "list.hpp"
 namespace lasd
 {
 
@@ -44,7 +40,19 @@ List<Data>::Node::~Node()
 template <typename Data>
 bool List<Data>::Node::operator==(const Node& n) const noexcept
 {
-    return (dato == n.dato && next == n.next);
+    if(dato == n.dato)                              //se i dati sono uguali...
+    {
+        if(next == nullptr && n.next == nullptr)    //e entrambi non hanno un prossimo...
+        {
+            return true;
+        }
+        if(next != nullptr && n.next != nullptr)    //o hanno un prossimo...
+        {
+            if(*next == *n.next)                    //ed è lo stesso...
+                return true;
+        }
+    }
+    return false;
 }
 //Not equal comparison
 template <typename Data>
@@ -53,6 +61,12 @@ bool List<Data>::Node::operator!=(const Node& n) const noexcept
     return !(*this == n);
 }
 //List functions
+//Destructor
+template <typename Data>
+List<Data>::~List()
+{
+    delete head;
+}
 //LinearContainer constructor
 template <typename Data>
 List<Data>::List(const LinearContainer<Data>& lc)
@@ -70,32 +84,62 @@ template <typename Data>
 List<Data>::List(const List &l)
 {
     size = l.size;
-
+    head = l.head;
+}
+//Move constructor
+template <typename Data>
+List<Data>::List(List &&l) noexcept
+{
+    std::swap(size,l.size);
+    std::swap(head,l.head);
 }
 //Clear
 template <typename Data>
 void List<Data>::Clear()
 {
     size = 0;
-    delete head->next;
+    delete head;
     head = nullptr;
 }
 //Front
 template <typename Data>
 Data& List<Data>::Front() const
 {
-    return head->next->dato;
+    return head->dato;
 }
 //Back
 template <typename Data>
 Data& List<Data>::Back() const
 {
-    struct Node* tmp = head->next;
+    struct Node* tmp = head;
     while(tmp->next != nullptr)
     {
         tmp = tmp->next;
     }
     return tmp->dato;
+}
+//Copy assignment
+template <typename Data>
+List<Data>& List<Data>::operator=(const List &l)
+{
+    if(this != &l)
+    {
+       size = l.size;
+       head = l.head;
+    }
+    return *this;
+}
+
+//Move assignment
+template <typename Data>
+List<Data>& List<Data>::operator=(List &&l) noexcept
+{
+    if(this != &l)
+    {
+        std::swap(size,l.size);
+        std::swap(head,l.head);
+    }
+    return *this;
 }
 //Random operator
 template <typename Data>
@@ -109,6 +153,29 @@ Data& List<Data>::operator[](const unsigned long index) const
         tmp = tmp->next;
     }
     return tmp->dato;
+}
+//Equal comparison operator
+template <typename Data>
+bool List<Data>::operator==(const List &l) const noexcept
+{
+    if(size != l.size)
+        return false;
+    Node *tmp = head;
+    Node *tmp2 = l.head;
+    while(tmp != nullptr)
+    {
+        if(tmp != tmp2)
+            return false;
+        tmp = tmp->next;
+        tmp2 = tmp2->next;
+    }
+    return true;
+}
+//Not equal comparison operator
+template <typename Data>
+bool List<Data>::operator!=(const List &l) const noexcept
+{
+    return !(*this == l);
 }
 template <typename Data>
 void List<Data>::InsertAtFront(const Data &d) noexcept
@@ -136,14 +203,14 @@ Data& List<Data>::FrontNRemove()
 {
     Node *tmp = head->next;
     head->next = tmp->next;
-    Data tmp2 = tmp->dato;
+    Data &tmp2 = tmp->dato;
     delete tmp;
     return tmp2;
 }
 template <typename Data>
 void List<Data>::InsertAtBack(const Data &d) noexcept
 {
-    struct Node* n = new Node(d);
+    Node* n = new Node(d);
     n->next = nullptr;
     if(head == nullptr)
         head = n;
@@ -174,10 +241,6 @@ void List<Data>::InsertAtBack(Data &&d) noexcept
         tmp->next = n;
     }
 }
-
-
-
-
 //Map functions
 //Map
 template <typename Data>
@@ -186,6 +249,12 @@ void List<Data>::Map(MapFunctor f,void *par)
     MapPreOrder(f,par,head);
 }
 //MapPreOrder
+template <typename Data>
+void List<Data>::MapPreOrder(MapFunctor f,void *par)
+{
+    MapPreOrder(f,par,head);
+}
+//MapPreOrder ricorsiva
 template <typename Data>
 void List<Data>::MapPreOrder(MapFunctor f,void *par,Node *n)
 {
@@ -196,6 +265,12 @@ void List<Data>::MapPreOrder(MapFunctor f,void *par,Node *n)
     }
 }
 //MapPostOrder
+template <typename Data>
+void List<Data>::MapPostOrder(MapFunctor f,void *par)
+{
+    MapPostOrder(f,par,head);
+}
+//MapPostOrder ricorsiva
 template <typename Data>
 void List<Data>::MapPostOrder(MapFunctor f,void *par,Node *n)
 {
@@ -249,4 +324,3 @@ void List<Data>::FoldPostOrder(FoldFunctor f,const void *par,void *acc,Node *n) 
 /* ************************************************************************** */
 
 }
-#endif // LIST_CPP
