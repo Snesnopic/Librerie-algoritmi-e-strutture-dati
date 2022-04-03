@@ -55,12 +55,14 @@ bool List<Data>::Node::operator!=(const Node& n) const noexcept
 //List functions
 //LinearContainer constructor
 template <typename Data>
-List<Data>::List(const LinearContainer& lc)
+List<Data>::List(const LinearContainer<Data>& lc)
 {
-    size = lc.size;
+    size = lc.Size();
+    Node *tmp = head;
     for(unsigned long i = 0;i<size;i++)
     {
-
+        tmp->dato = lc[i];
+        tmp = tmp->next;
     }
 }
 //Copy constructor
