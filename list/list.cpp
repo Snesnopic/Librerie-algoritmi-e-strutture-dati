@@ -129,37 +129,30 @@ List<Data>& List<Data>::operator=(const List &l)
     if (l.head == nullptr)
     {
         Clear();
+        size = l.size;
+        return *this;
+    }
+    else
+    {
+        Clear();
+        Node* tmp = l.head;
+        head = new Node;
+        head->dato = tmp->dato;
+        head->next = nullptr;
+        Node* current = head;
+        tmp = tmp->next;
+        while (tmp != nullptr)
+        {
+            current->next = new Node;
+            current = current->next;
+            current->dato = tmp->dato;
+            current->next = nullptr;
+            tmp = tmp->next;
+        }
+        size = l.size;
         return *this;
     }
 
-    // Create a temp variable since ll.current doesn't move/change.
-    Node* tmp = l.head;
-
-    // Allocate a new node in memory.
-    head = new Node;
-    // Copy over the value.
-    head->dato = tmp->dato;
-    // Set the 'next' value to null (the loop will fill this in).
-    head->next = nullptr;
-    // Point 'current' to 'head'.
-    Node* current = head;
-    // Move to next item in ll's list.
-    tmp = tmp->next;
-
-    while (tmp != nullptr)
-    {
-        // Allocate new memory for a new 'node'.
-        current->next = new Node;
-        // Point to this new 'node'.
-        current = current->next;
-        // Copy over the data.
-        current->dato = tmp->dato;
-        // By default set the 'next' to null.
-        current->next = nullptr;
-        // Move along ll's list.
-        tmp = tmp->next;
-    }
-    return *this;
 }
 
 //Move assignment
@@ -215,29 +208,38 @@ void List<Data>::InsertAtFront(const Data &d) noexcept
     struct Node* n = new Node(d);
     n->next = head;
     head = n;
+    size++;
 }
 template <typename Data>
 void List<Data>::InsertAtFront(Data &d) noexcept
 {
-    struct Node* n = new Node(std::move(d));
+    struct Node* n = new Node(d);
     n->next = head;
     head = n;
+    size++;
 }
 template <typename Data>
 void List<Data>::RemoveFromFront()
 {
-    Node *tmp = head->next;
-    head->next = tmp->next;
+    if(size == 0)
+        throw std::length_error("Lenght error!");
+    Node *tmp = head;
+    head = head->next;
+    tmp->next = nullptr;
     delete tmp;
+    size--;
 }
 template <typename Data>
 Data& List<Data>::FrontNRemove()
 {
-    Node *tmp = head->next;
-    head->next = tmp->next;
+    if(size == 0)
+        throw std::length_error("Lenght error!");
+    Node *tmp = head;
+    head = head ->next;
     Data &tmp2 = tmp->dato;
     delete tmp;
     return tmp2;
+    size--;
 }
 template <typename Data>
 void List<Data>::InsertAtBack(const Data &d) noexcept
@@ -255,6 +257,7 @@ void List<Data>::InsertAtBack(const Data &d) noexcept
         }
         tmp->next = n;
     }
+    size++;
 }
 template <typename Data>
 void List<Data>::InsertAtBack(Data &&d) noexcept
@@ -272,6 +275,7 @@ void List<Data>::InsertAtBack(Data &&d) noexcept
         }
         tmp->next = n;
     }
+    size++;
 }
 //Map functions
 //Map
