@@ -34,14 +34,14 @@ template<typename Data>
 Data& LinearContainer<Data>::Front() const
 {
     if(size == 0)
-        throw std::out_of_range("Index out of bounds!");
+        throw std::length_error("Index out of bounds!");
     return operator[](0);
 }
 template<typename Data>
 Data& LinearContainer<Data>::Back() const
 {
     if(size == 0)
-        throw std::out_of_range("Index out of bounds!");
+        throw std::length_error("Index out of bounds!");
     return operator[](size-1);
 }
 
