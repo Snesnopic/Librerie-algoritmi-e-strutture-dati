@@ -126,20 +126,40 @@ Data& List<Data>::Back() const
 template <typename Data>
 List<Data>& List<Data>::operator=(const List &l)
 {
-    Node* prev = l.head;
-    Node* tmp = nullptr;
-    Node* first = nullptr;
-    while(prev != nullptr)
+    if (l.head == nullptr)
     {
-        Node* n = new Node(prev->dato);
-        if(first == nullptr)
-        {
-            tmp->next = n;
-            tmp = tmp->next;
-        }
-        prev = prev->next;
+        Clear();
+        return *this;
     }
-    head = first;
+
+    // Create a temp variable since ll.current doesn't move/change.
+    Node* tmp = l.head;
+
+    // Allocate a new node in memory.
+    head = new Node;
+    // Copy over the value.
+    head->dato = tmp->dato;
+    // Set the 'next' value to null (the loop will fill this in).
+    head->next = nullptr;
+    // Point 'current' to 'head'.
+    Node* current = head;
+
+    // Move to next item in ll's list.
+    tmp = tmp->next;
+
+    while (tmp != nullptr)
+    {
+        // Allocate new memory for a new 'node'.
+        current->next = new Node;
+        // Point to this new 'node'.
+        current = current->next;
+        // Copy over the data.
+        current->dato = tmp->dato;
+        // By default set the 'next' to null.
+        current->next = nullptr;
+        // Move along ll's list.
+        tmp = tmp->next;
+    }
     return *this;
 }
 
