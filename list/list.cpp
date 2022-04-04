@@ -33,7 +33,8 @@ List<Data>::Node::Node(Node&& n) noexcept
 template <typename Data>
 List<Data>::Node::~Node()
 {
-    delete next;
+    if(next != nullptr)
+        delete next;
 }
 //Node operators
 //Equal comparison
@@ -73,7 +74,7 @@ List<Data>::List(const LinearContainer<Data>& lc)
 {
     size = lc.Size();
     Node *tmp = head;
-    for(unsigned long i = 0;i<size;i++)
+    for(unsigned long i = 0; i<size; i++)
     {
         tmp->dato = lc[i];
         tmp = tmp->next;
@@ -83,8 +84,23 @@ List<Data>::List(const LinearContainer<Data>& lc)
 template <typename Data>
 List<Data>::List(const List &l)
 {
+    /*
+    if (l.head != nullptr)
+    {
+        Node *tmp = l.head;
+
+        while(tmp->next != nullptr)
+        {
+            std::cout<<" Qui arrivo?: "<<tmp->dato;
+
+            InsertAtBack(tmp->dato);
+            tmp = tmp->next;
+        }
+    }
+    */
     size = l.size;
-    head = l.head;
+    Node& tmp = l.head;
+    head = new Node(tmp);
 }
 //Move constructor
 template <typename Data>
@@ -99,7 +115,6 @@ void List<Data>::Clear()
 {
     size = 0;
     delete head;
-    head = nullptr;
 }
 //Front
 template <typename Data>
@@ -129,30 +144,24 @@ List<Data>& List<Data>::operator=(const List &l)
     if (l.head == nullptr)
     {
         Clear();
-        size = l.size;
         return *this;
     }
     else
     {
         Clear();
-        Node* tmp = l.head;
-        head = new Node;
-        head->dato = tmp->dato;
-        head->next = nullptr;
-        Node* current = head;
-        tmp = tmp->next;
-        while (tmp != nullptr)
+
+        Node *tmp = l.head;
+        while(tmp->next != nullptr)
         {
-            current->next = new Node;
-            current = current->next;
-            current->dato = tmp->dato;
-            current->next = nullptr;
+            std::cout<<" Qui arrivo?: "<<tmp->dato;
+            InsertAtBack(tmp->dato);
+
             tmp = tmp->next;
+
         }
-        size = l.size;
+
         return *this;
     }
-
 }
 
 //Move assignment
@@ -234,12 +243,12 @@ Data& List<Data>::FrontNRemove()
 {
     if(size == 0)
         throw std::length_error("Lenght error!");
-    Node *tmp = head;
-    Data &tmp2 = Front();
-    head = head ->next;
-    delete tmp;
-    return tmp2;
+    Node *tmp = new Node(head->dato);               //TODO: aggiustare sta uallera di codice
+    RemoveFromFront();
     size--;
+
+    return tmp->dato;
+
 }
 template <typename Data>
 void List<Data>::InsertAtBack(const Data &d) noexcept
