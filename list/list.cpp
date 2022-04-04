@@ -205,7 +205,7 @@ bool List<Data>::operator!=(const List &l) const noexcept
 template <typename Data>
 void List<Data>::InsertAtFront(const Data &d) noexcept
 {
-    struct Node* n = new Node(d);
+    Node* n = new Node(d);
     n->next = head;
     head = n;
     size++;
@@ -235,8 +235,8 @@ Data& List<Data>::FrontNRemove()
     if(size == 0)
         throw std::length_error("Lenght error!");
     Node *tmp = head;
+    Data &tmp2 = Front();
     head = head ->next;
-    Data &tmp2 = tmp->dato;
     delete tmp;
     return tmp2;
     size--;
@@ -250,7 +250,7 @@ void List<Data>::InsertAtBack(const Data &d) noexcept
         head = n;
     else
     {
-        struct Node *tmp = head;
+        Node *tmp = head;
         while(tmp->next != nullptr)
         {
             tmp = tmp->next;
@@ -355,7 +355,6 @@ void List<Data>::FoldPostOrder(FoldFunctor f,const void *par,void *acc,Node *n) 
     if(n->next != nullptr)
         FoldPostOrder(f,par,acc,n->next);
     f(n->dato,par,acc);
-    n = n->next;
 }
 /* ************************************************************************** */
 
