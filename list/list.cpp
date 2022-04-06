@@ -66,33 +66,62 @@ bool List<Data>::Node::operator!=(const Node& n) const noexcept
 template <typename Data>
 List<Data>::~List()
 {
-    delete head;
+    if(head != nullptr)
+        delete head;
 }
 //LinearContainer constructor
 template <typename Data>
 List<Data>::List(const LinearContainer<Data>& lc)
 {
-    size = lc.Size();
-    Node *tmp = head;
-    for(unsigned long i = 0; i<size; i++)
+    if(!lc.Empty())
     {
-        tmp->dato = lc[i];
-        tmp = tmp->next;
+        head = new Node(lc[0]);
+        Node *tmp = head;
+        for(unsigned long i = 1; i<size; i++)
+        {
+            tmp->next = new Node(lc[i]);
+            tmp = tmp->next;
+        }
     }
+    size = lc.Size();
 }
 //Copy constructor
 template <typename Data>
 List<Data>::List(const List &l)
 {
+    if(l.head != nullptr)
+    {
+        head = new Node(l.head->dato);
+        Node *tmp1 = head;
+        Node *tmp2 = l.head->next;
+        while(tmp2 != nullptr)
+        {
+            tmp1->next = new Node(tmp2->dato);
+            tmp1 = tmp1->next;
+            tmp2 = tmp2->next;
+        }
+        tmp1->next = nullptr;
+    }
     size = l.size;
-    head = new Node(*l.head);
 }
 //Move constructor
 template <typename Data>
 List<Data>::List(List &&l) noexcept
 {
-    std::swap(size,l.size);
-    std::swap(head,l.head);
+    if(l.head != nullptr)
+    {
+        head = new Node(std::move(l.head->dato));
+        Node *tmp1 = head;
+        Node *tmp2 = l.head->next;
+        while(tmp2 != nullptr)
+        {
+            tmp1->next = new Node(std::move(tmp2->dato));
+            tmp1 = tmp1->next;
+            tmp2 = tmp2->next;
+        }
+        tmp1->next = nullptr;
+    }
+    size = std::move(l.size);
 }
 //Clear
 template <typename Data>
@@ -115,38 +144,31 @@ Data& List<Data>::Back() const
 {
     if(size == 0)
         throw std::length_error("Index out of bounds!");
-    Node* tmp = head;
-    while(tmp->next != nullptr)
-    {
-        tmp = tmp->next;
-    }
-    return tmp->dato;
+    return operator[](size-1);
 }
 //Copy assignment
 template <typename Data>
 List<Data>& List<Data>::operator=(const List &l)
 {
-    if (l.head == nullptr)
+    if(this != &l)
     {
         Clear();
-        return *this;
-    }
-    else
-    {
-        Clear();
-
-        Node *tmp = l.head;
-        while(tmp->next != nullptr)
+        if(l.head != nullptr)
         {
-            std::cout<<" Qui arrivo?: "<<tmp->dato;
-            InsertAtBack(tmp->dato);
-
-            tmp = tmp->next;
-
+        head = new Node(l.head->dato);
+        Node *tmp1 = head;
+        Node *tmp2 = l.head->next;
+        while(tmp2 != nullptr)
+        {
+            tmp1->next = new Node(tmp2->dato);
+            tmp1 = tmp1->next;
+            tmp2 = tmp2->next;
         }
-
-        return *this;
+        tmp1->next = nullptr;
+        }
+        size = l.size;
     }
+    return *this;
 }
 
 //Move assignment
@@ -183,7 +205,7 @@ bool List<Data>::operator==(const List &l) const noexcept
     Node *tmp2 = l.head;
     while(tmp != nullptr)
     {
-        if(tmp != tmp2)
+        if(tmp->dato != tmp2->dato)
             return false;
         tmp = tmp->next;
         tmp2 = tmp2->next;
@@ -205,9 +227,9 @@ void List<Data>::InsertAtFront(const Data &d) noexcept
     size++;
 }
 template <typename Data>
-void List<Data>::InsertAtFront(Data &d) noexcept
+void List<Data>::InsertAtFront(Data &&d) noexcept
 {
-    struct Node* n = new Node(d);
+    Node* n = new Node(std::move(d));
     n->next = head;
     head = n;
     size++;
@@ -228,22 +250,25 @@ Data& List<Data>::FrontNRemove()
 {
     if(size == 0)
         throw std::length_error("Lenght error!");
-    Node *tmp = new Node(head->dato);               //TODO: aggiustare sta uallera di codice
+    //Node *tmp = new Node(head->dato);               //TODO: aggiustare sta uallera di codice
+    Data &ref = *(new Data(head->dato));
     RemoveFromFront();
     size--;
-
-    return tmp->dato;
-
+    return ref;
 }
 template <typename Data>
 void List<Data>::InsertAtBack(const Data &d) noexcept
 {
-    Node* n = new Node(d);
-    n->next = nullptr;
+
     if(head == nullptr)
-        head = n;
+    {
+        head = new Node(d);
+        head->next = nullptr;
+    }
     else
     {
+        Node* n = new Node(d);
+        n->next = nullptr;
         Node *tmp = head;
         while(tmp->next != nullptr)
         {
@@ -256,13 +281,17 @@ void List<Data>::InsertAtBack(const Data &d) noexcept
 template <typename Data>
 void List<Data>::InsertAtBack(Data &&d) noexcept
 {
-    struct Node* n = new Node(std::move(d));
-    n->next = nullptr;
+
     if(head == nullptr)
-        head = n;
+    {
+        head = new Node(std::move(d));
+        head->next = nullptr;
+    }
     else
     {
-        struct Node *tmp = head;
+        Node* n = new Node(std::move(d));
+        n->next = nullptr;
+        Node *tmp = head;
         while(tmp->next != nullptr)
         {
             tmp = tmp->next;
