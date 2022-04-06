@@ -27,14 +27,14 @@ template <typename Data>
 List<Data>::Node::Node(Node&& n) noexcept
 {
     std::swap(dato,n.dato);
-    std::swap(next,n.next);
+    if(n.next != nullptr)
+        std::swap(next,n.next);
 }
 //Node destructor
 template <typename Data>
 List<Data>::Node::~Node()
 {
-    if(next != nullptr)
-        delete next;
+    delete next;
 }
 //Node operators
 //Equal comparison
@@ -77,7 +77,7 @@ List<Data>::List(const LinearContainer<Data>& lc)
     {
         head = new Node(lc[0]);
         Node *tmp = head;
-        for(unsigned long i = 1; i<size; i++)
+        for(unsigned long i = 1; i<lc.Size(); i++)
         {
             tmp->next = new Node(lc[i]);
             tmp = tmp->next;
@@ -108,6 +108,7 @@ List<Data>::List(const List &l)
 template <typename Data>
 List<Data>::List(List &&l) noexcept
 {
+    /*
     if(l.head != nullptr)
     {
         head = new Node(std::move(l.head->dato));
@@ -121,14 +122,17 @@ List<Data>::List(List &&l) noexcept
         }
         tmp1->next = nullptr;
     }
-    size = std::move(l.size);
+    */
+    head = std::move(l.head);
+    size = l.size;
 }
 //Clear
 template <typename Data>
 void List<Data>::Clear()
 {
+    if(head != nullptr)
+        delete head;
     size = 0;
-    delete head;
 }
 //Front
 template <typename Data>
@@ -152,7 +156,6 @@ List<Data>& List<Data>::operator=(const List &l)
 {
     if(this != &l)
     {
-        Clear();
         if(l.head != nullptr)
         {
         head = new Node(l.head->dato);
