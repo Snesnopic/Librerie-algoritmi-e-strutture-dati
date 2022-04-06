@@ -13,7 +13,7 @@ List<Data>::Node::Node(const Data& d)
 template <typename Data>
 List<Data>::Node::Node(Data&& d) noexcept
 {
-    std::swap(dato,d);
+    dato(std::move(d));
 }
 //Node Node copy constructor
 template <typename Data>
@@ -26,9 +26,9 @@ List<Data>::Node::Node(const Node& n)
 template <typename Data>
 List<Data>::Node::Node(Node&& n) noexcept
 {
-    std::swap(dato,n.dato);
+    dato(std::move(n.dato));
     if(n.next != nullptr)
-        std::swap(next,n.next);
+        next(std::move(n.next));
 }
 //Node destructor
 template <typename Data>
@@ -158,16 +158,17 @@ List<Data>& List<Data>::operator=(const List &l)
     {
         if(l.head != nullptr)
         {
-        head = new Node(l.head->dato);
-        Node *tmp1 = head;
-        Node *tmp2 = l.head->next;
-        while(tmp2 != nullptr)
-        {
-            tmp1->next = new Node(tmp2->dato);
-            tmp1 = tmp1->next;
-            tmp2 = tmp2->next;
-        }
-        tmp1->next = nullptr;
+            Clear();
+            head = new Node(l.head->dato);
+            Node *tmp1 = head;
+            Node *tmp2 = l.head->next;
+            while(tmp2 != nullptr)
+            {
+                tmp1->next = new Node(tmp2->dato);
+                tmp1 = tmp1->next;
+                tmp2 = tmp2->next;
+            }
+            tmp1->next = nullptr;
         }
         size = l.size;
     }
@@ -261,21 +262,15 @@ Data& List<Data>::FrontNRemove()
 template <typename Data>
 void List<Data>::InsertAtBack(const Data &d) noexcept
 {
-
+    Node *n = new Node(d);
+    n->next = nullptr;
     if(head == nullptr)
-    {
-        head = new Node(d);
-        head->next = nullptr;
-    }
+        head = n;
     else
     {
-        Node* n = new Node(d);
-        n->next = nullptr;
         Node *tmp = head;
         while(tmp->next != nullptr)
-        {
             tmp = tmp->next;
-        }
         tmp->next = n;
     }
     size++;
@@ -283,21 +278,15 @@ void List<Data>::InsertAtBack(const Data &d) noexcept
 template <typename Data>
 void List<Data>::InsertAtBack(Data &&d) noexcept
 {
-
+    Node *n = new Node(std::move(d));
+    n->next = nullptr;
     if(head == nullptr)
-    {
-        head = new Node(std::move(d));
-        head->next = nullptr;
-    }
+        head = n;
     else
     {
-        Node* n = new Node(std::move(d));
-        n->next = nullptr;
         Node *tmp = head;
         while(tmp->next != nullptr)
-        {
             tmp = tmp->next;
-        }
         tmp->next = n;
     }
     size++;
