@@ -84,23 +84,8 @@ List<Data>::List(const LinearContainer<Data>& lc)
 template <typename Data>
 List<Data>::List(const List &l)
 {
-    /*
-    if (l.head != nullptr)
-    {
-        Node *tmp = l.head;
-
-        while(tmp->next != nullptr)
-        {
-            std::cout<<" Qui arrivo?: "<<tmp->dato;
-
-            InsertAtBack(tmp->dato);
-            tmp = tmp->next;
-        }
-    }
-    */
     size = l.size;
-    Node& tmp = l.head;
-    head = new Node(tmp);
+    head = new Node(*l.head);
 }
 //Move constructor
 template <typename Data>
