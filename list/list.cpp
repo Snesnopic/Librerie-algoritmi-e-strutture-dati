@@ -250,7 +250,6 @@ Data& List<Data>::FrontNRemove()
 {
     if(size == 0)
         throw std::length_error("Lenght error!");
-    //Node *tmp = new Node(head->dato);               //TODO: aggiustare sta uallera di codice
     Data &ref = *(new Data(head->dato));
     RemoveFromFront();
     size--;
