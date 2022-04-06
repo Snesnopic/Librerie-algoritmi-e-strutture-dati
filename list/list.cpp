@@ -66,8 +66,7 @@ bool List<Data>::Node::operator!=(const Node& n) const noexcept
 template <typename Data>
 List<Data>::~List()
 {
-    if(head != nullptr)
-        delete head;
+    delete head;
 }
 //LinearContainer constructor
 template <typename Data>
@@ -75,6 +74,7 @@ List<Data>::List(const LinearContainer<Data>& lc)
 {
     if(!lc.Empty())
     {
+        Clear();
         head = new Node(lc[0]);
         Node *tmp = head;
         for(unsigned long i = 1; i<lc.Size(); i++)
@@ -91,6 +91,7 @@ List<Data>::List(const List &l)
 {
     if(l.head != nullptr)
     {
+        Clear();
         head = new Node(l.head->dato);
         Node *tmp1 = head;
         Node *tmp2 = l.head->next;
@@ -123,6 +124,7 @@ List<Data>::List(List &&l) noexcept
         tmp1->next = nullptr;
     }
     */
+    Clear();
     head = std::move(l.head);
     size = l.size;
 }
@@ -130,8 +132,7 @@ List<Data>::List(List &&l) noexcept
 template <typename Data>
 void List<Data>::Clear()
 {
-    if(head != nullptr)
-        delete head;
+    delete head;
     size = 0;
 }
 //Front
@@ -256,7 +257,6 @@ Data& List<Data>::FrontNRemove()
         throw std::length_error("Lenght error!");
     Data &ref = *(new Data(head->dato));
     RemoveFromFront();
-    size--;
     return ref;
 }
 template <typename Data>
