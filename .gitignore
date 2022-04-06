@@ -7,3 +7,4 @@ Exercise1.cbp
 main
 output.txt
 main.exe
+valgrind-out.txt
