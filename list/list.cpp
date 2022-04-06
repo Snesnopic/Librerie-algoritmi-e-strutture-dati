@@ -13,7 +13,7 @@ List<Data>::Node::Node(const Data& d)
 template <typename Data>
 List<Data>::Node::Node(Data&& d) noexcept
 {
-    dato(std::move(d));
+    std::swap(dato,d);
 }
 //Node Node copy constructor
 template <typename Data>
@@ -26,9 +26,8 @@ List<Data>::Node::Node(const Node& n)
 template <typename Data>
 List<Data>::Node::Node(Node&& n) noexcept
 {
-    dato(std::move(n.dato));
-    if(n.next != nullptr)
-        next(std::move(n.next));
+    std::swap(dato,n.dato);
+    std::swap(next,n.next);
 }
 //Node destructor
 template <typename Data>
@@ -89,9 +88,9 @@ List<Data>::List(const LinearContainer<Data>& lc)
 template <typename Data>
 List<Data>::List(const List &l)
 {
+    size = l.size;
     if(l.head != nullptr)
     {
-        Clear();
         head = new Node(l.head->dato);
         Node *tmp1 = head;
         Node *tmp2 = l.head->next;
@@ -103,30 +102,17 @@ List<Data>::List(const List &l)
         }
         tmp1->next = nullptr;
     }
-    size = l.size;
+
 }
 //Move constructor
 template <typename Data>
 List<Data>::List(List &&l) noexcept
 {
-    /*
     if(l.head != nullptr)
     {
-        head = new Node(std::move(l.head->dato));
-        Node *tmp1 = head;
-        Node *tmp2 = l.head->next;
-        while(tmp2 != nullptr)
-        {
-            tmp1->next = new Node(std::move(tmp2->dato));
-            tmp1 = tmp1->next;
-            tmp2 = tmp2->next;
-        }
-        tmp1->next = nullptr;
+        std::swap(head,l.head);
+        std::swap(size,l.size);
     }
-    */
-    Clear();
-    head = std::move(l.head);
-    size = l.size;
 }
 //Clear
 template <typename Data>
