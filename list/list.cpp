@@ -265,7 +265,9 @@ void List<Data>::InsertAtBack(const Data &d) noexcept
     Node *n = new Node(d);
     n->next = nullptr;
     if(head == nullptr)
+    {
         head = n;
+    }
     else
     {
         Node *tmp = head;
