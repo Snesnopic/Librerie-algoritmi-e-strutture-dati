@@ -65,7 +65,8 @@ bool List<Data>::Node::operator!=(const Node& n) const noexcept
 template <typename Data>
 List<Data>::~List()
 {
-    delete head;
+    if(head != nullptr)
+        delete head;
 }
 //LinearContainer constructor
 template <typename Data>
@@ -117,7 +118,8 @@ List<Data>::List(List &&l) noexcept
 template <typename Data>
 void List<Data>::Clear()
 {
-    delete head;
+    if(head != nullptr)
+        delete head;
     head = nullptr;
     size = 0;
 }
@@ -209,6 +211,7 @@ bool List<Data>::operator!=(const List &l) const noexcept
 {
     return !(*this == l);
 }
+//Insert At Front copy
 template <typename Data>
 void List<Data>::InsertAtFront(const Data &d) noexcept
 {
@@ -217,6 +220,7 @@ void List<Data>::InsertAtFront(const Data &d) noexcept
     head = n;
     size++;
 }
+//Insert At Front move
 template <typename Data>
 void List<Data>::InsertAtFront(Data &&d) noexcept
 {
@@ -225,6 +229,7 @@ void List<Data>::InsertAtFront(Data &&d) noexcept
     head = n;
     size++;
 }
+//Remove From Front
 template <typename Data>
 void List<Data>::RemoveFromFront()
 {
@@ -236,6 +241,7 @@ void List<Data>::RemoveFromFront()
     delete tmp;
     size--;
 }
+//Front And Remove (rimuovi un elemento e restituiscilo)
 template <typename Data>
 Data& List<Data>::FrontNRemove()
 {
@@ -245,6 +251,7 @@ Data& List<Data>::FrontNRemove()
     RemoveFromFront();
     return ref;
 }
+//Insert At Back copy
 template <typename Data>
 void List<Data>::InsertAtBack(const Data &d) noexcept
 {
@@ -263,6 +270,7 @@ void List<Data>::InsertAtBack(const Data &d) noexcept
     }
     size++;
 }
+//Insert At Back move
 template <typename Data>
 void List<Data>::InsertAtBack(Data &&d) noexcept
 {
