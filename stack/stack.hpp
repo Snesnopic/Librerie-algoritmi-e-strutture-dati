@@ -13,7 +13,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class Stack {
+class Stack : virtual public Container{
               // Must extend Container
 
 private:
@@ -27,32 +27,32 @@ protected:
 public:
 
   // Destructor
-  // ~Stack() specifiers
+  virtual ~Stack() = default;
 
   /* ************************************************************************ */
 
   // Copy assignment
-  // type operator=(argument); // Copy assignment of abstract types should not be possible.
+  virtual Stack& operator=(const Stack& s) = delete; // Copy assignment of abstract types should not be possible.
 
   // Move assignment
-  // type operator=(argument); // Move assignment of abstract types should not be possible.
+  virtual Stack& operator=(Stack&& s) = delete; // Move assignment of abstract types should not be possible.
 
   /* ************************************************************************ */
 
   // Comparison operators
-  // type operator==(argument) specifiers; // Comparison of abstract types might not be possible.
-  // type operator!=(argument) specifiers; // Comparison of abstract types might not be possible.
+  virtual bool operator==(const Stack& s) const noexcept = delete; // Comparison of abstract types might not be possible.
+  virtual bool operator!=(const Stack& s) const noexcept = delete; // Comparison of abstract types might not be possible.
 
   /* ************************************************************************ */
 
   // Specific member functions
 
-  // type Top() specifiers; // (constant version; concrete function must throw std::length_error when empty)
-  // type Top() specifiers; // (concrete function must throw std::length_error when empty)
-  // type Pop() specifiers; // (concrete function must throw std::length_error when empty)
-  // type TopNPop() specifiers; // (concrete function must throw std::length_error when empty)
-  // type Push(argument) specifiers; // Copy of the value
-  // type Push(argument) specifiers; // Move of the value
+  virtual void Top() = 0; // (constant version; concrete function must throw std::length_error when empty)
+  virtual Data& Top() = 0; // (concrete function must throw std::length_error when empty)
+  virtual void Pop() = 0; // (concrete function must throw std::length_error when empty)
+  virtual Data& TopNPop() = 0; // (concrete function must throw std::length_error when empty)
+  virtual void Push(const Data &d) noexcept = 0; // Copy of the value
+  virtual void Push(Data&& d) noexcept = 0; // Move of the value
 
 };
 
