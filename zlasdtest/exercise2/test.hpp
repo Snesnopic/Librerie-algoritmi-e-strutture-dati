@@ -1,10 +1,12 @@
 
-#ifndef LASDTEST_HPP
-#define LASDTEST_HPP
+#ifndef EX2TEST_HPP
+#define EX2TEST_HPP
 
 /* ************************************************************************** */
 
-void lasdtest();
+void testSimpleExercise2();
+
+void testFullExercise2();
 
 /* ************************************************************************** */
 
