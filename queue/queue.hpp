@@ -13,7 +13,7 @@ namespace lasd {
 /* ************************************************************************** */
 
 template <typename Data>
-class Queue : public Container{
+class Queue : virtual public Container{
               // Must extend Container
 
 private:
@@ -47,12 +47,12 @@ public:
 
   // Specific member functions
 
-  // type Head() specifiers; // (constant version; concrete function must throw std::length_error when empty)
-  // type Head() specifiers; // (concrete function must throw std::length_error when empty)
-  // type Dequeue() specifiers; // (concrete function must throw std::length_error when empty)
-  // type HeadNDequeue() specifiers; // (concrete function must throw std::length_error when empty)
-  void Enqueue(const Data &d) specifiers; // Copy of the value
-  void Enqueue(Data &&d) specifiers; // Move of the value
+  virtual void Head() = 0; // (constant version; concrete function must throw std::length_error when empty)
+  virtual Data& Head() = 0; // (concrete function must throw std::length_error when empty)
+  virtual void Dequeue() = 0; // (concrete function must throw std::length_error when empty)
+  virtual Data& HeadNDequeue() = 0; // (concrete function must throw std::length_error when empty)
+  virtual void Enqueue(const Data &d) noexcept = 0; // Copy of the value
+  virtual void Enqueue(Data &&d) noexcept = 0; // Move of the value
 
 };
 
