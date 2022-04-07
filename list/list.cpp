@@ -73,7 +73,6 @@ List<Data>::List(const LinearContainer<Data>& lc)
 {
     if(!lc.Empty())
     {
-        Clear();
         head = new Node(lc[0]);
         Node *tmp = head;
         for(unsigned long i = 1; i<lc.Size(); i++)
@@ -119,6 +118,7 @@ template <typename Data>
 void List<Data>::Clear()
 {
     delete head;
+    head = nullptr;
     size = 0;
 }
 //Front
@@ -177,7 +177,7 @@ List<Data>& List<Data>::operator=(List &&l) noexcept
 template <typename Data>
 Data& List<Data>::operator[](const unsigned long index) const
 {
-    if(size == 0)
+    if(size == 0 || index >= size)
         throw std::out_of_range("Index out of bounds!");
     Node* tmp = head;
     for(unsigned long i = 0; i<index; i++)
