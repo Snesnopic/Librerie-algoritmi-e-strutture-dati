@@ -35,9 +35,9 @@ void FoldProductMoreThanN(const Data& dat, const void* _, void* acc)
         *((Data*) acc) *= dat;
 }
 template <typename Data>
-void FoldConcatEqualN(const Data& dat, const void* _, void* acc)
+void FoldConcatLessEqualN(const Data& dat, const void* _, void* acc)
 {
-    if(dat.length() == *((unsigned long*)_))
+    if(dat.length() <= *((unsigned long*)_))
         *((Data*) acc) += dat;
 }
 template <typename Data>
@@ -195,7 +195,7 @@ void vectorstringtest()
     while(!selection)
     {
         cout<<"0. Esci"<<endl<<"1. Funzione map: Stampa tutti gli elementi"<<endl<<
-            "2. Controlla esistenza di un elemento"<<endl<<"3. Funzione fold: Concatenazione per lunghezza uguale a n"<<endl<<"4. Funzione map: uppercase"<<endl;
+            "2. Controlla esistenza di un elemento"<<endl<<"3. Funzione fold: Concatenazione per lunghezza minore o uguale a n"<<endl<<"4. Funzione map: uppercase"<<endl;
         cin>>testtype;
         switch(testtype)
         {
@@ -223,7 +223,7 @@ void vectorstringtest()
             unsigned long n;
             cin>>n;
             string result = "";
-            v.Fold(&FoldConcatEqualN<string>,&n,&result);
+            v.Fold(&FoldConcatLessEqualN<string>,&n,&result);
             cout<<result<<endl;
             break;
         }
@@ -371,7 +371,7 @@ void liststringtest()
     while(!selection)
     {
         cout<<"0. Esci"<<endl<<"1. Funzione map: Stampa tutti gli elementi"<<endl<<
-            "2. Controlla esistenza di un elemento"<<endl<<"3. Funzione fold: Concatenazione per lunghezza uguale a n"<<endl<<"4. Funzione map: uppercase"<<endl;
+            "2. Controlla esistenza di un elemento"<<endl<<"3. Funzione fold: Concatenazione per lunghezza minore o uguale a n"<<endl<<"4. Funzione map: uppercase"<<endl;
         cin>>testtype;
         switch(testtype)
         {
@@ -399,7 +399,7 @@ void liststringtest()
             unsigned long n;
             cin>>n;
             string result = "";
-            l.Fold(&FoldConcatEqualN<string>,&n,&result);
+            l.Fold(&FoldConcatLessEqualN<string>,&n,&result);
             cout<<result<<endl;
             break;
         }
