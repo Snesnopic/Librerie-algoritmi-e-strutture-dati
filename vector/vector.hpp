@@ -38,7 +38,7 @@ protected:
 public:
 
     // Default constructor
-    Vector() = default;
+    virtual Vector() = default;
 
     /* ************************************************************************ */
 
