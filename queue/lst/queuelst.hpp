@@ -24,8 +24,8 @@ private:
 
 protected:
 
-  using List<Data>::Node;
-
+    using List<Data>::head = nullptr;
+    Node *tail = nullptr;
   // ...
 
 public:
@@ -41,40 +41,40 @@ public:
   /* ************************************************************************ */
 
   // Copy constructor
-    QueueLst(const Queue &q);
+    QueueLst(const QueueLst &ql);
 
   // Move constructor
-    QueueLst(Queue &&q) noexcept;
+    QueueLst(QueueLst &&ql) noexcept;
 
   /* ************************************************************************ */
 
   // Destructor
-    ~QueueLst();
+    virtual ~QueueLst();
 
   /* ************************************************************************ */
 
   // Copy assignment
-    Queue& operator=(const Queue& q);
+    QueueLst& operator=(const QueueLst& ql);
 
   // Move assignment
-    Queue& operator=(Queue&& q) noexcept;
+    QueueLst& operator=(QueueLst&& ql) noexcept;
 
   /* ************************************************************************ */
 
   // Comparison operators
-    bool operator==(const Queue& q) const noexcept;
-    bool operator!=(const Queue& q) const noexcept;
+    bool operator==(const QueueLst& ql) const noexcept;
+    bool operator!=(const QueueLst& ql) const noexcept;
 
   /* ************************************************************************ */
 
   // Specific member functions (inherited from Queue)
 
-    void Head(); // Override Queue member (constant version; must throw std::length_error when empty)
-    Data& Head(); // Override Queue member (must throw std::length_error when empty)
-    void Dequeue(); // Override Queue member (must throw std::length_error when empty)
-    Data& HeadNDequeue(); // Override Queue member (must throw std::length_error when empty)
-    void Enqueue(const Data& d) noexcept; // Override Queue member (copy of the value)
-    void Enqueue(Data&& d) noexcept; // Override Queue member (move of the value)
+    const Data& Head() const override; // Override Queue member (constant version; must throw std::length_error when empty)
+    Data& Head() override; // Override Queue member (must throw std::length_error when empty)
+    void Dequeue() override; // Override Queue member (must throw std::length_error when empty)
+    Data& HeadNDequeue() override; // Override Queue member (must throw std::length_error when empty)
+    void Enqueue(const Data& d) noexcept override; // Override Queue member (copy of the value)
+    void Enqueue(Data &&d) noexcept override; // Override Queue member (move of the value)
 
   /* ************************************************************************ */
 
