@@ -25,9 +25,7 @@ private:
 protected:
 
     using List<Data>::head = nullptr;
-    Node *tail = nullptr;
-
-  // ...
+    // ...
 
 public:
 
