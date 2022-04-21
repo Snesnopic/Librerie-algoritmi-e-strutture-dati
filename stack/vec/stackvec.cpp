@@ -2,7 +2,14 @@ namespace lasd
 {
 
 /* ************************************************************************** */
-
+    // Move constructor
+    template <typename Data>
+    StackVec<Data>::StackVec(StackVec &&sv) noexcept
+    {
+        std::swap(array,sv.array);
+        std::swap(size,sv.size);
+        std::swap(tail,sv.tail);
+    }
 /* ************************************************************************ */
 
     // Copy assignment
