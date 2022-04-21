@@ -25,6 +25,8 @@ private:
 protected:
 
     using Vector<Data>::array = nullptr;
+    unsigned long head = 0;
+    unsigned long tail = 0;
   // ...
 
 public:
