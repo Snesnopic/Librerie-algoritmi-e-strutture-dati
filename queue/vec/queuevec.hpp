@@ -29,14 +29,14 @@ protected:
     using Vector<Data>::size;
     long head = 0;
     long tail = -1;
-    unsigned long capacity = 0;
+    unsigned long elements = 0;
 
     // ...
 
 public:
 
     // Default constructor
-    QueueVec() = default;
+    QueueVec() : Vector<Data>(1){};
 
     /* ************************************************************************ */
 
