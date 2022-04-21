@@ -1,3 +1,3 @@
-
-void testFullExercise1() {
+void testFullExercise1()
+{
 }

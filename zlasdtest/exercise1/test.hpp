@@ -1,4 +1,3 @@
-
 #ifndef EX1TEST_HPP
 #define EX1TEST_HPP
 

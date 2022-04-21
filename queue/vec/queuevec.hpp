@@ -1,4 +1,3 @@
-
 #ifndef QUEUEVEC_HPP
 #define QUEUEVEC_HPP
 
@@ -9,18 +8,20 @@
 
 /* ************************************************************************** */
 
-namespace lasd {
+namespace lasd
+{
 
 /* ************************************************************************** */
 
 template <typename Data>
-class QueueVec : virtual public Queue<Data>,virtual protected Vector<Data>{
-                  // Must extend Queue<Data>,
-                  //             Vector<Data>
+class QueueVec : virtual public Queue<Data>,virtual protected Vector<Data>
+{
+    // Must extend Queue<Data>,
+    //             Vector<Data>
 
 private:
 
-  // ...
+    // ...
 
 protected:
 
@@ -28,48 +29,48 @@ protected:
     unsigned long head = 0;
     unsigned long tail = 0;
 
-  // ...
+    // ...
 
 public:
 
-  // Default constructor
+    // Default constructor
     QueueVec() = default;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Specific constructor
-    QueueVec(const LinearContainer<Data> &lc) specifiers; // A queue obtained from a LinearContainer
+    // Specific constructor
+    QueueVec(const LinearContainer<Data> &lc); // A queue obtained from a LinearContainer
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Copy constructor
+    // Copy constructor
     QueueVec(const QueueVec &qv);
 
-  // Move constructor
+    // Move constructor
     QueueVec(QueueVec &&qv) noexcept;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Destructor
+    // Destructor
     virtual ~QueueVec();
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Copy assignment
+    // Copy assignment
     QueueVec& operator=(const QueueVec &qv);
 
-  // Move assignment
+    // Move assignment
     QueueVec& operator=(QueueVec &&qv) noexcept;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Comparison operators
+    // Comparison operators
     bool operator==(const QueueVec &qv) const noexcept;
     bool operator!=(const QueueVec &qv) const noexcept;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Specific member functions (inherited from Queue)
+    // Specific member functions (inherited from Queue)
 
     const Data& Head() const override; // Override Queue member (constant version; must throw std::length_error when empty)
     Data& Head() override; // Override Queue member (must throw std::length_error when empty)
@@ -78,9 +79,9 @@ public:
     void Enqueue(const Data& d) noexcept override; // Override Queue member (copy of the value)
     void Enqueue(Data &&d) noexcept override; // Override Queue member (move of the value)
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Specific member functions (inherited from Container)
+    // Specific member functions (inherited from Container)
 
     bool Empty() const noexcept override; // Override Container member
 
@@ -90,11 +91,11 @@ public:
 
 protected:
 
-  // Auxiliary member functions
+    // Auxiliary member functions
 
     void Expand() noexcept;
     void Reduce() noexcept;
-    void SwapVectors(arguments) noexcept;
+    void SwapVectors(QueueVec &qv) noexcept;
 
 };
 

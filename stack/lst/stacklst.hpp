@@ -1,4 +1,3 @@
-
 #ifndef STACKLST_HPP
 #define STACKLST_HPP
 
@@ -9,18 +8,20 @@
 
 /* ************************************************************************** */
 
-namespace lasd {
+namespace lasd
+{
 
 /* ************************************************************************** */
 
 template <typename Data>
-class StackLst : virtual public Stack<Data>, virtual protected List<Data>{
-                  // Must extend Stack<Data>,
-                  //             List<Data>
+class StackLst : virtual public Stack<Data>, virtual protected List<Data>
+{
+    // Must extend Stack<Data>,
+    //             List<Data>
 
 private:
 
-  // ...
+    // ...
 
 protected:
 
@@ -29,44 +30,44 @@ protected:
 
 public:
 
-  // Default constructor
+    // Default constructor
     StackLst() = default;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Specific constructor
+    // Specific constructor
     StackLst(const LinearContainer<Data> &lc); // A stack obtained from a LinearContainer
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Copy constructor
+    // Copy constructor
     StackLst(const StackLst &sl);
 
-  // Move constructor
+    // Move constructor
     StackLst(StackLst &&sl) noexcept;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Destructor
+    // Destructor
     virtual ~StackLst();
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Copy assignment
+    // Copy assignment
     StackLst& operator=(const StackLst &sl);
 
-  // Move assignment
+    // Move assignment
     StackLst& operator=(StackLst &&sl) noexcept;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Comparison operators
+    // Comparison operators
     bool operator==(const StackLst &sl) const noexcept;
     bool operator!=(const StackLst &sl) const noexcept;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Specific member functions (inherited from Stack)
+    // Specific member functions (inherited from Stack)
 
     const Data& Top() const override; // Override Stack member (constant version; must throw std::length_error when empty)
     Data& Top() override; // Override Stack member (must throw std::length_error when empty)
@@ -75,9 +76,9 @@ public:
     void Push(const Data& d) noexcept override; // Override Stack member (copy of the value)
     void Push(Data &&d) noexcept override; // Override Stack member (move of the value)
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Specific member functions (inherited from Container)
+    // Specific member functions (inherited from Container)
 
     void Clear() override; // Override Container member
 
