@@ -25,8 +25,8 @@ private:
 
 protected:
 
-    using List<Data>::head = nullptr;
-    Node *tail = nullptr;
+    using List<Data>::head;
+    using List<Data>::size;
     // ...
 
 public:
@@ -37,20 +37,20 @@ public:
     /* ************************************************************************ */
 
     // Specific constructor
-    QueueLst(const LinearContainer<Data> &lc); // A queue obtained from a LinearContainer
+    QueueLst(const LinearContainer<Data> &lc) : List<Data>(lc){}; // A queue obtained from a LinearContainer
 
     /* ************************************************************************ */
 
     // Copy constructor
-    QueueLst(const QueueLst &ql);
+    QueueLst(const QueueLst &ql) : List<Data>(ql){};
 
     // Move constructor
-    QueueLst(QueueLst &&ql) noexcept;
+    QueueLst(QueueLst &&ql) noexcept : List<Data>(std::move(ql)){};
 
     /* ************************************************************************ */
 
     // Destructor
-    virtual ~QueueLst();
+    virtual ~QueueLst() = default;
 
     /* ************************************************************************ */
 
