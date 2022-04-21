@@ -25,9 +25,11 @@ private:
 
 protected:
 
-    using Vector<Data>::array = nullptr;
-    unsigned long head = 0;
-    unsigned long tail = 0;
+    using Vector<Data>::array;
+    using Vector<Data>::size;
+    long head = 0;
+    long tail = -1;
+    unsigned long capacity = 0;
 
     // ...
 
@@ -85,7 +87,7 @@ public:
 
     bool Empty() const noexcept override; // Override Container member
 
-    unsigned int Size() const noexcept override; // Override Container member
+    unsigned long Size() const noexcept override; // Override Container member
 
     void Clear() noexcept override; // Override Container member
 
@@ -95,7 +97,7 @@ protected:
 
     void Expand() noexcept;
     void Reduce() noexcept;
-    void SwapVectors(QueueVec &qv) noexcept;
+    void SwapVectors(Data *tmp) noexcept;
 
 };
 
