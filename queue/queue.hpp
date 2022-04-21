@@ -33,16 +33,16 @@ public:
     /* ************************************************************************ */
 
     // Copy assignment
-    virtual operator=(const Queue &q) = delete; // Copy assignment of abstract types should not be possible.
+    virtual Queue& operator=(const Queue &q) = delete; // Copy assignment of abstract types should not be possible.
 
     // Move assignment
-    virtual operator=(Queue &&q) noexcept = delete; // Move assignment of abstract types should not be possible.
+    virtual Queue& operator=(Queue &&q) noexcept = delete; // Move assignment of abstract types should not be possible.
 
     /* ************************************************************************ */
 
     // Comparison operators
-    virtual operator==(const Queue &q) const noexcept = delete; // Comparison of abstract types might not be possible.
-    virtual operator!=(const Queue &q) const noexcept = delete; // Comparison of abstract types might not be possible.
+    virtual bool operator==(const Queue &q) const noexcept = delete; // Comparison of abstract types might not be possible.
+    virtual bool operator!=(const Queue &q) const noexcept = delete; // Comparison of abstract types might not be possible.
 
     /* ************************************************************************ */
 
