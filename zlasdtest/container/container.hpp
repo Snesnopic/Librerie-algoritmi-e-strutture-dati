@@ -7,16 +7,16 @@
 
 // Container member functions!
 
-void Empty(uint&, uint&, const lasd::Container&, bool);
+void Empty(unsigned int&, unsigned int&, const lasd::Container&, bool);
 
-void Size(uint&, uint&, const lasd::Container&, bool, ulong);
+void Size(unsigned int&, unsigned int&, const lasd::Container&, bool, unsigned long);
 
 /* ************************************************************************** */
 
 // LinearContainer member functions!
 
 template <typename Data>
-void GetFront(uint& testnum, uint& testerr, const lasd::LinearContainer<Data>& con, bool chk, const Data& val)
+void GetFront(unsigned int& testnum, unsigned int& testerr, const lasd::LinearContainer<Data>& con, bool chk, const Data& val)
 {
     bool tst;
     testnum++;
@@ -34,11 +34,11 @@ void GetFront(uint& testnum, uint& testerr, const lasd::LinearContainer<Data>& c
         tst = false;
         std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
     }
-    testerr += (1 - (uint) tst);
+    testerr += (1 - (unsigned int) tst);
 }
 
 template <typename Data>
-void SetFront(uint& testnum, uint& testerr, const lasd::LinearContainer<Data>& con, bool chk, const Data& val)
+void SetFront(unsigned int& testnum, unsigned int& testerr, const lasd::LinearContainer<Data>& con, bool chk, const Data& val)
 {
     bool tst;
     testnum++;
@@ -57,11 +57,11 @@ void SetFront(uint& testnum, uint& testerr, const lasd::LinearContainer<Data>& c
         tst = false;
         std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
     }
-    testerr += (1 - (uint) tst);
+    testerr += (1 - (unsigned int) tst);
 }
 
 template <typename Data>
-void GetBack(uint& testnum, uint& testerr, const lasd::LinearContainer<Data>& con, bool chk, const Data& val)
+void GetBack(unsigned int& testnum, unsigned int& testerr, const lasd::LinearContainer<Data>& con, bool chk, const Data& val)
 {
     bool tst;
     testnum++;
@@ -79,11 +79,11 @@ void GetBack(uint& testnum, uint& testerr, const lasd::LinearContainer<Data>& co
         tst = false;
         std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
     }
-    testerr += (1 - (uint) tst);
+    testerr += (1 - (unsigned int) tst);
 }
 
 template <typename Data>
-void SetBack(uint& testnum, uint& testerr, const lasd::LinearContainer<Data>& con, bool chk, const Data& val)
+void SetBack(unsigned int& testnum, unsigned int& testerr, const lasd::LinearContainer<Data>& con, bool chk, const Data& val)
 {
     bool tst;
     testnum++;
@@ -102,11 +102,11 @@ void SetBack(uint& testnum, uint& testerr, const lasd::LinearContainer<Data>& co
         tst = false;
         std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
     }
-    testerr += (1 - (uint) tst);
+    testerr += (1 - (unsigned int) tst);
 }
 
 template <typename Data>
-void GetAt(uint& testnum, uint& testerr, lasd::LinearContainer<Data>& con, bool chk, const ulong& ind, const Data& val)
+void GetAt(unsigned int& testnum, unsigned int& testerr, lasd::LinearContainer<Data>& con, bool chk, const unsigned long& ind, const Data& val)
 {
     bool tst;
     testnum++;
@@ -124,11 +124,11 @@ void GetAt(uint& testnum, uint& testerr, lasd::LinearContainer<Data>& con, bool 
         tst = false;
         std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
     }
-    testerr += (1 - (uint) tst);
+    testerr += (1 - (unsigned int) tst);
 }
 
 template <typename Data>
-void SetAt(uint& testnum, uint& testerr, lasd::LinearContainer<Data>& con, bool chk, const ulong& ind, const Data& val)
+void SetAt(unsigned int& testnum, unsigned int& testerr, lasd::LinearContainer<Data>& con, bool chk, const unsigned long& ind, const Data& val)
 {
     bool tst;
     testnum++;
@@ -147,7 +147,7 @@ void SetAt(uint& testnum, uint& testerr, lasd::LinearContainer<Data>& con, bool 
         tst = false;
         std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
     }
-    testerr += (1 - (uint) tst);
+    testerr += (1 - (unsigned int) tst);
 }
 
 /* ************************************************************************** */
@@ -155,13 +155,13 @@ void SetAt(uint& testnum, uint& testerr, lasd::LinearContainer<Data>& con, bool 
 // TestableContainer member functions!
 
 template <typename Data>
-void Exists(uint& testnum, uint& testerr, const lasd::TestableContainer<Data>& con, bool chk, const Data& val)
+void Exists(unsigned int& testnum, unsigned int& testerr, const lasd::TestableContainer<Data>& con, bool chk, const Data& val)
 {
     bool tst;
     testnum++;
     std::cout << " " << testnum << " (" << testerr << ") Data \"" << val << "\" " << ((tst = con.Exists(val)) ? "does" : "does not") << " exist: ";
     std::cout << ((tst = (tst == chk)) ? "Correct" : "Error") << "!" << std::endl;
-    testerr += (1 - (uint) tst);
+    testerr += (1 - (unsigned int) tst);
 }
 
 /* ************************************************************************** */
@@ -169,7 +169,7 @@ void Exists(uint& testnum, uint& testerr, const lasd::TestableContainer<Data>& c
 // MappableContainer member functions!
 
 template <typename Data, typename Parameter>
-void Map(uint& testnum, uint& testerr, lasd::MappableContainer<Data>& con, bool chk, typename lasd::MappableContainer<Data>::MapFunctor fun, const Parameter& inipar)
+void Map(unsigned int& testnum, unsigned int& testerr, lasd::MappableContainer<Data>& con, bool chk, typename lasd::MappableContainer<Data>::MapFunctor fun, const Parameter& inipar)
 {
     bool tst = true;
     testnum++;
@@ -184,7 +184,7 @@ void Map(uint& testnum, uint& testerr, lasd::MappableContainer<Data>& con, bool 
     {
         std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    testerr += (1 - (uint) tst);
+    testerr += (1 - (unsigned int) tst);
 }
 
 template <typename Data>
@@ -259,7 +259,7 @@ void MapStringNonEmptyAppend(std::string&, void*);
 // FoldableContainer member functions!
 
 template <typename Data, typename Parameter, typename Value>
-void Fold(uint& testnum, uint& testerr, const lasd::FoldableContainer<Data>& con, bool chk, typename lasd::FoldableContainer<Data>::FoldFunctor fun, const Parameter& inipar, const Value& inival, const Value& finval)
+void Fold(unsigned int& testnum, unsigned int& testerr, const lasd::FoldableContainer<Data>& con, bool chk, typename lasd::FoldableContainer<Data>::FoldFunctor fun, const Parameter& inipar, const Value& inival, const Value& finval)
 {
     bool tst;
     testnum++;
@@ -276,7 +276,7 @@ void Fold(uint& testnum, uint& testerr, const lasd::FoldableContainer<Data>& con
     {
         std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    testerr += (1 - (uint) tst);
+    testerr += (1 - (unsigned int) tst);
 }
 
 template <typename Data>
@@ -300,7 +300,7 @@ void FoldStringConcatenate(const std::string&, const void*, void*);
 // PreOrderMappableContainer member functions!
 
 template <typename Data, typename Parameter>
-void MapPreOrder(uint& testnum, uint& testerr, lasd::PreOrderMappableContainer<Data>& con, bool chk, typename lasd::MappableContainer<Data>::MapFunctor fun, const Parameter& inipar)
+void MapPreOrder(unsigned int& testnum, unsigned int& testerr, lasd::PreOrderMappableContainer<Data>& con, bool chk, typename lasd::MappableContainer<Data>::MapFunctor fun, const Parameter& inipar)
 {
     bool tst = true;
     testnum++;
@@ -315,7 +315,7 @@ void MapPreOrder(uint& testnum, uint& testerr, lasd::PreOrderMappableContainer<D
     {
         std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    testerr += (1 - (uint) tst);
+    testerr += (1 - (unsigned int) tst);
 }
 
 /* ************************************************************************** */
@@ -323,7 +323,7 @@ void MapPreOrder(uint& testnum, uint& testerr, lasd::PreOrderMappableContainer<D
 // PreOrderFoldableContainer member functions!
 
 template <typename Data, typename Parameter, typename Value>
-void FoldPreOrder(uint& testnum, uint& testerr, const lasd::PreOrderFoldableContainer<Data>& con, bool chk, typename lasd::FoldableContainer<Data>::FoldFunctor fun, const Parameter& inipar, const Value& inival, const Value& finval)
+void FoldPreOrder(unsigned int& testnum, unsigned int& testerr, const lasd::PreOrderFoldableContainer<Data>& con, bool chk, typename lasd::FoldableContainer<Data>::FoldFunctor fun, const Parameter& inipar, const Value& inival, const Value& finval)
 {
     bool tst;
     testnum++;
@@ -340,7 +340,7 @@ void FoldPreOrder(uint& testnum, uint& testerr, const lasd::PreOrderFoldableCont
     {
         std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    testerr += (1 - (uint) tst);
+    testerr += (1 - (unsigned int) tst);
 }
 
 /* ************************************************************************** */
@@ -348,7 +348,7 @@ void FoldPreOrder(uint& testnum, uint& testerr, const lasd::PreOrderFoldableCont
 // PostOrderMappableContainer member functions!
 
 template <typename Data, typename Parameter>
-void MapPostOrder(uint& testnum, uint& testerr, lasd::PostOrderMappableContainer<Data>& con, bool chk, typename lasd::MappableContainer<Data>::MapFunctor fun, const Parameter& inipar)
+void MapPostOrder(unsigned int& testnum, unsigned int& testerr, lasd::PostOrderMappableContainer<Data>& con, bool chk, typename lasd::MappableContainer<Data>::MapFunctor fun, const Parameter& inipar)
 {
     bool tst = true;
     testnum++;
@@ -363,7 +363,7 @@ void MapPostOrder(uint& testnum, uint& testerr, lasd::PostOrderMappableContainer
     {
         std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    testerr += (1 - (uint) tst);
+    testerr += (1 - (unsigned int) tst);
 }
 
 /* ************************************************************************** */
@@ -371,7 +371,7 @@ void MapPostOrder(uint& testnum, uint& testerr, lasd::PostOrderMappableContainer
 // PostOrderFoldableContainer member functions!
 
 template <typename Data, typename Parameter, typename Value>
-void FoldPostOrder(uint& testnum, uint& testerr, const lasd::PostOrderFoldableContainer<Data>& con, bool chk, typename lasd::FoldableContainer<Data>::FoldFunctor fun, const Parameter& inipar, const Value& inival, const Value& finval)
+void FoldPostOrder(unsigned int& testnum, unsigned int& testerr, const lasd::PostOrderFoldableContainer<Data>& con, bool chk, typename lasd::FoldableContainer<Data>::FoldFunctor fun, const Parameter& inipar, const Value& inival, const Value& finval)
 {
     bool tst;
     testnum++;
@@ -388,7 +388,7 @@ void FoldPostOrder(uint& testnum, uint& testerr, const lasd::PostOrderFoldableCo
     {
         std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    testerr += (1 - (uint) tst);
+    testerr += (1 - (unsigned int) tst);
 }
 
 /* ************************************************************************** */
@@ -396,7 +396,7 @@ void FoldPostOrder(uint& testnum, uint& testerr, const lasd::PostOrderFoldableCo
 // InOrderMappableContainer member functions!
 
 template <typename Data, typename Parameter>
-void MapInOrder(uint& testnum, uint& testerr, lasd::InOrderMappableContainer<Data>& con, bool chk, typename lasd::InOrderMappableContainer<Data>::MapFunctor fun, const Parameter& inipar)
+void MapInOrder(unsigned int& testnum, unsigned int& testerr, lasd::InOrderMappableContainer<Data>& con, bool chk, typename lasd::InOrderMappableContainer<Data>::MapFunctor fun, const Parameter& inipar)
 {
     bool tst = true;
     testnum++;
@@ -411,7 +411,7 @@ void MapInOrder(uint& testnum, uint& testerr, lasd::InOrderMappableContainer<Dat
     {
         std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    testerr += (1 - (uint) tst);
+    testerr += (1 - (unsigned int) tst);
 }
 
 /* ************************************************************************** */
@@ -419,7 +419,7 @@ void MapInOrder(uint& testnum, uint& testerr, lasd::InOrderMappableContainer<Dat
 // InOrderFoldableContainer member functions!
 
 template <typename Data, typename Parameter, typename Value>
-void FoldInOrder(uint& testnum, uint& testerr, const lasd::InOrderFoldableContainer<Data>& con, bool chk, typename lasd::InOrderFoldableContainer<Data>::FoldFunctor fun, const Parameter& inipar, const Value& inival, const Value& finval)
+void FoldInOrder(unsigned int& testnum, unsigned int& testerr, const lasd::InOrderFoldableContainer<Data>& con, bool chk, typename lasd::InOrderFoldableContainer<Data>::FoldFunctor fun, const Parameter& inipar, const Value& inival, const Value& finval)
 {
     bool tst;
     testnum++;
@@ -436,7 +436,7 @@ void FoldInOrder(uint& testnum, uint& testerr, const lasd::InOrderFoldableContai
     {
         std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    testerr += (1 - (uint) tst);
+    testerr += (1 - (unsigned int) tst);
 }
 
 /* ************************************************************************** */
@@ -444,7 +444,7 @@ void FoldInOrder(uint& testnum, uint& testerr, const lasd::InOrderFoldableContai
 // BreadthMappableContainer member functions!
 
 template <typename Data, typename Parameter>
-void MapBreadth(uint& testnum, uint& testerr, lasd::BreadthMappableContainer<Data>& con, bool chk, typename lasd::BreadthMappableContainer<Data>::MapFunctor fun, const Parameter& inipar)
+void MapBreadth(unsigned int& testnum, unsigned int& testerr, lasd::BreadthMappableContainer<Data>& con, bool chk, typename lasd::BreadthMappableContainer<Data>::MapFunctor fun, const Parameter& inipar)
 {
     bool tst = true;
     testnum++;
@@ -459,7 +459,7 @@ void MapBreadth(uint& testnum, uint& testerr, lasd::BreadthMappableContainer<Dat
     {
         std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    testerr += (1 - (uint) tst);
+    testerr += (1 - (unsigned int) tst);
 }
 
 /* ************************************************************************** */
@@ -467,7 +467,7 @@ void MapBreadth(uint& testnum, uint& testerr, lasd::BreadthMappableContainer<Dat
 // BreadthFoldableContainer member functions!
 
 template <typename Data, typename Parameter, typename Value>
-void FoldBreadth(uint& testnum, uint& testerr, const lasd::BreadthFoldableContainer<Data>& con, bool chk, typename lasd::BreadthFoldableContainer<Data>::FoldFunctor fun, const Parameter& inipar, const Value& inival, const Value& finval)
+void FoldBreadth(unsigned int& testnum, unsigned int& testerr, const lasd::BreadthFoldableContainer<Data>& con, bool chk, typename lasd::BreadthFoldableContainer<Data>::FoldFunctor fun, const Parameter& inipar, const Value& inival, const Value& finval)
 {
     bool tst;
     testnum++;
@@ -484,7 +484,7 @@ void FoldBreadth(uint& testnum, uint& testerr, const lasd::BreadthFoldableContai
     {
         std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    testerr += (1 - (uint) tst);
+    testerr += (1 - (unsigned int) tst);
 }
 
 /* ************************************************************************** */
