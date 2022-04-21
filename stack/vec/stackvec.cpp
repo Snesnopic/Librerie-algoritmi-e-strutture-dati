@@ -139,7 +139,6 @@ namespace lasd
     void StackVec<Data>::Reduce() noexcept
     {
         Data* tmp = new Data[size / 2];
-        std::cout<<"Size : "<<size<<"   Size /2:    "<<size/2<<"    Tail + 1:   "<<tail+1;
         for(unsigned long i = 0; i < tail + 1; i++)
         {
             std::swap(array[i],tmp[i]);
