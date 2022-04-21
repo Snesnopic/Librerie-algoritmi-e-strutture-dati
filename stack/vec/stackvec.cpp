@@ -69,8 +69,21 @@ namespace lasd {
   /* ************************************************************************ */
 
   // Comparison operators
-    bool StackVec::operator==(const StackVec &sv) const noexcept;
-    bool StackVec::operator!=(const StackVec &sv) const noexcept;
+    bool StackVec::operator==(const StackVec &sv) const noexcept
+    {
+        if(size != sv.Size())
+            return false;
+        for(unsigned long i=0 ; i<size; i++)
+        {
+            if(array[i] != sv[i])
+                return false;
+        }
+        return true;
+    }
+    bool StackVec::operator!=(const StackVec &sv) const noexcept
+    {
+        return !(this == sv)
+    }
 
   /* ************************************************************************ */
 
@@ -78,11 +91,15 @@ namespace lasd {
 
     const Data& StackVec::Top() const // Override Stack member (constant version; must throw std::length_error when empty)
     {
-
+        if(size == 0)
+            throw std::length_error("Length error!");
+        return array[0];
     }
     Data& StackVec::Top() // Override Stack member (must throw std::length_error when empty)
     {
-
+        if(size == 0)
+            throw std::length_error("Length error!");
+        return array[0];
     }
     void StackVec::Pop() // Override Stack member (must throw std::length_error when empty)
     {
