@@ -27,7 +27,7 @@ protected:
 
     using Vector<Data>::array;
     using Vector<Data>::size;
-    long head = -1;
+    long head = 0;
     long tail = -1;
     unsigned long elements = 0;
 
@@ -36,12 +36,16 @@ protected:
 public:
 
     // Default constructor
-    QueueVec() : Vector<Data>(1){};
+    QueueVec() : Vector<Data>(1) {};
 
     /* ************************************************************************ */
 
     // Specific constructor
-    QueueVec(const LinearContainer<Data> &lc): Vector<Data>(lc){elements = size; tail = elements - 1;}; // A queue obtained from a LinearContainer
+    QueueVec(const LinearContainer<Data> &lc): Vector<Data>(lc)
+    {
+        elements = size;
+        tail = elements - 1;
+    }; // A queue obtained from a LinearContainer
 
     /* ************************************************************************ */
 

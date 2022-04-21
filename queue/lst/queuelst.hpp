@@ -37,15 +37,15 @@ public:
     /* ************************************************************************ */
 
     // Specific constructor
-    QueueLst(const LinearContainer<Data> &lc) : List<Data>(lc){}; // A queue obtained from a LinearContainer
+    QueueLst(const LinearContainer<Data> &lc) : List<Data>(lc) {}; // A queue obtained from a LinearContainer
 
     /* ************************************************************************ */
 
     // Copy constructor
-    QueueLst(const QueueLst &ql) : List<Data>(ql){};
+    QueueLst(const QueueLst &ql) : List<Data>(ql) {};
 
     // Move constructor
-    QueueLst(QueueLst &&ql) noexcept : List<Data>(std::move(ql)){};
+    QueueLst(QueueLst &&ql) noexcept : List<Data>(std::move(ql)) {};
 
     /* ************************************************************************ */
 

@@ -33,17 +33,17 @@ protected:
 public:
 
     // Default constructor
-    StackVec() : Vector<Data>(1){};
+    StackVec() : Vector<Data>(1) {};
 
     /* ************************************************************************ */
 
     // Specific constructor
-    StackVec(const LinearContainer<Data> &lc) : Vector<Data>(lc), tail(size - 1){}; // A stack obtained from a LinearContainer
+    StackVec(const LinearContainer<Data> &lc) : Vector<Data>(lc), tail(size - 1) {}; // A stack obtained from a LinearContainer
 
     /* ************************************************************************ */
 
     // Copy constructor
-    StackVec(const StackVec &sv) : Vector<Data>(sv), tail(sv.tail){};
+    StackVec(const StackVec &sv) : Vector<Data>(sv), tail(sv.tail) {};
 
     // Move constructor
     StackVec(StackVec &&sv) noexcept;

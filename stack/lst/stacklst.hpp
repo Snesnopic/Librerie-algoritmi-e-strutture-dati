@@ -36,15 +36,15 @@ public:
     /* ************************************************************************ */
 
     // Specific constructor
-    StackLst(const LinearContainer<Data> &lc) : List<Data>(lc){}; // A stack obtained from a LinearContainer
+    StackLst(const LinearContainer<Data> &lc) : List<Data>(lc) {}; // A stack obtained from a LinearContainer
 
     /* ************************************************************************ */
 
     // Copy constructor
-    StackLst(const StackLst &sl) : List<Data>(sl){};
+    StackLst(const StackLst &sl) : List<Data>(sl) {};
 
     // Move constructor
-    StackLst(StackLst &&sl) noexcept : List<Data>(std::move(sl)){};
+    StackLst(StackLst &&sl) noexcept : List<Data>(std::move(sl)) {};
 
     /* ************************************************************************ */
 
