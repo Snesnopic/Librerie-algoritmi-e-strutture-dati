@@ -8,11 +8,12 @@ namespace lasd
     QueueVec<Data>::QueueVec(const QueueVec &qv)
     {
         elements = qv.elements;
-        tail = elements - 1;
-        array = new Data[elements];
-        for(unsigned long i = 0; i < elements ; i++)
-            array[i] = qv.array[(i + qv.head) & qv.size];
         size = elements;
+        tail = elements - 1;
+        array = new Data[size];
+        for(unsigned long i = 0; i < elements ; i++)
+            array[i] = qv.array[(i + qv.head) % qv.size];
+
     }
 
     // Move constructor
@@ -23,7 +24,7 @@ namespace lasd
         tail = elements - 1;
         array = new Data[elements];
         for(unsigned long i = 0; i < elements ; i++)
-            array[i] = std::move(qv.array[(i + qv.head) & qv.size]);
+            array[i] = std::move(qv.array[(i + qv.head) % qv.size]);
         size = elements;
     }
 
@@ -35,13 +36,14 @@ namespace lasd
     {
         if(this != &qv)
         {
-            size = qv.size;
+            Clear();
             elements = qv.elements;
-            tail = elements - 1;
             array = new Data[elements];
             for(unsigned long i = 0; i < elements ; i++)
-                array[i] = qv.array[(i + qv.head) & qv.size];
+                array[i] = qv.array[(i + qv.head) % qv.size];
+
             size = elements;
+            tail = elements - 1;
         }
         return *this;
     }
@@ -52,12 +54,12 @@ namespace lasd
     {
         if(this != &qv)
         {
-
+            Clear();
             elements = qv.elements;
             tail = elements - 1;
             array = new Data[elements];
             for(unsigned long i = 0; i < elements ; i++)
-                array[i] = std::move(qv.array[(i + qv.head) & qv.size]);
+                array[i] = std::move(qv.array[(i + qv.head) % qv.size]);
             size = elements;
         }
         return *this;
@@ -73,7 +75,7 @@ namespace lasd
         {
             for(unsigned long i = 0; i < elements; i++)
             {
-                if(array[(head + i) % size] != qv.array[(qv.head + i) & qv.size])
+                if(array[(head + i) % size] != qv.array[(qv.head + i) % qv.size])
                     return false;
             }
             return true;
@@ -123,9 +125,11 @@ namespace lasd
     template <typename Data>
     void QueueVec<Data>::Enqueue(const Data& d) noexcept // Override Queue member (copy of the value)
     {
-        elements++;
-        if(elements > size)
+        if(elements == size)
             Expand();
+        elements++;
+        if(elements == 1)
+            head++;
         tail = (tail + 1) % size;
         array[tail] = d;
 
@@ -133,9 +137,11 @@ namespace lasd
     template <typename Data>
     void QueueVec<Data>::Enqueue(Data &&d) noexcept // Override Queue member (move of the value)
     {
-        elements++;
         if(elements > size)
             Expand();
+        elements++;
+        if(elements == 1)
+            head++;
         tail = (tail + 1) % size;
         array[tail] = std::move(d);
     }
@@ -162,8 +168,6 @@ namespace lasd
         size = 0;
         tail = -1;
     }
-
-
     // Auxiliary member functions
     template <typename Data>
     void QueueVec<Data>::Expand() noexcept
@@ -182,7 +186,7 @@ namespace lasd
     template <typename Data>
     void QueueVec<Data>::SwapVectors(Data *tmp) noexcept
     {
-        for(unsigned long i = 0; i < size; i++)
+        for(unsigned long i = 0; i < elements; i++)
         {
             std::swap(array[(i + head) % size],tmp[i]);
         }
