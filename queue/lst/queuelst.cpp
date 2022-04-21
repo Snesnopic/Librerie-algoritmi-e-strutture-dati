@@ -3,220 +3,79 @@ namespace lasd
 
 /* ************************************************************************** */
 
-// Specific constructor
-template <typename Data>
-QueueLst::QueueLst(const LinearContainer<Data> &lc) // A queue obtained from a LinearContainer
-{
-    if(!lc.Empty())
+    // Copy assignment
+    template <typename Data>
+    QueueLst<Data>& QueueLst<Data>::operator=(const QueueLst& ql)
     {
-        head = new Node(lc[0]);
-        Node *tmp = head;
-        for(unsigned long i = 1; i<lc.Size(); i++)
-        {
-            tmp->next = new Node(lc[i]);
-            tmp = tmp->next;
-        }
-        tail = tmp;
+        List<Data>::operator=(ql);
+        return *this;
     }
-    size = lc.Size();
-}
 
-/* ************************************************************************ */
-
-// Copy constructor
-template <typename Data>
-QueueLst::QueueLst(const QueueLst &ql)
-{
-    size = ql.size;
-    if(ql.head != nullptr)
+    // Move assignment
+    template <typename Data>
+    QueueLst<Data>& QueueLst<Data>::operator=(QueueLst&& ql) noexcept
     {
-        head = new Node(ql.head->dato);
-        Node *tmp1 = head;
-        Node *tmp2 = ql.head->next;
-        while(tmp2 != nullptr)
-        {
-            tmp1->next = new Node(tmp2->dato);
-            tmp1 = tmp1->next;
-            tmp2 = tmp2->next;
-        }
-        tmp1->next = nullptr;
-        tail = tmp1;
+        List<Data>::operator=(std::move(ql));
+        return *this;
     }
-}
 
-// Move constructor
-template <typename Data>
-QueueLst::QueueLst(QueueLst &&ql) noexcept
-{
-    if(ql.head != nullptr)
+    /* ************************************************************************ */
+
+    // Comparison operators
+    template <typename Data>
+    bool QueueLst<Data>::operator==(const QueueLst& ql) const noexcept
     {
-        std::swap(head,ql.head);
-        std::swap(size,ql.size);
+        return List<Data>::operator==(ql);
     }
-    Node *tmp = head;
-    while(tmp->next != nullptr)
+    template <typename Data>
+    bool QueueLst<Data>::operator!=(const QueueLst& ql) const noexcept
     {
-        tmp = tmp->next;
+        return !(*this == ql);
     }
-    tail = tmp;
-}
 
-/* ************************************************************************ */
+    /* ************************************************************************ */
 
-// Destructor
-template <typename Data>
-QueueLst::~QueueLst()
-{
-    if(head != nullptr)
-        delete head;
-}
-
-/* ************************************************************************ */
-
-// Copy assignment
-template <typename Data>
-QueueLst& QueueLst::operator=(const QueueLst& ql)
-{
-    size = ql.size;
-    if(ql.head != nullptr)
+    // Specific member functions (inherited from Queue)
+    template <typename Data>
+    const Data& QueueLst<Data>::Head() const // Override Queue member (constant version; must throw std::length_error when empty)
     {
-        head = new Node(ql.head->dato);
-        Node *tmp1 = head;
-        Node *tmp2 = ql.head->next;
-        while(tmp2 != nullptr)
-        {
-            tmp1->next = new Node(tmp2->dato);
-            tmp1 = tmp1->next;
-            tmp2 = tmp2->next;
-        }
-        tmp1->next = nullptr;
-        tail = tmp1;
+        return List<Data>::Front();
     }
-    return *this;
-}
-
-// Move assignment
-template <typename Data>
-QueueLst& QueueLst::operator=(QueueLst&& ql) noexcept
-{
-    if(ql.head != nullptr)
+    template <typename Data>
+    Data& QueueLst<Data>::Head() // Override Queue member (must throw std::length_error when empty)
     {
-        std::swap(head,ql.head);
-        std::swap(size,ql.size);
+        return List<Data>::Front();
     }
-    Node *tmp = head;
-    while(tmp->next != nullptr)
+    template <typename Data>
+    void QueueLst<Data>::Dequeue() // Override Queue member (must throw std::length_error when empty)
     {
-        tmp = tmp->next;
+        List<Data>::RemoveFromFront();
     }
-    tail = tmp;
-    return *this;
-}
-
-/* ************************************************************************ */
-
-// Comparison operators
-template <typename Data>
-bool QueueLst::operator==(const QueueLst& ql) const noexcept
-{
-    if(size != ql.size)
-        return false;
-    Node *tmp = head;
-    Node *tmp2 = l.head;
-    while(tmp != nullptr)
+    template <typename Data>
+    Data& QueueLst<Data>::HeadNDequeue() // Override Queue member (must throw std::length_error when empty)
     {
-        if(tmp->dato != tmp2->dato)
-            return false;
-        tmp = tmp->next;
-        tmp2 = tmp2->next;
+        return List<Data>::FrontNRemove();
     }
-    return true;
-}
-template <typename Data>
-bool QueueLst::operator!=(const QueueLst& ql) const noexcept
-{
-    return !(this == ql);
-}
-
-/* ************************************************************************ */
-
-// Specific member functions (inherited from Queue)
-template <typename Data>
-const Data& QueueLst::Head() const // Override Queue member (constant version; must throw std::length_error when empty)
-{
-    if(head == nullptr)
-        throw std::length_error("Length error!");
-    return tail->dato;
-}
-template <typename Data>
-Data& QueueLst::Head() // Override Queue member (must throw std::length_error when empty)
-{
-    if(head == nullptr)
-        throw std::length_error("Length error!");
-    return tail->dato;
-}
-template <typename Data>
-void QueueLst::Dequeue() // Override Queue member (must throw std::length_error when empty)
-{
-    if(head == nullptr)
-        throw std::length_error("Length error!");
-    Node *tmp = head;
-    head = head->next;
-    if(head == nullptr)
-        tail = nullptr;
-    delete tmp;
-    size--;
-}
-template <typename Data>
-Data& QueueLst::HeadNDequeue() // Override Queue member (must throw std::length_error when empty)
-{
-    if(head == nullptr)
+    template <typename Data>
+    void QueueLst<Data>::Enqueue(const Data& d) noexcept // Override Queue member (copy of the value)
     {
-        throw std::length_error("Length error!");
+        List<Data>::InsertAtBack(d);
     }
-    Data &ref = *(new Data(Head()));
-    Dequeue();
-    return ref;
-}
-template <typename Data>
-void QueueLst::Enqueue(const Data& d) noexcept // Override Queue member (copy of the value)
-{
-    Node *n = new Node(d);
-    if(tail == nullptr)
-        head = tail = n;
-    else
+    template <typename Data>
+    void QueueLst<Data>::Enqueue(Data &&d) noexcept // Override Queue member (move of the value)
     {
-        tail->next = n;
-        tail = n;
+        List<Data>::InsertAtBack(std::move(d));
     }
-    size++;
-}
-template <typename Data>
-void QueueLst::Enqueue(Data &&d) noexcept // Override Queue member (move of the value)
-{
-    Node *n = new Node(std::move(d));
-    if(tail == nullptr)
-        head = tail = n;
-    else
+
+    /* ************************************************************************ */
+
+    // Specific member functions (inherited from Container)
+    template <typename Data>
+    void QueueLst<Data>::Clear() // Override Container member
     {
-        tail->next = n;
-        tail = n;
+        List<Data>::Clear();
+
     }
-    size++;
-}
-
-/* ************************************************************************ */
-
-// Specific member functions (inherited from Container)
-template <typename Data>
-void QueueLst::Clear() // Override Container member
-{
-    if(head != nullptr)
-        delete head;
-    head = nullptr;
-    tail = nullptr;
-    size = 0;
-}
 
 /* ************************************************************************** */
 
