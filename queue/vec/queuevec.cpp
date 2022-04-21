@@ -3,20 +3,6 @@ namespace lasd
 
     /* ************************************************************************** */
 
-    // Specific constructor
-    template <typename Data>
-    QueueVec<Data>::QueueVec(const LinearContainer<Data> &lc) // A queue obtained from a LinearContainer
-    {
-        elements = lc.Size();
-        size = elements;
-        array = new Data[size];
-        for(unsigned long i = 0; i < size ; i++)
-            array[i] = lc[i];
-        tail = size - 1;
-    }
-
-    /* ************************************************************************ */
-
     // Copy constructor
     template <typename Data>
     QueueVec<Data>::QueueVec(const QueueVec &qv)
@@ -26,22 +12,19 @@ namespace lasd
         array = new Data[elements];
         for(unsigned long i = 0; i < elements ; i++)
             array[i] = qv.array[(i + qv.head) & qv.size];
+        size = elements;
     }
 
     // Move constructor
     template <typename Data>
     QueueVec<Data>::QueueVec(QueueVec &&qv) noexcept
     {
-
-    }
-
-    /* ************************************************************************ */
-
-    // Destructor
-    template <typename Data>
-    QueueVec<Data>::~QueueVec()
-    {
-        delete []array;
+        elements = qv.elements;
+        tail = elements - 1;
+        array = new Data[elements];
+        for(unsigned long i = 0; i < elements ; i++)
+            array[i] = std::move(qv.array[(i + qv.head) & qv.size]);
+        size = elements;
     }
 
     /* ************************************************************************ */
@@ -52,11 +35,13 @@ namespace lasd
     {
         if(this != &qv)
         {
+            size = qv.size;
             elements = qv.elements;
             tail = elements - 1;
             array = new Data[elements];
             for(unsigned long i = 0; i < elements ; i++)
                 array[i] = qv.array[(i + qv.head) & qv.size];
+            size = elements;
         }
         return *this;
     }
@@ -68,6 +53,12 @@ namespace lasd
         if(this != &qv)
         {
 
+            elements = qv.elements;
+            tail = elements - 1;
+            array = new Data[elements];
+            for(unsigned long i = 0; i < elements ; i++)
+                array[i] = std::move(qv.array[(i + qv.head) & qv.size]);
+            size = elements;
         }
         return *this;
     }

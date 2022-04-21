@@ -41,7 +41,7 @@ public:
     /* ************************************************************************ */
 
     // Specific constructor
-    QueueVec(const LinearContainer<Data> &lc); // A queue obtained from a LinearContainer
+    QueueVec(const LinearContainer<Data> &lc): Vector<Data>(lc){elements = size; tail = elements - 1;}; // A queue obtained from a LinearContainer
 
     /* ************************************************************************ */
 
@@ -54,7 +54,7 @@ public:
     /* ************************************************************************ */
 
     // Destructor
-    virtual ~QueueVec();
+    virtual ~QueueVec() = default;
 
     /* ************************************************************************ */
 
