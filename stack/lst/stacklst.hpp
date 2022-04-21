@@ -24,8 +24,8 @@ private:
     // ...
 
 protected:
-
-    using List<Data>::head = nullptr;
+    using List<Data>::head;
+    using List<Data>::size;
     // ...
 
 public:
@@ -36,20 +36,20 @@ public:
     /* ************************************************************************ */
 
     // Specific constructor
-    StackLst(const LinearContainer<Data> &lc); // A stack obtained from a LinearContainer
+    StackLst(const LinearContainer<Data> &lc) : List<Data>(lc){}; // A stack obtained from a LinearContainer
 
     /* ************************************************************************ */
 
     // Copy constructor
-    StackLst(const StackLst &sl);
+    StackLst(const StackLst &sl) : List<Data>(sl){};
 
     // Move constructor
-    StackLst(StackLst &&sl) noexcept;
+    StackLst(StackLst &&sl) noexcept : List<Data>(std::move(sl)){};
 
     /* ************************************************************************ */
 
     // Destructor
-    virtual ~StackLst();
+    virtual ~StackLst() = default;
 
     /* ************************************************************************ */
 
@@ -73,7 +73,7 @@ public:
     Data& Top() override; // Override Stack member (must throw std::length_error when empty)
     void Pop() override; // Override Stack member (must throw std::length_error when empty)
     Data& TopNPop() override; // Override Stack member (must throw std::length_error when empty)
-    void Push(const Data& d) noexcept override; // Override Stack member (copy of the value)
+    void Push(const Data& d) override; // Override Stack member (copy of the value)
     void Push(Data &&d) noexcept override; // Override Stack member (move of the value)
 
     /* ************************************************************************ */
