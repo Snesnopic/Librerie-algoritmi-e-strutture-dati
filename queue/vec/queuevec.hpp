@@ -27,7 +27,7 @@ protected:
 
     using Vector<Data>::array;
     using Vector<Data>::size;
-    long head = 0;
+    long head = -1;
     long tail = -1;
     unsigned long elements = 0;
 
