@@ -43,7 +43,9 @@ void stestStackInt(Stk& stk, uint& testnum, uint& testerr) {
     Top(loctestnum, loctesterr, (const Stk) stk, true, 1);
 
     Stk copstk(stk);
+
     EqualStack(loctestnum, loctesterr, stk, copstk, true);
+
     PushC(loctestnum, loctesterr, stk, 5);
     NonEqualStack(loctestnum, loctesterr, stk, copstk, true);
 
@@ -65,6 +67,7 @@ void stestStackInt(Stk& stk, uint& testnum, uint& testerr) {
     Pop(loctestnum, loctesterr, movstk, false);
     Empty(loctestnum, loctesterr, movstk, true);
     Size(loctestnum, loctesterr, movstk, true, 0);
+
   } catch(...) {
     loctestnum++; loctesterr++;
     cout << endl << "Unmanaged error! " << endl;
@@ -77,10 +80,14 @@ void stestStackInt(uint& testnum, uint& testerr) {
   uint loctestnum = 0, loctesterr = 0;
   lasd::StackVec<int> stkvec;
   cout << endl << "Begin of StackVec<int> Test:" << endl;
+
   stestStackInt(stkvec, loctestnum, loctesterr);
+  /*
   lasd::StackLst<int> stklst;
   cout << endl << "Begin of StackLst<int> Test:" << endl;
+
   stestStackInt(stklst, loctestnum, loctesterr);
+  */
   testnum += loctestnum;
   testerr += loctesterr;
 }
@@ -177,8 +184,8 @@ void stestStackString(uint& testnum, uint& testerr) {
 void stestStack(uint& testnum, uint& testerr) {
   uint loctestnum = 0, loctesterr = 0;
   stestStackInt(loctestnum, loctesterr);
-  stestStackFloat(loctestnum, loctesterr);
-  stestStackString(loctestnum, loctesterr);
+  //stestStackFloat(loctestnum, loctesterr);
+  //stestStackString(loctestnum, loctesterr);
   testnum += loctestnum;
   testerr += loctesterr;
   cout << endl << "Exercise 2 - Stack (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
@@ -356,6 +363,6 @@ void stestQueue(uint& testnum, uint& testerr) {
 void testSimpleExercise2() {
   uint testnum = 0, testerr = 0;
   stestStack(testnum, testerr);
-  stestQueue(testnum, testerr);
+  //stestQueue(testnum, testerr);
   cout << endl << "Exercise 2 (Simple Test) (Errors/Tests: " << testerr << "/" << testnum << ")" << endl;
 }

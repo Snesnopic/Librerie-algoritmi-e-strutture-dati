@@ -33,7 +33,7 @@ protected:
 public:
 
     // Default constructor
-    StackVec() = default;
+    StackVec() : Vector<Data>(1){};
 
     /* ************************************************************************ */
 
@@ -46,7 +46,7 @@ public:
     StackVec(const StackVec &sv) : Vector<Data>(sv), tail(sv.tail){};
 
     // Move constructor
-    StackVec(StackVec &&sv) noexcept : Vector<Data>(std::move(sv)), tail(std::move(sv.tail)){};
+    StackVec(StackVec &&sv) noexcept : Vector<Data>(std::move(sv)){tail = std::move(sv.tail);};
 
     /* ************************************************************************ */
 

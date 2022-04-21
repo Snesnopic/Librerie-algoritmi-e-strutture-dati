@@ -67,7 +67,7 @@ namespace lasd
         if(tail < 0)
             throw std::length_error("Length error!");
         tail--;
-        if((tail + 1) == (size/4))
+        if((tail + 1) <= (size/4))
             Reduce();
     }
     template <typename Data>
