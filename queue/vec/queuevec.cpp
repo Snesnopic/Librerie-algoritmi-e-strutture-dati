@@ -7,9 +7,9 @@ namespace lasd
     template <typename Data>
     QueueVec<Data>::QueueVec(const LinearContainer<Data> &lc) // A queue obtained from a LinearContainer
     {
-        size = lc.Size();
-        capacity = size;
-        array = new Data[capacity];
+        elements = lc.Size();
+        size = elements;
+        array = new Data[size];
         for(unsigned long i = 0; i < size ; i++)
             array[i] = lc[i];
         tail = size - 1;
@@ -21,11 +21,11 @@ namespace lasd
     template <typename Data>
     QueueVec<Data>::QueueVec(const QueueVec &qv)
     {
-        size = qv.size;
-        tail = size - 1;
-        array = new Data[size];
-        for(unsigned long i = 0; i < size ; i++)
-            array[i] = qv.array[(i + qv.head) & qv.capacity];
+        elements = qv.elements;
+        tail = elements - 1;
+        array = new Data[elements];
+        for(unsigned long i = 0; i < elements ; i++)
+            array[i] = qv.array[(i + qv.head) & qv.size];
     }
 
     // Move constructor
@@ -52,11 +52,11 @@ namespace lasd
     {
         if(this != &qv)
         {
-            size = qv.size;
-            tail = size - 1;
-            array = new Data[size];
-            for(unsigned long i = 0; i < size ; i++)
-                array[i] = qv.array[(i + qv.head) & qv.capacity];
+            elements = qv.elements;
+            tail = elements - 1;
+            array = new Data[elements];
+            for(unsigned long i = 0; i < elements ; i++)
+                array[i] = qv.array[(i + qv.head) & qv.size];
         }
         return *this;
     }
@@ -78,11 +78,11 @@ namespace lasd
     template <typename Data>
     bool QueueVec<Data>::operator==(const QueueVec &qv) const noexcept
     {
-        if(size == qv.size)
+        if(elements == qv.elements)
         {
-            for(unsigned long i = 0; i < size; i++)
+            for(unsigned long i = 0; i < elements; i++)
             {
-                if(array[(head + i) % capacity] != qv.array[(qv.head + i) & qv.capacity])
+                if(array[(head + i) % size] != qv.array[(qv.head + i) & qv.size])
                     return false;
             }
             return true;
@@ -101,29 +101,29 @@ namespace lasd
     template <typename Data>
     const Data& QueueVec<Data>::Head() const // Override Queue member (constant version; must throw std::length_error when empty)
     {
-        if(capacity == 0)
+        if(elements == 0)
             throw std::length_error("Length error!");
         return array[head];
     }
     template <typename Data>
     Data& QueueVec<Data>::Head() // Override Queue member (must throw std::length_error when empty)
     {
-        if(capacity == 0)
+        if(elements == 0)
             throw std::length_error("Length error!");
         return array[head];
     }
     template <typename Data>
     void QueueVec<Data>::Dequeue() // Override Queue member (must throw std::length_error when empty)
     {
-        if(size == 0)
+        if(elements == 0)
             throw std::length_error("Length error!");
-        head = (head + 1) % capacity;
-        size--;
+        head = (head + 1) % size;
+        elements--;
     }
     template <typename Data>
     Data& QueueVec<Data>::HeadNDequeue() // Override Queue member (must throw std::length_error when empty)
     {
-        if(size == 0)
+        if(elements == 0)
             throw std::length_error("Length error!");
         Data &ref = *(new Data(Head()));
         Dequeue();
@@ -132,20 +132,20 @@ namespace lasd
     template <typename Data>
     void QueueVec<Data>::Enqueue(const Data& d) noexcept // Override Queue member (copy of the value)
     {
-        size++;
-        if(size > capacity)
+        elements++;
+        if(elements > size)
             Expand();
-        tail = (tail + 1) % capacity;
+        tail = (tail + 1) % size;
         array[tail] = d;
 
     }
     template <typename Data>
     void QueueVec<Data>::Enqueue(Data &&d) noexcept // Override Queue member (move of the value)
     {
-        size++;
-        if(size > capacity)
+        elements++;
+        if(elements > size)
             Expand();
-        tail = (tail + 1) % capacity;
+        tail = (tail + 1) % size;
         array[tail] = std::move(d);
     }
 
@@ -155,20 +155,20 @@ namespace lasd
     template <typename Data>
     bool QueueVec<Data>::Empty() const noexcept // Override Container member
     {
-        return (size == 0);
+        return (elements == 0);
     }
     template <typename Data>
     unsigned long QueueVec<Data>::Size() const noexcept // Override Container member
     {
-        return size;
+        return elements;
     }
     template <typename Data>
     void QueueVec<Data>::Clear() noexcept // Override Container member
     {
         delete []array;
-        size = 0;
+        elements = 0;
         head = 0;
-        capacity = 0;
+        size = 0;
         tail = -1;
     }
 
@@ -177,23 +177,23 @@ namespace lasd
     template <typename Data>
     void QueueVec<Data>::Expand() noexcept
     {
-        Data* tmp = new Data[capacity * 2];
+        Data* tmp = new Data[size * 2];
         SwapVectors(tmp);
-        capacity = capacity * 2;
+        size = size * 2;
     }
     template <typename Data>
     void QueueVec<Data>::Reduce() noexcept
     {
-        Data* tmp = new Data[capacity / 2];
+        Data* tmp = new Data[size / 2];
         SwapVectors(tmp);
-        capacity = capacity / 2;
+        size = size / 2;
     }
     template <typename Data>
     void QueueVec<Data>::SwapVectors(Data *tmp) noexcept
     {
-        for(unsigned long i = 0; i < capacity; i++)
+        for(unsigned long i = 0; i < size; i++)
         {
-            std::swap(array[(i + head) % capacity],tmp[i]);
+            std::swap(array[(i + head) % size],tmp[i]);
         }
         delete[] array;
         array = tmp;
