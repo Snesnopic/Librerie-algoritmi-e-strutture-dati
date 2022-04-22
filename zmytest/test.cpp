@@ -61,6 +61,7 @@ void MapUppercase(Data& dat, void* _)
     for(char &c : dat)
         c = toupper(c);
 }
+
 void vectorinttest()
 {
     unsigned long size;
@@ -470,7 +471,7 @@ void listtest()
 
 void mytest()
 {
-    cout << endl << "Test menu' "<< endl<<"1. Test su Liste"<<endl<<"2. Test su Vector"<<endl<<"3. Test del professore"<<endl;
+    cout << endl << "Test menu' "<< endl<<"1. Test su Liste"<<endl<<"2. Test su Vector"<<endl<<endl<<"3. Test su Stack"<<endl<<"4. Test su Queue"<<endl<<"5. Test del professore"<<endl;
     bool selection = false;
     int testtype = 0;
     while(!selection)
@@ -487,6 +488,14 @@ void mytest()
             selection = true;
             break;
         case 3:
+
+            selection = true;
+            break;
+        case 4:
+
+            selection = true;
+            break;
+        case 5:
             lasdtest();
             selection = true;
             break;
