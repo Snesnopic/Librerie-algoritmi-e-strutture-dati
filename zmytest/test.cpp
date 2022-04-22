@@ -431,54 +431,54 @@ void stacktest(Stack<Data> &s)
         cin>>testtype;
         switch(testtype)
         {
-            case 0:
-                selection = true;
-                break;
-            case 1:
-                {
-                cout<<"Inserisci elemento in pila:  "<<endl;
-                Data d;
-                cin>>d;
-                s.Push(d);
-                break;
-                }
-            case 2:
-                {
-                s.Pop();
-                cout<<"Rimosso!"<<endl;
-                break;
-                }
-            case 3:
-                {
-                cout<<"Ho rimosso "<<s.TopNPop()<<endl;
-                break;
-                }
-            case 4:
-                {
-                cout<<"L'elemento in cima e' "<<s.Top()<<endl;
-                break;
-                }
-            case 5:
-                {
-                if(s.Empty())
-                    cout<<"La pila e' vuota"<<endl;
-                else
-                    cout<<"La pila non e' vuota"<<endl;
-                break;
-                }
-            case 6:
-                {
-                cout<<"La pila ha "<<s.Size()<<" elementi"<<endl;
-                break;
-                }
-            case 7:
-                {
-                s.Clear();
-                cout<<"Svuotata!"<<endl;
-                break;
-                }
-            default:
-                cout<<"Errore di input"<<endl;
+        case 0:
+            selection = true;
+            break;
+        case 1:
+        {
+            cout<<"Inserisci elemento in pila:  "<<endl;
+            Data d;
+            cin>>d;
+            s.Push(d);
+            break;
+        }
+        case 2:
+        {
+            s.Pop();
+            cout<<"Rimosso!"<<endl;
+            break;
+        }
+        case 3:
+        {
+            cout<<"Ho rimosso "<<s.TopNPop()<<endl;
+            break;
+        }
+        case 4:
+        {
+            cout<<"L'elemento in cima e' "<<s.Top()<<endl;
+            break;
+        }
+        case 5:
+        {
+            if(s.Empty())
+                cout<<"La pila e' vuota"<<endl;
+            else
+                cout<<"La pila non e' vuota"<<endl;
+            break;
+        }
+        case 6:
+        {
+            cout<<"La pila ha "<<s.Size()<<" elementi"<<endl;
+            break;
+        }
+        case 7:
+        {
+            s.Clear();
+            cout<<"Svuotata!"<<endl;
+            break;
+        }
+        default:
+            cout<<"Errore di input"<<endl;
         }
     }
 }
@@ -496,54 +496,54 @@ void queuetest(Queue<Data> &q)
         cin>>testtype;
         switch(testtype)
         {
-            case 0:
-                selection = true;
-                break;
-            case 1:
-                {
-                cout<<"Inserisci elemento in coda:  "<<endl;
-                Data d;
-                cin>>d;
-                q.Enqueue(d);
-                break;
-                }
-            case 2:
-                {
-                q.Dequeue();
-                cout<<"Rimosso!"<<endl;
-                break;
-                }
-            case 3:
-                {
-                cout<<"Ho rimosso "<<q.HeadNDequeue()<<endl;
-                break;
-                }
-            case 4:
-                {
-                cout<<"L'elemento in cima e' "<<q.Head()<<endl;
-                break;
-                }
-            case 5:
-                {
-                if(q.Empty())
-                    cout<<"La coda e' vuota"<<endl;
-                else
-                    cout<<"La coda non e' vuota"<<endl;
-                break;
-                }
-            case 6:
-                {
-                cout<<"La coda ha "<<q.Size()<<" elementi"<<endl;
-                break;
-                }
-            case 7:
-                {
-                q.Clear();
-                cout<<"Svuotata!"<<endl;
-                break;
-                }
-            default:
-                cout<<"Errore di input"<<endl;
+        case 0:
+            selection = true;
+            break;
+        case 1:
+        {
+            cout<<"Inserisci elemento in coda:  "<<endl;
+            Data d;
+            cin>>d;
+            q.Enqueue(d);
+            break;
+        }
+        case 2:
+        {
+            q.Dequeue();
+            cout<<"Rimosso!"<<endl;
+            break;
+        }
+        case 3:
+        {
+            cout<<"Ho rimosso "<<q.HeadNDequeue()<<endl;
+            break;
+        }
+        case 4:
+        {
+            cout<<"L'elemento in cima e' "<<q.Head()<<endl;
+            break;
+        }
+        case 5:
+        {
+            if(q.Empty())
+                cout<<"La coda e' vuota"<<endl;
+            else
+                cout<<"La coda non e' vuota"<<endl;
+            break;
+        }
+        case 6:
+        {
+            cout<<"La coda ha "<<q.Size()<<" elementi"<<endl;
+            break;
+        }
+        case 7:
+        {
+            q.Clear();
+            cout<<"Svuotata!"<<endl;
+            break;
+        }
+        default:
+            cout<<"Errore di input"<<endl;
         }
     }
 }
@@ -614,14 +614,14 @@ void stacktest()
         cin>>testtype;
         switch(testtype)
         {
-            case 1:
-                usevec = true;
-                break;
-            case 2:
-                usevec = false;
-                break;
-            default:
-                cout<<"Input non valido"<<endl;
+        case 1:
+            usevec = true;
+            break;
+        case 2:
+            usevec = false;
+            break;
+        default:
+            cout<<"Input non valido"<<endl;
         }
     }
     testtype = 0;
@@ -636,77 +636,77 @@ void stacktest()
         cin>>testtype;
         switch(testtype)
         {
-            case 1:
+        case 1:
+        {
+            uniform_int_distribution<int> dist(0,100);
+            if(usevec)
+            {
+                StackVec<int> s;
+                for(unsigned long i = 0; i < size; i++)
                 {
-                uniform_int_distribution<int> dist(0,100);
-                if(usevec)
-                {
-                    StackVec<int> s;
-                    for(unsigned long i = 0; i < size; i++)
-                    {
-                        s.Push(dist(gen));
-                    }
-                    stacktest(s);
+                    s.Push(dist(gen));
                 }
-                else
-                {
-                    StackLst<int> s;
+                stacktest(s);
+            }
+            else
+            {
+                StackLst<int> s;
 
-                    stacktest(s);
-                }
-                selection = true;
-                break;
-                }
-            case 2:
+                stacktest(s);
+            }
+            selection = true;
+            break;
+        }
+        case 2:
+        {
+            uniform_real_distribution<double> dist(0,100);
+            if(usevec)
+            {
+                StackVec<double> s;
+                for(unsigned long i = 0; i < size; i++)
                 {
-                uniform_real_distribution<double> dist(0,100);
-                if(usevec)
+                    s.Push(round(dist(gen)*1000.0)/1000.0);
+                }
+                stacktest(s);
+            }
+            else
+            {
+                StackLst<double> s;
+                for(unsigned long i = 0; i < size; i++)
                 {
-                    StackVec<double> s;
-                    for(unsigned long i = 0; i < size; i++)
-                    {
-                        s.Push(round(dist(gen)*1000.0)/1000.0);
-                    }
-                    stacktest(s);
+                    s.Push(round(dist(gen)*1000.0)/1000.0);
                 }
-                else
+                stacktest(s);
+            }
+            selection = true;
+            break;
+        }
+        case 3:
+        {
+            uniform_int_distribution<int> dist(2,5);
+            if(usevec)
+            {
+                StackVec<string> s;
+                for(unsigned long i = 0; i < size; i++)
                 {
-                    StackLst<double> s;
-                    for(unsigned long i = 0; i < size; i++)
-                    {
-                        s.Push(round(dist(gen)*1000.0)/1000.0);
-                    }
-                    stacktest(s);
+                    s.Push(GeneraStringaCasuale(dist(gen)));
                 }
-                selection = true;
-                break;
-                }
-            case 3:
+                stacktest(s);
+            }
+            else
+            {
+                StackLst<string> s;
+                for(unsigned long i = 0; i < size; i++)
                 {
-                uniform_int_distribution<int> dist(2,5);
-                if(usevec)
-                {
-                    StackVec<string> s;
-                    for(unsigned long i = 0; i < size; i++)
-                    {
-                        s.Push(GeneraStringaCasuale(dist(gen)));
-                    }
-                    stacktest(s);
+                    s.Push(GeneraStringaCasuale(dist(gen)));
                 }
-                else
-                {
-                    StackLst<string> s;
-                    for(unsigned long i = 0; i < size; i++)
-                    {
-                        s.Push(GeneraStringaCasuale(dist(gen)));
-                    }
-                    stacktest(s);
-                }
-                selection = true;
-                break;
-                }
-            default:
-                cout<<"Input non valido"<<endl;
+                stacktest(s);
+            }
+            selection = true;
+            break;
+        }
+        default:
+            cout<<"Input non valido"<<endl;
         }
     }
 }
@@ -721,14 +721,14 @@ void queuetest()
         cin>>testtype;
         switch(testtype)
         {
-            case 1:
-                usevec = true;
-                break;
-            case 2:
-                usevec = false;
-                break;
-            default:
-                cout<<"Input non valido"<<endl;
+        case 1:
+            usevec = true;
+            break;
+        case 2:
+            usevec = false;
+            break;
+        default:
+            cout<<"Input non valido"<<endl;
         }
     }
     testtype = 0;
@@ -743,80 +743,80 @@ void queuetest()
         cin>>testtype;
         switch(testtype)
         {
-            case 1:
+        case 1:
+        {
+            uniform_int_distribution<int> dist(0,100);
+            if(usevec)
+            {
+                QueueVec<int> q;
+                for(unsigned long i = 0; i < size; i++)
                 {
-                uniform_int_distribution<int> dist(0,100);
-                if(usevec)
+                    q.Enqueue(dist(gen));
+                }
+                queuetest(q);
+            }
+            else
+            {
+                QueueLst<int> q;
+                for(unsigned long i = 0; i < size; i++)
                 {
-                    QueueVec<int> q;
-                    for(unsigned long i = 0; i < size; i++)
-                    {
-                        q.Enqueue(dist(gen));
-                    }
-                    queuetest(q);
+                    q.Enqueue(dist(gen));
                 }
-                else
+                queuetest(q);
+            }
+            selection = true;
+            break;
+        }
+        case 2:
+        {
+            uniform_real_distribution<double> dist(0,100);
+            if(usevec)
+            {
+                QueueVec<double> q;
+                for(unsigned long i = 0; i < size; i++)
                 {
-                    QueueLst<int> q;
-                    for(unsigned long i = 0; i < size; i++)
-                    {
-                        q.Enqueue(dist(gen));
-                    }
-                    queuetest(q);
+                    q.Enqueue(round(dist(gen)*1000.0)/1000.0);
                 }
-                selection = true;
-                break;
-                }
-            case 2:
+                queuetest(q);
+            }
+            else
+            {
+                QueueLst<double> q;
+                for(unsigned long i = 0; i < size; i++)
                 {
-                uniform_real_distribution<double> dist(0,100);
-                if(usevec)
+                    q.Enqueue(round(dist(gen)*1000.0)/1000.0);
+                }
+                queuetest(q);
+            }
+            selection = true;
+            break;
+        }
+        case 3:
+        {
+            uniform_int_distribution<int> dist(2,5);
+            if(usevec)
+            {
+                QueueVec<string> q;
+                for(unsigned long i = 0; i < size; i++)
                 {
-                    QueueVec<double> q;
-                    for(unsigned long i = 0; i < size; i++)
-                    {
-                        q.Enqueue(round(dist(gen)*1000.0)/1000.0);
-                    }
-                    queuetest(q);
+                    q.Enqueue(GeneraStringaCasuale(dist(gen)));
                 }
-                else
+                queuetest(q);
+            }
+            else
+            {
+                QueueLst<string> q;
+                for(unsigned long i = 0; i < size; i++)
                 {
-                    QueueLst<double> q;
-                    for(unsigned long i = 0; i < size; i++)
-                    {
-                        q.Enqueue(round(dist(gen)*1000.0)/1000.0);
-                    }
-                    queuetest(q);
+                    q.Enqueue(GeneraStringaCasuale(dist(gen)));
                 }
-                selection = true;
-                break;
-                }
-            case 3:
-                {
-                uniform_int_distribution<int> dist(2,5);
-                if(usevec)
-                {
-                    QueueVec<string> q;
-                    for(unsigned long i = 0; i < size; i++)
-                    {
-                        q.Enqueue(GeneraStringaCasuale(dist(gen)));
-                    }
-                    queuetest(q);
-                }
-                else
-                {
-                    QueueLst<string> q;
-                    for(unsigned long i = 0; i < size; i++)
-                    {
-                        q.Enqueue(GeneraStringaCasuale(dist(gen)));
-                    }
-                    queuetest(q);
-                }
-                selection = true;
-                break;
-                }
-            default:
-                cout<<"Input non valido"<<endl;
+                queuetest(q);
+            }
+            selection = true;
+            break;
+        }
+        default:
+            cout<<"Input non valido"<<endl;
         }
     }
 }
