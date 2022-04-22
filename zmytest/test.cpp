@@ -417,19 +417,10 @@ void liststringtest()
         }
     }
 }
-
-void stackinttest(const Stack<Data> &s)
+template <typename Data>
+void stacktest(Stack<Data> &s)
 {
-    unsigned long size;
-    cout<<"Quanto rendere grande lo stack di interi?: ";
-    cin>>size;
-    default_random_engine gen(random_device{}());
-    uniform_int_distribution<int> dist(0,100);
-    for(unsigned long i = 0; i < size; i++)
-    {
-        s.Push(dist(gen));
-    }
-    cout<<"L'elemento in cima e' "<<s.Top();
+    cout<<"L'elemento in cima e' "<<s.Top()<<endl;
     bool selection = false;
     int testtype;
     while(!selection)
@@ -440,331 +431,119 @@ void stackinttest(const Stack<Data> &s)
         cin>>testtype;
         switch(testtype)
         {
-        case 0:
-            selection = true;
-            break;
-        case 1:
-            l.Map(&MapPrint<int>,0);
-            cout<<endl;
-            break;
-        case 2:
-            cout<<endl<<"Inserisci numero da cercare:   ";
-            unsigned long search;
-            cin>>search;
-            if(l.Exists(search))
-                cout<<"Il numero e' presente!"<<endl;
-            else
-                cout<<"Il numero non e' presente!"<<endl;
-            break;
-        case 3:
-        {
-            cout<<endl<<"Inserisci n:   ";
-            unsigned long n;
-            cin>>n;
-            unsigned long result = 0;
-            l.Fold(&FoldSumLessThanN<int>,&n,&result);
-            cout<<result<<endl;
-            break;
-        }
-        case 4:
-            l.Map(&MapDouble<int>,0);
-            cout<<"Fatto, prova a stampare"<<endl;
-            break;
-        default:
-            cout<<"Errore di input"<<endl;
+            case 0:
+                selection = true;
+                break;
+            case 1:
+                {
+                cout<<"Inserisci elemento in pila:  "<<endl;
+                Data d;
+                cin>>d;
+                s.Push(d);
+                break;
+                }
+            case 2:
+                {
+                s.Pop();
+                cout<<"Rimosso!"<<endl;
+                break;
+                }
+            case 3:
+                {
+                cout<<"Ho rimosso "<<s.TopNPop()<<endl;
+                break;
+                }
+            case 4:
+                {
+                cout<<"L'elemento in cima e' "<<s.Top()<<endl;
+                break;
+                }
+            case 5:
+                {
+                if(s.Empty())
+                    cout<<"La pila e' vuota"<<endl;
+                else
+                    cout<<"La pila non e' vuota"<<endl;
+                break;
+                }
+            case 6:
+                {
+                cout<<"La pila ha "<<s.Size()<<" elementi"<<endl;
+                break;
+                }
+            case 7:
+                {
+                s.Clear();
+                cout<<"Svuotata!"<<endl;
+                break;
+                }
+            default:
+                cout<<"Errore di input"<<endl;
         }
     }
 }
-
-void stackdoubletest(const Stack<double> &s)
+template <typename Data>
+void queuetest(Queue<Data> &q)
 {
-    unsigned long size;
-    cout<<"Quanto rendere grande lo stack di double?: ";
-    cin>>size;
-    default_random_engine gen(random_device{}());
-    uniform_real_distribution<double> dist(0,100);
-    for(unsigned long i = 0; i < size; i++)
-    {
-        s.Push(round(dist(gen)*1000.0)/1000.0);
-    }
-    cout<<"Il primo elemento e' "<<l.Front()<<", l'ultimo e' "<<l.Back()<<endl;
+    cout<<"L'elemento in cima e' "<<q.Head()<<endl;
     bool selection = false;
     int testtype;
     while(!selection)
     {
-        cout<<"0. Esci"<<endl<<"1. Funzione map: Stampa tutti gli elementi"<<endl<<
-            "2. Controlla esistenza di un elemento"<<endl<<"3. Funzione fold: Prodotto per i double maggiori di n"<<endl<<"4. Funzione map: n*n"<<endl;
+        cout<<"0. Esci"<<endl<<"1. Inserisci un elemento"<<endl<<
+            "2. Rimuovi un elemento"<<endl<<"3. Visualizza e rimuovi un elemento"<<endl<<"4. Visualizza un elemento"<<endl<<"5. E' vuoto?"<<endl<<"6. Stampa grandezza"<<endl<<
+            "7. Svuota la struttura"<<endl;
         cin>>testtype;
         switch(testtype)
         {
-        case 0:
-            selection = true;
-            break;
-        case 1:
-            l.Map(&MapPrint<double>,0);
-            cout<<endl;
-            break;
-        case 2:
-            cout<<endl<<"Inserisci numero da cercare:   ";
-            double search;
-            cin>>search;
-            if(l.Exists(search))
-                cout<<"Il numero e' presente!"<<endl;
-            else
-                cout<<"Il numero non e' presente!"<<endl;
-            break;
-        case 3:
-        {
-            cout<<endl<<"Inserisci n:   ";
-            unsigned long n;
-            cin>>n;
-            unsigned long result = 0;
-            l.Fold(&FoldProductMoreThanN<double>,&n,&result);
-            cout<<result<<endl;
-            break;
-        }
-        case 4:
-            l.Map(&MapSquare<double>,0);
-            cout<<"Fatto, prova a stampare"<<endl;
-            break;
-        default:
-            cout<<"Errore di input"<<endl;
-        }
-    }
-    */
-}
-
-void stackstringtest(const Stack<string> &s)
-{
-    unsigned long size;
-    cout<<"Quanto rendere grande la lista di string?: ";
-    cin>>size;
-    default_random_engine gen;
-    uniform_int_distribution<int> dist(2,5);
-    for(unsigned long i = 0; i < size; i++)
-    {
-        s.Push(GeneraStringaCasuale(dist(gen)));
-    }
-    cout<<"Il primo elemento e' "<<l.Front()<<", l'ultimo e' "<<l.Back()<<endl;
-    bool selection = false;
-    int testtype;
-    while(!selection)
-    {
-        cout<<"0. Esci"<<endl<<"1. Funzione map: Stampa tutti gli elementi"<<endl<<
-            "2. Controlla esistenza di un elemento"<<endl<<"3. Funzione fold: Concatenazione per lunghezza minore o uguale a n"<<endl<<"4. Funzione map: uppercase"<<endl;
-        cin>>testtype;
-        switch(testtype)
-        {
-        case 0:
-            selection = true;
-            break;
-        case 1:
-            l.Map(&MapPrint<string>,0);
-            cout<<endl;
-            break;
-        case 2:
-        {
-            cout<<endl<<"Inserisci stringa da cercare:   ";
-            string search;
-            cin>>search;
-            if(l.Exists(search))
-                cout<<"La stringa e' presente!"<<endl;
-            else
-                cout<<"La stringa non e' presente!"<<endl;
-            break;
-        }
-        case 3:
-        {
-            cout<<endl<<"Inserisci n:   ";
-            unsigned long n;
-            cin>>n;
-            string result = "";
-            l.Fold(&FoldConcatLessEqualN<string>,&n,&result);
-            cout<<result<<endl;
-            break;
-        }
-        case 4:
-            l.Map(&MapUppercase<string>,0);
-            cout<<"Fatto, prova a stampare"<<endl;
-            break;
-        default:
-            cout<<"Errore di input"<<endl;
-        }
-    }
-    */
-}
-
-void queueinttest(const Queue<int> &q)
-{
-    unsigned long size;
-    cout<<"Quanto rendere grande la queue di interi?: ";
-    cin>>size;
-    default_random_engine gen(random_device{}());
-    uniform_int_distribution<int> dist(0,100);
-    for(unsigned long i = 0; i < size; i++)
-    {
-        q.Enqueue(dist(gen));
-    }
-    cout<<"Il primo elemento e' "<<l.Front()<<", l'ultimo e' "<<l.Back()<<endl;
-    bool selection = false;
-    int testtype;
-    while(!selection)
-    {
-        cout<<"0. Esci"<<endl<<"1. Funzione map: Stampa tutti gli elementi"<<endl<<
-            "2. Controlla esistenza di un elemento"<<endl<<"3. Funzione fold: Somma per gli interi minori di n"<<endl<<"4. Funzione map: 2n"<<endl;
-        cin>>testtype;
-        switch(testtype)
-        {
-        case 0:
-            selection = true;
-            break;
-        case 1:
-            l.Map(&MapPrint<int>,0);
-            cout<<endl;
-            break;
-        case 2:
-            cout<<endl<<"Inserisci numero da cercare:   ";
-            unsigned long search;
-            cin>>search;
-            if(l.Exists(search))
-                cout<<"Il numero e' presente!"<<endl;
-            else
-                cout<<"Il numero non e' presente!"<<endl;
-            break;
-        case 3:
-        {
-            cout<<endl<<"Inserisci n:   ";
-            unsigned long n;
-            cin>>n;
-            unsigned long result = 0;
-            l.Fold(&FoldSumLessThanN<int>,&n,&result);
-            cout<<result<<endl;
-            break;
-        }
-        case 4:
-            l.Map(&MapDouble<int>,0);
-            cout<<"Fatto, prova a stampare"<<endl;
-            break;
-        default:
-            cout<<"Errore di input"<<endl;
-        }
-    }
-    */
-}
-
-void queuedoubletest(const Queue<double> &q)
-{
-    unsigned long size;
-    cout<<"Quanto rendere grande la lista di double?: ";
-    cin>>size;
-    default_random_engine gen(random_device{}());
-    uniform_real_distribution<double> dist(0,100);
-    for(unsigned long i = 0; i < size; i++)
-    {
-        q.Enqueue(round(dist(gen)*1000.0)/1000.0);
-    }
-    cout<<"Il primo elemento e' "<<l.Front()<<", l'ultimo e' "<<l.Back()<<endl;
-    bool selection = false;
-    int testtype;
-    while(!selection)
-    {
-        cout<<"0. Esci"<<endl<<"1. Funzione map: Stampa tutti gli elementi"<<endl<<
-            "2. Controlla esistenza di un elemento"<<endl<<"3. Funzione fold: Prodotto per i double maggiori di n"<<endl<<"4. Funzione map: n*n"<<endl;
-        cin>>testtype;
-        switch(testtype)
-        {
-        case 0:
-            selection = true;
-            break;
-        case 1:
-            l.Map(&MapPrint<double>,0);
-            cout<<endl;
-            break;
-        case 2:
-            cout<<endl<<"Inserisci numero da cercare:   ";
-            double search;
-            cin>>search;
-            if(l.Exists(search))
-                cout<<"Il numero e' presente!"<<endl;
-            else
-                cout<<"Il numero non e' presente!"<<endl;
-            break;
-        case 3:
-        {
-            cout<<endl<<"Inserisci n:   ";
-            unsigned long n;
-            cin>>n;
-            unsigned long result = 0;
-            l.Fold(&FoldProductMoreThanN<double>,&n,&result);
-            cout<<result<<endl;
-            break;
-        }
-        case 4:
-            l.Map(&MapSquare<double>,0);
-            cout<<"Fatto, prova a stampare"<<endl;
-            break;
-        default:
-            cout<<"Errore di input"<<endl;
-        }
-    }
-}
-
-void queuestringtest(Queue<string> &q)
-{
-
-    unsigned long size;
-    cout<<"Quanto rendere grande la lista di string?: ";
-    cin>>size;
-    default_random_engine gen;
-    uniform_int_distribution<int> dist(2,5);
-    for(unsigned long i = 0; i < size; i++)
-    {
-        q.Enqueue(GeneraStringaCasuale(dist(gen)));
-    }
-    cout<<"Il primo elemento e' "<<l.Front()<<", l'ultimo e' "<<l.Back()<<endl;
-    bool selection = false;
-    int testtype;
-    while(!selection)
-    {
-        cout<<"0. Esci"<<endl<<"1. Funzione map: Stampa tutti gli elementi"<<endl<<
-            "2. Controlla esistenza di un elemento"<<endl<<"3. Funzione fold: Concatenazione per lunghezza minore o uguale a n"<<endl<<"4. Funzione map: uppercase"<<endl;
-        cin>>testtype;
-        switch(testtype)
-        {
-        case 0:
-            selection = true;
-            break;
-        case 1:
-            l.Map(&MapPrint<string>,0);
-            cout<<endl;
-            break;
-        case 2:
-        {
-            cout<<endl<<"Inserisci stringa da cercare:   ";
-            string search;
-            cin>>search;
-            if(l.Exists(search))
-                cout<<"La stringa e' presente!"<<endl;
-            else
-                cout<<"La stringa non e' presente!"<<endl;
-            break;
-        }
-        case 3:
-        {
-            cout<<endl<<"Inserisci n:   ";
-            unsigned long n;
-            cin>>n;
-            string result = "";
-            l.Fold(&FoldConcatLessEqualN<string>,&n,&result);
-            cout<<result<<endl;
-            break;
-        }
-        case 4:
-            l.Map(&MapUppercase<string>,0);
-            cout<<"Fatto, prova a stampare"<<endl;
-            break;
-        default:
-            cout<<"Errore di input"<<endl;
+            case 0:
+                selection = true;
+                break;
+            case 1:
+                {
+                cout<<"Inserisci elemento in coda:  "<<endl;
+                Data d;
+                cin>>d;
+                q.Enqueue(d);
+                break;
+                }
+            case 2:
+                {
+                q.Dequeue();
+                cout<<"Rimosso!"<<endl;
+                break;
+                }
+            case 3:
+                {
+                cout<<"Ho rimosso "<<q.HeadNDequeue()<<endl;
+                break;
+                }
+            case 4:
+                {
+                cout<<"L'elemento in cima e' "<<q.Head()<<endl;
+                break;
+                }
+            case 5:
+                {
+                if(q.Empty())
+                    cout<<"La coda e' vuota"<<endl;
+                else
+                    cout<<"La coda non e' vuota"<<endl;
+                break;
+                }
+            case 6:
+                {
+                cout<<"La coda ha "<<q.Size()<<" elementi"<<endl;
+                break;
+                }
+            case 7:
+                {
+                q.Clear();
+                cout<<"Svuotata!"<<endl;
+                break;
+                }
+            default:
+                cout<<"Errore di input"<<endl;
         }
     }
 }
@@ -846,6 +625,10 @@ void stacktest()
         }
     }
     testtype = 0;
+    unsigned long size;
+    cout<<"Quanto rendere grande lo stack?: ";
+    default_random_engine gen(random_device{}());
+    cin>>size;
     cout << endl << "Che tipo di dato vuoi usare?"<< endl <<"1. Test su Int"<< endl <<"2. Test su Double"<< endl <<"3. Test su String"<< endl;
     bool selection = false;
     while(!selection)
@@ -854,48 +637,76 @@ void stacktest()
         switch(testtype)
         {
             case 1:
-
+                {
+                uniform_int_distribution<int> dist(0,100);
                 if(usevec)
                 {
                     StackVec<int> s;
-                    stackinttest(s);
+                    for(unsigned long i = 0; i < size; i++)
+                    {
+                        s.Push(dist(gen));
+                    }
+                    stacktest(s);
                 }
                 else
                 {
                     StackLst<int> s;
-                    stackinttest(s);
+
+                    stacktest(s);
                 }
                 selection = true;
                 break;
+                }
             case 2:
+                {
+                uniform_real_distribution<double> dist(0,100);
                 if(usevec)
                 {
                     StackVec<double> s;
-                    stackdoubletest(s);
+                    for(unsigned long i = 0; i < size; i++)
+                    {
+                        s.Push(round(dist(gen)*1000.0)/1000.0);
+                    }
+                    stacktest(s);
                 }
                 else
                 {
                     StackLst<double> s;
-                    stackdoubletest(s);
+                    for(unsigned long i = 0; i < size; i++)
+                    {
+                        s.Push(round(dist(gen)*1000.0)/1000.0);
+                    }
+                    stacktest(s);
                 }
                 selection = true;
                 break;
+                }
             case 3:
+                {
+                uniform_int_distribution<int> dist(2,5);
                 if(usevec)
                 {
                     StackVec<string> s;
-                    stackstringtest(s);
+                    for(unsigned long i = 0; i < size; i++)
+                    {
+                        s.Push(GeneraStringaCasuale(dist(gen)));
+                    }
+                    stacktest(s);
                 }
                 else
                 {
                     StackLst<string> s;
-                    stackstringtest(s);
+                    for(unsigned long i = 0; i < size; i++)
+                    {
+                        s.Push(GeneraStringaCasuale(dist(gen)));
+                    }
+                    stacktest(s);
                 }
                 selection = true;
                 break;
+                }
             default:
                 cout<<"Input non valido"<<endl;
-
         }
     }
 }
@@ -921,6 +732,10 @@ void queuetest()
         }
     }
     testtype = 0;
+    unsigned long size;
+    cout<<"Quanto rendere grande la queue?: ";
+    default_random_engine gen(random_device{}());
+    cin>>size;
     cout << endl << "Che tipo di dato vuoi usare?"<< endl <<"1. Test su Int"<< endl <<"2. Test su Double"<< endl <<"3. Test su String"<< endl;
     bool selection = false;
     while(!selection)
@@ -929,45 +744,77 @@ void queuetest()
         switch(testtype)
         {
             case 1:
+                {
+                uniform_int_distribution<int> dist(0,100);
                 if(usevec)
                 {
                     QueueVec<int> q;
-                    queueinttest(q);
+                    for(unsigned long i = 0; i < size; i++)
+                    {
+                        q.Enqueue(dist(gen));
+                    }
+                    queuetest(q);
                 }
-
                 else
                 {
                     QueueLst<int> q;
-                    queueinttest(q);
+                    for(unsigned long i = 0; i < size; i++)
+                    {
+                        q.Enqueue(dist(gen));
+                    }
+                    queuetest(q);
                 }
                 selection = true;
                 break;
+                }
             case 2:
+                {
+                uniform_real_distribution<double> dist(0,100);
                 if(usevec)
                 {
                     QueueVec<double> q;
-                    queuedoubletest(q);
+                    for(unsigned long i = 0; i < size; i++)
+                    {
+                        q.Enqueue(round(dist(gen)*1000.0)/1000.0);
+                    }
+                    queuetest(q);
                 }
                 else
                 {
                     QueueLst<double> q;
-                    queuedoubletest(q);
+                    for(unsigned long i = 0; i < size; i++)
+                    {
+                        q.Enqueue(round(dist(gen)*1000.0)/1000.0);
+                    }
+                    queuetest(q);
                 }
                 selection = true;
                 break;
+                }
             case 3:
+                {
+                uniform_int_distribution<int> dist(2,5);
                 if(usevec)
                 {
                     QueueVec<string> q;
-                    queuestringtest(q);
+                    for(unsigned long i = 0; i < size; i++)
+                    {
+                        q.Enqueue(GeneraStringaCasuale(dist(gen)));
+                    }
+                    queuetest(q);
                 }
                 else
                 {
                     QueueLst<string> q;
-                    queuestringtest(q);
+                    for(unsigned long i = 0; i < size; i++)
+                    {
+                        q.Enqueue(GeneraStringaCasuale(dist(gen)));
+                    }
+                    queuetest(q);
                 }
                 selection = true;
                 break;
+                }
             default:
                 cout<<"Input non valido"<<endl;
         }
