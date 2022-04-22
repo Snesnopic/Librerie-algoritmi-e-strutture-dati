@@ -1,4 +1,3 @@
-
 #ifndef BINARYTREE_HPP
 #define BINARYTREE_HPP
 
@@ -12,53 +11,91 @@
 
 /* ************************************************************************** */
 
-namespace lasd {
+namespace lasd
+{
 
 /* ************************************************************************** */
 
 template <typename Data>
-class BinaryTree {
-                   // Must extend PreOrderMappableContainer<Data>,
-                   //             PostOrderMappableContainer<Data>,
-                   //             InOrderMappableContainer<Data>,
-                   //             BreadthMappableContainer<Data>,
-                   //             PreOrderFoldableContainer<Data>,
-                   //             PostOrderFoldableContainer<Data>,
-                   //             InOrderFoldableContainer<Data>,
-                   //             BreadthFoldableContainer<Data>
+class BinaryTree
+{
+    // Must extend PreOrderMappableContainer<Data>,
+    //             PostOrderMappableContainer<Data>,
+    //             InOrderMappableContainer<Data>,
+    //             BreadthMappableContainer<Data>,
+    //             PreOrderFoldableContainer<Data>,
+    //             PostOrderFoldableContainer<Data>,
+    //             InOrderFoldableContainer<Data>,
+    //             BreadthFoldableContainer<Data>
 
 private:
 
-  // ...
+    // ...
 
 protected:
 
-  // using InOrder/BreadthMappableContainer<Data>::???;
+    // using InOrder/BreadthMappableContainer<Data>::???;
 
-  // ...
+    // ...
 
 public:
 
-  struct Node {
+    struct Node
+    {
 
-  private:
+    private:
 
-    // ...
+        // ...
 
-  protected:
+    protected:
 
-    // ...
+        // ...
 
-  public:
+    public:
 
-    // friend class BinaryTree<Data>;
+        // friend class BinaryTree<Data>;
 
-    /* ********************************************************************** */
+        /* ********************************************************************** */
+
+        // Destructor
+        // ~Node() specifiers
+
+        /* ********************************************************************** */
+
+        // Copy assignment
+        // type operator=(argument); // Copy assignment of abstract types should not be possible.
+
+        // Move assignment
+        // type operator=(argument); // Move assignment of abstract types should not be possible.
+
+        /* ********************************************************************** */
+
+        // Comparison operators
+        // type operator==(argument) specifiers; // Comparison of abstract types is possible, but should not be visible.
+        // type operator!=(argument) specifiers; // Comparison of abstract types is possible, but should not be visible.
+
+        /* ********************************************************************** */
+
+        // Specific member functions
+
+        // type Element() specifiers; // Mutable access to the element (concrete function should not throw exceptions)
+        // type Element() specifiers; // Immutable access to the element (concrete function should not throw exceptions)
+
+        // type IsLeaf() specifiers; // (concrete function should not throw exceptions)
+        // type HasLeftChild() specifiers; // (concrete function should not throw exceptions)
+        // type HasRightChild() specifiers; // (concrete function should not throw exceptions)
+
+        // type LeftChild() specifiers; // (concrete function must throw std::out_of_range when not existent)
+        // type RightChild() specifiers; // (concrete function must throw std::out_of_range when not existent)
+
+    };
+
+    /* ************************************************************************ */
 
     // Destructor
-    // ~Node() specifiers
+    // ~BinaryTree() specifiers
 
-    /* ********************************************************************** */
+    /* ************************************************************************ */
 
     // Copy assignment
     // type operator=(argument); // Copy assignment of abstract types should not be possible.
@@ -66,440 +103,409 @@ public:
     // Move assignment
     // type operator=(argument); // Move assignment of abstract types should not be possible.
 
-    /* ********************************************************************** */
+    /* ************************************************************************ */
 
     // Comparison operators
-    // type operator==(argument) specifiers; // Comparison of abstract types is possible, but should not be visible.
-    // type operator!=(argument) specifiers; // Comparison of abstract types is possible, but should not be visible.
+    // type operator==(argument) specifiers; // Comparison of abstract binary tree is possible.
+    // type operator!=(argument) specifiers; // Comparison of abstract binary tree is possible.
 
-    /* ********************************************************************** */
+    /* ************************************************************************ */
 
     // Specific member functions
 
-    // type Element() specifiers; // Mutable access to the element (concrete function should not throw exceptions)
-    // type Element() specifiers; // Immutable access to the element (concrete function should not throw exceptions)
+    // type Root() specifiers; // (concrete function must throw std::length_error when empty)
 
-    // type IsLeaf() specifiers; // (concrete function should not throw exceptions)
-    // type HasLeftChild() specifiers; // (concrete function should not throw exceptions)
-    // type HasRightChild() specifiers; // (concrete function should not throw exceptions)
+    /* ************************************************************************ */
 
-    // type LeftChild() specifiers; // (concrete function must throw std::out_of_range when not existent)
-    // type RightChild() specifiers; // (concrete function must throw std::out_of_range when not existent)
+    // Specific member functions (inherited from MappableContainer)
 
-  };
+    // using typename MappableContainer<Data>::MapFunctor;
 
-  /* ************************************************************************ */
+    // type Map(arguments) specifiers; // Override MappableContainer member
 
-  // Destructor
-  // ~BinaryTree() specifiers
+    /* ************************************************************************ */
 
-  /* ************************************************************************ */
+    // Specific member functions (inherited from FoldableContainer)
 
-  // Copy assignment
-  // type operator=(argument); // Copy assignment of abstract types should not be possible.
+    // using typename FoldableContainer<Data>::FoldFunctor;
 
-  // Move assignment
-  // type operator=(argument); // Move assignment of abstract types should not be possible.
+    // type Fold(arguments) specifiers; // Override FoldableContainer member
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Comparison operators
-  // type operator==(argument) specifiers; // Comparison of abstract binary tree is possible.
-  // type operator!=(argument) specifiers; // Comparison of abstract binary tree is possible.
+    // Specific member functions (inherited from PreOrderMappableContainer)
 
-  /* ************************************************************************ */
+    // type MapPreOrder(arguments) specifiers; // Override PreOrderMappableContainer member
 
-  // Specific member functions
+    /* ************************************************************************ */
 
-  // type Root() specifiers; // (concrete function must throw std::length_error when empty)
+    // Specific member functions (inherited from PreOrderFoldableContainer)
 
-  /* ************************************************************************ */
+    // type FoldPreOrder(arguments) specifiers; // Override PreOrderFoldableContainer member
 
-  // Specific member functions (inherited from MappableContainer)
+    /* ************************************************************************ */
 
-  // using typename MappableContainer<Data>::MapFunctor;
+    // Specific member functions (inherited from PostOrderMappableContainer)
 
-  // type Map(arguments) specifiers; // Override MappableContainer member
+    // type MapPostOrder(arguments) specifiers; // Override PostOrderMappableContainer member
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Specific member functions (inherited from FoldableContainer)
+    // Specific member functions (inherited from PostOrderFoldableContainer)
 
-  // using typename FoldableContainer<Data>::FoldFunctor;
+    // type FoldPostOrder(arguments) specifiers; // Override PostOrderFoldableContainer member
 
-  // type Fold(arguments) specifiers; // Override FoldableContainer member
+    /* ************************************************************************ */
 
-  /* ************************************************************************ */
+    // Specific member functions (inherited from InOrderMappableContainer)
 
-  // Specific member functions (inherited from PreOrderMappableContainer)
+    // type MapInOrder(arguments) specifiers; // Override InOrderMappableContainer member
 
-  // type MapPreOrder(arguments) specifiers; // Override PreOrderMappableContainer member
+    /* ************************************************************************ */
 
-  /* ************************************************************************ */
+    // Specific member functions (inherited from InOrderFoldableContainer)
 
-  // Specific member functions (inherited from PreOrderFoldableContainer)
+    // type FoldInOrder(arguments) specifiers; // Override InOrderFoldableContainer member
 
-  // type FoldPreOrder(arguments) specifiers; // Override PreOrderFoldableContainer member
+    /* ************************************************************************ */
 
-  /* ************************************************************************ */
+    // Specific member functions (inherited from BreadthMappableContainer)
 
-  // Specific member functions (inherited from PostOrderMappableContainer)
+    // type MapBreadth(arguments) specifiers; // Override BreadthMappableContainer member
 
-  // type MapPostOrder(arguments) specifiers; // Override PostOrderMappableContainer member
+    /* ************************************************************************ */
 
-  /* ************************************************************************ */
+    // Specific member functions (inherited from BreadthFoldableContainer)
 
-  // Specific member functions (inherited from PostOrderFoldableContainer)
-
-  // type FoldPostOrder(arguments) specifiers; // Override PostOrderFoldableContainer member
-
-  /* ************************************************************************ */
-
-  // Specific member functions (inherited from InOrderMappableContainer)
-
-  // type MapInOrder(arguments) specifiers; // Override InOrderMappableContainer member
-
-  /* ************************************************************************ */
-
-  // Specific member functions (inherited from InOrderFoldableContainer)
-
-  // type FoldInOrder(arguments) specifiers; // Override InOrderFoldableContainer member
-
-  /* ************************************************************************ */
-
-  // Specific member functions (inherited from BreadthMappableContainer)
-
-  // type MapBreadth(arguments) specifiers; // Override BreadthMappableContainer member
-
-  /* ************************************************************************ */
-
-  // Specific member functions (inherited from BreadthFoldableContainer)
-
-  // type FoldBreadth(arguments) specifiers; // Override BreadthFoldableContainer member
+    // type FoldBreadth(arguments) specifiers; // Override BreadthFoldableContainer member
 
 protected:
 
-  // Auxiliary member functions (for PreOrderMappableContainer)
+    // Auxiliary member functions (for PreOrderMappableContainer)
 
-  // type MapPreOrder(arguments) specifiers; // Accessory function executing from one node of the tree
+    // type MapPreOrder(arguments) specifiers; // Accessory function executing from one node of the tree
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Auxiliary member functions (for PreOrderFoldableContainer)
+    // Auxiliary member functions (for PreOrderFoldableContainer)
 
-  // type FoldPreOrder(arguments) specifiers; // Accessory function executing from one node of the tree
+    // type FoldPreOrder(arguments) specifiers; // Accessory function executing from one node of the tree
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Auxiliary member functions (for PostOrderMappableContainer)
+    // Auxiliary member functions (for PostOrderMappableContainer)
 
-  // type MapPostOrder(arguments) specifiers; // Accessory function executing from one node of the tree
+    // type MapPostOrder(arguments) specifiers; // Accessory function executing from one node of the tree
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Auxiliary member functions (for PostOrderFoldableContainer)
+    // Auxiliary member functions (for PostOrderFoldableContainer)
 
-  // type FoldPostOrder(arguments) specifiers; // Accessory function executing from one node of the tree
+    // type FoldPostOrder(arguments) specifiers; // Accessory function executing from one node of the tree
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Auxiliary member functions (for InOrderMappableContainer)
+    // Auxiliary member functions (for InOrderMappableContainer)
 
-  // type MapInOrder(arguments) specifiers; // Accessory function executing from one node of the tree
+    // type MapInOrder(arguments) specifiers; // Accessory function executing from one node of the tree
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Auxiliary member functions (for InOrderFoldableContainer)
+    // Auxiliary member functions (for InOrderFoldableContainer)
 
-  // type FoldInOrder(arguments) specifiers; // Accessory function executing from one node of the tree
+    // type FoldInOrder(arguments) specifiers; // Accessory function executing from one node of the tree
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Auxiliary member functions (for BreadthMappableContainer)
+    // Auxiliary member functions (for BreadthMappableContainer)
 
-  // type MapBreadth(arguments) specifiers; // Accessory function executing from one node of the tree
+    // type MapBreadth(arguments) specifiers; // Accessory function executing from one node of the tree
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Auxiliary member functions (for BreadthFoldableContainer)
+    // Auxiliary member functions (for BreadthFoldableContainer)
 
-  // type FoldBreadth(arguments) specifiers; // Accessory function executing from one node of the tree
+    // type FoldBreadth(arguments) specifiers; // Accessory function executing from one node of the tree
 
 };
 
 /* ************************************************************************** */
 
 template <typename Data>
-class BTPreOrderIterator {
-                           // Must extend ForwardIterator<Data>,
-                           //             ResettableIterator<Data>
+class BTPreOrderIterator
+{
+    // Must extend ForwardIterator<Data>,
+    //             ResettableIterator<Data>
 
 private:
 
-  // ...
+    // ...
 
 protected:
 
-  // ...
+    // ...
 
 public:
 
-  // Specific constructors
-  // BTPreOrderIterator(argument) specifiers; // An iterator over a given binary tree
+    // Specific constructors
+    // BTPreOrderIterator(argument) specifiers; // An iterator over a given binary tree
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Copy constructor
-  // BTPreOrderIterator(argument) specifiers;
+    // Copy constructor
+    // BTPreOrderIterator(argument) specifiers;
 
-  // Move constructor
-  // BTPreOrderIterator(argument) specifiers;
+    // Move constructor
+    // BTPreOrderIterator(argument) specifiers;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Destructor
-  // ~BTPreOrderIterator() specifiers;
+    // Destructor
+    // ~BTPreOrderIterator() specifiers;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Copy assignment
-  // type operator=(argument) specifiers;
+    // Copy assignment
+    // type operator=(argument) specifiers;
 
-  // Move assignment
-  // type operator=(argument) specifiers;
+    // Move assignment
+    // type operator=(argument) specifiers;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Comparison operators
-  // type operator==(argument) specifiers;
-  // type operator!=(argument) specifiers;
+    // Comparison operators
+    // type operator==(argument) specifiers;
+    // type operator!=(argument) specifiers;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Specific member functions (inherited from Iterator)
+    // Specific member functions (inherited from Iterator)
 
-  // type operator*() specifiers; // (throw std::out_of_range when terminated)
+    // type operator*() specifiers; // (throw std::out_of_range when terminated)
 
-  // type Terminated() specifiers; // (should not throw exceptions)
+    // type Terminated() specifiers; // (should not throw exceptions)
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Specific member functions (inherited from ForwardIterator)
+    // Specific member functions (inherited from ForwardIterator)
 
-  // type operator++() specifiers; // (throw std::out_of_range when terminated)
+    // type operator++() specifiers; // (throw std::out_of_range when terminated)
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Specific member functions (inherited from ResettableIterator)
+    // Specific member functions (inherited from ResettableIterator)
 
-  // type Reset() specifiers; // (should not throw exceptions)
+    // type Reset() specifiers; // (should not throw exceptions)
 
 };
 
 /* ************************************************************************** */
 
 template <typename Data>
-class BTPostOrderIterator {
-                            // Must extend ForwardIterator<Data>,
-                            //             ResettableIterator<Data>
+class BTPostOrderIterator
+{
+    // Must extend ForwardIterator<Data>,
+    //             ResettableIterator<Data>
 
 private:
 
-  // ...
+    // ...
 
 protected:
 
-  // ...
+    // ...
 
 public:
 
-  // Specific constructors
-  // BTPostOrderIterator(argument) specifiers; // An iterator over a given binary tree
+    // Specific constructors
+    // BTPostOrderIterator(argument) specifiers; // An iterator over a given binary tree
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Copy constructor
-  // BTPostOrderIterator(argument) specifiers;
+    // Copy constructor
+    // BTPostOrderIterator(argument) specifiers;
 
-  // Move constructor
-  // BTPostOrderIterator(argument) specifiers;
+    // Move constructor
+    // BTPostOrderIterator(argument) specifiers;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Destructor
-  // ~BTPostOrderIterator() specifiers;
+    // Destructor
+    // ~BTPostOrderIterator() specifiers;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Copy assignment
-  // type operator=(argument) specifiers;
+    // Copy assignment
+    // type operator=(argument) specifiers;
 
-  // Move assignment
-  // type operator=(argument) specifiers;
+    // Move assignment
+    // type operator=(argument) specifiers;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Comparison operators
-  // type operator==(argument) specifiers;
-  // type operator!=(argument) specifiers;
+    // Comparison operators
+    // type operator==(argument) specifiers;
+    // type operator!=(argument) specifiers;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Specific member functions (inherited from Iterator)
+    // Specific member functions (inherited from Iterator)
 
-  // type operator*() specifiers; // (throw std::out_of_range when terminated)
+    // type operator*() specifiers; // (throw std::out_of_range when terminated)
 
-  // type Terminated() specifiers; // (should not throw exceptions)
+    // type Terminated() specifiers; // (should not throw exceptions)
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Specific member functions (inherited from ForwardIterator)
+    // Specific member functions (inherited from ForwardIterator)
 
-  // type operator++() specifiers; // (throw std::out_of_range when terminated)
+    // type operator++() specifiers; // (throw std::out_of_range when terminated)
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Specific member functions (inherited from ResettableIterator)
+    // Specific member functions (inherited from ResettableIterator)
 
-  // type Reset() specifiers; // (should not throw exceptions)
+    // type Reset() specifiers; // (should not throw exceptions)
 
 };
 
 /* ************************************************************************** */
 
 template <typename Data>
-class BTInOrderIterator {
-                          // Must extend ForwardIterator<Data>,
-                          //             ResettableIterator<Data>
+class BTInOrderIterator
+{
+    // Must extend ForwardIterator<Data>,
+    //             ResettableIterator<Data>
 
 private:
 
-  // ...
+    // ...
 
 protected:
 
-  // ...
+    // ...
 
 public:
 
-  // Specific constructors
-  // BTInOrderIterator(argument) specifiers; // An iterator over a given binary tree
+    // Specific constructors
+    // BTInOrderIterator(argument) specifiers; // An iterator over a given binary tree
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Copy constructor
-  // BTInOrderIterator(argument) specifiers;
+    // Copy constructor
+    // BTInOrderIterator(argument) specifiers;
 
-  // Move constructor
-  // BTInOrderIterator(argument) specifiers;
+    // Move constructor
+    // BTInOrderIterator(argument) specifiers;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Destructor
-  // ~BTInOrderIterator() specifiers;
+    // Destructor
+    // ~BTInOrderIterator() specifiers;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Copy assignment
-  // type operator=(argument) specifiers;
+    // Copy assignment
+    // type operator=(argument) specifiers;
 
-  // Move assignment
-  // type operator=(argument) specifiers;
+    // Move assignment
+    // type operator=(argument) specifiers;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Comparison operators
-  // type operator==(argument) specifiers;
-  // type operator!=(argument) specifiers;
+    // Comparison operators
+    // type operator==(argument) specifiers;
+    // type operator!=(argument) specifiers;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Specific member functions (inherited from Iterator)
+    // Specific member functions (inherited from Iterator)
 
-  // type operator*() specifiers; // (throw std::out_of_range when terminated)
+    // type operator*() specifiers; // (throw std::out_of_range when terminated)
 
-  // type Terminated() specifiers; // (should not throw exceptions)
+    // type Terminated() specifiers; // (should not throw exceptions)
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Specific member functions (inherited from ForwardIterator)
+    // Specific member functions (inherited from ForwardIterator)
 
-  // type operator++() specifiers; // (throw std::out_of_range when terminated)
+    // type operator++() specifiers; // (throw std::out_of_range when terminated)
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Specific member functions (inherited from ResettableIterator)
+    // Specific member functions (inherited from ResettableIterator)
 
-  // type Reset() specifiers; // (should not throw exceptions)
+    // type Reset() specifiers; // (should not throw exceptions)
 
 };
 
 /* ************************************************************************** */
 
 template <typename Data>
-class BTBreadthIterator {
-                          // Must extend ForwardIterator<Data>,
-                          //             ResettableIterator<Data>
+class BTBreadthIterator
+{
+    // Must extend ForwardIterator<Data>,
+    //             ResettableIterator<Data>
 
 private:
 
-  // ...
+    // ...
 
 protected:
 
-  // ...
+    // ...
 
 public:
 
-  // Specific constructors
-  // BTBreadthIterator(argument) specifiers; // An iterator over a given binary tree
+    // Specific constructors
+    // BTBreadthIterator(argument) specifiers; // An iterator over a given binary tree
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Copy constructor
-  // BTBreadthIterator(argument) specifiers;
+    // Copy constructor
+    // BTBreadthIterator(argument) specifiers;
 
-  // Move constructor
-  // BTBreadthIterator(argument) specifiers;
+    // Move constructor
+    // BTBreadthIterator(argument) specifiers;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Destructor
-  // ~BTBreadthIterator() specifiers;
+    // Destructor
+    // ~BTBreadthIterator() specifiers;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Copy assignment
-  // type operator=(argument) specifiers;
+    // Copy assignment
+    // type operator=(argument) specifiers;
 
-  // Move assignment
-  // type operator=(argument) specifiers;
+    // Move assignment
+    // type operator=(argument) specifiers;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Comparison operators
-  // type operator==(argument) specifiers;
-  // type operator!=(argument) specifiers;
+    // Comparison operators
+    // type operator==(argument) specifiers;
+    // type operator!=(argument) specifiers;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Specific member functions (inherited from Iterator)
+    // Specific member functions (inherited from Iterator)
 
-  // type operator*() specifiers; // (throw std::out_of_range when terminated)
+    // type operator*() specifiers; // (throw std::out_of_range when terminated)
 
-  // type Terminated() specifiers; // (should not throw exceptions)
+    // type Terminated() specifiers; // (should not throw exceptions)
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Specific member functions (inherited from ForwardIterator)
+    // Specific member functions (inherited from ForwardIterator)
 
-  // type operator++() specifiers; // (throw std::out_of_range when terminated)
+    // type operator++() specifiers; // (throw std::out_of_range when terminated)
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Specific member functions (inherited from ResettableIterator)
+    // Specific member functions (inherited from ResettableIterator)
 
-  // type Reset() specifiers; // (should not throw exceptions)
+    // type Reset() specifiers; // (should not throw exceptions)
 
 };
 

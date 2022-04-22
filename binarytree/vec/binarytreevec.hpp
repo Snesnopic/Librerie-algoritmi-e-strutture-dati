@@ -1,4 +1,3 @@
-
 #ifndef BINARYTREEVEC_HPP
 #define BINARYTREEVEC_HPP
 
@@ -9,100 +8,103 @@
 
 /* ************************************************************************** */
 
-namespace lasd {
+namespace lasd
+{
 
 /* ************************************************************************** */
 
 template <typename Data>
-class BinaryTreeVec {
-                      // Must extend BinaryTree<Data>
+class BinaryTreeVec
+{
+    // Must extend BinaryTree<Data>
 
 private:
 
-  // ...
+    // ...
 
 protected:
 
-  // using BinaryTree<Data>::???;
-
-  // ...
-
-  struct NodeVec { // Must extend Node
-
-  private:
+    // using BinaryTree<Data>::???;
 
     // ...
 
-  protected:
+    struct NodeVec   // Must extend Node
+    {
 
-    // ...
+    private:
 
-  public:
+        // ...
 
-    // ...
+    protected:
 
-  };
+        // ...
+
+    public:
+
+        // ...
+
+    };
 
 public:
 
-  // Default constructor
-  // BinaryTreeVec() specifiers;
+    // Default constructor
+    // BinaryTreeVec() specifiers;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Specific constructors
-  // BinaryTreeVec(argument) specifiers; // A binary tree obtained from a LinearContainer
+    // Specific constructors
+    // BinaryTreeVec(argument) specifiers; // A binary tree obtained from a LinearContainer
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Copy constructor
-  // BinaryTreeVec(argument) specifiers;
+    // Copy constructor
+    // BinaryTreeVec(argument) specifiers;
 
-  // Move constructor
-  // BinaryTreeVec(argument) specifiers;
+    // Move constructor
+    // BinaryTreeVec(argument) specifiers;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Destructor
-  // ~BinaryTreeVec() specifiers;
+    // Destructor
+    // ~BinaryTreeVec() specifiers;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Copy assignment
-  // type operator=(argument) specifiers;
+    // Copy assignment
+    // type operator=(argument) specifiers;
 
-  // Move assignment
-  // type operator=(argument) specifiers;
+    // Move assignment
+    // type operator=(argument) specifiers;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Comparison operators
-  // type operator==(argument) specifiers;
-  // type operator!=(argument) specifiers;
+    // Comparison operators
+    // type operator==(argument) specifiers;
+    // type operator!=(argument) specifiers;
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Specific member functions (inherited from BinaryTree)
+    // Specific member functions (inherited from BinaryTree)
 
-  // type Root() specifiers; // Override BinaryTree member (throw std::length_error when empty)
+    // type Root() specifiers; // Override BinaryTree member (throw std::length_error when empty)
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Specific member functions (inherited from Container)
+    // Specific member functions (inherited from Container)
 
-  // type Clear() specifiers; // Override Container member
+    // type Clear() specifiers; // Override Container member
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Specific member functions (inherited from BreadthMappableContainer)
+    // Specific member functions (inherited from BreadthMappableContainer)
 
-  // type MapBreadth(arguments) specifiers; // Override BreadthMappableContainer member
+    // type MapBreadth(arguments) specifiers; // Override BreadthMappableContainer member
 
-  /* ************************************************************************ */
+    /* ************************************************************************ */
 
-  // Specific member functions (inherited from BreadthFoldableContainer)
+    // Specific member functions (inherited from BreadthFoldableContainer)
 
-  // type FoldBreadth(arguments) specifiers; // Override BreadthFoldableContainer member
+    // type FoldBreadth(arguments) specifiers; // Override BreadthFoldableContainer member
 
 };
 

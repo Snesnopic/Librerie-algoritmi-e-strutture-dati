@@ -7,7 +7,7 @@
 /* ************************************************************************** */
 
 template <typename Data>
-void GetItrValue(uint& testnum, uint& testerr, const lasd::Iterator<Data>& itr, bool chk, const Data& val) {
+void GetItrValue(unsigned int& testnum, unsigned int& testerr, const lasd::Iterator<Data>& itr, bool chk, const Data& val) {
   bool tst;
   testnum++;
   try {
@@ -19,11 +19,11 @@ void GetItrValue(uint& testnum, uint& testerr, const lasd::Iterator<Data>& itr, 
     tst = false;
     std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
   }
-  testerr += (1 - (uint) tst);
+  testerr += (1 - (unsigned int) tst);
 }
 
 template <typename Data>
-void SetItrValue(uint& testnum, uint& testerr, const lasd::Iterator<Data>& itr, bool chk, const Data& val) {
+void SetItrValue(unsigned int& testnum, unsigned int& testerr, const lasd::Iterator<Data>& itr, bool chk, const Data& val) {
   bool tst;
   testnum++;
   try {
@@ -36,11 +36,11 @@ void SetItrValue(uint& testnum, uint& testerr, const lasd::Iterator<Data>& itr, 
     tst = false;
     std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
   }
-  testerr += (1 - (uint) tst);
+  testerr += (1 - (unsigned int) tst);
 }
 
 template <typename Data>
-void Terminated(uint& testnum, uint& testerr, const lasd::Iterator<Data>& itr, bool chk) {
+void Terminated(unsigned int& testnum, unsigned int& testerr, const lasd::Iterator<Data>& itr, bool chk) {
   bool tst;
   testnum++;
   try {
@@ -50,7 +50,7 @@ void Terminated(uint& testnum, uint& testerr, const lasd::Iterator<Data>& itr, b
     tst = false;
     std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
   }
-  testerr += (1 - (uint) tst);
+  testerr += (1 - (unsigned int) tst);
 }
 
 /* ************************************************************************** */
