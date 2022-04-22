@@ -13,7 +13,6 @@ QueueVec<Data>::QueueVec(const QueueVec &qv)
     array = new Data[size];
     for(unsigned long i = 0; i < elements ; i++)
         array[i] = qv.array[(i + qv.head) % qv.size];
-
 }
 
 // Move constructor
@@ -25,6 +24,7 @@ QueueVec<Data>::QueueVec(QueueVec &&qv) noexcept
     array = new Data[elements];
     for(unsigned long i = 0; i < elements ; i++)
         array[i] = std::move(qv.array[(i + qv.head) % qv.size]);
+    qv.Clear();
     size = elements;
 }
 
@@ -59,6 +59,7 @@ QueueVec<Data>& QueueVec<Data>::operator=(QueueVec &&qv) noexcept
         array = new Data[elements];
         for(unsigned long i = 0; i < elements ; i++)
             array[i] = std::move(qv.array[(i + qv.head) % qv.size]);
+        qv.Clear();
         size = elements;
     }
     return *this;
