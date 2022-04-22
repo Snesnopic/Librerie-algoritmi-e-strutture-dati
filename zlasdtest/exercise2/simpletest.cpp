@@ -86,14 +86,10 @@ void stestStackInt(unsigned int& testnum, unsigned int& testerr)
     unsigned int loctestnum = 0, loctesterr = 0;
     lasd::StackVec<int> stkvec;
     cout << endl << "Begin of StackVec<int> Test:" << endl;
-
     stestStackInt(stkvec, loctestnum, loctesterr);
-    /*
     lasd::StackLst<int> stklst;
     cout << endl << "Begin of StackLst<int> Test:" << endl;
-
     stestStackInt(stklst, loctestnum, loctesterr);
-    */
     testnum += loctestnum;
     testerr += loctesterr;
 }
@@ -409,7 +405,7 @@ void stestQueue(unsigned int& testnum, unsigned int& testerr)
 void testSimpleExercise2()
 {
     unsigned int testnum = 0, testerr = 0;
-    //stestStack(testnum, testerr);
+    stestStack(testnum, testerr);
     stestQueue(testnum, testerr);
     cout << endl << "Exercise 2 (Simple Test) (Errors/Tests: " << testerr << "/" << testnum << ")" << endl;
 }
