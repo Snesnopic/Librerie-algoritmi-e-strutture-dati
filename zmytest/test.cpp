@@ -418,25 +418,25 @@ void liststringtest()
     }
 }
 
-void stackinttest(Stack &s)
+void stackinttest(const Stack<Data> &s)
 {
     unsigned long size;
-    cout<<"Quanto rendere grande la lista di interi?: ";
+    cout<<"Quanto rendere grande lo stack di interi?: ";
     cin>>size;
-    List<int> l;
     default_random_engine gen(random_device{}());
     uniform_int_distribution<int> dist(0,100);
     for(unsigned long i = 0; i < size; i++)
     {
-        l.InsertAtBack(dist(gen));
+        s.Push(dist(gen));
     }
-    cout<<"Il primo elemento e' "<<l.Front()<<", l'ultimo e' "<<l.Back()<<endl;
+    cout<<"L'elemento in cima e' "<<s.Top();
     bool selection = false;
     int testtype;
     while(!selection)
     {
-        cout<<"0. Esci"<<endl<<"1. Funzione map: Stampa tutti gli elementi"<<endl<<
-            "2. Controlla esistenza di un elemento"<<endl<<"3. Funzione fold: Somma per gli interi minori di n"<<endl<<"4. Funzione map: 2n"<<endl;
+        cout<<"0. Esci"<<endl<<"1. Inserisci un elemento"<<endl<<
+            "2. Rimuovi un elemento"<<endl<<"3. Visualizza e rimuovi un elemento"<<endl<<"4. Visualizza un elemento"<<endl<<"5. E' vuoto?"<<endl<<"6. Stampa grandezza"<<endl<<
+            "7. Svuota la struttura"<<endl;
         cin>>testtype;
         switch(testtype)
         {
@@ -476,17 +476,16 @@ void stackinttest(Stack &s)
     }
 }
 
-void stackdoubletest(Stack &s)
+void stackdoubletest(const Stack<double> &s)
 {
     unsigned long size;
-    cout<<"Quanto rendere grande la lista di double?: ";
+    cout<<"Quanto rendere grande lo stack di double?: ";
     cin>>size;
-    List<double> l;
     default_random_engine gen(random_device{}());
     uniform_real_distribution<double> dist(0,100);
     for(unsigned long i = 0; i < size; i++)
     {
-        l.InsertAtBack(round(dist(gen)*1000.0)/1000.0);
+        s.Push(round(dist(gen)*1000.0)/1000.0);
     }
     cout<<"Il primo elemento e' "<<l.Front()<<", l'ultimo e' "<<l.Back()<<endl;
     bool selection = false;
@@ -532,19 +531,19 @@ void stackdoubletest(Stack &s)
             cout<<"Errore di input"<<endl;
         }
     }
+    */
 }
 
-void stackstringtest(Stack &s)
+void stackstringtest(const Stack<string> &s)
 {
     unsigned long size;
     cout<<"Quanto rendere grande la lista di string?: ";
     cin>>size;
-    List<string> l;
     default_random_engine gen;
     uniform_int_distribution<int> dist(2,5);
     for(unsigned long i = 0; i < size; i++)
     {
-        l.InsertAtBack(GeneraStringaCasuale(dist(gen)));
+        s.Push(GeneraStringaCasuale(dist(gen)));
     }
     cout<<"Il primo elemento e' "<<l.Front()<<", l'ultimo e' "<<l.Back()<<endl;
     bool selection = false;
@@ -592,18 +591,19 @@ void stackstringtest(Stack &s)
             cout<<"Errore di input"<<endl;
         }
     }
+    */
 }
-void queueinttest(Queue &q)
+
+void queueinttest(const Queue<int> &q)
 {
     unsigned long size;
-    cout<<"Quanto rendere grande la lista di interi?: ";
+    cout<<"Quanto rendere grande la queue di interi?: ";
     cin>>size;
-    List<int> l;
     default_random_engine gen(random_device{}());
     uniform_int_distribution<int> dist(0,100);
     for(unsigned long i = 0; i < size; i++)
     {
-        l.InsertAtBack(dist(gen));
+        q.Enqueue(dist(gen));
     }
     cout<<"Il primo elemento e' "<<l.Front()<<", l'ultimo e' "<<l.Back()<<endl;
     bool selection = false;
@@ -649,19 +649,19 @@ void queueinttest(Queue &q)
             cout<<"Errore di input"<<endl;
         }
     }
+    */
 }
 
-void queuedoubletest(Queue &q)
+void queuedoubletest(const Queue<double> &q)
 {
     unsigned long size;
     cout<<"Quanto rendere grande la lista di double?: ";
     cin>>size;
-    List<double> l;
     default_random_engine gen(random_device{}());
     uniform_real_distribution<double> dist(0,100);
     for(unsigned long i = 0; i < size; i++)
     {
-        l.InsertAtBack(round(dist(gen)*1000.0)/1000.0);
+        q.Enqueue(round(dist(gen)*1000.0)/1000.0);
     }
     cout<<"Il primo elemento e' "<<l.Front()<<", l'ultimo e' "<<l.Back()<<endl;
     bool selection = false;
@@ -709,17 +709,17 @@ void queuedoubletest(Queue &q)
     }
 }
 
-void queuestringtest(Queue &q)
+void queuestringtest(Queue<string> &q)
 {
+
     unsigned long size;
     cout<<"Quanto rendere grande la lista di string?: ";
     cin>>size;
-    List<string> l;
     default_random_engine gen;
     uniform_int_distribution<int> dist(2,5);
     for(unsigned long i = 0; i < size; i++)
     {
-        l.InsertAtBack(GeneraStringaCasuale(dist(gen)));
+        q.Enqueue(GeneraStringaCasuale(dist(gen)));
     }
     cout<<"Il primo elemento e' "<<l.Front()<<", l'ultimo e' "<<l.Back()<<endl;
     bool selection = false;
@@ -837,17 +837,15 @@ void stacktest()
         {
             case 1:
                 usevec = true;
-                StackVec s;
                 break;
             case 2:
                 usevec = false;
-                StackLst s;
                 break;
             default:
                 cout<<"Input non valido"<<endl;
         }
     }
-    int testtype = 0;
+    testtype = 0;
     cout << endl << "Che tipo di dato vuoi usare?"<< endl <<"1. Test su Int"<< endl <<"2. Test su Double"<< endl <<"3. Test su String"<< endl;
     bool selection = false;
     while(!selection)
@@ -856,24 +854,43 @@ void stacktest()
         switch(testtype)
         {
             case 1:
+
                 if(usevec)
-                    stackinttest(new StackVec<int>);
+                {
+                    StackVec<int> s;
+                    stackinttest(s);
+                }
                 else
-                    stackinttest(new StackLst<int>);
+                {
+                    StackLst<int> s;
+                    stackinttest(s);
+                }
                 selection = true;
                 break;
             case 2:
                 if(usevec)
-                    stackdoubletest(new StackVec<double>);
+                {
+                    StackVec<double> s;
+                    stackdoubletest(s);
+                }
                 else
-                    stackdoubletest(new StackLst<double>);
+                {
+                    StackLst<double> s;
+                    stackdoubletest(s);
+                }
                 selection = true;
                 break;
             case 3:
                 if(usevec)
-                    stackstringtest(new StackVec<string>);
+                {
+                    StackVec<string> s;
+                    stackstringtest(s);
+                }
                 else
-                    stackstringtest(new StackLst<string>);
+                {
+                    StackLst<string> s;
+                    stackstringtest(s);
+                }
                 selection = true;
                 break;
             default:
@@ -903,7 +920,7 @@ void queuetest()
                 cout<<"Input non valido"<<endl;
         }
     }
-    int testtype = 0;
+    testtype = 0;
     cout << endl << "Che tipo di dato vuoi usare?"<< endl <<"1. Test su Int"<< endl <<"2. Test su Double"<< endl <<"3. Test su String"<< endl;
     bool selection = false;
     while(!selection)
@@ -913,23 +930,42 @@ void queuetest()
         {
             case 1:
                 if(usevec)
-                    queueinttest(new QueueVec<int>);
+                {
+                    QueueVec<int> q;
+                    queueinttest(q);
+                }
+
                 else
-                    queueinttest(new QueueLst<int>);
+                {
+                    QueueLst<int> q;
+                    queueinttest(q);
+                }
                 selection = true;
                 break;
             case 2:
                 if(usevec)
-                    queuedoubletest(new QueueVec<double>);
+                {
+                    QueueVec<double> q;
+                    queuedoubletest(q);
+                }
                 else
-                    queuedoubletest(new QueueLst<double>);
+                {
+                    QueueLst<double> q;
+                    queuedoubletest(q);
+                }
                 selection = true;
                 break;
             case 3:
                 if(usevec)
-                    queuestringtest(new QueueVec<string>);
+                {
+                    QueueVec<string> q;
+                    queuestringtest(q);
+                }
                 else
-                    queuestringtest(new QueueLst<string>);
+                {
+                    QueueLst<string> q;
+                    queuestringtest(q);
+                }
                 selection = true;
                 break;
             default:
@@ -940,7 +976,7 @@ void queuetest()
 
 void mytest()
 {
-    cout << endl << "Test menu' "<< endl<<"1. Test su Liste"<<endl<<"2. Test su Vector"<<endl<<endl<<"3. Test su Stack"<<endl<<"4. Test su Queue"<<endl<<"5. Test del professore"<<endl;
+    cout << endl << "Test menu' "<< endl<<"1. Test su Liste"<<endl<<"2. Test su Vector"<<endl<<"3. Test su Stack"<<endl<<"4. Test su Queue"<<endl<<"5. Test del professore"<<endl;
     bool selection = false;
     int testtype = 0;
     while(!selection)
