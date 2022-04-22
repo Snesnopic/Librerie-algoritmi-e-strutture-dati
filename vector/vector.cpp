@@ -91,8 +91,8 @@ bool Vector<Data>::operator==(const Vector &v) const noexcept
     return true;
 }
 //Not equal comparison
-    template <typename Data>
-    bool Vector<Data>::operator!=(const Vector &v) const noexcept
+template <typename Data>
+bool Vector<Data>::operator!=(const Vector &v) const noexcept
 {
     return !(*this == v);
 }
