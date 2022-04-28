@@ -185,27 +185,27 @@ protected:
 public:
 
   // Destructor
-  // ~ResettableIterator() specifiers
+    virtual ~ResettableIterator() = default;
 
   /* ************************************************************************ */
 
   // Copy assignment
-  // type operator=(argument); // Copy assignment of abstract types should not be possible.
+    ResettableIterator& operator=(const ResettableIterator& ri) = delete; // Copy assignment of abstract types should not be possible.
 
   // Move assignment
-  // type operator=(argument); // Move assignment of abstract types should not be possible.
+    ResettableIterator& operator=(ResettableIterator&& ri) noexcept = delete; // Move assignment of abstract types should not be possible.
 
   /* ************************************************************************ */
 
   // Comparison operators
-  // type operator==(argument) specifiers; // Comparison of abstract types might not be possible.
-  // type operator!=(argument) specifiers; // Comparison of abstract types might not be possible.
+    bool operator==(const ResettableIterator& ri) const noexcept = delete; // Comparison of abstract types might not be possible.
+    bool operator!=(const ResettableIterator& ri) const noexcept = delete; // Comparison of abstract types might not be possible.
 
   /* ************************************************************************ */
 
   // Specific member functions
 
-  // type Reset() specifiers; // (concrete function should not throw exceptions)
+  // type Reset() noexcept; // (concrete function should not throw exceptions)
 
 };
 /* ************************************************************************** */
