@@ -20,7 +20,7 @@ using namespace std;
 
 /* ************************************************************************** */
 
-void stestBinaryTreeInt(lasd::BinaryTree<int> &bt, unsigned int &testnum, unsigned int &testerr)
+void stestBinaryTreeInt(lasd::BinaryTree<int>& bt, unsigned int& testnum, unsigned int& testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     try
@@ -44,7 +44,7 @@ void stestBinaryTreeInt(lasd::BinaryTree<int> &bt, unsigned int &testnum, unsign
     testerr += loctesterr;
 }
 
-void stestBinaryTreeInt(unsigned int &testnum, unsigned int &testerr)
+void stestBinaryTreeInt(unsigned int& testnum, unsigned int& testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     cout << endl << "Begin of BinaryTree<int> Test" << endl;
@@ -89,7 +89,7 @@ void stestBinaryTreeInt(unsigned int &testnum, unsigned int &testerr)
     testerr += loctesterr;
 }
 
-void stestBinaryTreeFloat(lasd::BinaryTree<double> &bt, unsigned int &testnum, unsigned int &testerr)
+void stestBinaryTreeFloat(lasd::BinaryTree<double>& bt, unsigned int& testnum, unsigned int& testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     try
@@ -177,7 +177,7 @@ void stestBinaryTreeFloat(lasd::BinaryTree<double> &bt, unsigned int &testnum, u
     testerr += loctesterr;
 }
 
-void stestBinaryTreeFloat(unsigned int &testnum, unsigned int &testerr)
+void stestBinaryTreeFloat(unsigned int& testnum, unsigned int& testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     cout << endl << "Begin of BinaryTree<double> Test" << endl;
@@ -220,7 +220,7 @@ void stestBinaryTreeFloat(unsigned int &testnum, unsigned int &testerr)
     testerr += loctesterr;
 }
 
-void stestBinaryTreeString(lasd::BinaryTree<string> &bt, unsigned int &testnum, unsigned int &testerr)
+void stestBinaryTreeString(lasd::BinaryTree<string>& bt, unsigned int& testnum, unsigned int& testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     try
@@ -242,7 +242,7 @@ void stestBinaryTreeString(lasd::BinaryTree<string> &bt, unsigned int &testnum, 
     testerr += loctesterr;
 }
 
-void stestBinaryTreeString(unsigned int &testnum, unsigned int &testerr)
+void stestBinaryTreeString(unsigned int& testnum, unsigned int& testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     cout << endl << "Begin of BinaryTree<string> Test" << endl;

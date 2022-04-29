@@ -6,7 +6,7 @@
 /* ************************************************************************** */
 
 template<typename Data>
-void GetElement(unsigned int &testnum, unsigned int &testerr, const typename lasd::BinaryTree<Data>::Node &nod, bool chk, const Data &val)
+void GetElement(unsigned int& testnum, unsigned int& testerr, const typename lasd::BinaryTree<Data>::Node& nod, bool chk, const Data& val)
 {
     bool tst;
     testnum++;
@@ -20,11 +20,11 @@ void GetElement(unsigned int &testnum, unsigned int &testerr, const typename las
         tst = false;
         std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
     }
-    testerr += (1 - (unsigned int) tst);
+    testerr += (1 - (unsigned int)tst);
 }
 
 template<typename Data>
-void SetElement(unsigned int &testnum, unsigned int &testerr, const typename lasd::BinaryTree<Data>::Node &nod, bool chk, const Data &val)
+void SetElement(unsigned int& testnum, unsigned int& testerr, const typename lasd::BinaryTree<Data>::Node& nod, bool chk, const Data& val)
 {
     bool tst;
     testnum++;
@@ -39,11 +39,11 @@ void SetElement(unsigned int &testnum, unsigned int &testerr, const typename las
         tst = false;
         std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
     }
-    testerr += (1 - (unsigned int) tst);
+    testerr += (1 - (unsigned int)tst);
 }
 
 template<typename Data>
-void IsLeaf(unsigned int &testnum, unsigned int &testerr, const typename lasd::BinaryTree<Data>::Node &nod, bool chk)
+void IsLeaf(unsigned int& testnum, unsigned int& testerr, const typename lasd::BinaryTree<Data>::Node& nod, bool chk)
 {
     bool tst;
     testnum++;
@@ -57,11 +57,11 @@ void IsLeaf(unsigned int &testnum, unsigned int &testerr, const typename lasd::B
         tst = false;
         std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
     }
-    testerr += (1 - (unsigned int) tst);
+    testerr += (1 - (unsigned int)tst);
 }
 
 template<typename Data>
-void HasLeftChild(unsigned int &testnum, unsigned int &testerr, const typename lasd::BinaryTree<Data>::Node &nod, bool chk)
+void HasLeftChild(unsigned int& testnum, unsigned int& testerr, const typename lasd::BinaryTree<Data>::Node& nod, bool chk)
 {
     bool tst;
     testnum++;
@@ -75,11 +75,11 @@ void HasLeftChild(unsigned int &testnum, unsigned int &testerr, const typename l
         tst = false;
         std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
     }
-    testerr += (1 - (unsigned int) tst);
+    testerr += (1 - (unsigned int)tst);
 }
 
 template<typename Data>
-void HasRightChild(unsigned int &testnum, unsigned int &testerr, const typename lasd::BinaryTree<Data>::Node &nod, bool chk)
+void HasRightChild(unsigned int& testnum, unsigned int& testerr, const typename lasd::BinaryTree<Data>::Node& nod, bool chk)
 {
     bool tst;
     testnum++;
@@ -93,13 +93,13 @@ void HasRightChild(unsigned int &testnum, unsigned int &testerr, const typename 
         tst = false;
         std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
     }
-    testerr += (1 - (unsigned int) tst);
+    testerr += (1 - (unsigned int)tst);
 }
 
 /* ************************************************************************** */
 
 template<typename Data>
-void EqualBT(unsigned int &testnum, unsigned int &testerr, const lasd::BinaryTree<Data> &bt1, const lasd::BinaryTree<Data> &bt2)
+void EqualBT(unsigned int& testnum, unsigned int& testerr, const lasd::BinaryTree<Data>& bt1, const lasd::BinaryTree<Data>& bt2)
 {
     bool tst;
     testnum++;
@@ -113,11 +113,11 @@ void EqualBT(unsigned int &testnum, unsigned int &testerr, const lasd::BinaryTre
         tst = false;
         std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
     }
-    testerr += (1 - (unsigned int) tst);
+    testerr += (1 - (unsigned int)tst);
 }
 
 template<typename Data>
-void NonEqualBT(unsigned int &testnum, unsigned int &testerr, const lasd::BinaryTree<Data> &bt1, const lasd::BinaryTree<Data> &bt2)
+void NonEqualBT(unsigned int& testnum, unsigned int& testerr, const lasd::BinaryTree<Data>& bt1, const lasd::BinaryTree<Data>& bt2)
 {
     bool tst;
     testnum++;
@@ -131,13 +131,13 @@ void NonEqualBT(unsigned int &testnum, unsigned int &testerr, const lasd::Binary
         tst = false;
         std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
     }
-    testerr += (1 - (unsigned int) tst);
+    testerr += (1 - (unsigned int)tst);
 }
 
 /* ************************************************************************** */
 
 template<typename Data>
-void Root(unsigned int &testnum, unsigned int &testerr, lasd::BinaryTree<Data> &bt, bool chk, const Data &val)
+void Root(unsigned int& testnum, unsigned int& testerr, lasd::BinaryTree<Data>& bt, bool chk, const Data& val)
 {
     bool tst;
     testnum++;
@@ -155,7 +155,7 @@ void Root(unsigned int &testnum, unsigned int &testerr, lasd::BinaryTree<Data> &
         tst = false;
         std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
     }
-    testerr += (1 - (unsigned int) tst);
+    testerr += (1 - (unsigned int)tst);
 }
 
 /* ************************************************************************** */

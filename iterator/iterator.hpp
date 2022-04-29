@@ -28,22 +28,22 @@ namespace lasd
         /* ************************************************************************ */
 
         // Copy assignment
-        Iterator &operator=(const Iterator &) = delete; // Copy assignment of abstract types should not be possible.
+        Iterator& operator=(const Iterator&) = delete; // Copy assignment of abstract types should not be possible.
 
         // Move assignment
-        Iterator &operator=(Iterator &&) noexcept = delete; // Move assignment of abstract types should not be possible.
+        Iterator& operator=(Iterator&&) noexcept = delete; // Move assignment of abstract types should not be possible.
 
         /* ************************************************************************ */
 
         // Comparison operators
-        bool operator==(const Iterator &) const noexcept = delete; // Comparison of abstract types might not be possible.
-        bool operator!=(const Iterator &) const noexcept = delete; // Comparison of abstract types might not be possible.
+        bool operator==(const Iterator&) const noexcept = delete; // Comparison of abstract types might not be possible.
+        bool operator!=(const Iterator&) const noexcept = delete; // Comparison of abstract types might not be possible.
 
         /* ************************************************************************ */
 
         // Specific member functions
 
-        virtual Data &operator*() const = 0; // (concrete function must throw std::out_of_range when terminated)
+        virtual Data& operator*() const = 0; // (concrete function must throw std::out_of_range when terminated)
 
         virtual bool Terminated() const noexcept = 0; // (concrete function should not throw exceptions)
 
@@ -71,22 +71,22 @@ namespace lasd
         /* ************************************************************************ */
 
         // Copy assignment
-        ForwardIterator &operator=(const ForwardIterator &) = delete; // Copy assignment of abstract types should not be possible.
+        ForwardIterator& operator=(const ForwardIterator&) = delete; // Copy assignment of abstract types should not be possible.
 
         // Move assignment
-        ForwardIterator &operator=(ForwardIterator &&) noexcept = delete; // Move assignment of abstract types should not be possible.
+        ForwardIterator& operator=(ForwardIterator&&) noexcept = delete; // Move assignment of abstract types should not be possible.
 
         /* ************************************************************************ */
 
         // Comparison operators
-        bool operator==(const ForwardIterator &) const noexcept = delete; // Comparison of abstract types might not be possible.
-        bool operator!=(const ForwardIterator &) const noexcept = delete; // Comparison of abstract types might not be possible.
+        bool operator==(const ForwardIterator&) const noexcept = delete; // Comparison of abstract types might not be possible.
+        bool operator!=(const ForwardIterator&) const noexcept = delete; // Comparison of abstract types might not be possible.
 
         /* ************************************************************************ */
 
         // Specific member functions
 
-        virtual ForwardIterator &operator++() = 0; // (concrete function must throw std::out_of_range when terminated)
+        virtual ForwardIterator& operator++() = 0; // (concrete function must throw std::out_of_range when terminated)
 
     };
 
@@ -112,22 +112,22 @@ namespace lasd
         /* ************************************************************************ */
 
         // Copy assignment
-        BackwardIterator &operator=(const BackwardIterator &) = delete; // Copy assignment of abstract types should not be possible.
+        BackwardIterator& operator=(const BackwardIterator&) = delete; // Copy assignment of abstract types should not be possible.
 
         // Move assignment
-        BackwardIterator &operator=(BackwardIterator &&) noexcept = delete; // Move assignment of abstract types should not be possible.
+        BackwardIterator& operator=(BackwardIterator&&) noexcept = delete; // Move assignment of abstract types should not be possible.
 
         /* ************************************************************************ */
 
         // Comparison operators
-        bool operator==(const BackwardIterator &) const noexcept = delete; // Comparison of abstract types might not be possible.
-        bool operator!=(const BackwardIterator &) const noexcept = delete; // Comparison of abstract types might not be possible.
+        bool operator==(const BackwardIterator&) const noexcept = delete; // Comparison of abstract types might not be possible.
+        bool operator!=(const BackwardIterator&) const noexcept = delete; // Comparison of abstract types might not be possible.
 
         /* ************************************************************************ */
 
         // Specific member functions
 
-        virtual BackwardIterator &operator--() = 0; // (concrete function must throw std::out_of_range when terminated)
+        virtual BackwardIterator& operator--() = 0; // (concrete function must throw std::out_of_range when terminated)
 
     };
 
@@ -153,16 +153,16 @@ namespace lasd
         /* ************************************************************************ */
 
         // Copy assignment
-        BidirectionalIterator &operator=(const BidirectionalIterator &) = delete; // Copy assignment of abstract types should not be possible.
+        BidirectionalIterator& operator=(const BidirectionalIterator&) = delete; // Copy assignment of abstract types should not be possible.
 
         // Move assignment
-        BidirectionalIterator &operator=(BidirectionalIterator &&) noexcept = delete; // Move assignment of abstract types should not be possible.
+        BidirectionalIterator& operator=(BidirectionalIterator&&) noexcept = delete; // Move assignment of abstract types should not be possible.
 
         /* ************************************************************************ */
 
         // Comparison operators
-        bool operator==(const BidirectionalIterator &) const noexcept = delete; // Comparison of abstract types might not be possible.
-        bool operator!=(const BidirectionalIterator &) const noexcept = delete; // Comparison of abstract types might not be possible.
+        bool operator==(const BidirectionalIterator&) const noexcept = delete; // Comparison of abstract types might not be possible.
+        bool operator!=(const BidirectionalIterator&) const noexcept = delete; // Comparison of abstract types might not be possible.
 
         /* ************************************************************************ */
 
@@ -197,16 +197,16 @@ namespace lasd
         /* ************************************************************************ */
 
         // Copy assignment
-        ResettableIterator &operator=(const ResettableIterator &ri) = delete; // Copy assignment of abstract types should not be possible.
+        ResettableIterator& operator=(const ResettableIterator& ri) = delete; // Copy assignment of abstract types should not be possible.
 
         // Move assignment
-        ResettableIterator &operator=(ResettableIterator &&ri) noexcept = delete; // Move assignment of abstract types should not be possible.
+        ResettableIterator& operator=(ResettableIterator&& ri) noexcept = delete; // Move assignment of abstract types should not be possible.
 
         /* ************************************************************************ */
 
         // Comparison operators
-        bool operator==(const ResettableIterator &ri) const noexcept = delete; // Comparison of abstract types might not be possible.
-        bool operator!=(const ResettableIterator &ri) const noexcept = delete; // Comparison of abstract types might not be possible.
+        bool operator==(const ResettableIterator& ri) const noexcept = delete; // Comparison of abstract types might not be possible.
+        bool operator!=(const ResettableIterator& ri) const noexcept = delete; // Comparison of abstract types might not be possible.
 
         /* ************************************************************************ */
 

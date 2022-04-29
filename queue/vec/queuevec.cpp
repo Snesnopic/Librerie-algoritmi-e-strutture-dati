@@ -5,7 +5,7 @@ namespace lasd
 
 // Copy constructor
     template<typename Data>
-    QueueVec<Data>::QueueVec(const QueueVec &qv)
+    QueueVec<Data>::QueueVec(const QueueVec& qv)
     {
         elements = qv.elements;
         size = elements;
@@ -17,7 +17,7 @@ namespace lasd
 
 // Move constructor
     template<typename Data>
-    QueueVec<Data>::QueueVec(QueueVec &&qv) noexcept
+    QueueVec<Data>::QueueVec(QueueVec&& qv) noexcept
     {
         elements = qv.elements;
         tail = elements - 1;
@@ -32,7 +32,7 @@ namespace lasd
 
 // Copy assignment
     template<typename Data>
-    QueueVec<Data> &QueueVec<Data>::operator=(const QueueVec &qv)
+    QueueVec<Data>& QueueVec<Data>::operator=(const QueueVec& qv)
     {
         if (this != &qv)
         {
@@ -49,7 +49,7 @@ namespace lasd
 
 // Move assignment
     template<typename Data>
-    QueueVec<Data> &QueueVec<Data>::operator=(QueueVec &&qv) noexcept
+    QueueVec<Data>& QueueVec<Data>::operator=(QueueVec&& qv) noexcept
     {
         if (this != &qv)
         {
@@ -69,7 +69,7 @@ namespace lasd
 
 // Comparison operators
     template<typename Data>
-    bool QueueVec<Data>::operator==(const QueueVec &qv) const noexcept
+    bool QueueVec<Data>::operator==(const QueueVec& qv) const noexcept
     {
         if (elements == qv.elements)
         {
@@ -84,7 +84,7 @@ namespace lasd
     }
 
     template<typename Data>
-    bool QueueVec<Data>::operator!=(const QueueVec &qv) const noexcept
+    bool QueueVec<Data>::operator!=(const QueueVec& qv) const noexcept
     {
         return !(*this == qv);
     }
@@ -93,7 +93,7 @@ namespace lasd
 
 // Specific member functions (inherited from Queue)
     template<typename Data>
-    const Data &QueueVec<Data>::Head() const // Override Queue member (constant version; must throw std::length_error when empty)
+    const Data& QueueVec<Data>::Head() const // Override Queue member (constant version; must throw std::length_error when empty)
     {
         if (elements == 0)
             throw std::length_error("Length error!");
@@ -101,7 +101,7 @@ namespace lasd
     }
 
     template<typename Data>
-    Data &QueueVec<Data>::Head() // Override Queue member (must throw std::length_error when empty)
+    Data& QueueVec<Data>::Head() // Override Queue member (must throw std::length_error when empty)
     {
         if (elements == 0)
             throw std::length_error("Length error!");
@@ -120,17 +120,17 @@ namespace lasd
     }
 
     template<typename Data>
-    Data &QueueVec<Data>::HeadNDequeue() // Override Queue member (must throw std::length_error when empty)
+    Data& QueueVec<Data>::HeadNDequeue() // Override Queue member (must throw std::length_error when empty)
     {
         if (elements == 0)
             throw std::length_error("Length error!");
-        Data &ref = *(new Data(Head()));
+        Data& ref = *(new Data(Head()));
         Dequeue();
         return ref;
     }
 
     template<typename Data>
-    void QueueVec<Data>::Enqueue(const Data &d) noexcept // Override Queue member (copy of the value)
+    void QueueVec<Data>::Enqueue(const Data& d) noexcept // Override Queue member (copy of the value)
     {
         if (elements == size)
             Expand();
@@ -141,7 +141,7 @@ namespace lasd
     }
 
     template<typename Data>
-    void QueueVec<Data>::Enqueue(Data &&d) noexcept // Override Queue member (move of the value)
+    void QueueVec<Data>::Enqueue(Data&& d) noexcept // Override Queue member (move of the value)
     {
         if (elements == size)
             Expand();

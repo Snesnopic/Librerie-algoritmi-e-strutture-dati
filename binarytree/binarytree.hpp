@@ -4,7 +4,6 @@
 /* ************************************************************************** */
 
 #include "../container/container.hpp"
-
 #include "../iterator/iterator.hpp"
 #include "stack.hpp"
 #include "queue.hpp"
@@ -134,7 +133,7 @@ namespace lasd
 
         using typename MappableContainer<Data>::MapFunctor;
 
-        virtual void Map(MapFunctor, void *) override; // Override MappableContainer member
+        void Map(MapFunctor f, void *par) override; // Override MappableContainer member
 
         /* ************************************************************************ */
 
@@ -142,103 +141,103 @@ namespace lasd
 
         using typename FoldableContainer<Data>::FoldFunctor;
 
-        virtual void Fold(FoldFunctor, const void *, void *) const override; // Override FoldableContainer member
+        void Fold(FoldFunctor f, const void *par, void *acc) const override; // Override FoldableContainer member
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from PreOrderMappableContainer)
 
-        void MapPreOrder(const MapFunctor, void *) override; // Override PreOrderMappableContainer member
+        void MapPreOrder(MapFunctor f, void *par) override; // Override PreOrderMappableContainer member
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from PreOrderFoldableContainer)
 
-        void FoldPreOrder(const FoldFunctor, const void *, void *) const override; // Override PreOrderFoldableContainer member
+        void FoldPreOrder(FoldFunctor f, const void *par, void *acc) const override; // Override PreOrderFoldableContainer member
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from PostOrderMappableContainer)
 
-        void MapPostOrder(const MapFunctor, void *) override; // Override PostOrderMappableContainer member
+        void MapPostOrder(MapFunctor f, void *par) override; // Override PostOrderMappableContainer member
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from PostOrderFoldableContainer)
 
-        void FoldPostOrder(const FoldFunctor, const void *, void *) const override; // Override PostOrderFoldableContainer member
+        void FoldPostOrder(FoldFunctor f, const void *par, void *acc) const override; // Override PostOrderFoldableContainer member
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from InOrderMappableContainer)
 
-        void MapInOrder(const MapFunctor, void *) override; // Override InOrderMappableContainer member
+        void MapInOrder(MapFunctor f, void *par) override; // Override InOrderMappableContainer member
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from InOrderFoldableContainer)
 
-        void FoldInOrder(const FoldFunctor, const void *, void *) const override; // Override InOrderFoldableContainer member
+        void FoldInOrder(FoldFunctor f, const void *par, void *acc) const override; // Override InOrderFoldableContainer member
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from BreadthMappableContainer)
 
-        void MapBreadth(const MapFunctor, void *) override; // Override BreadthMappableContainer member
+        void MapBreadth(MapFunctor f, void *par) override; // Override BreadthMappableContainer member
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from BreadthFoldableContainer)
 
-        void FoldBreadth(const FoldFunctor, const void *, void *) const override; // Override BreadthFoldableContainer member
+        void FoldBreadth(FoldFunctor f, const void *par, void *acc) const override; // Override BreadthFoldableContainer member
 
     protected:
 
         // Auxiliary member functions (for PreOrderMappableContainer)
 
-        void MapPreOrder(const MapFunctor, void *, Node *); // Accessory function executing from one node of the tree
+        void MapPreOrder(MapFunctor f, void *par, Node *n); // Accessory function executing from one node of the tree
 
         /* ************************************************************************ */
 
         // Auxiliary member functions (for PreOrderFoldableContainer)
 
-        void FoldPreOrder(const FoldFunctor, const void *, void *, Node *) const; // Accessory function executing from one node of the tree
+        void FoldPreOrder(FoldFunctor f, const void *par, void *acc, Node *n) const; // Accessory function executing from one node of the tree
 
         /* ************************************************************************ */
 
         // Auxiliary member functions (for PostOrderMappableContainer)
 
-        void MapPostOrder(const MapFunctor, void *, Node *); // Accessory function executing from one node of the tree
+        void MapPostOrder(MapFunctor f, void *par, Node *n); // Accessory function executing from one node of the tree
 
         /* ************************************************************************ */
 
         // Auxiliary member functions (for PostOrderFoldableContainer)
 
-        void FoldPostOrder(const FoldFunctor, const void *, void *, Node *) const; // Accessory function executing from one node of the tree
+        void FoldPostOrder(FoldFunctor f, const void *par, void *acc, Node *n) const; // Accessory function executing from one node of the tree
 
         /* ************************************************************************ */
 
         // Auxiliary member functions (for InOrderMappableContainer)
 
-        void MapInOrder(const MapFunctor, void *, Node *); // Accessory function executing from one node of the tree
+        void MapInOrder(MapFunctor f, void *par, Node *n); // Accessory function executing from one node of the tree
 
         /* ************************************************************************ */
 
         // Auxiliary member functions (for InOrderFoldableContainer)
 
-        void FoldInOrder(const FoldFunctor, const void *, void *, Node *) const; // Accessory function executing from one node of the tree
+        void FoldInOrder(FoldFunctor f, const void *par, void *acc, Node *n) const; // Accessory function executing from one node of the tree
 
         /* ************************************************************************ */
 
         // Auxiliary member functions (for BreadthMappableContainer)
 
-        void MapBreadth(const MapFunctor, void *, Node *); // Accessory function executing from one node of the tree
+        void MapBreadth(MapFunctor f, void *par, Node *n); // Accessory function executing from one node of the tree
 
         /* ************************************************************************ */
 
         // Auxiliary member functions (for BreadthFoldableContainer)
 
-        void FoldBreadth(const FoldFunctor, const void *, void *, Node *) const; // Accessory function executing from one node of the tree
+        void FoldBreadth(FoldFunctor f, const void *par, void *acc, Node *n) const; // Accessory function executing from one node of the tree
 
     };
 

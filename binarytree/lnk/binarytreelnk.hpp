@@ -42,18 +42,18 @@ namespace lasd
             NodeLnk *right = nullptr;
             NodeLnk *left = nullptr;
 
-            NodeLnk(const Data &d);
+            NodeLnk(const Data& d);
 
-            NodeLnk(Data &d);
+            NodeLnk(Data& d);
 
-            Data &Element() noexcept override; // Mutable access to the element (concrete function should not throw exceptions)
-            const Data &Element() const noexcept override; // Immutable access to the element (concrete function should not throw exceptions)
+            Data& Element() noexcept override; // Mutable access to the element (concrete function should not throw exceptions)
+            const Data& Element() const noexcept override; // Immutable access to the element (concrete function should not throw exceptions)
 
             bool HasLeftChild() const noexcept override; // (concrete function should not throw exceptions)
             bool HasRightChild() const noexcept override; // (concrete function should not throw exceptions)
 
-            NodeLnk &LeftChild() const override; // (concrete function must throw std::out_of_range when not existent)
-            NodeLnk &RightChild() const override; // (concrete function must throw std::out_of_range when not existent)
+            NodeLnk& LeftChild() const override; // (concrete function must throw std::out_of_range when not existent)
+            NodeLnk& RightChild() const override; // (concrete function must throw std::out_of_range when not existent)
 
         };
 
@@ -65,15 +65,15 @@ namespace lasd
         /* ************************************************************************ */
 
         // Specific constructors
-        BinaryTreeLnk(LinearContainer<Data> &lc); // A binary tree obtained from a LinearContainer
+        BinaryTreeLnk(LinearContainer<Data>& lc); // A binary tree obtained from a LinearContainer
 
         /* ************************************************************************ */
 
         // Copy constructor
-        BinaryTreeLnk(const BinaryTreeLnk &btl);
+        BinaryTreeLnk(const BinaryTreeLnk& btl);
 
         // Move constructor
-        BinaryTreeLnk(BinaryTreeLnk &&btl) noexcept;
+        BinaryTreeLnk(BinaryTreeLnk&& btl) noexcept;
 
         /* ************************************************************************ */
 
@@ -83,10 +83,10 @@ namespace lasd
         /* ************************************************************************ */
 
         // Copy assignment
-        BinaryTreeLnk &operator=(const BinaryTreeLnk &btl);
+        BinaryTreeLnk& operator=(const BinaryTreeLnk& btl);
 
         // Move assignment
-        BinaryTreeLnk &operator=(BinaryTreeLnk &&btl) noexcept;
+        BinaryTreeLnk& operator=(BinaryTreeLnk&& btl) noexcept;
 
         /* ************************************************************************ */
 
@@ -98,7 +98,7 @@ namespace lasd
 
         // Specific member functions (inherited from BinaryTree)
 
-        NodeLnk &Root() const override; // Override BinaryTree member (throw std::length_error when empty)
+        NodeLnk& Root() const override; // Override BinaryTree member (throw std::length_error when empty)
 
         /* ************************************************************************ */
 

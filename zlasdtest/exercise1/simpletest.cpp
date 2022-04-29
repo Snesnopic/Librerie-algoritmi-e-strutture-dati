@@ -14,7 +14,7 @@ using namespace std;
 
 /* ************************************************************************** */
 
-void stestVectorInt(unsigned int &testnum, unsigned int &testerr)
+void stestVectorInt(unsigned int& testnum, unsigned int& testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     cout << endl << "Begin of Vector<int> Test:" << endl;
@@ -74,7 +74,7 @@ void stestVectorInt(unsigned int &testnum, unsigned int &testerr)
     testerr += loctesterr;
 }
 
-void stestVectorDouble(unsigned int &testnum, unsigned int &testerr)
+void stestVectorDouble(unsigned int& testnum, unsigned int& testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     cout << endl << "Begin of Vector<double> Test:" << endl;
@@ -107,7 +107,7 @@ void stestVectorDouble(unsigned int &testnum, unsigned int &testerr)
     testerr += loctesterr;
 }
 
-void stestVectorString(unsigned int &testnum, unsigned int &testerr)
+void stestVectorString(unsigned int& testnum, unsigned int& testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     cout << endl << "Begin of Vector<string> Test:" << endl;
@@ -160,7 +160,7 @@ void stestVectorString(unsigned int &testnum, unsigned int &testerr)
     testerr += loctesterr;
 }
 
-void stestVector(unsigned int &testnum, unsigned int &testerr)
+void stestVector(unsigned int& testnum, unsigned int& testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     stestVectorInt(loctestnum, loctesterr);
@@ -173,7 +173,7 @@ void stestVector(unsigned int &testnum, unsigned int &testerr)
 
 /* ************************************************************************** */
 
-void stestListInt(unsigned int &testnum, unsigned int &testerr)
+void stestListInt(unsigned int& testnum, unsigned int& testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     cout << endl << "Begin of List<int> Test:" << endl;
@@ -257,7 +257,7 @@ void stestListInt(unsigned int &testnum, unsigned int &testerr)
     testerr += loctesterr;
 }
 
-void stestListDouble(unsigned int &testnum, unsigned int &testerr)
+void stestListDouble(unsigned int& testnum, unsigned int& testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     cout << endl << "Begin of List<double> Test:" << endl;
@@ -298,7 +298,7 @@ void stestListDouble(unsigned int &testnum, unsigned int &testerr)
     testerr += loctesterr;
 }
 
-void stestListString(unsigned int &testnum, unsigned int &testerr)
+void stestListString(unsigned int& testnum, unsigned int& testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     cout << endl << "Begin of List<string> Test:" << endl;
@@ -348,7 +348,7 @@ void stestListString(unsigned int &testnum, unsigned int &testerr)
     testerr += loctesterr;
 }
 
-void stestList(unsigned int &testnum, unsigned int &testerr)
+void stestList(unsigned int& testnum, unsigned int& testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     stestListInt(loctestnum, loctesterr);
@@ -361,7 +361,7 @@ void stestList(unsigned int &testnum, unsigned int &testerr)
 
 /* ************************************************************************** */
 
-void stestVectorListInt(unsigned int &testnum, unsigned int &testerr)
+void stestVectorListInt(unsigned int& testnum, unsigned int& testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     cout << endl << "Begin of Vector/List<int> Test:" << endl;
@@ -398,7 +398,7 @@ void stestVectorListInt(unsigned int &testnum, unsigned int &testerr)
     testerr += loctesterr;
 }
 
-void stestVectorListDouble(unsigned int &testnum, unsigned int &testerr)
+void stestVectorListDouble(unsigned int& testnum, unsigned int& testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     cout << endl << "Begin of Vector/List<double> Test:" << endl;
@@ -435,7 +435,7 @@ void stestVectorListDouble(unsigned int &testnum, unsigned int &testerr)
     testerr += loctesterr;
 }
 
-void stestVectorListString(unsigned int &testnum, unsigned int &testerr)
+void stestVectorListString(unsigned int& testnum, unsigned int& testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     cout << endl << "Begin of Vector/List<string> Test:" << endl;
@@ -472,7 +472,7 @@ void stestVectorListString(unsigned int &testnum, unsigned int &testerr)
     testerr += loctesterr;
 }
 
-void stestVectorList(unsigned int &testnum, unsigned int &testerr)
+void stestVectorList(unsigned int& testnum, unsigned int& testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     stestVectorListInt(loctestnum, loctesterr);

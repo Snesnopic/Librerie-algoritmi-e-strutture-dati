@@ -45,15 +45,15 @@ namespace lasd
 
         // Specific constructors
         Vector(const unsigned long initialSize); // A vector with a given initial dimension
-        Vector(const LinearContainer<Data> &lc); // A vector obtained from a LinearContainer
+        Vector(const LinearContainer<Data>& lc); // A vector obtained from a LinearContainer
 
         /* ************************************************************************ */
 
         // Copy constructor
-        Vector(const Vector &v);
+        Vector(const Vector& v);
 
         // Move constructor
-        Vector(Vector &&v) noexcept;
+        Vector(Vector&& v) noexcept;
 
         /* ************************************************************************ */
 
@@ -63,17 +63,17 @@ namespace lasd
         /* ************************************************************************ */
 
         // Copy assignment
-        Vector &operator=(const Vector &v);
+        Vector& operator=(const Vector& v);
 
         // Move assignment
-        Vector &operator=(Vector &&v) noexcept;
+        Vector& operator=(Vector&& v) noexcept;
 
         /* ************************************************************************ */
 
         // Comparison operators
-        bool operator==(const Vector &v) const noexcept;
+        bool operator==(const Vector& v) const noexcept;
 
-        bool operator!=(const Vector &v) const noexcept;
+        bool operator!=(const Vector& v) const noexcept;
 
         /* ************************************************************************ */
 
@@ -91,10 +91,10 @@ namespace lasd
 
         // Specific member functions (inherited from LinearContainer)
 
-        Data &Front() const override; // Override LinearContainer member (must throw std::length_error when empty)
-        Data &Back() const override; // Override LinearContainer member (must throw std::length_error when empty)
+        Data& Front() const override; // Override LinearContainer member (must throw std::length_error when empty)
+        Data& Back() const override; // Override LinearContainer member (must throw std::length_error when empty)
 
-        Data &operator[](const unsigned long index) const override; // Override LinearContainer member (must throw std::out_of_range when out of range)
+        Data& operator[](const unsigned long index) const override; // Override LinearContainer member (must throw std::out_of_range when out of range)
 
         /* ************************************************************************ */
 
@@ -102,19 +102,19 @@ namespace lasd
 
         using typename MappableContainer<Data>::MapFunctor;
 
-        void Map(MapFunctor, void *) override; // Override MappableContainer member
+        void Map(MapFunctor f, void *par) override; // Override MappableContainer member
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from PreOrderMappableContainer)
 
-        void MapPreOrder(MapFunctor, void *) override; // Override PreOrderMappableContainer member
+        void MapPreOrder(MapFunctor f, void *par) override; // Override PreOrderMappableContainer member
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from PostOrderMappableContainer)
 
-        void MapPostOrder(MapFunctor, void *) override; // Override PostOrderMappableContainer member
+        void MapPostOrder(MapFunctor f, void *par) override; // Override PostOrderMappableContainer member
 
         /* ************************************************************************ */
 
@@ -122,19 +122,19 @@ namespace lasd
 
         using typename FoldableContainer<Data>::FoldFunctor;
 
-        void Fold(FoldFunctor, const void *, void *) const override; // Override FoldableContainer member
+        void Fold(FoldFunctor f, const void *par, void *acc) const override; // Override FoldableContainer member
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from PreOrderFoldableContainer)
 
-        void FoldPreOrder(FoldFunctor, const void *, void *) const override; // Override FoldableContainer member
+        void FoldPreOrder(FoldFunctor f, const void *par, void *acc) const override; // Override FoldableContainer member
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from PostOrderFoldableContainer)
 
-        void FoldPostOrder(FoldFunctor, const void *, void *) const override; // Override FoldableContainer member
+        void FoldPostOrder(FoldFunctor f, const void *par, void *acc) const override; // Override FoldableContainer member
 
     };
 

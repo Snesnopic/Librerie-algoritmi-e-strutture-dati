@@ -15,7 +15,7 @@ namespace lasd
 
 //LinearContainer functions
     template<typename Data>
-    bool LinearContainer<Data>::operator==(const LinearContainer &lc) const noexcept
+    bool LinearContainer<Data>::operator==(const LinearContainer& lc) const noexcept
     {
         if (size != lc.Size())
             return false;
@@ -28,13 +28,13 @@ namespace lasd
     }
 
     template<typename Data>
-    bool LinearContainer<Data>::operator!=(const LinearContainer &lc) const noexcept
+    bool LinearContainer<Data>::operator!=(const LinearContainer& lc) const noexcept
     {
         return !(*this == lc);
     }
 
     template<typename Data>
-    Data &LinearContainer<Data>::Front() const
+    Data& LinearContainer<Data>::Front() const
     {
         if (size == 0)
             throw std::length_error("Index out of bounds!");
@@ -42,7 +42,7 @@ namespace lasd
     }
 
     template<typename Data>
-    Data &LinearContainer<Data>::Back() const
+    Data& LinearContainer<Data>::Back() const
     {
         if (size == 0)
             throw std::length_error("Index out of bounds!");
@@ -52,16 +52,16 @@ namespace lasd
 
 //FoldableContainer functions
     template<typename Data>
-    void AuxFoldExists(const Data &dat, const void *val, void *exists) noexcept
+    void AuxFoldExists(const Data& dat, const void *val, void *exists) noexcept
     {
-        if (dat == *((Data *) val))
+        if (dat == *((Data *)val))
         {
-            *((bool *) exists) = true;
+            *((bool *)exists) = true;
         }
     }
 
     template<typename Data>
-    bool FoldableContainer<Data>::Exists(const Data &d) const noexcept
+    bool FoldableContainer<Data>::Exists(const Data& d) const noexcept
     {
         bool esiste = false;
         Fold(&AuxFoldExists<Data>, &d, &esiste);

@@ -33,16 +33,16 @@ namespace lasd
         /* ************************************************************************ */
 
         // Copy assignment
-        virtual Container &operator=(const Container &c) = delete; // Copy assignment of abstract types should not be possible.
+        virtual Container& operator=(const Container& c) = delete; // Copy assignment of abstract types should not be possible.
 
         // Move assignment
-        virtual Container &operator=(Container &&c) = delete; // Move assignment of abstract types should not be possible.
+        virtual Container& operator=(Container&& c) = delete; // Move assignment of abstract types should not be possible.
 
         /* ************************************************************************ */
 
         // Comparison operators
-        virtual bool operator==(const Container &c1) const noexcept = delete; // Comparison of abstract types might not be possible.
-        virtual bool operator!=(const Container &c1) const noexcept = delete; // Comparison of abstract types might not be possible.
+        virtual bool operator==(const Container& c1) const noexcept = delete; // Comparison of abstract types might not be possible.
+        virtual bool operator!=(const Container& c1) const noexcept = delete; // Comparison of abstract types might not be possible.
 
         /* ************************************************************************ */
 
@@ -78,25 +78,25 @@ namespace lasd
         /* ************************************************************************ */
 
         // Copy assignment
-        virtual LinearContainer &operator=(const LinearContainer &lc) = delete; // Copy assignment of abstract types should not be possible.
+        virtual LinearContainer& operator=(const LinearContainer& lc) = delete; // Copy assignment of abstract types should not be possible.
 
         // Move assignment
-        virtual LinearContainer &operator=(LinearContainer &&lc) noexcept = delete; // Move assignment of abstract types should not be possible.
+        virtual LinearContainer& operator=(LinearContainer&& lc) noexcept = delete; // Move assignment of abstract types should not be possible.
 
         /* ************************************************************************ */
 
         // Comparison operators
-        virtual bool operator==(const LinearContainer &c) const noexcept; // Comparison of abstract types might not be possible.
-        virtual bool operator!=(const LinearContainer &c) const noexcept; // Comparison of abstract types is possible.
+        virtual bool operator==(const LinearContainer& c) const noexcept; // Comparison of abstract types might not be possible.
+        virtual bool operator!=(const LinearContainer& c) const noexcept; // Comparison of abstract types is possible.
 
         /* ************************************************************************ */
 
         // Specific member functions
 
-        virtual Data &Front() const; // (concrete function must throw std::length_error when empty)
-        virtual Data &Back() const; // (concrete function must throw std::length_error when empty)
+        virtual Data& Front() const; // (concrete function must throw std::length_error when empty)
+        virtual Data& Back() const; // (concrete function must throw std::length_error when empty)
 
-        virtual Data &operator[](const unsigned long index) const = 0; // (concrete function must throw std::out_of_range when out of range)
+        virtual Data& operator[](const unsigned long index) const = 0; // (concrete function must throw std::out_of_range when out of range)
 
     };
 
@@ -122,22 +122,22 @@ namespace lasd
         /* ************************************************************************ */
 
         // Copy assignment
-        virtual TestableContainer &operator=(const TestableContainer &tc) = delete; // Copy assignment of abstract types should not be possible.
+        virtual TestableContainer& operator=(const TestableContainer& tc) = delete; // Copy assignment of abstract types should not be possible.
 
         // Move assignment
-        virtual TestableContainer &operator=(TestableContainer &&tc) = delete; // Move assignment of abstract types should not be possible.
+        virtual TestableContainer& operator=(TestableContainer&& tc) = delete; // Move assignment of abstract types should not be possible.
 
         /* ************************************************************************ */
 
         // Comparison operators
-        virtual bool operator==(const TestableContainer &tc) const noexcept = delete; // Comparison of abstract types might not be possible.
-        virtual bool operator!=(const TestableContainer &tc) const noexcept = delete; // Comparison of abstract types might not be possible.
+        virtual bool operator==(const TestableContainer& tc) const noexcept = delete; // Comparison of abstract types might not be possible.
+        virtual bool operator!=(const TestableContainer& tc) const noexcept = delete; // Comparison of abstract types might not be possible.
 
         /* ************************************************************************ */
 
         // Specific member functions
 
-        virtual bool Exists(const Data &d) const noexcept = 0; // (concrete function should not throw exceptions)
+        virtual bool Exists(const Data& d) const noexcept = 0; // (concrete function should not throw exceptions)
 
     };
 
@@ -163,22 +163,22 @@ namespace lasd
         /* ************************************************************************ */
 
         // Copy assignment
-        virtual MappableContainer &operator=(const MappableContainer &mc) = delete; // Copy assignment of abstract types should not be possible.
+        virtual MappableContainer& operator=(const MappableContainer& mc) = delete; // Copy assignment of abstract types should not be possible.
 
         // Move assignment
-        virtual MappableContainer &operator=(MappableContainer &&mc) = delete; // Move assignment of abstract types should not be possible.
+        virtual MappableContainer& operator=(MappableContainer&& mc) = delete; // Move assignment of abstract types should not be possible.
 
         /* ************************************************************************ */
 
         // Comparison operators
-        virtual bool operator==(const MappableContainer &mc) const noexcept = delete; // Comparison of abstract types might not be possible.
-        virtual bool operator!=(const MappableContainer &mc) const noexcept = delete; // Comparison of abstract types might not be possible.
+        virtual bool operator==(const MappableContainer& mc) const noexcept = delete; // Comparison of abstract types might not be possible.
+        virtual bool operator!=(const MappableContainer& mc) const noexcept = delete; // Comparison of abstract types might not be possible.
 
         /* ************************************************************************ */
 
         // Specific member functions
 
-        typedef std::function<void(Data &, void *)> MapFunctor;
+        typedef std::function<void(Data&, void *)> MapFunctor;
 
         virtual void Map(MapFunctor, void *) = 0;
 
@@ -206,22 +206,22 @@ namespace lasd
         /* ************************************************************************ */
 
         // Copy assignment
-        virtual FoldableContainer &operator=(const FoldableContainer &fc) = delete; // Copy assignment of abstract types should not be possible.
+        virtual FoldableContainer& operator=(const FoldableContainer& fc) = delete; // Copy assignment of abstract types should not be possible.
 
         // Move assignment
-        virtual FoldableContainer &operator=(FoldableContainer &&fc) = delete; // Move assignment of abstract types should not be possible.
+        virtual FoldableContainer& operator=(FoldableContainer&& fc) = delete; // Move assignment of abstract types should not be possible.
 
         /* ************************************************************************ */
 
         // Comparison operators
-        virtual bool operator==(const FoldableContainer &fc) const noexcept = delete; // Comparison of abstract types might not be possible.
-        virtual bool operator!=(const FoldableContainer &fc) const noexcept = delete; // Comparison of abstract types might not be possible.
+        virtual bool operator==(const FoldableContainer& fc) const noexcept = delete; // Comparison of abstract types might not be possible.
+        virtual bool operator!=(const FoldableContainer& fc) const noexcept = delete; // Comparison of abstract types might not be possible.
 
         /* ************************************************************************ */
 
         // Specific member functions
 
-        typedef std::function<void(const Data &, const void *, void *)> FoldFunctor;
+        typedef std::function<void(const Data&, const void *, void *)> FoldFunctor;
 
         virtual void Fold(FoldFunctor, const void *, void *) const = 0;
 
@@ -229,7 +229,7 @@ namespace lasd
 
         // Specific member functions (inherited from TestableContainer)
 
-        virtual bool Exists(const Data &d) const noexcept override;
+        virtual bool Exists(const Data& d) const noexcept override;
 
     };
 
@@ -255,16 +255,16 @@ namespace lasd
         /* ************************************************************************ */
 
         // Copy assignment
-        virtual PreOrderMappableContainer &operator=(const PreOrderMappableContainer &pomc) = delete; // Copy assignment of abstract types should not be possible.
+        virtual PreOrderMappableContainer& operator=(const PreOrderMappableContainer& pomc) = delete; // Copy assignment of abstract types should not be possible.
 
         // Move assignment
-        virtual PreOrderMappableContainer &operator=(PreOrderMappableContainer &&pomc) = delete; // Move assignment of abstract types should not be possible.
+        virtual PreOrderMappableContainer& operator=(PreOrderMappableContainer&& pomc) = delete; // Move assignment of abstract types should not be possible.
 
         /* ************************************************************************ */
 
         // Comparison operators
-        virtual bool operator==(const PreOrderMappableContainer &pomc) const noexcept = delete; // Comparison of abstract types might not be possible.
-        virtual bool operator!=(const PreOrderMappableContainer &pomc) const noexcept = delete; // Comparison of abstract types might not be possible.
+        virtual bool operator==(const PreOrderMappableContainer& pomc) const noexcept = delete; // Comparison of abstract types might not be possible.
+        virtual bool operator!=(const PreOrderMappableContainer& pomc) const noexcept = delete; // Comparison of abstract types might not be possible.
 
         /* ************************************************************************ */
 
@@ -303,16 +303,16 @@ namespace lasd
         /* ************************************************************************ */
 
         // Copy assignment
-        virtual PreOrderFoldableContainer &operator=(const PreOrderFoldableContainer &pofc) = delete; // Copy assignment of abstract types should not be possible.
+        virtual PreOrderFoldableContainer& operator=(const PreOrderFoldableContainer& pofc) = delete; // Copy assignment of abstract types should not be possible.
 
         // Move assignment
-        virtual PreOrderFoldableContainer &operator=(PreOrderFoldableContainer &&pofc) = delete; // Move assignment of abstract types should not be possible.
+        virtual PreOrderFoldableContainer& operator=(PreOrderFoldableContainer&& pofc) = delete; // Move assignment of abstract types should not be possible.
 
         /* ************************************************************************ */
 
         // Comparison operators
-        virtual bool operator==(const PreOrderFoldableContainer &pofc) const noexcept = delete; // Comparison of abstract types might not be possible.
-        virtual bool operator!=(const PreOrderFoldableContainer &pofc) const noexcept = delete; // Comparison of abstract types might not be possible.
+        virtual bool operator==(const PreOrderFoldableContainer& pofc) const noexcept = delete; // Comparison of abstract types might not be possible.
+        virtual bool operator!=(const PreOrderFoldableContainer& pofc) const noexcept = delete; // Comparison of abstract types might not be possible.
 
         /* ************************************************************************ */
 
@@ -352,16 +352,16 @@ namespace lasd
         /* ************************************************************************ */
 
         // Copy assignment
-        virtual PostOrderMappableContainer &operator=(const PostOrderMappableContainer &pomc) = delete; // Copy assignment of abstract types should not be possible.
+        virtual PostOrderMappableContainer& operator=(const PostOrderMappableContainer& pomc) = delete; // Copy assignment of abstract types should not be possible.
 
         // Move assignment
-        virtual PostOrderMappableContainer &operator=(PostOrderMappableContainer &&pomc) = delete; // Move assignment of abstract types should not be possible.
+        virtual PostOrderMappableContainer& operator=(PostOrderMappableContainer&& pomc) = delete; // Move assignment of abstract types should not be possible.
 
         /* ************************************************************************ */
 
         // Comparison operators
-        virtual bool operator==(const PostOrderMappableContainer &pomc) const noexcept = delete; // Comparison of abstract types might not be possible.
-        virtual bool operator!=(const PostOrderMappableContainer &pomc) const noexcept = delete; // Comparison of abstract types might not be possible.
+        virtual bool operator==(const PostOrderMappableContainer& pomc) const noexcept = delete; // Comparison of abstract types might not be possible.
+        virtual bool operator!=(const PostOrderMappableContainer& pomc) const noexcept = delete; // Comparison of abstract types might not be possible.
 
         /* ************************************************************************ */
 
@@ -401,16 +401,16 @@ namespace lasd
         /* ************************************************************************ */
 
         // Copy assignment
-        virtual PostOrderFoldableContainer &operator=(const PostOrderFoldableContainer &pofc) = delete; // Copy assignment of abstract types should not be possible.
+        virtual PostOrderFoldableContainer& operator=(const PostOrderFoldableContainer& pofc) = delete; // Copy assignment of abstract types should not be possible.
 
         // Move assignment
-        virtual PostOrderFoldableContainer &operator=(PostOrderFoldableContainer &&pofc) = delete; // Move assignment of abstract types should not be possible.
+        virtual PostOrderFoldableContainer& operator=(PostOrderFoldableContainer&& pofc) = delete; // Move assignment of abstract types should not be possible.
 
         /* ************************************************************************ */
 
         // Comparison operators
-        virtual bool operator==(const PostOrderFoldableContainer &pofc) const noexcept = delete; // Comparison of abstract types might not be possible.
-        virtual bool operator!=(const PostOrderFoldableContainer &pofc) const noexcept = delete; // Comparison of abstract types might not be possible.
+        virtual bool operator==(const PostOrderFoldableContainer& pofc) const noexcept = delete; // Comparison of abstract types might not be possible.
+        virtual bool operator!=(const PostOrderFoldableContainer& pofc) const noexcept = delete; // Comparison of abstract types might not be possible.
 
         /* ************************************************************************ */
 
@@ -450,16 +450,16 @@ namespace lasd
         /* ************************************************************************ */
 
         // Copy assignment
-        virtual InOrderMappableContainer &operator=(const InOrderMappableContainer &iomc) = delete; // Copy assignment of abstract types should not be possible.
+        virtual InOrderMappableContainer& operator=(const InOrderMappableContainer& iomc) = delete; // Copy assignment of abstract types should not be possible.
 
         // Move assignment
-        virtual InOrderMappableContainer &operator=(InOrderMappableContainer &&iomc) = delete; // Move assignment of abstract types should not be possible.
+        virtual InOrderMappableContainer& operator=(InOrderMappableContainer&& iomc) = delete; // Move assignment of abstract types should not be possible.
 
         /* ************************************************************************ */
 
         // Comparison operators
-        virtual bool operator==(const InOrderMappableContainer &iomc) const noexcept = delete; // Comparison of abstract types might not be possible.
-        virtual bool operator!=(const InOrderMappableContainer &iomc) const noexcept = delete; // Comparison of abstract types might not be possible.
+        virtual bool operator==(const InOrderMappableContainer& iomc) const noexcept = delete; // Comparison of abstract types might not be possible.
+        virtual bool operator!=(const InOrderMappableContainer& iomc) const noexcept = delete; // Comparison of abstract types might not be possible.
 
         /* ************************************************************************ */
 
@@ -499,16 +499,16 @@ namespace lasd
         /* ************************************************************************ */
 
         // Copy assignment
-        virtual InOrderFoldableContainer &operator=(const InOrderFoldableContainer &iofc) = delete; // Copy assignment of abstract types should not be possible.
+        virtual InOrderFoldableContainer& operator=(const InOrderFoldableContainer& iofc) = delete; // Copy assignment of abstract types should not be possible.
 
         // Move assignment
-        virtual InOrderFoldableContainer &operator=(InOrderFoldableContainer &&iofc) = delete; // Move assignment of abstract types should not be possible.
+        virtual InOrderFoldableContainer& operator=(InOrderFoldableContainer&& iofc) = delete; // Move assignment of abstract types should not be possible.
 
         /* ************************************************************************ */
 
         // Comparison operators
-        virtual bool operator==(const InOrderFoldableContainer &iofc) const noexcept = delete; // Comparison of abstract types might not be possible.
-        virtual bool operator!=(const InOrderFoldableContainer &iofc) const noexcept = delete; // Comparison of abstract types might not be possible.
+        virtual bool operator==(const InOrderFoldableContainer& iofc) const noexcept = delete; // Comparison of abstract types might not be possible.
+        virtual bool operator!=(const InOrderFoldableContainer& iofc) const noexcept = delete; // Comparison of abstract types might not be possible.
 
         /* ************************************************************************ */
 
@@ -548,16 +548,16 @@ namespace lasd
         /* ************************************************************************ */
 
         // Copy assignment
-        virtual BreadthMappableContainer &operator=(const BreadthMappableContainer &bmc) = delete; // Copy assignment of abstract types should not be possible.
+        virtual BreadthMappableContainer& operator=(const BreadthMappableContainer& bmc) = delete; // Copy assignment of abstract types should not be possible.
 
         // Move assignment
-        virtual BreadthMappableContainer &operator=(BreadthMappableContainer &&bmc) = delete; // Move assignment of abstract types should not be possible.
+        virtual BreadthMappableContainer& operator=(BreadthMappableContainer&& bmc) = delete; // Move assignment of abstract types should not be possible.
 
         /* ************************************************************************ */
 
         // Comparison operators
-        virtual bool operator==(const BreadthMappableContainer &bmc) const noexcept = delete; // Comparison of abstract types might not be possible.
-        virtual bool operator!=(const BreadthMappableContainer &bmc) const noexcept = delete; // Comparison of abstract types might not be possible.
+        virtual bool operator==(const BreadthMappableContainer& bmc) const noexcept = delete; // Comparison of abstract types might not be possible.
+        virtual bool operator!=(const BreadthMappableContainer& bmc) const noexcept = delete; // Comparison of abstract types might not be possible.
 
         /* ************************************************************************ */
 
@@ -597,16 +597,16 @@ namespace lasd
         /* ************************************************************************ */
 
         // Copy assignment
-        virtual BreadthFoldableContainer &operator=(const BreadthFoldableContainer &bfc) = delete; // Copy assignment of abstract types should not be possible.
+        virtual BreadthFoldableContainer& operator=(const BreadthFoldableContainer& bfc) = delete; // Copy assignment of abstract types should not be possible.
 
         // Move assignment
-        virtual BreadthFoldableContainer &operator=(BreadthFoldableContainer &&bfc) = delete; // Move assignment of abstract types should not be possible.
+        virtual BreadthFoldableContainer& operator=(BreadthFoldableContainer&& bfc) = delete; // Move assignment of abstract types should not be possible.
 
         /* ************************************************************************ */
 
         // Comparison operators
-        virtual bool operator==(const BreadthFoldableContainer &bfc) const noexcept = delete; // Comparison of abstract types might not be possible.
-        virtual bool operator!=(const BreadthFoldableContainer &bfc) const noexcept = delete; // Comparison of abstract types might not be possible.
+        virtual bool operator==(const BreadthFoldableContainer& bfc) const noexcept = delete; // Comparison of abstract types might not be possible.
+        virtual bool operator!=(const BreadthFoldableContainer& bfc) const noexcept = delete; // Comparison of abstract types might not be possible.
 
         /* ************************************************************************ */
 

@@ -4,7 +4,7 @@ namespace lasd
 /* ************************************************************************** */
 // Move constructor
     template<typename Data>
-    StackVec<Data>::StackVec(StackVec &&sv) noexcept
+    StackVec<Data>::StackVec(StackVec&& sv) noexcept
     {
         std::swap(array, sv.array);
         std::swap(size, sv.size);
@@ -14,7 +14,7 @@ namespace lasd
 
 // Copy assignment
     template<typename Data>
-    StackVec<Data> &StackVec<Data>::operator=(const StackVec &sv)
+    StackVec<Data>& StackVec<Data>::operator=(const StackVec& sv)
     {
         Vector<Data>::operator=(sv);
         tail = sv.tail;
@@ -23,7 +23,7 @@ namespace lasd
 
 // Move assignment
     template<typename Data>
-    StackVec<Data> &StackVec<Data>::operator=(StackVec &&sv) noexcept
+    StackVec<Data>& StackVec<Data>::operator=(StackVec&& sv) noexcept
     {
         Vector<Data>::operator=(std::move(sv));
         tail = std::move(sv.tail);
@@ -34,7 +34,7 @@ namespace lasd
 
 // Comparison operators
     template<typename Data>
-    bool StackVec<Data>::operator==(const StackVec &sv) const noexcept
+    bool StackVec<Data>::operator==(const StackVec& sv) const noexcept
     {
         if (tail != sv.tail)
             return false;
@@ -47,7 +47,7 @@ namespace lasd
     }
 
     template<typename Data>
-    bool StackVec<Data>::operator!=(const StackVec &sv) const noexcept
+    bool StackVec<Data>::operator!=(const StackVec& sv) const noexcept
     {
         return !(*this == sv);
     }
@@ -56,7 +56,7 @@ namespace lasd
 
 // Specific member functions (inherited from Stack)
     template<typename Data>
-    const Data &StackVec<Data>::Top() const // Override Stack member (constant version; must throw std::length_error when empty)
+    const Data& StackVec<Data>::Top() const // Override Stack member (constant version; must throw std::length_error when empty)
     {
         if (tail < 0)
             throw std::length_error("Length error!");
@@ -64,7 +64,7 @@ namespace lasd
     }
 
     template<typename Data>
-    Data &StackVec<Data>::Top() // Override Stack member (must throw std::length_error when empty)
+    Data& StackVec<Data>::Top() // Override Stack member (must throw std::length_error when empty)
     {
         if (tail < 0)
             throw std::length_error("Length error!");
@@ -82,17 +82,17 @@ namespace lasd
     }
 
     template<typename Data>
-    Data &StackVec<Data>::TopNPop() // Override Stack member (must throw std::length_error when empty)
+    Data& StackVec<Data>::TopNPop() // Override Stack member (must throw std::length_error when empty)
     {
         if (tail < 0)
             throw std::length_error("Length error!");
-        Data &ref = *(new Data(Top()));
+        Data& ref = *(new Data(Top()));
         Pop();
         return ref;
     }
 
     template<typename Data>
-    void StackVec<Data>::Push(const Data &d) // Override Stack member (copy of the value)
+    void StackVec<Data>::Push(const Data& d) // Override Stack member (copy of the value)
     {
         tail++;
         if (tail == size)
@@ -101,7 +101,7 @@ namespace lasd
     }
 
     template<typename Data>
-    void StackVec<Data>::Push(Data &&d) noexcept // Override Stack member (move of the value)
+    void StackVec<Data>::Push(Data&& d) noexcept // Override Stack member (move of the value)
     {
         tail++;
         if (tail == size)

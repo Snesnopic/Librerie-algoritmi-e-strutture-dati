@@ -5,21 +5,21 @@ namespace lasd
 //Node methods
 //Node copy constructor
     template<typename Data>
-    List<Data>::Node::Node(const Data &d)
+    List<Data>::Node::Node(const Data& d)
     {
         dato = d;
     }
 
 //Node Data move constructor
     template<typename Data>
-    List<Data>::Node::Node(Data &&d) noexcept
+    List<Data>::Node::Node(Data&& d) noexcept
     {
         std::swap(dato, d);
     }
 
 //Node Node copy constructor
     template<typename Data>
-    List<Data>::Node::Node(const Node &n)
+    List<Data>::Node::Node(const Node& n)
     {
         dato = n.dato;
         next = n.next;
@@ -27,7 +27,7 @@ namespace lasd
 
 //Node Node move constructor
     template<typename Data>
-    List<Data>::Node::Node(Node &&n) noexcept
+    List<Data>::Node::Node(Node&& n) noexcept
     {
         std::swap(dato, n.dato);
         std::swap(next, n.next);
@@ -43,7 +43,7 @@ namespace lasd
 //Node operators
 //Equal comparison
     template<typename Data>
-    bool List<Data>::Node::operator==(const Node &n) const noexcept
+    bool List<Data>::Node::operator==(const Node& n) const noexcept
     {
         if (dato == n.dato)                              //se i dati sono uguali...
         {
@@ -62,7 +62,7 @@ namespace lasd
 
 //Not equal comparison
     template<typename Data>
-    bool List<Data>::Node::operator!=(const Node &n) const noexcept
+    bool List<Data>::Node::operator!=(const Node& n) const noexcept
     {
         return !(*this == n);
     }
@@ -78,7 +78,7 @@ namespace lasd
 
 //LinearContainer constructor
     template<typename Data>
-    List<Data>::List(const LinearContainer<Data> &lc)
+    List<Data>::List(const LinearContainer<Data>& lc)
     {
         if (!lc.Empty())
         {
@@ -95,7 +95,7 @@ namespace lasd
 
 //Copy constructor
     template<typename Data>
-    List<Data>::List(const List &l)
+    List<Data>::List(const List& l)
     {
         size = l.size;
         if (l.head != nullptr)
@@ -116,7 +116,7 @@ namespace lasd
 
 //Move constructor
     template<typename Data>
-    List<Data>::List(List &&l) noexcept
+    List<Data>::List(List&& l) noexcept
     {
         if (l.head != nullptr)
         {
@@ -137,7 +137,7 @@ namespace lasd
 
 //Front
     template<typename Data>
-    Data &List<Data>::Front() const
+    Data& List<Data>::Front() const
     {
         if (size == 0)
             throw std::length_error("Index out of bounds!");
@@ -146,7 +146,7 @@ namespace lasd
 
 //Back
     template<typename Data>
-    Data &List<Data>::Back() const
+    Data& List<Data>::Back() const
     {
         if (size == 0)
             throw std::length_error("Index out of bounds!");
@@ -155,7 +155,7 @@ namespace lasd
 
 //Copy assignment
     template<typename Data>
-    List<Data> &List<Data>::operator=(const List &l)
+    List<Data>& List<Data>::operator=(const List& l)
     {
         if (this != &l)
         {
@@ -180,7 +180,7 @@ namespace lasd
 
 //Move assignment
     template<typename Data>
-    List<Data> &List<Data>::operator=(List &&l) noexcept
+    List<Data>& List<Data>::operator=(List&& l) noexcept
     {
         if (this != &l)
         {
@@ -192,7 +192,7 @@ namespace lasd
 
 //Random operator
     template<typename Data>
-    Data &List<Data>::operator[](const unsigned long index) const
+    Data& List<Data>::operator[](const unsigned long index) const
     {
         if (size == 0 || index >= size)
             throw std::out_of_range("Index out of bounds!");
@@ -206,7 +206,7 @@ namespace lasd
 
 //Equal comparison operator
     template<typename Data>
-    bool List<Data>::operator==(const List &l) const noexcept
+    bool List<Data>::operator==(const List& l) const noexcept
     {
         if (size != l.size)
             return false;
@@ -224,14 +224,14 @@ namespace lasd
 
 //Not equal comparison operator
     template<typename Data>
-    bool List<Data>::operator!=(const List &l) const noexcept
+    bool List<Data>::operator!=(const List& l) const noexcept
     {
         return !(*this == l);
     }
 
 //Insert At Front copy
     template<typename Data>
-    void List<Data>::InsertAtFront(const Data &d) noexcept
+    void List<Data>::InsertAtFront(const Data& d) noexcept
     {
         Node *n = new Node(d);
         n->next = head;
@@ -241,7 +241,7 @@ namespace lasd
 
 //Insert At Front move
     template<typename Data>
-    void List<Data>::InsertAtFront(Data &&d) noexcept
+    void List<Data>::InsertAtFront(Data&& d) noexcept
     {
         Node *n = new Node(std::move(d));
         n->next = head;
@@ -264,18 +264,18 @@ namespace lasd
 
 //Front And Remove (rimuovi un elemento e restituiscilo)
     template<typename Data>
-    Data &List<Data>::FrontNRemove()
+    Data& List<Data>::FrontNRemove()
     {
         if (size == 0)
             throw std::length_error("Lenght error!");
-        Data &ref = *(new Data(head->dato));
+        Data& ref = *(new Data(head->dato));
         RemoveFromFront();
         return ref;
     }
 
 //Insert At Back copy
     template<typename Data>
-    void List<Data>::InsertAtBack(const Data &d) noexcept
+    void List<Data>::InsertAtBack(const Data& d) noexcept
     {
         Node *n = new Node(d);
         n->next = nullptr;
@@ -295,7 +295,7 @@ namespace lasd
 
 //Insert At Back move
     template<typename Data>
-    void List<Data>::InsertAtBack(Data &&d) noexcept
+    void List<Data>::InsertAtBack(Data&& d) noexcept
     {
         Node *n = new Node(std::move(d));
         n->next = nullptr;

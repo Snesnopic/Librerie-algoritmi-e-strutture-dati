@@ -15,7 +15,7 @@ namespace lasd
 
 //LinearContainer constructor
     template<typename Data>
-    Vector<Data>::Vector(const LinearContainer<Data> &lc)
+    Vector<Data>::Vector(const LinearContainer<Data>& lc)
     {
         size = lc.Size();
         array = new Data[size];
@@ -25,7 +25,7 @@ namespace lasd
 
 //Copy constructor
     template<typename Data>
-    Vector<Data>::Vector(const Vector<Data> &v)
+    Vector<Data>::Vector(const Vector<Data>& v)
     {
         size = v.size;
         array = new Data[v.size];
@@ -34,7 +34,7 @@ namespace lasd
 
 //Move constructor
     template<typename Data>
-    Vector<Data>::Vector(Vector<Data> &&v) noexcept
+    Vector<Data>::Vector(Vector<Data>&& v) noexcept
     {
         std::swap(array, v.array);
         std::swap(size, v.size);
@@ -50,7 +50,7 @@ namespace lasd
 //Operators
 //Random access operator
     template<typename Data>
-    Data &Vector<Data>::operator[](const unsigned long index) const
+    Data& Vector<Data>::operator[](const unsigned long index) const
     {
         if (index >= size)
             throw std::out_of_range("Index out of bounds!");
@@ -59,7 +59,7 @@ namespace lasd
 
 //Copy assignment
     template<typename Data>
-    Vector<Data> &Vector<Data>::operator=(const Vector &v)
+    Vector<Data>& Vector<Data>::operator=(const Vector& v)
     {
         if (this != &v)
         {
@@ -74,7 +74,7 @@ namespace lasd
 
 //Move assignment
     template<typename Data>
-    Vector<Data> &Vector<Data>::operator=(Vector<Data> &&v) noexcept
+    Vector<Data>& Vector<Data>::operator=(Vector<Data>&& v) noexcept
     {
         if (this != &v)
         {
@@ -86,7 +86,7 @@ namespace lasd
 
 //Equal comparison
     template<typename Data>
-    bool Vector<Data>::operator==(const Vector &v) const noexcept
+    bool Vector<Data>::operator==(const Vector& v) const noexcept
     {
         if (size != v.Size())
             return false;
@@ -100,7 +100,7 @@ namespace lasd
 
 //Not equal comparison
     template<typename Data>
-    bool Vector<Data>::operator!=(const Vector &v) const noexcept
+    bool Vector<Data>::operator!=(const Vector& v) const noexcept
     {
         return !(*this == v);
     }
@@ -140,7 +140,7 @@ namespace lasd
 
 //Front
     template<typename Data>
-    Data &Vector<Data>::Front() const
+    Data& Vector<Data>::Front() const
     {
         if (size == 0)
             throw std::length_error("Index out of bounds!");
@@ -149,7 +149,7 @@ namespace lasd
 
 //Back
     template<typename Data>
-    Data &Vector<Data>::Back() const
+    Data& Vector<Data>::Back() const
     {
         if (size == 0)
             throw std::length_error("Index out of bounds!");

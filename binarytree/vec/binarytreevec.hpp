@@ -42,20 +42,20 @@ namespace lasd
         public:
 
             unsigned long index;
-            Vector<NodeVec *> &arrayRef = nullptr;
+            Vector<NodeVec *>& arrayRef = nullptr;
 
             NodeVec() = default;
 
-            NodeVec(Vector<Data> &arr);
+            NodeVec(Vector<Data>& arr);
 
-            Data &Element() noexcept override; // Mutable access to the element (concrete function should not throw exceptions)
-            const Data &Element() const noexcept override; // Immutable access to the element (concrete function should not throw exceptions)
+            Data& Element() noexcept override; // Mutable access to the element (concrete function should not throw exceptions)
+            const Data& Element() const noexcept override; // Immutable access to the element (concrete function should not throw exceptions)
 
             bool HasLeftChild() const noexcept override; // (concrete function should not throw exceptions)
             bool HasRightChild() const noexcept override; // (concrete function should not throw exceptions)
 
-            NodeVec &LeftChild() const override; // (concrete function must throw std::out_of_range when not existent)
-            NodeVec &RightChild() const override; // (concrete function must throw std::out_of_range when not existent)
+            NodeVec& LeftChild() const override; // (concrete function must throw std::out_of_range when not existent)
+            NodeVec& RightChild() const override; // (concrete function must throw std::out_of_range when not existent)
         };
 
         Vector<NodeVec *> array;
@@ -67,15 +67,15 @@ namespace lasd
         /* ************************************************************************ */
 
         // Specific constructors
-        BinaryTreeVec(LinearContainer<Data> &lc); // A binary tree obtained from a LinearContainer
+        BinaryTreeVec(LinearContainer<Data>& lc); // A binary tree obtained from a LinearContainer
 
         /* ************************************************************************ */
 
         // Copy constructor
-        BinaryTreeVec(const BinaryTreeVec &btv);
+        BinaryTreeVec(const BinaryTreeVec& btv);
 
         // Move constructor
-        BinaryTreeVec(BinaryTreeVec &&btv) noexcept;
+        BinaryTreeVec(BinaryTreeVec&& btv) noexcept;
 
         /* ************************************************************************ */
 

@@ -29,48 +29,48 @@ string GeneraStringaCasuale(unsigned int lunghezza)
 }
 
 template<typename Data>
-void FoldSumLessThanN(const Data &dat, const void *_, void *acc)
+void FoldSumLessThanN(const Data& dat, const void *_, void *acc)
 {
-    if (dat < *((Data *) _))
-        *((Data *) acc) += dat;
+    if (dat < *((Data *)_))
+        *((Data *)acc) += dat;
 }
 
 template<typename Data>
-void FoldProductMoreThanN(const Data &dat, const void *_, void *acc)
+void FoldProductMoreThanN(const Data& dat, const void *_, void *acc)
 {
-    if (dat > *((Data *) _))
-        *((Data *) acc) *= dat;
+    if (dat > *((Data *)_))
+        *((Data *)acc) *= dat;
 }
 
 template<typename Data>
-void FoldConcatLessEqualN(const Data &dat, const void *_, void *acc)
+void FoldConcatLessEqualN(const Data& dat, const void *_, void *acc)
 {
-    if (dat.length() <= *((unsigned long *) _))
-        *((Data *) acc) += dat;
+    if (dat.length() <= *((unsigned long *)_))
+        *((Data *)acc) += dat;
 }
 
 template<typename Data>
-void MapPrint(Data &dat, void *_)
+void MapPrint(Data& dat, void *_)
 {
     std::cout << dat << " ";
 }
 
 template<typename Data>
-void MapDouble(Data &dat, void *_)
+void MapDouble(Data& dat, void *_)
 {
     dat = dat * 2;
 }
 
 template<typename Data>
-void MapSquare(Data &dat, void *_)
+void MapSquare(Data& dat, void *_)
 {
     dat = pow(dat, 2);
 }
 
 template<typename Data>
-void MapUppercase(Data &dat, void *_)
+void MapUppercase(Data& dat, void *_)
 {
-    for (char &c: dat)
+    for (char& c: dat)
         c = toupper(c);
 }
 
@@ -427,7 +427,7 @@ void liststringtest()
 }
 
 template<typename Data>
-void stacktest(Stack<Data> &s)
+void stacktest(Stack<Data>& s)
 {
     cout << "L'elemento in cima e' " << s.Top() << endl;
     bool selection = false;
@@ -492,7 +492,7 @@ void stacktest(Stack<Data> &s)
 }
 
 template<typename Data>
-void queuetest(Queue<Data> &q)
+void queuetest(Queue<Data>& q)
 {
     cout << "L'elemento in cima e' " << q.Head() << endl;
     bool selection = false;

@@ -37,15 +37,15 @@ namespace lasd
         /* ************************************************************************ */
 
         // Specific constructor
-        QueueLst(const LinearContainer<Data> &lc) : List<Data>(lc) {}; // A queue obtained from a LinearContainer
+        QueueLst(const LinearContainer<Data>& lc) : List<Data>(lc) {}; // A queue obtained from a LinearContainer
 
         /* ************************************************************************ */
 
         // Copy constructor
-        QueueLst(const QueueLst &ql) : List<Data>(ql) {};
+        QueueLst(const QueueLst& ql) : List<Data>(ql) {};
 
         // Move constructor
-        QueueLst(QueueLst &&ql) noexcept: List<Data>(std::move(ql)) {};
+        QueueLst(QueueLst&& ql) noexcept: List<Data>(std::move(ql)) {};
 
         /* ************************************************************************ */
 
@@ -55,28 +55,28 @@ namespace lasd
         /* ************************************************************************ */
 
         // Copy assignment
-        QueueLst &operator=(const QueueLst &ql);
+        QueueLst& operator=(const QueueLst& ql);
 
         // Move assignment
-        QueueLst &operator=(QueueLst &&ql) noexcept;
+        QueueLst& operator=(QueueLst&& ql) noexcept;
 
         /* ************************************************************************ */
 
         // Comparison operators
-        bool operator==(const QueueLst &ql) const noexcept;
+        bool operator==(const QueueLst& ql) const noexcept;
 
-        bool operator!=(const QueueLst &ql) const noexcept;
+        bool operator!=(const QueueLst& ql) const noexcept;
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from Queue)
 
-        const Data &Head() const override; // Override Queue member (constant version; must throw std::length_error when empty)
-        Data &Head() override; // Override Queue member (must throw std::length_error when empty)
+        const Data& Head() const override; // Override Queue member (constant version; must throw std::length_error when empty)
+        Data& Head() override; // Override Queue member (must throw std::length_error when empty)
         void Dequeue() override; // Override Queue member (must throw std::length_error when empty)
-        Data &HeadNDequeue() override; // Override Queue member (must throw std::length_error when empty)
-        void Enqueue(const Data &d) noexcept override; // Override Queue member (copy of the value)
-        void Enqueue(Data &&d) noexcept override; // Override Queue member (move of the value)
+        Data& HeadNDequeue() override; // Override Queue member (must throw std::length_error when empty)
+        void Enqueue(const Data& d) noexcept override; // Override Queue member (copy of the value)
+        void Enqueue(Data&& d) noexcept override; // Override Queue member (move of the value)
 
         /* ************************************************************************ */
 

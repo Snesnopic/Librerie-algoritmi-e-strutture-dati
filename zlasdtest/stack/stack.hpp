@@ -6,7 +6,7 @@
 /* ************************************************************************** */
 
 template<typename Data>
-void Top(unsigned int &testnum, unsigned int &testerr, const lasd::Stack<Data> &stk, bool chk, const Data &val)
+void Top(unsigned int& testnum, unsigned int& testerr, const lasd::Stack<Data>& stk, bool chk, const Data& val)
 {
     testnum++;
     bool tst;
@@ -24,11 +24,11 @@ void Top(unsigned int &testnum, unsigned int &testerr, const lasd::Stack<Data> &
         tst = false;
         std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
     }
-    testerr += (1 - (unsigned int) tst);
+    testerr += (1 - (unsigned int)tst);
 }
 
 template<typename Data>
-void Top(unsigned int &testnum, unsigned int &testerr, lasd::Stack<Data> &stk, bool chk, const Data &val)
+void Top(unsigned int& testnum, unsigned int& testerr, lasd::Stack<Data>& stk, bool chk, const Data& val)
 {
     testnum++;
     bool tst;
@@ -46,11 +46,11 @@ void Top(unsigned int &testnum, unsigned int &testerr, lasd::Stack<Data> &stk, b
         tst = false;
         std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
     }
-    testerr += (1 - (unsigned int) tst);
+    testerr += (1 - (unsigned int)tst);
 }
 
 template<typename Data>
-void Pop(unsigned int &testnum, unsigned int &testerr, lasd::Stack<Data> &stk, bool chk)
+void Pop(unsigned int& testnum, unsigned int& testerr, lasd::Stack<Data>& stk, bool chk)
 {
     testnum++;
     bool tst = true;
@@ -69,11 +69,11 @@ void Pop(unsigned int &testnum, unsigned int &testerr, lasd::Stack<Data> &stk, b
         tst = false;
         std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
     }
-    testerr += (1 - (unsigned int) tst);
+    testerr += (1 - (unsigned int)tst);
 }
 
 template<typename Data>
-void TopNPop(unsigned int &testnum, unsigned int &testerr, lasd::Stack<Data> &stk, bool chk, const Data &val)
+void TopNPop(unsigned int& testnum, unsigned int& testerr, lasd::Stack<Data>& stk, bool chk, const Data& val)
 {
     testnum++;
     bool tst;
@@ -91,11 +91,11 @@ void TopNPop(unsigned int &testnum, unsigned int &testerr, lasd::Stack<Data> &st
         tst = false;
         std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
     }
-    testerr += (1 - (unsigned int) tst);
+    testerr += (1 - (unsigned int)tst);
 }
 
 template<typename Data>
-void PushC(unsigned int &testnum, unsigned int &testerr, lasd::Stack<Data> &stk, const Data &val)
+void PushC(unsigned int& testnum, unsigned int& testerr, lasd::Stack<Data>& stk, const Data& val)
 {
     testnum++;
     bool tst = true;
@@ -110,11 +110,11 @@ void PushC(unsigned int &testnum, unsigned int &testerr, lasd::Stack<Data> &stk,
         std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
         tst = false;
     }
-    testerr += (1 - (unsigned int) tst);
+    testerr += (1 - (unsigned int)tst);
 }
 
 template<typename Data>
-void PushM(unsigned int &testnum, unsigned int &testerr, lasd::Stack<Data> &stk, Data val)
+void PushM(unsigned int& testnum, unsigned int& testerr, lasd::Stack<Data>& stk, Data val)
 {
     testnum++;
     bool tst = true;
@@ -129,11 +129,11 @@ void PushM(unsigned int &testnum, unsigned int &testerr, lasd::Stack<Data> &stk,
         std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
         tst = false;
     }
-    testerr += (1 - (unsigned int) tst);
+    testerr += (1 - (unsigned int)tst);
 }
 
 template<typename Stk>
-void EqualStack(unsigned int &testnum, unsigned int &testerr, const Stk &stk1, const Stk &stk2, bool chk)
+void EqualStack(unsigned int& testnum, unsigned int& testerr, const Stk& stk1, const Stk& stk2, bool chk)
 {
     testnum++;
     bool tst;
@@ -146,11 +146,11 @@ void EqualStack(unsigned int &testnum, unsigned int &testerr, const Stk &stk1, c
     {
         std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    testerr += (1 - (unsigned int) tst);
+    testerr += (1 - (unsigned int)tst);
 }
 
 template<typename Stk>
-void NonEqualStack(unsigned int &testnum, unsigned int &testerr, const Stk &stk1, const Stk &stk2, bool chk)
+void NonEqualStack(unsigned int& testnum, unsigned int& testerr, const Stk& stk1, const Stk& stk2, bool chk)
 {
     testnum++;
     bool tst;
@@ -163,7 +163,7 @@ void NonEqualStack(unsigned int &testnum, unsigned int &testerr, const Stk &stk1
     {
         std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    testerr += (1 - (unsigned int) tst);
+    testerr += (1 - (unsigned int)tst);
 }
 
 /* ************************************************************************** */

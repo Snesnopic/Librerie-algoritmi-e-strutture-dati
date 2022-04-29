@@ -45,18 +45,18 @@ namespace lasd
             // Specific constructors
             Node() = default;
 
-            Node(const Data &d);
+            Node(const Data& d);
 
-            Node(Data &&d) noexcept;
+            Node(Data&& d) noexcept;
 
 
             /* ********************************************************************** */
 
             // Copy constructor
-            Node(const Node &n);
+            Node(const Node& n);
 
             // Move constructor
-            Node(Node &&n) noexcept;
+            Node(Node&& n) noexcept;
 
             /* ********************************************************************** */
 
@@ -66,9 +66,9 @@ namespace lasd
             /* ********************************************************************** */
 
             // Comparison operators
-            bool operator==(const Node &n) const noexcept;
+            bool operator==(const Node& n) const noexcept;
 
-            bool operator!=(const Node &n) const noexcept;
+            bool operator!=(const Node& n) const noexcept;
 
 
             /* ********************************************************************** */
@@ -91,15 +91,15 @@ namespace lasd
         /* ************************************************************************ */
 
         // Specific constructor
-        List(const LinearContainer<Data> &lc); // A list obtained from a LinearContainer
+        List(const LinearContainer<Data>& lc); // A list obtained from a LinearContainer
 
         /* ************************************************************************ */
 
         // Copy constructor
-        List(const List &l);
+        List(const List& l);
 
         // Move constructor
-        List(List &&l) noexcept;
+        List(List&& l) noexcept;
 
         /* ************************************************************************ */
 
@@ -109,29 +109,29 @@ namespace lasd
         /* ************************************************************************ */
 
         // Copy assignment
-        List &operator=(const List &l);
+        List& operator=(const List& l);
 
         // Move assignment
-        List &operator=(List &&l) noexcept;
+        List& operator=(List&& l) noexcept;
 
         /* ************************************************************************ */
 
         // Comparison operators
-        bool operator==(const List &l) const noexcept;
+        bool operator==(const List& l) const noexcept;
 
-        bool operator!=(const List &l) const noexcept;
+        bool operator!=(const List& l) const noexcept;
 
         /* ************************************************************************ */
 
         // Specific member functions
 
-        void InsertAtFront(const Data &d) noexcept; // Copy of the value
-        void InsertAtFront(Data &&d) noexcept; // Move of the value
+        void InsertAtFront(const Data& d) noexcept; // Copy of the value
+        void InsertAtFront(Data&& d) noexcept; // Move of the value
         void RemoveFromFront(); // (must throw std::length_error when empty)
-        Data &FrontNRemove(); // (must throw std::length_error when empty)
+        Data& FrontNRemove(); // (must throw std::length_error when empty)
 
-        void InsertAtBack(const Data &d) noexcept; // Copy of the value
-        void InsertAtBack(Data &&d) noexcept; // Move of the value
+        void InsertAtBack(const Data& d) noexcept; // Copy of the value
+        void InsertAtBack(Data&& d) noexcept; // Move of the value
 
         /* ************************************************************************ */
 
@@ -142,9 +142,9 @@ namespace lasd
         /* ************************************************************************ */
         // Specific member functions (inherited from LinearContainer)
 
-        Data &Front() const override; // Override LinearContainer member (must throw std::length_error when empty)
-        Data &Back() const override; // Override LinearContainer member (must throw std::length_error when empty)
-        Data &operator[](const unsigned long index) const override; // Override LinearContainer member (must throw std::out_of_range when out of range)
+        Data& Front() const override; // Override LinearContainer member (must throw std::length_error when empty)
+        Data& Back() const override; // Override LinearContainer member (must throw std::length_error when empty)
+        Data& operator[](const unsigned long index) const override; // Override LinearContainer member (must throw std::out_of_range when out of range)
 
         /* ************************************************************************ */
         // Specific member functions (inherited from MappableContainer)
