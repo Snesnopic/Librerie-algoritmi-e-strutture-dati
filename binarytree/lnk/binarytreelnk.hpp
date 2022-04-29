@@ -13,7 +13,7 @@ namespace lasd
 /* ************************************************************************** */
 
 template <typename Data>
-class BinaryTreeLnk
+class BinaryTreeLnk: virtual public BinaryTree<Data>
 {
     // Must extend BinaryTree<Data>
 
@@ -23,11 +23,10 @@ private:
 
 protected:
 
-    // using BinaryTree<Data>::???;
-
+    using BinaryTree<Data>::size;
     // ...
 
-    struct NodeLnk   // Must extend Node
+    struct NodeLnk: virtual public BinaryTree<Data>::Node   // Must extend Node
     {
 
     private:
@@ -40,40 +39,41 @@ protected:
 
     public:
 
-        // ...
+        NodeLnk* right = nullptr;
+        NodeLnk* left = nullptr;
 
     };
 
 public:
 
     // Default constructor
-    // BinaryTreeLnk() specifiers;
+    BinaryTreeLnk() = default;
 
     /* ************************************************************************ */
 
     // Specific constructors
-    // BinaryTreeLnk(argument) specifiers; // A binary tree obtained from a LinearContainer
+    BinaryTreeLnk(LinearContainer<Data>& lc); // A binary tree obtained from a LinearContainer
 
     /* ************************************************************************ */
 
     // Copy constructor
-    // BinaryTreeLnk(argument) specifiers;
+    BinaryTreeLnk(const BinaryTreeLnk& btl);
 
     // Move constructor
-    // BinaryTreeLnk(argument) specifiers;
+    BinaryTreeLnk(BinaryTreeLnk&& btl) noexcept;
 
     /* ************************************************************************ */
 
     // Destructor
-    // ~BinaryTreeLnk() specifiers;
+    virtual ~BinaryTreeLnk();
 
     /* ************************************************************************ */
 
     // Copy assignment
-    // type operator=(argument) specifiers;
+    BinaryTreeLnk& operator=(const BinaryTreeLnk& btl);
 
     // Move assignment
-    // type operator=(argument) specifiers;
+    BinaryTreeLnk& operator=(BinaryTreeLnk&& btl) noexcept;
 
     /* ************************************************************************ */
 
@@ -85,13 +85,13 @@ public:
 
     // Specific member functions (inherited from BinaryTree)
 
-    // type Root() specifiers; // Override BinaryTree member (throw std::length_error when empty)
+    NodeLnk& Root() const override; // Override BinaryTree member (throw std::length_error when empty)
 
     /* ************************************************************************ */
 
     // Specific member functions (inherited from Container)
 
-    // type Clear() specifiers; // Override Container member
+    void Clear() override; // Override Container member
 
 };
 
