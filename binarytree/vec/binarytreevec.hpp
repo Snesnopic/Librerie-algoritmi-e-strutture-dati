@@ -14,7 +14,7 @@ namespace lasd
 /* ************************************************************************** */
 
 template <typename Data>
-class BinaryTreeVec
+class BinaryTreeVec: virtual public BinaryTree<Data>
 {
     // Must extend BinaryTree<Data>
 
@@ -24,11 +24,11 @@ private:
 
 protected:
 
-    // using BinaryTree<Data>::???;
+    using BinaryTree<Data>::size;
 
     // ...
 
-    struct NodeVec   // Must extend Node
+struct NodeVec: virtual public BinaryTree<Data>::Node  // Must extend Node
     {
 
     private:
@@ -41,32 +41,33 @@ protected:
 
     public:
 
-        // ...
-
+        unsigned long index;
+        Vector<NodeVec*>& arrayRef = nullptr;
+        NodeVec(Vector<Data>& arr) { array = arr; };
     };
-
+    Vector<NodeVec*> array;
 public:
 
     // Default constructor
-    // BinaryTreeVec() specifiers;
+    BinaryTreeVec() = default;
 
     /* ************************************************************************ */
 
     // Specific constructors
-    // BinaryTreeVec(argument) specifiers; // A binary tree obtained from a LinearContainer
+    BinaryTreeVec(LinearContainer<Data>& lc); // A binary tree obtained from a LinearContainer
 
     /* ************************************************************************ */
 
     // Copy constructor
-    // BinaryTreeVec(argument) specifiers;
+    BinaryTreeVec(const BinaryTreeVec& btv);
 
     // Move constructor
-    // BinaryTreeVec(argument) specifiers;
+    BinaryTreeVec(BinaryTreeVec&& btv) noexcept;
 
     /* ************************************************************************ */
 
     // Destructor
-    // ~BinaryTreeVec() specifiers;
+    virtual ~BinaryTreeVec();
 
     /* ************************************************************************ */
 
