@@ -24,12 +24,12 @@ vuotezza; lettura della dimensione; svuotamento della struttura);
 **rimozione con lettura** dell’elemento in testa).
 
 Al fine di poter testare adeguatamente le librerie sopra descritte, si richiede di definire (esternamente alle stesse, in un opportuno file di test richiamato dal “main”) un insieme di procedure
-che implementi le seguenti funzionalita:
+che implementi le seguenti funzionalità:
 
 1. **scelta della struttura** (vettore vs lista) e del relativo **tipo di dati** da gestire (interi, ecc.);
 
-2. **popolamento della struttura** precedentemente scelta con n valori del tipo opportuno
-generati casualmente, dove n e un parametro dato dall’utente in ingresso; `
+2. **popolamento della struttura** precedentemente scelta con _n_ valori del tipo opportuno
+generati casualmente, dove _n_ è un parametro dato dall’utente in ingresso; `
 
 3. **visualizzazione dell’elemento iniziale**, finale o avente uno specifico indice;
 
@@ -40,15 +40,15 @@ generati casualmente, dove n e un parametro dato dall’utente in ingresso; `
 6.  **calcolo di una delle seguenti funzioni** (effettuato per mezzo delle **funzioni fold**) e
 relativa visualizzazione del risultato: somma per gli interi minori di _n_, prodotto per i
 float maggiori di _n_, e concatenazione per le stringhe con lunghezza minore o uguale a _n_,
-dove _n_ e un parametro dato dall’utente in ingresso;
+dove _n_ è un parametro dato dall’utente in ingresso;
 
 7.  **applicazione di una delle seguenti funzioni** a tutti gli elementi: _2n_ per gli interi, _n<sup>2</sup>_ per i float, e “uppercase” per le stringhe.
 
-Da un opportuno menu, dovra essere inoltre possibile operare sulla struttura scelta attraverso
-le funzioni di libreria di cui ai punti (4) e (5). Infine, e necessario prevedere l’accesso alla
+Da un opportuno menu, dovrà essere inoltre possibile operare sulla struttura scelta attraverso
+le funzioni di libreria di cui ai punti (4) e (5). Infine, è necessario prevedere l’accesso alla
 funzionalita di test prevista dal docente.
 
-Il codice sorgente prodotto dovra seguire pedissequamente (sia nei nomi delle funzioni di libreria,
+Il codice sorgente prodotto dovrà seguire pedissequamente (sia nei nomi delle funzioni di libreria,
 sia nella strutturazione, gerarchia di classi e nei nomi delle diverse directory e file “.cpp” e
 “.hpp”) la forma riportata nel template Exercise1.zip associato al presente esercizio.
 ## ESERCIZIO 2
@@ -67,16 +67,16 @@ Le funzionalita da realizzare sono di seguito elencate:
 accessibile; test di **vuotezza**; lettura della **dimensione**; **svuotamento** della struttura).
 
 Al fine di poter testare adeguatamente le librerie sopra descritte, si richiede di definire (esternamente alle stesse, in un opportuno file di test richiamato dal “main”) un insieme di procedure
-che implementi le seguenti funzionalita:
+che implementi le seguenti funzionalità:
 1. **scelta della struttura** (pila vs coda), della relativa **implementazione** (vettore vs lista)
 e del tipo di dati da gestire (interi, ecc.);
 2. **popolamento della struttura** precedentemente scelta con _n_ valori del tipo opportuno
-generati casualmente, dove n e un parametro dato dall’utente in ingresso.
+generati casualmente, dove _n_ e un parametro dato dall’utente in ingresso.
 Da un opportuno menu, dovra essere inoltre possibile operare sulla struttura scelta attraverso le 
-funzioni di libreria di cui al punto (3). Infine, e necessario prevedere l’accesso alla funzionalit  a
+funzioni di libreria di cui al punto (3). Infine, è necessario prevedere l’accesso alla funzionalità  a
 di test prevista dal docente.
 
-Il codice sorgente prodotto dovra seguire pedissequamente (sia nei nomi delle funzioni di libreria,
+Il codice sorgente prodotto dovrà seguire pedissequamente (sia nei nomi delle funzioni di libreria,
 sia nella strutturazione, gerarchia di classi e nei nomi delle diverse directory e file “.cpp” e
 “.hpp”) la forma riportata nel template Exercise2.zip associato al presente esercizio.
 ## ESERCIZIO 3
@@ -88,10 +88,10 @@ Implementare una libreria di funzioni in **Linguaggio C++** per la gestione di u
 dinamica di tipo **albero binario** contenente **dati generici**, ovvero interi, float, stringhe, struct,
 ecc. Tale struttura dovra essere implementata sfruttando le seguenti due  **rappresentazioni
 concrete**: (1) **vettore dei nodi**; (2) **puntatori ai nodi**.
-Le funzionalita da realizzare sono di seguito elencate: 
+Le funzionalità da realizzare sono di seguito elencate: 
 1. **costruzione** e **distruzione** di una struttura dati;
 2. operazioni di **assegnamento** e **confronto** tra istanze diverse della struttura dati (il confronto deve poter essere effettuato indipendentemente dalla rappresentazione concreta);
-3. operazioni specifiche della struttura dati (**interrogazione** delle proprieta di un nodo: 
+3. operazioni specifiche della struttura dati (**interrogazione** delle proprietà di un nodo: 
 **accesso in lettura/scrittura** al dato contenuto nei nodi, **controllo di esistenza e accesso**
 al figlio sinistro/destro di un nodo; **navigazione** per mezzo di iteratori);
 4. operazioni generiche sulla struttura dati (**controllo di esistenza** di un dato valore; operazioni di **applicazione di una funzione (in ampiezza/pre-ordine/ordine/post-ordine)**
@@ -100,11 +100,11 @@ ampiezza/pre-ordine/ordine/post-ordine)** estratto dagli elementi: **funzioni fo
 di **vuotezza**; lettura della **dimensione**; **svuotamento** della struttura).
 
 Al fine di poter testare adeguatamente le librerie sopra descritte, si richiede di definire (esternamente alle stesse, in un opportuno file di test richiamato dal “main”) un insieme di procedure
-che implementi le seguenti funzionalita:
+che implementi le seguenti funzionalità:
 1. **scelta dell’implementazione** (vettore vs puntatori) e del **tipo di dati** da gestire (interi,
 ecc.);
-2. **popolamento della struttura** precedentemente scelta con n valori del tipo opportuno
-generati casualmente, dove n e un parametro dato dall’utente in ingresso; 
+2. **popolamento della struttura** precedentemente scelta con _n_ valori del tipo opportuno
+generati casualmente, dove _n_ e un parametro dato dall’utente in ingresso; 
 3. **visualizzazione in ampiezza/pre-ordine/ordine/post-ordine di tutti gli elementi** (effettuata per mezzo dell’opportuna **funzione map**);
 4. **controllo di esistenza** di un dato valore;
 5. **calcolo di una delle seguenti funzioni** (effettuato per mezzo delle **funzioni fold**) e
@@ -115,10 +115,10 @@ dove _n_ è un parametro dato dall’utente in ingresso;
 i float, e concatenazione in testa di una specifica stringa _str_ data dall’utente in ingresso
 nel caso delle stringhe.
 
-Da un opportuno menu, dovra essere inoltre possibile operare sulla struttura scelta attraverso le 
-funzioni di libreria di cui al punto (3). Infine, e necessario prevedere l’accesso alla funzionalit  a
+Da un opportuno menu, dovrà essere inoltre possibile operare sulla struttura scelta attraverso le 
+funzioni di libreria di cui al punto (3). Infine, è necessario prevedere l’accesso alla funzionalità
 di test prevista dal docente.
 
-Il codice sorgente prodotto dovra seguire pedissequamente (sia nei nomi delle funzioni di libreria, 
+Il codice sorgente prodotto dovrà seguire pedissequamente (sia nei nomi delle funzioni di libreria, 
 sia nella strutturazione, gerarchia di classi e nei nomi delle diverse directory e file “.cpp” e
 “.hpp”) la forma riportata nel template Exercise3.zip associato al presente esercizio.
