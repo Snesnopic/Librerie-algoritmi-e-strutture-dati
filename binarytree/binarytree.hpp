@@ -227,18 +227,6 @@ namespace lasd
 
         void FoldInOrder(FoldFunctor f, const void *par, void *acc, Node *n) const; // Accessory function executing from one node of the tree
 
-        /* ************************************************************************ */
-
-        // Auxiliary member functions (for BreadthMappableContainer)
-
-        void MapBreadth(MapFunctor f, void *par, Node *n); // Accessory function executing from one node of the tree
-
-        /* ************************************************************************ */
-
-        // Auxiliary member functions (for BreadthFoldableContainer)
-
-        void FoldBreadth(FoldFunctor f, const void *par, void *acc, Node *n) const; // Accessory function executing from one node of the tree
-
     };
 
 /* ************************************************************************** */
