@@ -8,7 +8,7 @@
 
 // Container member functions!
 
-void Empty(unsigned int& testnum, unsigned int& testerr, const lasd::Container& con, bool chk)
+void Empty(unsigned int &testnum, unsigned int &testerr, const lasd::Container &con, bool chk)
 {
     bool tst;
     testnum++;
@@ -17,7 +17,7 @@ void Empty(unsigned int& testnum, unsigned int& testerr, const lasd::Container& 
     testerr += (1 - (unsigned int) tst);
 }
 
-void Size(unsigned int& testnum, unsigned int& testerr, const lasd::Container& con, bool chk, unsigned long siz)
+void Size(unsigned int &testnum, unsigned int &testerr, const lasd::Container &con, bool chk, unsigned long siz)
 {
     bool tst;
     testnum++;
@@ -30,16 +30,16 @@ void Size(unsigned int& testnum, unsigned int& testerr, const lasd::Container& c
 
 // Auxiliary functions for MappableContainer!
 
-void MapStringAppend(std::string& dat, void* par)
+void MapStringAppend(std::string &dat, void *par)
 {
-    dat.append(*((std::string*) par));
+    dat.append(*((std::string *) par));
 }
 
-void MapStringNonEmptyAppend(std::string& dat, void* par)
+void MapStringNonEmptyAppend(std::string &dat, void *par)
 {
     if (!dat.empty())
     {
-        dat.append(*((std::string*) par));
+        dat.append(*((std::string *) par));
     }
 }
 
@@ -47,15 +47,15 @@ void MapStringNonEmptyAppend(std::string& dat, void* par)
 
 // Auxiliary functions for FoldableContainer!
 
-void FoldParity(const int& dat, const void* _, void* acc)
+void FoldParity(const int &dat, const void *_, void *acc)
 {
-    *((int*) acc) += dat;
-    *((int*) acc) %= 2;
+    *((int *) acc) += dat;
+    *((int *) acc) %= 2;
 }
 
-void FoldStringConcatenate(const std::string& dat, const void* _, void* acc)
+void FoldStringConcatenate(const std::string &dat, const void *_, void *acc)
 {
-    ((std::string*) acc)->append(dat);
+    ((std::string *) acc)->append(dat);
 }
 
 /* ************************************************************************** */

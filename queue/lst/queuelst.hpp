@@ -13,77 +13,78 @@ namespace lasd
 
 /* ************************************************************************** */
 
-template <typename Data>
-class QueueLst : virtual public Queue<Data>,virtual protected List<Data>
-{
-    // Must extend Queue<Data>,
-    //             List<Data>
+    template<typename Data>
+    class QueueLst : virtual public Queue<Data>, virtual protected List<Data>
+    {
+        // Must extend Queue<Data>,
+        //             List<Data>
 
-private:
+    private:
 
-    // ...
+        // ...
 
-protected:
+    protected:
 
-    using List<Data>::head;
-    using List<Data>::size;
-    // ...
+        using List<Data>::head;
+        using List<Data>::size;
+        // ...
 
-public:
+    public:
 
-    // Default constructor
-    QueueLst() = default;
+        // Default constructor
+        QueueLst() = default;
 
-    /* ************************************************************************ */
+        /* ************************************************************************ */
 
-    // Specific constructor
-    QueueLst(const LinearContainer<Data> &lc) : List<Data>(lc) {}; // A queue obtained from a LinearContainer
+        // Specific constructor
+        QueueLst(const LinearContainer<Data> &lc) : List<Data>(lc) {}; // A queue obtained from a LinearContainer
 
-    /* ************************************************************************ */
+        /* ************************************************************************ */
 
-    // Copy constructor
-    QueueLst(const QueueLst &ql) : List<Data>(ql) {};
+        // Copy constructor
+        QueueLst(const QueueLst &ql) : List<Data>(ql) {};
 
-    // Move constructor
-    QueueLst(QueueLst &&ql) noexcept : List<Data>(std::move(ql)) {};
+        // Move constructor
+        QueueLst(QueueLst &&ql) noexcept: List<Data>(std::move(ql)) {};
 
-    /* ************************************************************************ */
+        /* ************************************************************************ */
 
-    // Destructor
-    virtual ~QueueLst() = default;
+        // Destructor
+        virtual ~QueueLst() = default;
 
-    /* ************************************************************************ */
+        /* ************************************************************************ */
 
-    // Copy assignment
-    QueueLst& operator=(const QueueLst& ql);
+        // Copy assignment
+        QueueLst &operator=(const QueueLst &ql);
 
-    // Move assignment
-    QueueLst& operator=(QueueLst&& ql) noexcept;
+        // Move assignment
+        QueueLst &operator=(QueueLst &&ql) noexcept;
 
-    /* ************************************************************************ */
+        /* ************************************************************************ */
 
-    // Comparison operators
-    bool operator==(const QueueLst& ql) const noexcept;
-    bool operator!=(const QueueLst& ql) const noexcept;
+        // Comparison operators
+        bool operator==(const QueueLst &ql) const noexcept;
 
-    /* ************************************************************************ */
+        bool operator!=(const QueueLst &ql) const noexcept;
 
-    // Specific member functions (inherited from Queue)
+        /* ************************************************************************ */
 
-    const Data& Head() const override; // Override Queue member (constant version; must throw std::length_error when empty)
-    Data& Head() override; // Override Queue member (must throw std::length_error when empty)
-    void Dequeue() override; // Override Queue member (must throw std::length_error when empty)
-    Data& HeadNDequeue() override; // Override Queue member (must throw std::length_error when empty)
-    void Enqueue(const Data& d) noexcept override; // Override Queue member (copy of the value)
-    void Enqueue(Data &&d) noexcept override; // Override Queue member (move of the value)
+        // Specific member functions (inherited from Queue)
 
-    /* ************************************************************************ */
+        const Data &Head() const override; // Override Queue member (constant version; must throw std::length_error when empty)
+        Data &Head() override; // Override Queue member (must throw std::length_error when empty)
+        void Dequeue() override; // Override Queue member (must throw std::length_error when empty)
+        Data &HeadNDequeue() override; // Override Queue member (must throw std::length_error when empty)
+        void Enqueue(const Data &d) noexcept override; // Override Queue member (copy of the value)
+        void Enqueue(Data &&d) noexcept override; // Override Queue member (move of the value)
 
-    // Specific member functions (inherited from Container)
+        /* ************************************************************************ */
 
-    void Clear() override; // Override Container member
+        // Specific member functions (inherited from Container)
 
-};
+        void Clear() override; // Override Container member
+
+    };
 
 /* ************************************************************************** */
 

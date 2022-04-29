@@ -1,4 +1,3 @@
-
 #include <iostream>
 
 /* ************************************************************************** */
@@ -19,8 +18,8 @@ using namespace std;
 
 /* ************************************************************************** */
 
-template <typename Stk>
-void stestStackInt(Stk& stk, unsigned int& testnum, unsigned int& testerr)
+template<typename Stk>
+void stestStackInt(Stk &stk, unsigned int &testnum, unsigned int &testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     try
@@ -71,7 +70,7 @@ void stestStackInt(Stk& stk, unsigned int& testnum, unsigned int& testerr)
         Size(loctestnum, loctesterr, movstk, true, 0);
 
     }
-    catch(...)
+    catch (...)
     {
         loctestnum++;
         loctesterr++;
@@ -81,7 +80,8 @@ void stestStackInt(Stk& stk, unsigned int& testnum, unsigned int& testerr)
     testerr += loctesterr;
     cout << "End of Stack<int> Test! (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
 }
-void stestStackInt(unsigned int& testnum, unsigned int& testerr)
+
+void stestStackInt(unsigned int &testnum, unsigned int &testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     lasd::StackVec<int> stkvec;
@@ -94,8 +94,8 @@ void stestStackInt(unsigned int& testnum, unsigned int& testerr)
     testerr += loctesterr;
 }
 
-template <typename Stk>
-void stestStackFloat(Stk& stk, unsigned int& testnum, unsigned int& testerr)
+template<typename Stk>
+void stestStackFloat(Stk &stk, unsigned int &testnum, unsigned int &testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     try
@@ -113,7 +113,7 @@ void stestStackFloat(Stk& stk, unsigned int& testnum, unsigned int& testerr)
         TopNPop(loctestnum, loctesterr, stk, true, 5.9);
         Pop(loctestnum, loctesterr, stk, false);
     }
-    catch(...)
+    catch (...)
     {
         loctestnum++;
         loctesterr++;
@@ -123,7 +123,8 @@ void stestStackFloat(Stk& stk, unsigned int& testnum, unsigned int& testerr)
     testerr += loctesterr;
     cout << "End of Stack<double> Test! (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
 }
-void stestStackFloat(unsigned int& testnum, unsigned int& testerr)
+
+void stestStackFloat(unsigned int &testnum, unsigned int &testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     lasd::StackVec<double> stkvec;
@@ -136,8 +137,8 @@ void stestStackFloat(unsigned int& testnum, unsigned int& testerr)
     testerr += loctesterr;
 }
 
-template <typename Stk>
-void stestStackString(Stk& stk, unsigned int& testnum, unsigned int& testerr)
+template<typename Stk>
+void stestStackString(Stk &stk, unsigned int &testnum, unsigned int &testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     try
@@ -153,7 +154,7 @@ void stestStackString(Stk& stk, unsigned int& testnum, unsigned int& testerr)
         Pop(loctestnum, loctesterr, stk, true);
         Pop(loctestnum, loctesterr, stk, false);
     }
-    catch(...)
+    catch (...)
     {
         loctestnum++;
         loctesterr++;
@@ -163,7 +164,8 @@ void stestStackString(Stk& stk, unsigned int& testnum, unsigned int& testerr)
     testerr += loctesterr;
     cout << "End of Stack<string> Test! (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
 }
-void stestStackString(unsigned int& testnum, unsigned int& testerr)
+
+void stestStackString(unsigned int &testnum, unsigned int &testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     lasd::StackVec<string> stkvec;
@@ -189,7 +191,7 @@ void stestStackString(unsigned int& testnum, unsigned int& testerr)
         lasd::StackLst<string> newstklst(vec);
         EqualStack(loctestnum, loctesterr, stklst, newstklst, true);
     }
-    catch(...)
+    catch (...)
     {
         loctestnum++;
         loctesterr++;
@@ -199,7 +201,7 @@ void stestStackString(unsigned int& testnum, unsigned int& testerr)
     testerr += loctesterr;
 }
 
-void stestStack(unsigned int& testnum, unsigned int& testerr)
+void stestStack(unsigned int &testnum, unsigned int &testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     stestStackInt(loctestnum, loctesterr);
@@ -212,8 +214,8 @@ void stestStack(unsigned int& testnum, unsigned int& testerr)
 
 /* ************************************************************************** */
 
-template <typename Que>
-void stestQueueInt(Que& que, unsigned int& testnum, unsigned int& testerr)
+template<typename Que>
+void stestQueueInt(Que &que, unsigned int &testnum, unsigned int &testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     try
@@ -261,7 +263,7 @@ void stestQueueInt(Que& que, unsigned int& testnum, unsigned int& testerr)
         Empty(loctestnum, loctesterr, movque, true);
         Size(loctestnum, loctesterr, movque, true, 0);
     }
-    catch(...)
+    catch (...)
     {
         loctestnum++;
         loctesterr++;
@@ -271,7 +273,8 @@ void stestQueueInt(Que& que, unsigned int& testnum, unsigned int& testerr)
     testerr += loctesterr;
     cout << "End of Queue<int> Test! (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
 }
-void stestQueueInt(unsigned int& testnum, unsigned int& testerr)
+
+void stestQueueInt(unsigned int &testnum, unsigned int &testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     lasd::QueueVec<int> quevec;
@@ -284,8 +287,8 @@ void stestQueueInt(unsigned int& testnum, unsigned int& testerr)
     testerr += loctesterr;
 }
 
-template <typename Que>
-void stestQueueFloat(Que& que, unsigned int& testnum, unsigned int& testerr)
+template<typename Que>
+void stestQueueFloat(Que &que, unsigned int &testnum, unsigned int &testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     try
@@ -303,7 +306,7 @@ void stestQueueFloat(Que& que, unsigned int& testnum, unsigned int& testerr)
         HeadNDequeue(loctestnum, loctesterr, que, true, 9.5);
         Dequeue(loctestnum, loctesterr, que, false);
     }
-    catch(...)
+    catch (...)
     {
         loctestnum++;
         loctesterr++;
@@ -313,7 +316,8 @@ void stestQueueFloat(Que& que, unsigned int& testnum, unsigned int& testerr)
     testerr += loctesterr;
     cout << "End of Queue<double> Test! (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
 }
-void stestQueueFloat(unsigned int& testnum, unsigned int& testerr)
+
+void stestQueueFloat(unsigned int &testnum, unsigned int &testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     lasd::QueueVec<double> quevec;
@@ -326,8 +330,8 @@ void stestQueueFloat(unsigned int& testnum, unsigned int& testerr)
     testerr += loctesterr;
 }
 
-template <typename Que>
-void stestQueueString(Que& que, unsigned int& testnum, unsigned int& testerr)
+template<typename Que>
+void stestQueueString(Que &que, unsigned int &testnum, unsigned int &testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     try
@@ -343,7 +347,7 @@ void stestQueueString(Que& que, unsigned int& testnum, unsigned int& testerr)
         Dequeue(loctestnum, loctesterr, que, true);
         Dequeue(loctestnum, loctesterr, que, false);
     }
-    catch(...)
+    catch (...)
     {
         loctestnum++;
         loctesterr++;
@@ -353,7 +357,8 @@ void stestQueueString(Que& que, unsigned int& testnum, unsigned int& testerr)
     testerr += loctesterr;
     cout << "End of Queue<string> Test! (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
 }
-void stestQueueString(unsigned int& testnum, unsigned int& testerr)
+
+void stestQueueString(unsigned int &testnum, unsigned int &testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     lasd::QueueVec<string> quevec;
@@ -379,7 +384,7 @@ void stestQueueString(unsigned int& testnum, unsigned int& testerr)
         lasd::QueueLst<string> newquelst(vec);
         EqualQueue(loctestnum, loctesterr, quelst, newquelst, true);
     }
-    catch(...)
+    catch (...)
     {
         loctestnum++;
         loctesterr++;
@@ -389,7 +394,7 @@ void stestQueueString(unsigned int& testnum, unsigned int& testerr)
     testerr += loctesterr;
 }
 
-void stestQueue(unsigned int& testnum, unsigned int& testerr)
+void stestQueue(unsigned int &testnum, unsigned int &testerr)
 {
     unsigned int loctestnum = 0, loctesterr = 0;
     stestQueueInt(loctestnum, loctesterr);

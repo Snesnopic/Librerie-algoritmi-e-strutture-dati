@@ -7,16 +7,16 @@
 
 // Container member functions!
 
-void Empty(unsigned int&, unsigned int&, const lasd::Container&, bool);
+void Empty(unsigned int &, unsigned int &, const lasd::Container &, bool);
 
-void Size(unsigned int&, unsigned int&, const lasd::Container&, bool, unsigned long);
+void Size(unsigned int &, unsigned int &, const lasd::Container &, bool, unsigned long);
 
 /* ************************************************************************** */
 
 // LinearContainer member functions!
 
-template <typename Data>
-void GetFront(unsigned int& testnum, unsigned int& testerr, const lasd::LinearContainer<Data>& con, bool chk, const Data& val)
+template<typename Data>
+void GetFront(unsigned int &testnum, unsigned int &testerr, const lasd::LinearContainer<Data> &con, bool chk, const Data &val)
 {
     bool tst;
     testnum++;
@@ -25,11 +25,11 @@ void GetFront(unsigned int& testnum, unsigned int& testerr, const lasd::LinearCo
         std::cout << " " << testnum << " (" << testerr << ") The front of the linear container is \"" << con.Front() << "\": ";
         std::cout << ((tst = ((con.Front() == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::length_error exc)
+    catch (std::length_error exc)
     {
         std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::exception exc)
+    catch (std::exception exc)
     {
         tst = false;
         std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
@@ -37,8 +37,8 @@ void GetFront(unsigned int& testnum, unsigned int& testerr, const lasd::LinearCo
     testerr += (1 - (unsigned int) tst);
 }
 
-template <typename Data>
-void SetFront(unsigned int& testnum, unsigned int& testerr, const lasd::LinearContainer<Data>& con, bool chk, const Data& val)
+template<typename Data>
+void SetFront(unsigned int &testnum, unsigned int &testerr, const lasd::LinearContainer<Data> &con, bool chk, const Data &val)
 {
     bool tst;
     testnum++;
@@ -48,11 +48,11 @@ void SetFront(unsigned int& testnum, unsigned int& testerr, const lasd::LinearCo
         con.Front() = val;
         std::cout << ((tst = ((con.Front() == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::length_error exc)
+    catch (std::length_error exc)
     {
         std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::exception exc)
+    catch (std::exception exc)
     {
         tst = false;
         std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
@@ -60,8 +60,8 @@ void SetFront(unsigned int& testnum, unsigned int& testerr, const lasd::LinearCo
     testerr += (1 - (unsigned int) tst);
 }
 
-template <typename Data>
-void GetBack(unsigned int& testnum, unsigned int& testerr, const lasd::LinearContainer<Data>& con, bool chk, const Data& val)
+template<typename Data>
+void GetBack(unsigned int &testnum, unsigned int &testerr, const lasd::LinearContainer<Data> &con, bool chk, const Data &val)
 {
     bool tst;
     testnum++;
@@ -70,11 +70,11 @@ void GetBack(unsigned int& testnum, unsigned int& testerr, const lasd::LinearCon
         std::cout << " " << testnum << " (" << testerr << ") The back of the linear container is \"" << con.Back() << "\": ";
         std::cout << ((tst = ((con.Back() == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::length_error exc)
+    catch (std::length_error exc)
     {
         std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::exception exc)
+    catch (std::exception exc)
     {
         tst = false;
         std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
@@ -82,8 +82,8 @@ void GetBack(unsigned int& testnum, unsigned int& testerr, const lasd::LinearCon
     testerr += (1 - (unsigned int) tst);
 }
 
-template <typename Data>
-void SetBack(unsigned int& testnum, unsigned int& testerr, const lasd::LinearContainer<Data>& con, bool chk, const Data& val)
+template<typename Data>
+void SetBack(unsigned int &testnum, unsigned int &testerr, const lasd::LinearContainer<Data> &con, bool chk, const Data &val)
 {
     bool tst;
     testnum++;
@@ -93,11 +93,11 @@ void SetBack(unsigned int& testnum, unsigned int& testerr, const lasd::LinearCon
         con.Back() = val;
         std::cout << ((tst = ((con.Back() == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::length_error exc)
+    catch (std::length_error exc)
     {
         std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::exception exc)
+    catch (std::exception exc)
     {
         tst = false;
         std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
@@ -105,8 +105,8 @@ void SetBack(unsigned int& testnum, unsigned int& testerr, const lasd::LinearCon
     testerr += (1 - (unsigned int) tst);
 }
 
-template <typename Data>
-void GetAt(unsigned int& testnum, unsigned int& testerr, lasd::LinearContainer<Data>& con, bool chk, const unsigned long& ind, const Data& val)
+template<typename Data>
+void GetAt(unsigned int &testnum, unsigned int &testerr, lasd::LinearContainer<Data> &con, bool chk, const unsigned long &ind, const Data &val)
 {
     bool tst;
     testnum++;
@@ -115,11 +115,11 @@ void GetAt(unsigned int& testnum, unsigned int& testerr, lasd::LinearContainer<D
         std::cout << " " << testnum << " (" << testerr << ") Get of the linear container at index \"" << ind << "\" with value \"" << con[ind] << "\": ";
         std::cout << ((tst = ((con[ind] == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::out_of_range exc)
+    catch (std::out_of_range exc)
     {
         std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::exception exc)
+    catch (std::exception exc)
     {
         tst = false;
         std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
@@ -127,8 +127,8 @@ void GetAt(unsigned int& testnum, unsigned int& testerr, lasd::LinearContainer<D
     testerr += (1 - (unsigned int) tst);
 }
 
-template <typename Data>
-void SetAt(unsigned int& testnum, unsigned int& testerr, lasd::LinearContainer<Data>& con, bool chk, const unsigned long& ind, const Data& val)
+template<typename Data>
+void SetAt(unsigned int &testnum, unsigned int &testerr, lasd::LinearContainer<Data> &con, bool chk, const unsigned long &ind, const Data &val)
 {
     bool tst;
     testnum++;
@@ -138,11 +138,11 @@ void SetAt(unsigned int& testnum, unsigned int& testerr, lasd::LinearContainer<D
         con[ind] = val;
         std::cout << ((tst = ((con[ind] == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::out_of_range exc)
+    catch (std::out_of_range exc)
     {
         std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::exception exc)
+    catch (std::exception exc)
     {
         tst = false;
         std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
@@ -154,8 +154,8 @@ void SetAt(unsigned int& testnum, unsigned int& testerr, lasd::LinearContainer<D
 
 // TestableContainer member functions!
 
-template <typename Data>
-void Exists(unsigned int& testnum, unsigned int& testerr, const lasd::TestableContainer<Data>& con, bool chk, const Data& val)
+template<typename Data>
+void Exists(unsigned int &testnum, unsigned int &testerr, const lasd::TestableContainer<Data> &con, bool chk, const Data &val)
 {
     bool tst;
     testnum++;
@@ -168,8 +168,9 @@ void Exists(unsigned int& testnum, unsigned int& testerr, const lasd::TestableCo
 
 // MappableContainer member functions!
 
-template <typename Data, typename Parameter>
-void Map(unsigned int& testnum, unsigned int& testerr, lasd::MappableContainer<Data>& con, bool chk, typename lasd::MappableContainer<Data>::MapFunctor fun, const Parameter& inipar)
+template<typename Data, typename Parameter>
+void
+Map(unsigned int &testnum, unsigned int &testerr, lasd::MappableContainer<Data> &con, bool chk, typename lasd::MappableContainer<Data>::MapFunctor fun, const Parameter &inipar)
 {
     bool tst = true;
     testnum++;
@@ -180,69 +181,69 @@ void Map(unsigned int& testnum, unsigned int& testerr, lasd::MappableContainer<D
         con.Map(fun, &par);
         std::cout << ": " << ((tst = chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::exception exc)
+    catch (std::exception exc)
     {
         std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
     testerr += (1 - (unsigned int) tst);
 }
 
-template <typename Data>
-void MapPrint(const Data& dat, void* _)
+template<typename Data>
+void MapPrint(const Data &dat, void *_)
 {
     std::cout << dat << " ";
 }
 
-template <typename Data>
-void MapIncrement(Data& dat, void* _)
+template<typename Data>
+void MapIncrement(Data &dat, void *_)
 {
     dat++;
 }
 
-template <typename Data>
-void MapDecrement(Data& dat, void* _)
+template<typename Data>
+void MapDecrement(Data &dat, void *_)
 {
     dat--;
 }
 
-template <typename Data>
-void MapIncrementNPrint(Data& dat, void* _)
+template<typename Data>
+void MapIncrementNPrint(Data &dat, void *_)
 {
     std::cout << dat++ << "->" << dat << "; ";
 }
 
-template <typename Data>
-void MapDouble(Data& dat, void* _)
+template<typename Data>
+void MapDouble(Data &dat, void *_)
 {
     dat *= 2;
 }
 
-template <typename Data>
-void MapHalf(Data& dat, void* _)
+template<typename Data>
+void MapHalf(Data &dat, void *_)
 {
     dat /= 2;
 }
 
-template <typename Data>
-void MapDoubleNPrint(Data& dat, void* _)
+template<typename Data>
+void MapDoubleNPrint(Data &dat, void *_)
 {
     std::cout << dat << "->" << (dat *= 2) << "; ";
 }
 
-template <typename Data>
-void MapInvert(Data& dat, void* _)
+template<typename Data>
+void MapInvert(Data &dat, void *_)
 {
     dat = -dat;
 }
 
-template <typename Data>
-void MapInvertNPrint(Data& dat, void* _)
+template<typename Data>
+void MapInvertNPrint(Data &dat, void *_)
 {
     std::cout << dat << "->" << (dat = -dat) << "; ";
 }
 
-template <typename Data>
-void MapParityInvert(Data& dat, void* _)
+template<typename Data>
+void MapParityInvert(Data &dat, void *_)
 {
     if (dat % 2 != 0)
     {
@@ -250,16 +251,17 @@ void MapParityInvert(Data& dat, void* _)
     }
 }
 
-void MapStringAppend(std::string&, void*);
+void MapStringAppend(std::string &, void *);
 
-void MapStringNonEmptyAppend(std::string&, void*);
+void MapStringNonEmptyAppend(std::string &, void *);
 
 /* ************************************************************************** */
 
 // FoldableContainer member functions!
 
-template <typename Data, typename Parameter, typename Value>
-void Fold(unsigned int& testnum, unsigned int& testerr, const lasd::FoldableContainer<Data>& con, bool chk, typename lasd::FoldableContainer<Data>::FoldFunctor fun, const Parameter& inipar, const Value& inival, const Value& finval)
+template<typename Data, typename Parameter, typename Value>
+void Fold(unsigned int &testnum, unsigned int &testerr, const lasd::FoldableContainer<Data> &con, bool chk, typename lasd::FoldableContainer<Data>::FoldFunctor fun,
+          const Parameter &inipar, const Value &inival, const Value &finval)
 {
     bool tst;
     testnum++;
@@ -272,35 +274,36 @@ void Fold(unsigned int& testnum, unsigned int& testerr, const lasd::FoldableCont
         std::cout << "obtained value is \"" << val << "\": ";
         std::cout << ((tst = ((val == finval) == chk)) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::exception exc)
+    catch (std::exception exc)
     {
         std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
     testerr += (1 - (unsigned int) tst);
 }
 
-template <typename Data>
-void FoldAdd(const Data& dat, const void* _, void* acc)
+template<typename Data>
+void FoldAdd(const Data &dat, const void *_, void *acc)
 {
-    *((Data*) acc) += dat;
+    *((Data *) acc) += dat;
 }
 
-template <typename Data>
-void FoldMultiply(const Data& dat, const void* _, void* acc)
+template<typename Data>
+void FoldMultiply(const Data &dat, const void *_, void *acc)
 {
-    *((Data*) acc) *= dat;
+    *((Data *) acc) *= dat;
 }
 
-void FoldParity(const int&, const void*, void*);
+void FoldParity(const int &, const void *, void *);
 
-void FoldStringConcatenate(const std::string&, const void*, void*);
+void FoldStringConcatenate(const std::string &, const void *, void *);
 
 /* ************************************************************************** */
 
 // PreOrderMappableContainer member functions!
 
-template <typename Data, typename Parameter>
-void MapPreOrder(unsigned int& testnum, unsigned int& testerr, lasd::PreOrderMappableContainer<Data>& con, bool chk, typename lasd::MappableContainer<Data>::MapFunctor fun, const Parameter& inipar)
+template<typename Data, typename Parameter>
+void MapPreOrder(unsigned int &testnum, unsigned int &testerr, lasd::PreOrderMappableContainer<Data> &con, bool chk, typename lasd::MappableContainer<Data>::MapFunctor fun,
+                 const Parameter &inipar)
 {
     bool tst = true;
     testnum++;
@@ -311,7 +314,7 @@ void MapPreOrder(unsigned int& testnum, unsigned int& testerr, lasd::PreOrderMap
         con.MapPreOrder(fun, &par);
         std::cout << ": " << ((tst = chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::exception exc)
+    catch (std::exception exc)
     {
         std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
@@ -322,8 +325,9 @@ void MapPreOrder(unsigned int& testnum, unsigned int& testerr, lasd::PreOrderMap
 
 // PreOrderFoldableContainer member functions!
 
-template <typename Data, typename Parameter, typename Value>
-void FoldPreOrder(unsigned int& testnum, unsigned int& testerr, const lasd::PreOrderFoldableContainer<Data>& con, bool chk, typename lasd::FoldableContainer<Data>::FoldFunctor fun, const Parameter& inipar, const Value& inival, const Value& finval)
+template<typename Data, typename Parameter, typename Value>
+void FoldPreOrder(unsigned int &testnum, unsigned int &testerr, const lasd::PreOrderFoldableContainer<Data> &con, bool chk, typename lasd::FoldableContainer<Data>::FoldFunctor fun,
+                  const Parameter &inipar, const Value &inival, const Value &finval)
 {
     bool tst;
     testnum++;
@@ -336,7 +340,7 @@ void FoldPreOrder(unsigned int& testnum, unsigned int& testerr, const lasd::PreO
         std::cout << "obtained value is \"" << val << "\": ";
         std::cout << ((tst = ((val == finval) == chk)) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::exception exc)
+    catch (std::exception exc)
     {
         std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
@@ -347,8 +351,9 @@ void FoldPreOrder(unsigned int& testnum, unsigned int& testerr, const lasd::PreO
 
 // PostOrderMappableContainer member functions!
 
-template <typename Data, typename Parameter>
-void MapPostOrder(unsigned int& testnum, unsigned int& testerr, lasd::PostOrderMappableContainer<Data>& con, bool chk, typename lasd::MappableContainer<Data>::MapFunctor fun, const Parameter& inipar)
+template<typename Data, typename Parameter>
+void MapPostOrder(unsigned int &testnum, unsigned int &testerr, lasd::PostOrderMappableContainer<Data> &con, bool chk, typename lasd::MappableContainer<Data>::MapFunctor fun,
+                  const Parameter &inipar)
 {
     bool tst = true;
     testnum++;
@@ -359,7 +364,7 @@ void MapPostOrder(unsigned int& testnum, unsigned int& testerr, lasd::PostOrderM
         con.MapPostOrder(fun, &par);
         std::cout << ": " << ((tst = chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::exception exc)
+    catch (std::exception exc)
     {
         std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
@@ -370,8 +375,10 @@ void MapPostOrder(unsigned int& testnum, unsigned int& testerr, lasd::PostOrderM
 
 // PostOrderFoldableContainer member functions!
 
-template <typename Data, typename Parameter, typename Value>
-void FoldPostOrder(unsigned int& testnum, unsigned int& testerr, const lasd::PostOrderFoldableContainer<Data>& con, bool chk, typename lasd::FoldableContainer<Data>::FoldFunctor fun, const Parameter& inipar, const Value& inival, const Value& finval)
+template<typename Data, typename Parameter, typename Value>
+void
+FoldPostOrder(unsigned int &testnum, unsigned int &testerr, const lasd::PostOrderFoldableContainer<Data> &con, bool chk, typename lasd::FoldableContainer<Data>::FoldFunctor fun,
+              const Parameter &inipar, const Value &inival, const Value &finval)
 {
     bool tst;
     testnum++;
@@ -384,7 +391,7 @@ void FoldPostOrder(unsigned int& testnum, unsigned int& testerr, const lasd::Pos
         std::cout << "obtained value is \"" << val << "\": ";
         std::cout << ((tst = ((val == finval) == chk)) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::exception exc)
+    catch (std::exception exc)
     {
         std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
@@ -395,8 +402,9 @@ void FoldPostOrder(unsigned int& testnum, unsigned int& testerr, const lasd::Pos
 
 // InOrderMappableContainer member functions!
 
-template <typename Data, typename Parameter>
-void MapInOrder(unsigned int& testnum, unsigned int& testerr, lasd::InOrderMappableContainer<Data>& con, bool chk, typename lasd::InOrderMappableContainer<Data>::MapFunctor fun, const Parameter& inipar)
+template<typename Data, typename Parameter>
+void MapInOrder(unsigned int &testnum, unsigned int &testerr, lasd::InOrderMappableContainer<Data> &con, bool chk, typename lasd::InOrderMappableContainer<Data>::MapFunctor fun,
+                const Parameter &inipar)
 {
     bool tst = true;
     testnum++;
@@ -407,7 +415,7 @@ void MapInOrder(unsigned int& testnum, unsigned int& testerr, lasd::InOrderMappa
         con.MapInOrder(fun, &par);
         std::cout << ": " << ((tst = chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::exception exc)
+    catch (std::exception exc)
     {
         std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
@@ -418,8 +426,10 @@ void MapInOrder(unsigned int& testnum, unsigned int& testerr, lasd::InOrderMappa
 
 // InOrderFoldableContainer member functions!
 
-template <typename Data, typename Parameter, typename Value>
-void FoldInOrder(unsigned int& testnum, unsigned int& testerr, const lasd::InOrderFoldableContainer<Data>& con, bool chk, typename lasd::InOrderFoldableContainer<Data>::FoldFunctor fun, const Parameter& inipar, const Value& inival, const Value& finval)
+template<typename Data, typename Parameter, typename Value>
+void
+FoldInOrder(unsigned int &testnum, unsigned int &testerr, const lasd::InOrderFoldableContainer<Data> &con, bool chk, typename lasd::InOrderFoldableContainer<Data>::FoldFunctor fun,
+            const Parameter &inipar, const Value &inival, const Value &finval)
 {
     bool tst;
     testnum++;
@@ -432,7 +442,7 @@ void FoldInOrder(unsigned int& testnum, unsigned int& testerr, const lasd::InOrd
         std::cout << "obtained value is \"" << val << "\": ";
         std::cout << ((tst = ((val == finval) == chk)) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::exception exc)
+    catch (std::exception exc)
     {
         std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
@@ -443,8 +453,9 @@ void FoldInOrder(unsigned int& testnum, unsigned int& testerr, const lasd::InOrd
 
 // BreadthMappableContainer member functions!
 
-template <typename Data, typename Parameter>
-void MapBreadth(unsigned int& testnum, unsigned int& testerr, lasd::BreadthMappableContainer<Data>& con, bool chk, typename lasd::BreadthMappableContainer<Data>::MapFunctor fun, const Parameter& inipar)
+template<typename Data, typename Parameter>
+void MapBreadth(unsigned int &testnum, unsigned int &testerr, lasd::BreadthMappableContainer<Data> &con, bool chk, typename lasd::BreadthMappableContainer<Data>::MapFunctor fun,
+                const Parameter &inipar)
 {
     bool tst = true;
     testnum++;
@@ -455,7 +466,7 @@ void MapBreadth(unsigned int& testnum, unsigned int& testerr, lasd::BreadthMappa
         con.MapBreadth(fun, &par);
         std::cout << ": " << ((tst = chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::exception exc)
+    catch (std::exception exc)
     {
         std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
@@ -466,8 +477,10 @@ void MapBreadth(unsigned int& testnum, unsigned int& testerr, lasd::BreadthMappa
 
 // BreadthFoldableContainer member functions!
 
-template <typename Data, typename Parameter, typename Value>
-void FoldBreadth(unsigned int& testnum, unsigned int& testerr, const lasd::BreadthFoldableContainer<Data>& con, bool chk, typename lasd::BreadthFoldableContainer<Data>::FoldFunctor fun, const Parameter& inipar, const Value& inival, const Value& finval)
+template<typename Data, typename Parameter, typename Value>
+void
+FoldBreadth(unsigned int &testnum, unsigned int &testerr, const lasd::BreadthFoldableContainer<Data> &con, bool chk, typename lasd::BreadthFoldableContainer<Data>::FoldFunctor fun,
+            const Parameter &inipar, const Value &inival, const Value &finval)
 {
     bool tst;
     testnum++;
@@ -480,7 +493,7 @@ void FoldBreadth(unsigned int& testnum, unsigned int& testerr, const lasd::Bread
         std::cout << "obtained value is \"" << val << "\": ";
         std::cout << ((tst = ((val == finval) == chk)) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::exception exc)
+    catch (std::exception exc)
     {
         std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }

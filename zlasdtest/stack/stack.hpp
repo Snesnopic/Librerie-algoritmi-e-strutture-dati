@@ -5,8 +5,8 @@
 
 /* ************************************************************************** */
 
-template <typename Data>
-void Top(unsigned int& testnum, unsigned int& testerr, const lasd::Stack<Data>& stk, bool chk, const Data& val)
+template<typename Data>
+void Top(unsigned int &testnum, unsigned int &testerr, const lasd::Stack<Data> &stk, bool chk, const Data &val)
 {
     testnum++;
     bool tst;
@@ -15,11 +15,11 @@ void Top(unsigned int& testnum, unsigned int& testerr, const lasd::Stack<Data>& 
         std::cout << " " << testnum << " (" << testerr << ") Const top of the stack with value \"" << stk.Top() << "\": ";
         std::cout << ((tst = ((stk.Top() == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::length_error exc)
+    catch (std::length_error exc)
     {
         std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::exception exc)
+    catch (std::exception exc)
     {
         tst = false;
         std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
@@ -27,8 +27,8 @@ void Top(unsigned int& testnum, unsigned int& testerr, const lasd::Stack<Data>& 
     testerr += (1 - (unsigned int) tst);
 }
 
-template <typename Data>
-void Top(unsigned int& testnum, unsigned int& testerr, lasd::Stack<Data>& stk, bool chk, const Data& val)
+template<typename Data>
+void Top(unsigned int &testnum, unsigned int &testerr, lasd::Stack<Data> &stk, bool chk, const Data &val)
 {
     testnum++;
     bool tst;
@@ -37,11 +37,11 @@ void Top(unsigned int& testnum, unsigned int& testerr, lasd::Stack<Data>& stk, b
         std::cout << " " << testnum << " (" << testerr << ") Top of the stack with value \"" << stk.Top() << "\": ";
         std::cout << ((tst = ((stk.Top() == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::length_error exc)
+    catch (std::length_error exc)
     {
         std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::exception exc)
+    catch (std::exception exc)
     {
         tst = false;
         std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
@@ -49,8 +49,8 @@ void Top(unsigned int& testnum, unsigned int& testerr, lasd::Stack<Data>& stk, b
     testerr += (1 - (unsigned int) tst);
 }
 
-template <typename Data>
-void Pop(unsigned int& testnum, unsigned int& testerr, lasd::Stack<Data>& stk, bool chk)
+template<typename Data>
+void Pop(unsigned int &testnum, unsigned int &testerr, lasd::Stack<Data> &stk, bool chk)
 {
     testnum++;
     bool tst = true;
@@ -60,11 +60,11 @@ void Pop(unsigned int& testnum, unsigned int& testerr, lasd::Stack<Data>& stk, b
         stk.Pop();
         std::cout << ((tst = chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::length_error exc)
+    catch (std::length_error exc)
     {
         std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::exception exc)
+    catch (std::exception exc)
     {
         tst = false;
         std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
@@ -72,8 +72,8 @@ void Pop(unsigned int& testnum, unsigned int& testerr, lasd::Stack<Data>& stk, b
     testerr += (1 - (unsigned int) tst);
 }
 
-template <typename Data>
-void TopNPop(unsigned int& testnum, unsigned int& testerr, lasd::Stack<Data>& stk, bool chk, const Data& val)
+template<typename Data>
+void TopNPop(unsigned int &testnum, unsigned int &testerr, lasd::Stack<Data> &stk, bool chk, const Data &val)
 {
     testnum++;
     bool tst;
@@ -82,11 +82,11 @@ void TopNPop(unsigned int& testnum, unsigned int& testerr, lasd::Stack<Data>& st
         std::cout << " " << testnum << " (" << testerr << ") TopNPop from the stack with value \"" << stk.Top() << "\": ";
         std::cout << ((tst = ((stk.TopNPop() == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::length_error exc)
+    catch (std::length_error exc)
     {
         std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::exception exc)
+    catch (std::exception exc)
     {
         tst = false;
         std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
@@ -94,8 +94,8 @@ void TopNPop(unsigned int& testnum, unsigned int& testerr, lasd::Stack<Data>& st
     testerr += (1 - (unsigned int) tst);
 }
 
-template <typename Data>
-void PushC(unsigned int& testnum, unsigned int& testerr, lasd::Stack<Data>& stk, const Data& val)
+template<typename Data>
+void PushC(unsigned int &testnum, unsigned int &testerr, lasd::Stack<Data> &stk, const Data &val)
 {
     testnum++;
     bool tst = true;
@@ -105,7 +105,7 @@ void PushC(unsigned int& testnum, unsigned int& testerr, lasd::Stack<Data>& stk,
         stk.Push(val);
         std::cout << "Correct!" << std::endl;
     }
-    catch(std::exception exc)
+    catch (std::exception exc)
     {
         std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
         tst = false;
@@ -113,8 +113,8 @@ void PushC(unsigned int& testnum, unsigned int& testerr, lasd::Stack<Data>& stk,
     testerr += (1 - (unsigned int) tst);
 }
 
-template <typename Data>
-void PushM(unsigned int& testnum, unsigned int& testerr, lasd::Stack<Data>& stk, Data val)
+template<typename Data>
+void PushM(unsigned int &testnum, unsigned int &testerr, lasd::Stack<Data> &stk, Data val)
 {
     testnum++;
     bool tst = true;
@@ -124,7 +124,7 @@ void PushM(unsigned int& testnum, unsigned int& testerr, lasd::Stack<Data>& stk,
         stk.Push(std::move(val));
         std::cout << "Correct!" << std::endl;
     }
-    catch(std::exception exc)
+    catch (std::exception exc)
     {
         std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
         tst = false;
@@ -132,8 +132,8 @@ void PushM(unsigned int& testnum, unsigned int& testerr, lasd::Stack<Data>& stk,
     testerr += (1 - (unsigned int) tst);
 }
 
-template <typename Stk>
-void EqualStack(unsigned int& testnum, unsigned int& testerr, const Stk& stk1, const Stk& stk2, bool chk)
+template<typename Stk>
+void EqualStack(unsigned int &testnum, unsigned int &testerr, const Stk &stk1, const Stk &stk2, bool chk)
 {
     testnum++;
     bool tst;
@@ -142,15 +142,15 @@ void EqualStack(unsigned int& testnum, unsigned int& testerr, const Stk& stk1, c
         std::cout << " " << testnum << " (" << testerr << ") The two stacks are " << ((tst = (stk1 == stk2)) ? "" : "not ") << "equal: ";
         std::cout << ((tst = (tst == chk)) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::exception exc)
+    catch (std::exception exc)
     {
         std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
     testerr += (1 - (unsigned int) tst);
 }
 
-template <typename Stk>
-void NonEqualStack(unsigned int& testnum, unsigned int& testerr, const Stk& stk1, const Stk& stk2, bool chk)
+template<typename Stk>
+void NonEqualStack(unsigned int &testnum, unsigned int &testerr, const Stk &stk1, const Stk &stk2, bool chk)
 {
     testnum++;
     bool tst;
@@ -159,7 +159,7 @@ void NonEqualStack(unsigned int& testnum, unsigned int& testerr, const Stk& stk1
         std::cout << " " << testnum << " (" << testerr << ") The two stacks are " << ((tst = (stk1 != stk2)) ? "not " : "") << "equal: ";
         std::cout << ((tst = (tst == chk)) ? "Correct" : "Error") << "!" << std::endl;
     }
-    catch(std::exception exc)
+    catch (std::exception exc)
     {
         std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
     }
