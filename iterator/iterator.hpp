@@ -205,7 +205,7 @@ public:
 
   // Specific member functions
 
-  // type Reset() noexcept; // (concrete function should not throw exceptions)
+    virtual void Reset() noexcept; // (concrete function should not throw exceptions)
 
 };
 /* ************************************************************************** */
