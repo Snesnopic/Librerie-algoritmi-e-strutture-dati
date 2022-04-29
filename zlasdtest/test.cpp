@@ -2,7 +2,7 @@
 
 #include "./exercise2/test.hpp"
 
-// #include "./exercise3/test.hpp"
+#include "./exercise3/test.hpp"
 //
 // #include "./exercise4/test.hpp"
 //
@@ -23,8 +23,8 @@ void lasdtest()
     testFullExercise1();
     testSimpleExercise2();
     testFullExercise2();
-    // testSimpleExercise3();
-    // testFullExercise3();
+    testSimpleExercise3();
+    testFullExercise3();
     // testSimpleExercise4();
     // testFullExercise4();
     // testSimpleExercise5();
