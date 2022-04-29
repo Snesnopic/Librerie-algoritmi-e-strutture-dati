@@ -90,12 +90,6 @@ namespace lasd
 
         /* ************************************************************************ */
 
-        // Comparison operators
-        // type operator==(argument) specifiers;
-        // type operator!=(argument) specifiers;
-
-        /* ************************************************************************ */
-
         // Specific member functions (inherited from BinaryTree)
 
         NodeLnk& Root() const override; // Override BinaryTree member (throw std::length_error when empty)
