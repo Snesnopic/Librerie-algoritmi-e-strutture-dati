@@ -308,7 +308,8 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class BTPostOrderIterator
+class BTPostOrderIterator: virtual public ForwardIterator<Data>,
+                           virtual public ResettableIterator<Data>
 {
     // Must extend ForwardIterator<Data>,
     //             ResettableIterator<Data>
@@ -378,7 +379,8 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class BTInOrderIterator
+class BTInOrderIterator: virtual public ForwardIterator<Data>,
+                         virtual public ResettableIterator<Data>
 {
     // Must extend ForwardIterator<Data>,
     //             ResettableIterator<Data>
@@ -448,7 +450,8 @@ public:
 /* ************************************************************************** */
 
 template <typename Data>
-class BTBreadthIterator
+class BTBreadthIterator: virtual public ForwardIterator<Data>,
+                         virtual public ResettableIterator<Data>
 {
     // Must extend ForwardIterator<Data>,
     //             ResettableIterator<Data>
