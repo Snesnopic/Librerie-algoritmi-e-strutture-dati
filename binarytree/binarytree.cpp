@@ -90,14 +90,42 @@ namespace lasd
     void BinaryTree<Data>::MapBreadth(MapFunctor f, void *par) // Override BreadthMappableContainer member
     {
         if (Root() != nullptr)
-            MapBreadth(f, par, Root());
+        {
+            Queue<Node*> queue;
+            queue.Enqueue(Root());
+            Node* n = nullptr;
+            while(!queue.Empty())
+            {
+                n = queue.Head();
+                f(n->dato,par);
+                queue.Dequeue();
+                if(n->HasLeftChild())
+                    queue.Enqueue(n->LeftChild());
+                if(n->HasRightChild())
+                    queue.Enqueue(n->RightChild());
+            }
+        }
     }
 
     template<typename Data>
     void BinaryTree<Data>::FoldBreadth(FoldFunctor f, const void *par, void *acc) const  // Override BreadthFoldableContainer member
     {
         if (Root() != nullptr)
-            FoldBreadth(f, par, acc, Root());
+        {
+            Queue<Node*> queue;
+            queue.Enqueue(Root());
+            Node* n = nullptr;
+            while(!queue.Empty())
+            {
+                n = queue.Head();
+                f(n->dato,par,acc);
+                queue.Dequeue();
+                if(n->HasLeftChild())
+                    queue.Enqueue(n->LeftChild());
+                if(n->HasRightChild())
+                    queue.Enqueue(n->RightChild());
+            }
+        }
     }
 
 
@@ -161,15 +189,4 @@ namespace lasd
             FoldInOrder(f, par, acc, n->RightChild());
     }
 
-    template<typename Data>
-    void BinaryTree<Data>::MapBreadth(MapFunctor f, void *par, Node *n) // Accessory function executing from one node of the tree
-    {
-        f(n->dato, par);
-    }
-
-    template<typename Data>
-    void BinaryTree<Data>::FoldBreadth(FoldFunctor f, const void *par, void *acc, Node *n) const // Accessory function executing from one node of the tree
-    {
-        f(n->dato, par, acc);
-    }
 }
