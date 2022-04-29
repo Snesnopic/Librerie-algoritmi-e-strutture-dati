@@ -112,6 +112,8 @@ void QueueVec<Data>::Dequeue() // Override Queue member (must throw std::length_
         throw std::length_error("Length error!");
     head = (head + 1) % size;
     elements--;
+    if(elements <= size/4)
+        Reduce();
 }
 template <typename Data>
 Data& QueueVec<Data>::HeadNDequeue() // Override Queue member (must throw std::length_error when empty)
