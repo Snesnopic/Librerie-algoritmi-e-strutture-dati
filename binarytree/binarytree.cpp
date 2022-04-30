@@ -9,7 +9,7 @@ namespace lasd
     {
         if (this == nullptr && n == nullptr)
             return true;
-        return ((dato == n.dato) && (RightChild() == n.rightChild()) && (LeftChild() == n.LeftChild()));
+        return ((dato == n.dato) && (RightChild() == n.RightChild()) && (LeftChild() == n.LeftChild()));
     }
 
     template<typename Data>
@@ -91,17 +91,17 @@ namespace lasd
     {
         if (Root() != nullptr)
         {
-            Queue<Node*> queue;
+            Queue<Node *> queue;
             queue.Enqueue(Root());
-            Node* n = nullptr;
-            while(!queue.Empty())
+            Node *n = nullptr;
+            while (!queue.Empty())
             {
                 n = queue.Head();
-                f(n->dato,par);
+                f(n->dato, par);
                 queue.Dequeue();
-                if(n->HasLeftChild())
+                if (n->HasLeftChild())
                     queue.Enqueue(n->LeftChild());
-                if(n->HasRightChild())
+                if (n->HasRightChild())
                     queue.Enqueue(n->RightChild());
             }
         }
@@ -112,17 +112,17 @@ namespace lasd
     {
         if (Root() != nullptr)
         {
-            Queue<Node*> queue;
+            Queue<Node *> queue;
             queue.Enqueue(Root());
-            Node* n = nullptr;
-            while(!queue.Empty())
+            Node *n = nullptr;
+            while (!queue.Empty())
             {
                 n = queue.Head();
-                f(n->dato,par,acc);
+                f(n->dato, par, acc);
                 queue.Dequeue();
-                if(n->HasLeftChild())
+                if (n->HasLeftChild())
                     queue.Enqueue(n->LeftChild());
-                if(n->HasRightChild())
+                if (n->HasRightChild())
                     queue.Enqueue(n->RightChild());
             }
         }
@@ -189,4 +189,99 @@ namespace lasd
             FoldInOrder(f, par, acc, n->RightChild());
     }
 
+    // Specific constructors
+    template<typename Data>
+    BTPreOrderIterator<Data>::BTPreOrderIterator(BinaryTree<Data> bt) // An iterator over a given binary tree
+    {
+
+    }
+
+    /* ************************************************************************ */
+
+    // Copy constructor
+    template<typename Data>
+    BTPreOrderIterator<Data>::BTPreOrderIterator(const BTPreOrderIterator& poi)
+    {
+
+    }
+
+    // Move constructor
+    template<typename Data>
+    BTPreOrderIterator<Data>::BTPreOrderIterator(BTPreOrderIterator&& poi) noexcept
+    {
+
+    }
+
+    /* ************************************************************************ */
+
+    // Destructor
+    template<typename Data>
+    BTPreOrderIterator<Data>::~BTPreOrderIterator()
+    {
+
+    }
+
+    /* ************************************************************************ */
+
+    // Copy assignment
+    template<typename Data>
+    BTPreOrderIterator<Data>& BTPreOrderIterator<Data>::operator=(const BTPreOrderIterator& poi)
+    {
+
+    }
+
+    // Move assignment
+    template<typename Data>
+    BTPreOrderIterator<Data>& BTPreOrderIterator<Data>::operator=(BTPreOrderIterator&& poi) noexcept
+    {
+
+    }
+
+    /* ************************************************************************ */
+
+    // Comparison operators
+    template<typename Data>
+    bool BTPreOrderIterator<Data>::operator==(const BTPreOrderIterator& poi) const noexcept
+    {
+
+    }
+
+    template<typename Data>
+    bool BTPreOrderIterator<Data>::operator!=(const BTPreOrderIterator& poi) const noexcept
+    {
+
+    }
+
+    /* ************************************************************************ */
+
+    // Specific member functions (inherited from Iterator)
+    template<typename Data>
+    Data& BTPreOrderIterator<Data>::operator*() const // (throw std::out_of_range when terminated)
+    {
+
+    }
+
+    template<typename Data>
+    bool BTPreOrderIterator<Data>::Terminated() const noexcept // (should not throw exceptions)
+    {
+
+    }
+
+    /* ************************************************************************ */
+
+    // Specific member functions (inherited from ForwardIterator)
+    template<typename Data>
+    BTPreOrderIterator<Data>& BTPreOrderIterator<Data>::operator++() // (throw std::out_of_range when terminated)
+    {
+
+    }
+
+    /* ************************************************************************ */
+
+    // Specific member functions (inherited from ResettableIterator)
+    template<typename Data>
+    void BTPreOrderIterator<Data>::Reset() noexcept  // (should not throw exceptions)
+    {
+
+    }
 }

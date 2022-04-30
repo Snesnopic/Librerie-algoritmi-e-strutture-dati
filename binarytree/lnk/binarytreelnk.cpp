@@ -3,46 +3,77 @@ namespace lasd
 
 /* ************************************************************************** */
     template<typename Data>
-    BinaryTree<Data>::NodeLnk(const Data& d)
+    BinaryTreeLnk<Data>::BinaryTreeLnk(LinearContainer<Data>& lc) // A binary tree obtained from a LinearContainer
     {
+        size = lc.Size();
 
     }
+
+    /* ************************************************************************ */
+
+    // Copy constructor
     template<typename Data>
-    BinaryTree<Data>::NodeLnk::NodeLnk(Data& d)
+    BinaryTreeLnk<Data>::BinaryTreeLnk(const BinaryTreeLnk& btl)
     {
-
+        size = btl.size;
+        if (btl.root != nullptr)
+        {
+            root = new NodeLnk(btl.root);
+        }
     }
+
+    // Move constructor
     template<typename Data>
-    Data& BinaryTree<Data>::NodeLnk::Element() noexcept // Mutable access to the element (concrete function should not throw exceptions)
+    BinaryTreeLnk<Data>::BinaryTreeLnk(BinaryTreeLnk&& btl) noexcept
     {
-
+        std::swap(root, btl);
+        std::swap(size, btl.size);
     }
+
+    /* ************************************************************************ */
+
+    // Destructor
     template<typename Data>
-    const Data& BinaryTree<Data>::NodeLnk::Element() const noexcept // Immutable access to the element (concrete function should not throw exceptions)
+    BinaryTreeLnk<Data>::~BinaryTreeLnk()
     {
-
+        Clear();
     }
+
+    /* ************************************************************************ */
+
+    // Copy assignment
     template<typename Data>
-    bool BinaryTree<Data>::Node::HasLeftChild() const noexcept // (concrete function should not throw exceptions)
+    BinaryTreeLnk<Data>& BinaryTreeLnk<Data>::operator=(const BinaryTreeLnk& btl)
     {
-
+        if (this != btl)
+        {
+            size = btl.size;
+            if (btl.root != nullptr)
+            {
+                root = new NodeLnk(btl.root);
+            }
+        }
     }
+
+    // Move assignment
     template<typename Data>
-    bool BinaryTree<Data>::Node::HasRightChild() const noexcept // (concrete function should not throw exceptions)
+    BinaryTreeLnk<Data>& BinaryTreeLnk<Data>::operator=(BinaryTreeLnk&& btl) noexcept
     {
-
+        if (this != btl)
+        {
+            std::swap(root, btl);
+            std::swap(size, btl.size);
+        }
     }
+
     template<typename Data>
-    NodeLnk& BinaryTree<Data>::Node::LeftChild() const // (concrete function must throw std::out_of_range when not existent)
+    void BinaryTreeLnk<Data>::Clear()
     {
-
+        if (root != nullptr)
+            delete root;
+        root = nullptr;
+        size = 0;
     }
-    template<typename Data>
-    NodeLnk& BinaryTree<Data>::Node::RightChild() const // (concrete function must throw std::out_of_range when not existent)
-    {
-
-    }
-
 /* ************************************************************************** */
 
 }

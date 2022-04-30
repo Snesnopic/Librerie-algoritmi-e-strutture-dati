@@ -19,7 +19,6 @@ namespace lasd
 
     private:
 
-        // ...
 
     protected:
 
@@ -38,25 +37,74 @@ namespace lasd
             // ...
 
         public:
-
+            using BinaryTree<Data>::Node::dato;
             NodeLnk *right = nullptr;
             NodeLnk *left = nullptr;
 
-            NodeLnk(const Data& d);
+            NodeLnk() = default;
 
-            NodeLnk(Data& d);
+            virtual ~NodeLnk()
+            {
+                if (HasRightChild())
+                    delete right;
+                if (HasLeftChild())
+                    delete left;
+            };
 
-            Data& Element() noexcept override; // Mutable access to the element (concrete function should not throw exceptions)
-            const Data& Element() const noexcept override; // Immutable access to the element (concrete function should not throw exceptions)
+            NodeLnk(const NodeLnk& nl)
+            {
+                dato = nl.dato;
+                if (nl.HasRightChild())
+                    right = new NodeLnk(nl.right);
+                if (nl.HasLeftChild())
+                    left = new NodeLnk(nl.left);
+            };
 
-            bool HasLeftChild() const noexcept override; // (concrete function should not throw exceptions)
-            bool HasRightChild() const noexcept override; // (concrete function should not throw exceptions)
+            NodeLnk(NodeLnk&& nl)
+            {
+                std::swap(dato, nl.dato);
+                std::swap(right, nl.right);
+                std::swap(left, nl.left);
+            };
 
-            NodeLnk& LeftChild() const override; // (concrete function must throw std::out_of_range when not existent)
-            NodeLnk& RightChild() const override; // (concrete function must throw std::out_of_range when not existent)
+            NodeLnk(const Data& d)
+            {
+                dato = d;
+            };
+
+            NodeLnk(Data&& d)
+            {
+                dato = std::move(d);
+            }
+
+            bool HasLeftChild() const noexcept override // (concrete function should not throw exceptions)
+            {
+                return (left != nullptr);
+            };
+
+            bool HasRightChild() const noexcept override // (concrete function should not throw exceptions)
+            {
+                return (right != nullptr);
+            };
+
+            NodeLnk& LeftChild() const override // (concrete function must throw std::out_of_range when not existent)
+            {
+                if (!HasLeftChild())
+                    throw std::out_of_range("Out of range!");
+                return left;
+            };
+
+            NodeLnk& RightChild() const override // (concrete function must throw std::out_of_range when not existent)
+            {
+                if (!HasRightChild())
+                    throw std::out_of_range("Out of range!");
+                return right;
+
+            };
 
         };
 
+        NodeLnk *root = nullptr;
     public:
 
         // Default constructor
@@ -92,7 +140,12 @@ namespace lasd
 
         // Specific member functions (inherited from BinaryTree)
 
-        NodeLnk& Root() const override; // Override BinaryTree member (throw std::length_error when empty)
+        NodeLnk& Root() const override // Override BinaryTree member (throw std::length_error when empty)
+        {
+            if (size == 0)
+                throw std::length_error("Lenght error!");
+            return root;
+        }
 
         /* ************************************************************************ */
 

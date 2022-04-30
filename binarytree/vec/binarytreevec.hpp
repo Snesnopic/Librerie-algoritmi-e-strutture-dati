@@ -40,22 +40,41 @@ namespace lasd
             // ...
 
         public:
-
+            using BinaryTree<Data>::Node::dato;
             unsigned long index;
             Vector<NodeVec *>& arrayRef = nullptr;
 
             NodeVec() = default;
 
-            NodeVec(Vector<Data>& arr);
+            NodeVec(Vector<Data>& arr, unsigned long i, Data d) : BinaryTree<Data>::Node(d)
+            {
+                arrayRef = arr;
+                index = i;
+            }
 
-            Data& Element() noexcept override; // Mutable access to the element (concrete function should not throw exceptions)
-            const Data& Element() const noexcept override; // Immutable access to the element (concrete function should not throw exceptions)
+            bool HasLeftChild() const noexcept override // (concrete function should not throw exceptions)
+            {
+                return (array[(2 * index) + 1] != nullptr);
+            };
 
-            bool HasLeftChild() const noexcept override; // (concrete function should not throw exceptions)
-            bool HasRightChild() const noexcept override; // (concrete function should not throw exceptions)
+            bool HasRightChild() const noexcept override // (concrete function should not throw exceptions)
+            {
+                return (array[(2 * index) + 2] != nullptr);
+            };
 
-            NodeVec& LeftChild() const override; // (concrete function must throw std::out_of_range when not existent)
-            NodeVec& RightChild() const override; // (concrete function must throw std::out_of_range when not existent)
+            NodeVec& LeftChild() const override // (concrete function must throw std::out_of_range when not existent)
+            {
+                if (!HasLeftChild())
+                    throw std::out_of_range("Out of range!");
+                return array[(2 * index) + 1];
+            };
+
+            NodeVec& RightChild() const override // (concrete function must throw std::out_of_range when not existent)
+            {
+                if (!HasRightChild())
+                    throw std::out_of_range("Out of range!");
+                return array[(2 * index) + 2];
+            };
         };
 
         Vector<NodeVec *> array;
@@ -85,10 +104,10 @@ namespace lasd
         /* ************************************************************************ */
 
         // Copy assignment
-        // type operator=(argument) specifiers;
+        BinaryTreeVec& operator=(const BinaryTreeVec& btv);
 
         // Move assignment
-        // type operator=(argument) specifiers;
+        BinaryTreeVec& operator=(BinaryTreeVec&& btv) noexcept;
 
         /* ************************************************************************ */
 
@@ -100,26 +119,46 @@ namespace lasd
 
         // Specific member functions (inherited from BinaryTree)
 
-        // type Root() specifiers; // Override BinaryTree member (throw std::length_error when empty)
+        NodeVec& Root() const override // Override BinaryTree member (throw std::length_error when empty)
+        {
+            if (size == 0)
+                throw std::length_error("Length error!");
+            return array[0];
+        }
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from Container)
 
-        // type Clear() specifiers; // Override Container member
+        void Clear() override; // Override Container member
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from BreadthMappableContainer)
+        using typename MappableContainer<Data>::MapFunctor;
 
-        // type MapBreadth(arguments) specifiers; // Override BreadthMappableContainer member
+        void MapBreadth(MapFunctor f, void *par) override // Override BreadthMappableContainer member // Override BreadthMappableContainer member
+        {
+            for (unsigned long i = 0; i < array.Size(); i++)
+            {
+                if (array[i] != nullptr)
+                    f(array[i]->dato, par);
+            }
+        };
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from BreadthFoldableContainer)
+        using typename FoldableContainer<Data>::FoldFunctor;
 
-        // type FoldBreadth(arguments) specifiers; // Override BreadthFoldableContainer member
-
+        void FoldBreadth(FoldFunctor f, const void *par, void *acc) const override // Override BreadthFoldableContainer member
+        {
+            for (unsigned long i = 0; i < array.Size(); i++)
+            {
+                if (array[i] != nullptr)
+                    f(array[i]->dato, par, acc);
+            }
+        };
     };
 
 /* ************************************************************************** */
