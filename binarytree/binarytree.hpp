@@ -254,55 +254,100 @@ namespace lasd
     public:
 
         // Specific constructors
-        BTPreOrderIterator(BinaryTree<Data> bt); // An iterator over a given binary tree
+        BTPreOrderIterator(BinaryTree<Data> bt) // An iterator over a given binary tree
+        {
+            curr = bt.Root();
+        }
 
         /* ************************************************************************ */
 
         // Copy constructor
-        BTPreOrderIterator(const BTPreOrderIterator& poi);
+        BTPreOrderIterator(const BTPreOrderIterator& poi)
+        {
+
+        }
 
         // Move constructor
-        BTPreOrderIterator(BTPreOrderIterator&& poi) noexcept;
+        BTPreOrderIterator(BTPreOrderIterator&& poi) noexcept
+        {
+
+        }
 
         /* ************************************************************************ */
 
         // Destructor
-        virtual ~BTPreOrderIterator();
+        virtual ~BTPreOrderIterator()
+        {
+            stack.Clear();
+        }
 
         /* ************************************************************************ */
 
         // Copy assignment
-        BTPreOrderIterator& operator=(const BTPreOrderIterator& poi);
+        BTPreOrderIterator& operator=(const BTPreOrderIterator& poi)
+        {
+
+        }
 
         // Move assignment
-        BTPreOrderIterator& operator=(BTPreOrderIterator&& poi) noexcept;
+        BTPreOrderIterator& operator=(BTPreOrderIterator&& poi) noexcept
+        {
+
+        }
 
         /* ************************************************************************ */
 
         // Comparison operators
-        bool operator==(const BTPreOrderIterator& poi) const noexcept;
+        bool operator==(const BTPreOrderIterator& poi) const noexcept
+        {
+            return curr == poi.curr;
+        }
 
-        bool operator!=(const BTPreOrderIterator& poi) const noexcept;
+        bool operator!=(const BTPreOrderIterator& poi) const noexcept
+        {
+            return !(*this == poi);
+        }
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from Iterator)
 
-        Data& operator*() const; // (throw std::out_of_range when terminated)
+        Data& operator*() const // (throw std::out_of_range when terminated)
+        {
+            if(Terminated())
+                throw std::out_of_range("Out of range!");
+            return curr.dato;
+        }
 
-        bool Terminated() const noexcept override; // (should not throw exceptions)
+        bool Terminated() const noexcept override // (should not throw exceptions)
+        {
+
+        }
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from ForwardIterator)
 
-        BTPreOrderIterator& operator++() override; // (throw std::out_of_range when terminated)
+        BTPreOrderIterator& operator++() override // (throw std::out_of_range when terminated)
+        {
+            if(Terminated())
+                throw std::out_of_range("Out of range!");
+            if(curr.HasRightChild())
+                stack.Push(curr.RightChild());
+            if(curr.HasLeftChild())
+                curr = curr.LeftChild();
+            else
+                curr = stack.TopNPop();
+        }
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from ResettableIterator)
 
-        void Reset() noexcept override; // (should not throw exceptions)
+        void Reset() noexcept override // (should not throw exceptions)
+        {
+
+        }
 
     };
 
