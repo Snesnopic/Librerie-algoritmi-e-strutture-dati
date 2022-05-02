@@ -3,9 +3,31 @@ namespace lasd
 
 /* ************************************************************************** */
     template<typename Data>
-    BinaryTreeLnk<Data>::BinaryTreeLnk(LinearContainer<Data>& lc) // A binary tree obtained from a LinearContainer
+    BinaryTreeLnk<Data>::BinaryTreeLnk(const LinearContainer<Data>& lc) // A binary tree obtained from a LinearContainer
     {
         size = lc.Size();
+        root = new NodeLnk(lc[0]);
+        QueueLst<NodeLnk*> q;
+        bool is_left = true;
+        NodeLnk *cur = nullptr;
+        q.Enqueue(root);
+        for (int i = 1; i < lc.Size(); i++)
+        {
+            NodeLnk *n = nullptr;
+            n = new NodeLnk(lc[i]);
+            q.Enqueue(n);
+            if (is_left)
+            {
+                cur = q.HeadNDequeue();
+                cur->left = n;
+                is_left = false;
+            }
+            else
+            {
+                cur->right = n;
+                is_left = true;
+            }
+        }
     }
 
     /* ************************************************************************ */
