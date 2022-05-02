@@ -55,14 +55,14 @@ namespace lasd
 
             bool HasLeftChild() const noexcept override // (concrete function should not throw exceptions)
             {
-                if(arrayRef->Size() <= (2*index)+1)
+                if (arrayRef->Size() <= (2 * index) + 1)
                     return false;
                 return arrayRef->operator[]((2 * index) + 1) != nullptr;
             };
 
             bool HasRightChild() const noexcept override // (concrete function should not throw exceptions)
             {
-                if( arrayRef->Size() <= (2 * index) + 2)
+                if (arrayRef->Size() <= (2 * index) + 2)
                     return false;
                 return arrayRef->operator[]((2 * index) + 2) != nullptr;
             };
