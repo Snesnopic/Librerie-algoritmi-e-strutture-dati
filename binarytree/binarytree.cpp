@@ -144,9 +144,9 @@ namespace lasd
     {
         f(n->dato, par, acc);
         if (n->HasLeftChild())
-            FoldPreOrder(f, par, &n->LeftChild());
+            FoldPreOrder(f, par,acc, &n->LeftChild());
         if (n->HasRightChild())
-            FoldPreOrder(f, par, &n->RightChild());
+            FoldPreOrder(f, par,acc, &n->RightChild());
     }
 
     template<typename Data>
