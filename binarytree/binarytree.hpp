@@ -116,6 +116,7 @@ namespace lasd
         virtual ~BinaryTree() = default;
 
         /* ************************************************************************ */
+        virtual void Clear() = 0;
 
         // Copy assignment
         BinaryTree& operator=(const BinaryTree& bt) = delete; // Copy assignment of abstract types should not be possible.
@@ -249,14 +250,16 @@ namespace lasd
         // ...
 
     protected:
-        struct BinaryTree<Data>::Node curr = nullptr;
+        struct BinaryTree<Data>::Node *curr = nullptr;
         StackLst<struct BinaryTree<Data>::Node *> stack;
+        const BinaryTree<Data> *treePtr;
     public:
 
         // Specific constructors
-        BTPreOrderIterator(BinaryTree<Data> bt) // An iterator over a given binary tree
+        BTPreOrderIterator(const BinaryTree<Data>& bt) // An iterator over a given binary tree
         {
-            curr = bt.Root();
+            curr = &bt.Root();
+            treePtr = &bt;
         }
 
         /* ************************************************************************ */
@@ -264,13 +267,17 @@ namespace lasd
         // Copy constructor
         BTPreOrderIterator(const BTPreOrderIterator& poi)
         {
-
+            curr = poi.curr;
+            stack = poi.stack;
+            treePtr = poi.treePtr;
         }
 
         // Move constructor
         BTPreOrderIterator(BTPreOrderIterator&& poi) noexcept
         {
-
+            std::swap(curr, poi.curr);
+            std::swap(stack, poi.stack);
+            std::swap(treePtr, poi.treePtr);
         }
 
         /* ************************************************************************ */
@@ -286,13 +293,25 @@ namespace lasd
         // Copy assignment
         BTPreOrderIterator& operator=(const BTPreOrderIterator& poi)
         {
-
+            if (this != &poi)
+            {
+                curr = poi.curr;
+                stack = poi.stack;
+                treePtr = poi.treePtr;
+            }
+            return *this;
         }
 
         // Move assignment
         BTPreOrderIterator& operator=(BTPreOrderIterator&& poi) noexcept
         {
-
+            if (this != &poi)
+            {
+                std::swap(curr, poi.curr);
+                std::swap(stack, poi.stack);
+                std::swap(treePtr, poi.treePtr);
+            }
+            return *this;
         }
 
         /* ************************************************************************ */
@@ -314,14 +333,14 @@ namespace lasd
 
         Data& operator*() const // (throw std::out_of_range when terminated)
         {
-            if(Terminated())
+            if (Terminated())
                 throw std::out_of_range("Out of range!");
-            return curr.dato;
+            return curr->dato;
         }
 
         bool Terminated() const noexcept override // (should not throw exceptions)
         {
-
+            return curr == nullptr;
         }
 
         /* ************************************************************************ */
@@ -330,14 +349,20 @@ namespace lasd
 
         BTPreOrderIterator& operator++() override // (throw std::out_of_range when terminated)
         {
-            if(Terminated())
+            if (Terminated())
                 throw std::out_of_range("Out of range!");
-            if(curr.HasRightChild())
-                stack.Push(curr.RightChild());
-            if(curr.HasLeftChild())
-                curr = curr.LeftChild();
+            if (curr->HasRightChild())
+                stack.Push(&curr->RightChild());
+            if (curr->HasLeftChild())
+                curr = &curr->LeftChild();
             else
-                curr = stack.TopNPop();
+            {
+                if (!stack.Empty())
+                    curr = stack.TopNPop();
+                else
+                    curr = nullptr;
+            }
+            return *this;
         }
 
         /* ************************************************************************ */
@@ -346,7 +371,8 @@ namespace lasd
 
         void Reset() noexcept override // (should not throw exceptions)
         {
-
+            curr = &treePtr->Root();
+            stack.Clear();
         }
 
     };
@@ -364,58 +390,149 @@ namespace lasd
         // ...
 
     protected:
-        struct BinaryTree<Data>::Node curr = nullptr;
+
+        struct BinaryTree<Data>::Node *curr = nullptr;
         StackLst<struct BinaryTree<Data>::Node *> stack;
+        const BinaryTree<Data> *treePtr = nullptr;
+
+        struct BinaryTree<Data>::Node *minLeaf(struct BinaryTree<Data>::Node *n)
+        {
+            struct BinaryTree<Data>::Node *tmp = n;
+            if (tmp->HasLeftChild())
+            {
+                stack.Push(tmp);
+                return minLeaf(&tmp->LeftChild());
+            }
+            else
+            {
+                if (tmp->HasRightChild())
+                {
+                    stack.Push(tmp);
+                    return minLeaf(&tmp->RightChild());
+                }
+                else
+                    return tmp;
+            }
+        }
 
     public:
 
         // Specific constructors
-        BTPostOrderIterator(const BinaryTree<Data>& bt); // An iterator over a given binary tree
+        BTPostOrderIterator(const BinaryTree<Data>& bt) // An iterator over a given binary tree
+        {
+            treePtr = &bt;
+            curr = minLeaf(&bt.Root());
+        }
 
         /* ************************************************************************ */
 
         // Copy constructor
-        BTPostOrderIterator(const BTPostOrderIterator& poi);
+        BTPostOrderIterator(const BTPostOrderIterator& poi)
+        {
+            curr = poi.curr;
+            stack = poi.stack;
+            treePtr = poi.treePtr;
+        }
 
         // Move constructor
-        BTPostOrderIterator(BTPostOrderIterator&& poi) noexcept;
+        BTPostOrderIterator(BTPostOrderIterator&& poi) noexcept
+        {
+            std::swap(curr, poi.curr);
+            std::swap(stack, poi.stack);
+            std::swap(treePtr, poi.treePtr);
+        }
 
         /* ************************************************************************ */
 
         // Destructor
-        virtual ~BTPostOrderIterator();
+        virtual ~BTPostOrderIterator()
+        {
+            stack.Clear();
+        }
 
         /* ************************************************************************ */
 
         // Copy assignment
-        BTPostOrderIterator& operator=(const BTPostOrderIterator& poi);
+        BTPostOrderIterator& operator=(const BTPostOrderIterator& poi)
+        {
+            if (this != &poi)
+            {
+                curr = poi.curr;
+                stack = poi.stack;
+                treePtr = poi.treePtr;
+            }
+            return *this;
+        }
 
         // Move assignment
-        BTPostOrderIterator& operator=(BTPostOrderIterator&& poi) noexcept;
+        BTPostOrderIterator& operator=(BTPostOrderIterator&& poi) noexcept
+        {
+            if (this != &poi)
+            {
+                std::swap(curr, poi.curr);
+                std::swap(stack, poi.stack);
+                std::swap(treePtr, poi.treePtr);
+            }
+            return *this;
+        }
 
         /* ************************************************************************ */
 
         // Comparison operators
-        bool operator==(const BTPostOrderIterator& poi) const noexcept;
+        bool operator==(const BTPostOrderIterator& poi) const noexcept
+        {
+            if (curr == poi.curr && stack == poi.stack && treePtr == poi.treePtr)
+                return true;
+            else
+                return false;
+        }
 
-        bool operator!=(const BTPostOrderIterator& poi) const noexcept;
+        bool operator!=(const BTPostOrderIterator& poi) const noexcept
+        {
+            return !(*this == poi);
+        }
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from Iterator)
 
-        Data& operator*() const override; // (throw std::out_of_range when terminated)
+        Data& operator*() const override // (throw std::out_of_range when terminated)
+        {
+            if (Terminated())
+                throw std::out_of_range("Out of range!");
+            return curr->dato;
+        }
 
-        bool Terminated() const noexcept override; // (should not throw exceptions)
+        bool Terminated() const noexcept override // (should not throw exceptions)
+        {
+            return curr == nullptr;
+        }
         /* ************************************************************************ */
         // Specific member functions (inherited from ForwardIterator)
 
-        BTPostOrderIterator& operator++() override; // (throw std::out_of_range when terminated)
+        BTPostOrderIterator& operator++() override // (throw std::out_of_range when terminated)
+        {
+            if (Terminated())
+                throw std::out_of_range("Out of range!");
+            if (curr == &(stack.Top()->RightChild()))
+                curr = stack.TopNPop();
+            else
+            {
+                if (stack.Top()->HasRightChild())
+                    curr = minLeaf(&(stack.Top()->RightChild()));
+                else
+                    curr = stack.TopNPop();
+            }
+            return *this;
+        }
         /* ************************************************************************ */
 
         // Specific member functions (inherited from ResettableIterator)
 
-        void Reset() noexcept override; // (should not throw exceptions)
+        void Reset() noexcept override // (should not throw exceptions)
+        {
+            stack.Clear();
+        }
 
     };
 
@@ -429,62 +546,136 @@ namespace lasd
 
     private:
 
-        struct BinaryTree<Data>::Node curr = nullptr;
+        struct BinaryTree<Data>::Node *curr = nullptr;
         StackLst<struct BinaryTree<Data>::Node *> stack;
+        const BinaryTree<Data> *treePtr = nullptr;
 
     protected:
 
-        // ...
+        struct BinaryTree<Data>::Node *min(struct BinaryTree<Data>::Node *n)
+        {
+            struct BinaryTree<Data>::Node *tmp = n;
+            if (tmp->HasRightChild())
+                stack.Push(&tmp->RightChild());
+            if (tmp->HasLeftChild())
+                tmp = min(&tmp->LeftChild());
+            return tmp;
+        }
 
     public:
 
         // Specific constructors
-        BTInOrderIterator(const BinaryTree<Data>& bt); // An iterator over a given binary tree
+        BTInOrderIterator(const BinaryTree<Data>& bt) // An iterator over a given binary tree
+        {
+            curr = min(&bt.Root());
+            treePtr = &bt;
+        }
 
         /* ************************************************************************ */
 
         // Copy constructor
-        BTInOrderIterator(const BTInOrderIterator& ii);
+        BTInOrderIterator(const BTInOrderIterator& ii)
+        {
+            curr = ii.curr;
+            stack = ii.stack;
+            treePtr = ii.treePtr;
+        }
 
         // Move constructor
-        BTInOrderIterator(BTInOrderIterator&& ii) noexcept;
+        BTInOrderIterator(BTInOrderIterator&& ii) noexcept
+        {
+            std::swap(curr, ii.curr);
+            std::swap(stack, ii.stack);
+            std::swap(treePtr, ii.treePtr);
+        }
 
         /* ************************************************************************ */
 
         // Destructor
-        virtual ~BTInOrderIterator();
+        virtual ~BTInOrderIterator()
+        {
+            stack.Clear();
+        }
 
         /* ************************************************************************ */
 
         // Copy assignment
-        BTInOrderIterator& operator=(const BTInOrderIterator& ii);
+        BTInOrderIterator& operator=(const BTInOrderIterator& ii)
+        {
+            if (this != &ii)
+            {
+                curr = ii.curr;
+                stack = ii.stack;
+                treePtr = ii.treePtr;
+            }
+            return *this;
+        }
 
         // Move assignment
-        BTInOrderIterator& operator=(BTInOrderIterator&& ii) noexcept;
+        BTInOrderIterator& operator=(BTInOrderIterator&& ii) noexcept
+        {
+            if (this != &ii)
+            {
+                std::swap(curr, ii.curr);
+                std::swap(stack, ii.stack);
+                std::swap(treePtr, ii.treePtr);
+            }
+            return *this;
+        }
 
         /* ************************************************************************ */
 
         // Comparison operators
-        bool operator==(const BTInOrderIterator& ii) const noexcept;
+        bool operator==(const BTInOrderIterator& ii) const noexcept
+        {
+            if (curr == ii.curr && stack == ii.stack && treePtr == ii.treePtr)
+                return true;
+            else
+                return false;
+        }
 
-        bool operator!=(const BTInOrderIterator& ii) const noexcept;
+        bool operator!=(const BTInOrderIterator& ii) const noexcept
+        {
+            return !(*this == ii);
+        }
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from Iterator)
 
-        Data& operator*() const override; // (throw std::out_of_range when terminated)
+        Data& operator*() const override // (throw std::out_of_range when terminated)
+        {
+            if (Terminated())
+                throw std::out_of_range("Out of range!");
+            return curr->dato;
+        }
 
-        bool Terminated() const noexcept override; // (should not throw exceptions)
+        bool Terminated() const noexcept override // (should not throw exceptions)
+        {
+            return curr == nullptr;
+        }
         /* ************************************************************************ */
         // Specific member functions (inherited from ForwardIterator)
 
-        BTInOrderIterator& operator++() override; // (throw std::out_of_range when terminated)
+        BTInOrderIterator& operator++() override // (throw std::out_of_range when terminated)
+        {
+            if (Terminated())
+                throw std::out_of_range("Out of range!");
+            if (curr->HasRightChild())
+                curr = min(&curr->RightChild());
+            else
+                curr = stack.TopNPop();
+            return *this;
+        }
         /* ************************************************************************ */
 
         // Specific member functions (inherited from ResettableIterator)
 
-        void Reset() noexcept override; // (should not throw exceptions)
+        void Reset() noexcept override // (should not throw exceptions)
+        {
+            stack.Clear();
+            curr = min(&treePtr->Root());
+        }
 
     };
 
@@ -502,61 +693,131 @@ namespace lasd
 
     protected:
 
-        struct BinaryTree<Data>::Node *current = nullptr;
+        struct BinaryTree<Data>::Node *curr = nullptr;
         QueueLst<struct BinaryTree<Data>::Node *> que;
-
+        const BinaryTree<Data> *treePtr = nullptr;
     public:
 
         // Specific constructors
-        BTBreadthIterator(const BinaryTree<Data>& bt); // An iterator over a given binary tree
+        BTBreadthIterator(const BinaryTree<Data>& bt) // An iterator over a given binary tree
+        {
+            curr = &bt.Root();
+            treePtr = &bt;
+        }
 
         /* ************************************************************************ */
 
         // Copy constructor
-        BTBreadthIterator(const BTBreadthIterator& bi);
+        BTBreadthIterator(const BTBreadthIterator& bi)
+        {
+            treePtr = bi.treePtr;
+            curr = bi.curr;
+            que = bi.que;
+        }
 
         // Move constructor
-        BTBreadthIterator(BTBreadthIterator&& bi) noexcept;
+        BTBreadthIterator(BTBreadthIterator&& bi) noexcept
+        {
+            std::swap(treePtr, bi.treePtr);
+            std::swap(curr, bi.curr);
+            std::swap(que, bi.que);
+        }
 
         /* ************************************************************************ */
 
         // Destructor
-        virtual ~BTBreadthIterator();
+        virtual ~BTBreadthIterator()
+        {
+            que.Clear();
+        }
 
         /* ************************************************************************ */
 
         // Copy assignment
-        BTBreadthIterator& operator=(const BTBreadthIterator& bi);
+        BTBreadthIterator& operator=(const BTBreadthIterator& bi)
+        {
+            if (this != &bi)
+            {
+                treePtr = bi.treePtr;
+                curr = bi.curr;
+                que = bi.que;
+            }
+            return *this;
+        }
 
         // Move assignment
-        BTBreadthIterator& operator=(BTBreadthIterator&& bi) noexcept;
+        BTBreadthIterator& operator=(BTBreadthIterator&& bi) noexcept
+        {
+            if (this != &bi)
+            {
+                std::swap(treePtr, bi.treePtr);
+                std::swap(curr, bi.curr);
+                std::swap(que, bi.que);
+            }
+            return *this;
+        }
 
         /* ************************************************************************ */
 
         // Comparison operators
-        bool operator==(const BTBreadthIterator& bi) const noexcept;
+        bool operator==(const BTBreadthIterator& bi) const noexcept
+        {
+            if (treePtr == bi.treePtr && curr == bi.curr && que == bi.que)
+                return true;
+            else
+                return false;
+        }
 
-        bool operator!=(const BTBreadthIterator& bi) const noexcept;
+        bool operator!=(const BTBreadthIterator& bi) const noexcept
+        {
+            return !(*this == bi);
+        }
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from Iterator)
 
-        Data& operator*() const override; // (throw std::out_of_range when terminated)
+        Data& operator*() const override // (throw std::out_of_range when terminated)
+        {
+            if (Terminated())
+                throw std::out_of_range("Out of range!");
+            else
+                return curr->dato;
+        }
 
-        bool Terminated() const noexcept override; // (should not throw exceptions)
+        bool Terminated() const noexcept override // (should not throw exceptions)
+        {
+            return curr == nullptr;
+        }
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from ForwardIterator)
 
-        BTBreadthIterator& operator++() override; // (throw std::out_of_range when terminated)
+        BTBreadthIterator& operator++() override // (throw std::out_of_range when terminated)
+        {
+            if (Terminated())
+                throw std::out_of_range("Out of range!");
+            if (curr->HasLeftChild())
+                que.Enqueue(&curr->LeftChild());
+            if (curr->HasRightChild())
+                que.Enqueue(&curr->RightChild());
+            if (!que.Empty())
+                curr = que.HeadNDequeue();
+            else
+                curr = nullptr;
+            return *this;
+        }
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from ResettableIterator)
 
-        void Reset() noexcept override; // (should not throw exceptions)
+        void Reset() noexcept override // (should not throw exceptions)
+        {
+            que.Clear();
+            curr = &treePtr->Root();
+        }
 
     };
 

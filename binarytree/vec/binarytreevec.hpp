@@ -42,38 +42,39 @@ namespace lasd
         public:
             using BinaryTree<Data>::Node::dato;
             unsigned long index;
-            Vector<NodeVec *>& arrayRef = nullptr;
+            Vector<NodeVec *> *arrayRef;
 
             NodeVec() = default;
 
-            NodeVec(Vector<Data>& arr, unsigned long i, Data d) : BinaryTree<Data>::Node(d)
+            NodeVec(Vector<NodeVec *> *arr, unsigned long i, Data& d)
             {
                 arrayRef = arr;
                 index = i;
+                dato = d;
             }
 
             bool HasLeftChild() const noexcept override // (concrete function should not throw exceptions)
             {
-                return (array[(2 * index) + 1] != nullptr);
+                return arrayRef->operator[]((2 * index) + 1) != nullptr;
             };
 
             bool HasRightChild() const noexcept override // (concrete function should not throw exceptions)
             {
-                return (array[(2 * index) + 2] != nullptr);
+                return arrayRef->operator[]((2 * index) + 2) != nullptr;
             };
 
             NodeVec& LeftChild() const override // (concrete function must throw std::out_of_range when not existent)
             {
                 if (!HasLeftChild())
                     throw std::out_of_range("Out of range!");
-                return array[(2 * index) + 1];
+                return *(arrayRef->operator[]((2 * index) + 1));
             };
 
             NodeVec& RightChild() const override // (concrete function must throw std::out_of_range when not existent)
             {
                 if (!HasRightChild())
                     throw std::out_of_range("Out of range!");
-                return array[(2 * index) + 2];
+                return *(arrayRef->operator[]((2 * index) + 2));
             };
         };
 
@@ -111,19 +112,13 @@ namespace lasd
 
         /* ************************************************************************ */
 
-        // Comparison operators
-        // type operator==(argument) specifiers;
-        // type operator!=(argument) specifiers;
-
-        /* ************************************************************************ */
-
         // Specific member functions (inherited from BinaryTree)
 
         NodeVec& Root() const override // Override BinaryTree member (throw std::length_error when empty)
         {
             if (size == 0)
                 throw std::length_error("Length error!");
-            return array[0];
+            return *(array.operator[](0));
         }
 
         /* ************************************************************************ */

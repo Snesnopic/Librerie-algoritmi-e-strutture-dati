@@ -55,9 +55,9 @@ namespace lasd
             {
                 dato = nl.dato;
                 if (nl.HasRightChild())
-                    right = new NodeLnk(nl.right);
+                    right = new NodeLnk(nl.RightChild());
                 if (nl.HasLeftChild())
-                    left = new NodeLnk(nl.left);
+                    left = new NodeLnk(nl.LeftChild());
             };
 
             NodeLnk(NodeLnk&& nl)
@@ -91,14 +91,14 @@ namespace lasd
             {
                 if (!HasLeftChild())
                     throw std::out_of_range("Out of range!");
-                return left;
+                return *left;
             };
 
             NodeLnk& RightChild() const override // (concrete function must throw std::out_of_range when not existent)
             {
                 if (!HasRightChild())
                     throw std::out_of_range("Out of range!");
-                return right;
+                return *right;
 
             };
 
@@ -144,7 +144,7 @@ namespace lasd
         {
             if (size == 0)
                 throw std::length_error("Lenght error!");
-            return root;
+            return *root;
         }
 
         /* ************************************************************************ */

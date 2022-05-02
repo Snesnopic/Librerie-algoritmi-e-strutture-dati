@@ -6,7 +6,6 @@ namespace lasd
     BinaryTreeLnk<Data>::BinaryTreeLnk(LinearContainer<Data>& lc) // A binary tree obtained from a LinearContainer
     {
         size = lc.Size();
-
     }
 
     /* ************************************************************************ */
@@ -18,7 +17,7 @@ namespace lasd
         size = btl.size;
         if (btl.root != nullptr)
         {
-            root = new NodeLnk(btl.root);
+            root = new NodeLnk(btl.Root());
         }
     }
 
@@ -26,7 +25,7 @@ namespace lasd
     template<typename Data>
     BinaryTreeLnk<Data>::BinaryTreeLnk(BinaryTreeLnk&& btl) noexcept
     {
-        std::swap(root, btl);
+        std::swap(root, btl.root);
         std::swap(size, btl.size);
     }
 
@@ -45,25 +44,27 @@ namespace lasd
     template<typename Data>
     BinaryTreeLnk<Data>& BinaryTreeLnk<Data>::operator=(const BinaryTreeLnk& btl)
     {
-        if (this != btl)
+        if (this != &btl)
         {
             size = btl.size;
             if (btl.root != nullptr)
             {
-                root = new NodeLnk(btl.root);
+                root = new NodeLnk(btl.Root());
             }
         }
+        return *this;
     }
 
     // Move assignment
     template<typename Data>
     BinaryTreeLnk<Data>& BinaryTreeLnk<Data>::operator=(BinaryTreeLnk&& btl) noexcept
     {
-        if (this != btl)
+        if (this != &btl)
         {
-            std::swap(root, btl);
+            std::swap(root, btl.root);
             std::swap(size, btl.size);
         }
+        return *this;
     }
 
     template<typename Data>
