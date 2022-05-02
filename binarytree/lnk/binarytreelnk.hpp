@@ -113,7 +113,7 @@ namespace lasd
         /* ************************************************************************ */
 
         // Specific constructors
-        BinaryTreeLnk(LinearContainer<Data>& lc); // A binary tree obtained from a LinearContainer
+        BinaryTreeLnk(const LinearContainer<Data>& lc); // A binary tree obtained from a LinearContainer
 
         /* ************************************************************************ */
 
