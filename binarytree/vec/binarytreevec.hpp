@@ -41,7 +41,7 @@ namespace lasd
 
         public:
             using BinaryTree<Data>::Node::dato;
-            unsigned long index;
+            unsigned long index{};
             Vector<NodeVec *> *arrayRef;
 
             NodeVec() = default;
@@ -55,11 +55,15 @@ namespace lasd
 
             bool HasLeftChild() const noexcept override // (concrete function should not throw exceptions)
             {
+                if(arrayRef->Size() <= (2*index)+1)
+                    return false;
                 return arrayRef->operator[]((2 * index) + 1) != nullptr;
             };
 
             bool HasRightChild() const noexcept override // (concrete function should not throw exceptions)
             {
+                if( arrayRef->Size() <= (2 * index) + 2)
+                    return false;
                 return arrayRef->operator[]((2 * index) + 2) != nullptr;
             };
 
@@ -67,14 +71,16 @@ namespace lasd
             {
                 if (!HasLeftChild())
                     throw std::out_of_range("Out of range!");
-                return *(arrayRef->operator[]((2 * index) + 1));
+                else
+                    return *(arrayRef->operator[]((2 * index) + 1));
             };
 
             NodeVec& RightChild() const override // (concrete function must throw std::out_of_range when not existent)
             {
                 if (!HasRightChild())
                     throw std::out_of_range("Out of range!");
-                return *(arrayRef->operator[]((2 * index) + 2));
+                else
+                    return *(arrayRef->operator[]((2 * index) + 2));
             };
         };
 
@@ -87,7 +93,7 @@ namespace lasd
         /* ************************************************************************ */
 
         // Specific constructors
-        BinaryTreeVec(LinearContainer<Data>& lc); // A binary tree obtained from a LinearContainer
+        BinaryTreeVec(const LinearContainer<Data>& lc); // A binary tree obtained from a LinearContainer
 
         /* ************************************************************************ */
 
@@ -118,7 +124,7 @@ namespace lasd
         {
             if (size == 0)
                 throw std::length_error("Length error!");
-            return *(array.operator[](0));
+            return *(array[0]);
         }
 
         /* ************************************************************************ */
