@@ -115,7 +115,7 @@ namespace lasd
             throw std::length_error("Length error!");
         head = (head + 1) % size;
         elements--;
-        if (elements <= size / 4)
+        if (elements < size / 4)
             Reduce();
     }
 
