@@ -9,7 +9,7 @@ namespace lasd
     {
         if (this == nullptr && &n == nullptr)
             return true;
-        return ((dato == n.dato) && (RightChild() == n.RightChild()) && (LeftChild() == n.LeftChild()));
+        return ((dato == n.dato) && (&RightChild() == &(n.RightChild())) && (&LeftChild() == &(n.LeftChild())));
     }
 
     template<typename Data>
