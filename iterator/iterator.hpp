@@ -212,7 +212,7 @@ namespace lasd
 
         // Specific member functions
 
-        virtual void Reset() noexcept; // (concrete function should not throw exceptions)
+        virtual void Reset() noexcept = 0; // (concrete function should not throw exceptions)
 
     };
 /* ************************************************************************** */
