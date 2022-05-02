@@ -7,7 +7,7 @@ namespace lasd
     {
         size = lc.Size();
         root = new NodeLnk(lc[0]);
-        QueueLst<NodeLnk*> q;
+        QueueLst<NodeLnk *> q;
         bool is_left = true;
         NodeLnk *cur = nullptr;
         q.Enqueue(root);
