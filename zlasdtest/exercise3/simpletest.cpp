@@ -267,7 +267,7 @@ void stestBinaryTreeString(unsigned int& testnum, unsigned int& testerr)
         NonEqualBT(loctestnum, loctesterr, btlnk, btvec);
         btlnk.Root().RightChild().Element() = string("X");
         NonEqualBT(loctestnum, loctesterr, btvec, btlnk);
-        btvec.Root().rightChild().Element() = string("X");
+        btvec.Root().RightChild().Element() = string("X");
         btlnk.Root().LeftChild().LeftChild().Element() = string("S");
         EqualBT(loctestnum, loctesterr, btlnk, btvec);
     }
