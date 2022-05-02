@@ -5,14 +5,13 @@ namespace lasd
 
 // Specific member functions (inherited from Container)
     template<typename Data>
-    BinaryTreeVec<Data>::BinaryTreeVec(LinearContainer<Data>& lc) // A binary tree obtained from a LinearContainer
+    BinaryTreeVec<Data>::BinaryTreeVec(const LinearContainer<Data>& lc) // A binary tree obtained from a LinearContainer
     {
         size = lc.Size();
         array.Resize(size);
         for (unsigned long i = 0; i < array.Size(); i++)
         {
-            NodeVec *n = new NodeVec(&array, i, lc[i]);
-            array[i] = n;
+            array[i] = new NodeVec(&array, i, lc[i]);
         }
     }
 
