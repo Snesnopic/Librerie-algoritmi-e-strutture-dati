@@ -7,8 +7,6 @@ namespace lasd
     template<typename Data>
     bool BinaryTree<Data>::Node::operator==(const Node& n) const noexcept
     {
-        if (this == nullptr && &n == nullptr)
-            return true;
         return ((dato == n.dato) && (&RightChild() == &(n.RightChild())) && (&LeftChild() == &(n.LeftChild())));
     }
 
@@ -144,9 +142,9 @@ namespace lasd
     {
         f(n->dato, par, acc);
         if (n->HasLeftChild())
-            FoldPreOrder(f, par,acc, &n->LeftChild());
+            FoldPreOrder(f, par, acc, &n->LeftChild());
         if (n->HasRightChild())
-            FoldPreOrder(f, par,acc, &n->RightChild());
+            FoldPreOrder(f, par, acc, &n->RightChild());
     }
 
     template<typename Data>
