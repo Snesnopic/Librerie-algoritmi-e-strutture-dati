@@ -331,7 +331,7 @@ namespace lasd
 
         // Specific member functions (inherited from Iterator)
 
-        Data& operator*() const // (throw std::out_of_range when terminated)
+        Data& operator*() const override // (throw std::out_of_range when terminated)
         {
             if (Terminated())
                 throw std::out_of_range("Out of range!");
