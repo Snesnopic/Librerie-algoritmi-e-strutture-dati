@@ -102,6 +102,48 @@ namespace lasd
 
 /* ************************************************************************** */
 
+    template <typename Data>
+    class DictionaryContainer { // Must extend TestableContainer<Data>
+
+    private:
+
+        // ...
+
+    protected:
+
+        // ...
+
+    public:
+
+        // Destructor
+        // ~DictionaryContainer() specifiers
+
+        /* ************************************************************************ */
+
+        // Copy assignment
+        // type operator=(argument); // Copy assignment of abstract types should not be possible.
+
+        // Move assignment
+        // type operator=(argument); // Move assignment of abstract types should not be possible.
+
+        /* ************************************************************************ */
+
+        // Comparison operators
+        // type operator==(argument) specifiers; // Comparison of abstract types might not be possible.
+        // type operator!=(argument) specifiers; // Comparison of abstract types might not be possible.
+
+        /* ************************************************************************ */
+
+        // Specific member functions
+
+        // type Insert(argument) specifiers; // Copy of the value
+        // type Insert(argument) specifiers; // Move of the value
+        // type Remove(argument) specifiers;
+
+    };
+
+/* ************************************************************************** */
+
     template<typename Data>
     class TestableContainer : virtual public Container  // Must extend Container
     {
