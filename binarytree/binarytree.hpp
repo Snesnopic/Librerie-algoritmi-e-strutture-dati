@@ -251,8 +251,8 @@ namespace lasd
 
     protected:
         struct BinaryTree<Data>::Node *curr = nullptr;
-        StackLst<struct BinaryTree<Data>::Node *> stack;
-        const BinaryTree<Data> *treePtr;
+        StackLst<struct BinaryTree<Data>::Node *> stack{};
+        const BinaryTree<Data> *treePtr = nullptr;
     public:
 
         // Specific constructors
@@ -371,7 +371,8 @@ namespace lasd
 
         void Reset() noexcept override // (should not throw exceptions)
         {
-            curr = &treePtr->Root();
+            if(treePtr != nullptr)
+                curr = &treePtr->Root();
             stack.Clear();
         }
 
@@ -392,7 +393,7 @@ namespace lasd
     protected:
 
         struct BinaryTree<Data>::Node *curr = nullptr;
-        StackLst<struct BinaryTree<Data>::Node *> stack;
+        StackLst<struct BinaryTree<Data>::Node *> stack{};
         const BinaryTree<Data> *treePtr = nullptr;
 
         struct BinaryTree<Data>::Node *minLeaf(struct BinaryTree<Data>::Node *n)
@@ -547,7 +548,7 @@ namespace lasd
     private:
 
         struct BinaryTree<Data>::Node *curr = nullptr;
-        StackLst<struct BinaryTree<Data>::Node *> stack;
+        StackLst<struct BinaryTree<Data>::Node *> stack{};
         const BinaryTree<Data> *treePtr = nullptr;
 
     protected:
@@ -694,7 +695,7 @@ namespace lasd
     protected:
 
         struct BinaryTree<Data>::Node *curr = nullptr;
-        QueueLst<struct BinaryTree<Data>::Node *> que;
+        QueueLst<struct BinaryTree<Data>::Node *> que{};
         const BinaryTree<Data> *treePtr = nullptr;
     public:
 
@@ -815,8 +816,10 @@ namespace lasd
 
         void Reset() noexcept override // (should not throw exceptions)
         {
+            if(treePtr != nullptr)
+                curr = &treePtr->Root();
             que.Clear();
-            curr = &treePtr->Root();
+
         }
 
     };
