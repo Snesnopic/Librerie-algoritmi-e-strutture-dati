@@ -6,6 +6,7 @@
 #include "../queue/vec/queuevec.hpp"
 #include "../stack/lst/stacklst.hpp"
 #include "../stack/vec/stackvec.hpp"
+#include <chrono>
 #include <iostream>
 #include <random>
 #include <cmath>
@@ -857,7 +858,10 @@ void mytest()
                 selection = true;
                 break;
             case 5:
+                auto tStart = std::chrono::high_resolution_clock::now();
                 lasdtest();
+                auto tEnd = std::chrono::high_resolution_clock::now();
+                cout << endl << "The test took " << std::chrono::duration<double, std::milli>(tEnd - tStart).count() / 1000 << " seconds!";
                 selection = true;
                 break;
             default:
