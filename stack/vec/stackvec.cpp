@@ -40,7 +40,7 @@ namespace lasd
             return false;
         for (unsigned long i = 0; i <= tail; i++)
         {
-            if (array[i] != sv[i])
+            if (array[i] != sv.array[i])
                 return false;
         }
         return true;
