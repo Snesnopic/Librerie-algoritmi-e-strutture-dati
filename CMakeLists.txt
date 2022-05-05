@@ -1,9 +1,11 @@
-cmake_minimum_required(VERSION 3.22)
+cmake_minimum_required(VERSION 3.14)
 project(Librerie_algoritmi_e_strutture_dati)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS -Wall)
 set(CMAKE_CXX_FLAGS -O3)
+set(CMAKE_CXX_FLAGS --coverage)
+
 include_directories(.)
 include_directories(binarytree)
 include_directories(binarytree/lnk)
