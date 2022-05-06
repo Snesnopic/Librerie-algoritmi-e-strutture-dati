@@ -224,20 +224,16 @@ namespace lasd
     struct BinaryTree<Data>::Node *BTPostOrderIterator<Data>::minLeaf(struct BinaryTree<Data>::Node *n)
     {
         struct BinaryTree<Data>::Node *tmp = n;
+        stack.Push(tmp);
+        if (tmp->HasRightChild())
+            stack.Push(&tmp->RightChild());
         if (tmp->HasLeftChild())
         {
-            stack.Push(tmp);
             return minLeaf(&tmp->LeftChild());
         }
         else
         {
-            if (tmp->HasRightChild())
-            {
-                stack.Push(tmp);
-                return minLeaf(&tmp->RightChild());
-            }
-            else
-                return tmp;
+            return stack.TopNPop();
         }
     }
 
@@ -253,14 +249,19 @@ namespace lasd
     {
         if (Terminated())
             throw std::out_of_range("Out of range!");
-        if (curr == &(stack.Top()->RightChild()))
-            curr = stack.TopNPop();
+        if(stack.Empty())
+            curr = nullptr;
         else
         {
-            if (stack.Top()->HasRightChild())
-                curr = minLeaf(&(stack.Top()->RightChild()));
-            else
+            if (stack.Top()->HasRightChild() && curr == &(stack.Top()->RightChild()))
                 curr = stack.TopNPop();
+            else
+            {
+                if (stack.Top()->HasRightChild())
+                    curr = minLeaf(&(stack.TopNPop()->RightChild()));
+                else
+                    curr = stack.TopNPop();
+            }
         }
         return *this;
     }
@@ -293,9 +294,14 @@ namespace lasd
         if (Terminated())
             throw std::out_of_range("Out of range!");
         if (curr->HasRightChild())
+        {
             curr = min(&curr->RightChild());
+            if(curr == stack.Top())
+                stack.Pop();
+        }
         else
         {
+            std::cout<<stack.Size();
             if (stack.Empty())
                 curr = nullptr;
             else
