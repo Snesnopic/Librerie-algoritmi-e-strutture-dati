@@ -858,12 +858,14 @@ void mytest()
                 selection = true;
                 break;
             case 5:
+                {
                 auto tStart = std::chrono::high_resolution_clock::now();
                 lasdtest();
                 auto tEnd = std::chrono::high_resolution_clock::now();
-                cout << endl << "The test took " << std::chrono::duration<double, std::milli>(tEnd - tStart).count() / 1000 << " seconds!";
+                cout << endl << "The test took " << std::chrono::duration<double, std::milli>(tEnd - tStart).count() / 1000 << " seconds!" << endl;
                 selection = true;
                 break;
+                }
             default:
                 cout << "Input non valido" << endl;
         }
