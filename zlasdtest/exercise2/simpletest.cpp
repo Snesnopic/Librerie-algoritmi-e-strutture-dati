@@ -44,9 +44,7 @@ void stestStackInt(Stk& stk, unsigned int& testnum, unsigned int& testerr)
         Top(loctestnum, loctesterr, (const Stk)stk, true, 1);
 
         Stk copstk(stk);
-
         EqualStack(loctestnum, loctesterr, stk, copstk, true);
-
         PushC(loctestnum, loctesterr, stk, 5);
         NonEqualStack(loctestnum, loctesterr, stk, copstk, true);
 
@@ -68,7 +66,6 @@ void stestStackInt(Stk& stk, unsigned int& testnum, unsigned int& testerr)
         Pop(loctestnum, loctesterr, movstk, false);
         Empty(loctestnum, loctesterr, movstk, true);
         Size(loctestnum, loctesterr, movstk, true, 0);
-
     }
     catch (...)
     {

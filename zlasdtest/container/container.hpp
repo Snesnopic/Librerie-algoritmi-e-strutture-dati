@@ -13,6 +13,81 @@ void Size(unsigned int&, unsigned int&, const lasd::Container&, bool, unsigned l
 
 /* ************************************************************************** */
 
+// TestableContainer member functions!
+
+template<typename Data>
+void Exists(unsigned int& testnum, unsigned int& testerr, const lasd::TestableContainer<Data>& con, bool chk, const Data& val)
+{
+    bool tst;
+    testnum++;
+    std::cout << " " << testnum << " (" << testerr << ") Data \"" << val << "\" " << ((tst = con.Exists(val)) ? "does" : "does not") << " exist: ";
+    std::cout << ((tst = (tst == chk)) ? "Correct" : "Error") << "!" << std::endl;
+    testerr += (1 - (unsigned int)tst);
+}
+
+/* ************************************************************************** */
+
+// DictionaryContainer member functions!
+
+template<typename Data>
+void InsertC(unsigned int& testnum, unsigned int& testerr, lasd::DictionaryContainer<Data>& con, const Data& val)
+{
+    testnum++;
+    bool tst = true;
+    try
+    {
+        std::cout << " " << testnum << " (" << testerr << ") Insertion in the dictionary container of the value \"" << val << "\": ";
+        con.Insert(val);
+        std::cout << "Correct!" << std::endl;
+    }
+    catch (std::exception exc)
+    {
+        tst = false;
+        std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
+    }
+    testerr += (1 - (unsigned int)tst);
+}
+
+template<typename Data>
+void InsertM(unsigned int& testnum, unsigned int& testerr, lasd::DictionaryContainer<Data>& con, const Data& val)
+{
+    testnum++;
+    bool tst = true;
+    try
+    {
+        std::cout << " " << testnum << " (" << testerr << ") Insertion in the dictionary container of the value \"" << val << "\": ";
+        con.Insert(std::move(val));
+        std::cout << "Correct!" << std::endl;
+    }
+    catch (std::exception exc)
+    {
+        tst = false;
+        std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
+    }
+    testerr += (1 - (unsigned int)tst);
+}
+
+template<typename Data>
+void Remove(unsigned int& testnum, unsigned int& testerr, lasd::DictionaryContainer<Data>& con, const Data& val)
+{
+    testnum++;
+    bool tst = true;
+    try
+    {
+        std::cout << " " << testnum << " (" << testerr << ") Removal from the dictionary container of the value \"" << val << "\": ";
+        con.Remove(val);
+        std::cout << "Correct!" << std::endl;
+    }
+    catch (std::exception exc)
+    {
+        tst = false;
+        std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
+    }
+    testerr += (1 - (unsigned int)tst);
+}
+
+/* ************************************************************************** */
+
 // LinearContainer member functions!
 
 template<typename Data>
@@ -147,20 +222,6 @@ void SetAt(unsigned int& testnum, unsigned int& testerr, lasd::LinearContainer<D
         tst = false;
         std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
     }
-    testerr += (1 - (unsigned int)tst);
-}
-
-/* ************************************************************************** */
-
-// TestableContainer member functions!
-
-template<typename Data>
-void Exists(unsigned int& testnum, unsigned int& testerr, const lasd::TestableContainer<Data>& con, bool chk, const Data& val)
-{
-    bool tst;
-    testnum++;
-    std::cout << " " << testnum << " (" << testerr << ") Data \"" << val << "\" " << ((tst = con.Exists(val)) ? "does" : "does not") << " exist: ";
-    std::cout << ((tst = (tst == chk)) ? "Correct" : "Error") << "!" << std::endl;
     testerr += (1 - (unsigned int)tst);
 }
 
