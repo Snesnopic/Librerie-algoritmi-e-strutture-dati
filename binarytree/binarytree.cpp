@@ -249,7 +249,7 @@ namespace lasd
     {
         if (Terminated())
             throw std::out_of_range("Out of range!");
-        if(stack.Empty())
+        if (stack.Empty())
             curr = nullptr;
         else
         {
@@ -296,12 +296,12 @@ namespace lasd
         if (curr->HasRightChild())
         {
             curr = min(&curr->RightChild());
-            if(curr == stack.Top())
+            if (curr == stack.Top())
                 stack.Pop();
         }
         else
         {
-            std::cout<<stack.Size();
+            std::cout << stack.Size();
             if (stack.Empty())
                 curr = nullptr;
             else
