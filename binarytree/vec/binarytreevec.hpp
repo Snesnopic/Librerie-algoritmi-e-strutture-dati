@@ -52,12 +52,14 @@ namespace lasd
                 index = i;
                 dato = d;
             }
+
             NodeVec(Vector<NodeVec *> *arr, unsigned long i, Data&& d)
             {
                 arrayRef = arr;
                 index = i;
                 dato = std::move(d);
             }
+
             bool HasLeftChild() const noexcept override // (concrete function should not throw exceptions)
             {
                 return !(arrayRef->Size() <= (2 * index) + 1);
