@@ -256,11 +256,8 @@ namespace lasd
     public:
 
         // Specific constructors
-        BTPreOrderIterator(const BinaryTree<Data>& bt) // An iterator over a given binary tree
-        {
-            curr = &bt.Root();
-            treePtr = &bt;
-        }
+        BTPreOrderIterator(const BinaryTree<Data>& bt); // An iterator over a given binary tree
+
 
         /* ************************************************************************ */
 
@@ -347,23 +344,8 @@ namespace lasd
 
         // Specific member functions (inherited from ForwardIterator)
 
-        BTPreOrderIterator& operator++() override // (throw std::out_of_range when terminated)
-        {
-            if (Terminated())
-                throw std::out_of_range("Out of range!");
-            if (curr->HasRightChild())
-                stack.Push(&curr->RightChild());
-            if (curr->HasLeftChild())
-                curr = &curr->LeftChild();
-            else
-            {
-                if (!stack.Empty())
-                    curr = stack.TopNPop();
-                else
-                    curr = nullptr;
-            }
-            return *this;
-        }
+        BTPreOrderIterator& operator++() override; // (throw std::out_of_range when terminated)
+
 
         /* ************************************************************************ */
 
@@ -371,7 +353,7 @@ namespace lasd
 
         void Reset() noexcept override // (should not throw exceptions)
         {
-            if(treePtr != nullptr)
+            if (treePtr != nullptr)
                 curr = &treePtr->Root();
             stack.Clear();
         }
@@ -396,34 +378,14 @@ namespace lasd
         StackLst<struct BinaryTree<Data>::Node *> stack{};
         const BinaryTree<Data> *treePtr = nullptr;
 
-        struct BinaryTree<Data>::Node *minLeaf(struct BinaryTree<Data>::Node *n)
-        {
-            struct BinaryTree<Data>::Node *tmp = n;
-            if (tmp->HasLeftChild())
-            {
-                stack.Push(tmp);
-                return minLeaf(&tmp->LeftChild());
-            }
-            else
-            {
-                if (tmp->HasRightChild())
-                {
-                    stack.Push(tmp);
-                    return minLeaf(&tmp->RightChild());
-                }
-                else
-                    return tmp;
-            }
-        }
+        struct BinaryTree<Data>::Node *minLeaf(struct BinaryTree<Data>::Node *n);
+
 
     public:
 
         // Specific constructors
-        BTPostOrderIterator(const BinaryTree<Data>& bt) // An iterator over a given binary tree
-        {
-            treePtr = &bt;
-            curr = minLeaf(&bt.Root());
-        }
+        BTPostOrderIterator(const BinaryTree<Data>& bt); // An iterator over a given binary tree
+
 
         /* ************************************************************************ */
 
@@ -511,21 +473,8 @@ namespace lasd
         /* ************************************************************************ */
         // Specific member functions (inherited from ForwardIterator)
 
-        BTPostOrderIterator& operator++() override // (throw std::out_of_range when terminated)
-        {
-            if (Terminated())
-                throw std::out_of_range("Out of range!");
-            if (curr == &(stack.Top()->RightChild()))
-                curr = stack.TopNPop();
-            else
-            {
-                if (stack.Top()->HasRightChild())
-                    curr = minLeaf(&(stack.Top()->RightChild()));
-                else
-                    curr = stack.TopNPop();
-            }
-            return *this;
-        }
+        BTPostOrderIterator& operator++() override; // (throw std::out_of_range when terminated)
+
         /* ************************************************************************ */
 
         // Specific member functions (inherited from ResettableIterator)
@@ -533,7 +482,7 @@ namespace lasd
         void Reset() noexcept override // (should not throw exceptions)
         {
             stack.Clear();
-            if(treePtr != nullptr)
+            if (treePtr != nullptr)
                 curr = minLeaf(&treePtr->Root());
         }
 
@@ -555,27 +504,14 @@ namespace lasd
 
     protected:
 
-        struct BinaryTree<Data>::Node *min(struct BinaryTree<Data>::Node *n)
-        {
-            struct BinaryTree<Data>::Node *tmp = n;
-            if (tmp->HasRightChild())
-                stack.Push(&tmp->RightChild());
-            if (tmp->HasLeftChild())
-            {
-                stack.Push(tmp);
-                tmp = min(&tmp->LeftChild());
-            }
-            return tmp;
-        }
+        struct BinaryTree<Data>::Node *min(struct BinaryTree<Data>::Node *n);
+
 
     public:
 
         // Specific constructors
-        BTInOrderIterator(const BinaryTree<Data>& bt) // An iterator over a given binary tree
-        {
-            treePtr = &bt;
-            curr = min(&bt.Root());
-        }
+        BTInOrderIterator(const BinaryTree<Data>& bt); // An iterator over a given binary tree
+
 
         /* ************************************************************************ */
 
@@ -663,21 +599,8 @@ namespace lasd
         /* ************************************************************************ */
         // Specific member functions (inherited from ForwardIterator)
 
-        BTInOrderIterator& operator++() override // (throw std::out_of_range when terminated)
-        {
-            if (Terminated())
-                throw std::out_of_range("Out of range!");
-            if (curr->HasRightChild())
-                curr = min(&curr->RightChild());
-            else
-            {
-                if(stack.Empty())
-                    curr = nullptr;
-                else
-                    curr = stack.TopNPop();
-            }
-            return *this;
-        }
+        BTInOrderIterator& operator++() override; // (throw std::out_of_range when terminated)
+
         /* ************************************************************************ */
 
         // Specific member functions (inherited from ResettableIterator)
@@ -685,7 +608,7 @@ namespace lasd
         void Reset() noexcept override // (should not throw exceptions)
         {
             stack.Clear();
-            if(treePtr != nullptr)
+            if (treePtr != nullptr)
                 curr = min(&treePtr->Root());
         }
 
@@ -711,11 +634,8 @@ namespace lasd
     public:
 
         // Specific constructors
-        BTBreadthIterator(const BinaryTree<Data>& bt) // An iterator over a given binary tree
-        {
-            curr = &bt.Root();
-            treePtr = &bt;
-        }
+        BTBreadthIterator(const BinaryTree<Data>& bt); // An iterator over a given binary tree
+
 
         /* ************************************************************************ */
 
@@ -806,20 +726,8 @@ namespace lasd
 
         // Specific member functions (inherited from ForwardIterator)
 
-        BTBreadthIterator& operator++() override // (throw std::out_of_range when terminated)
-        {
-            if (Terminated())
-                throw std::out_of_range("Out of range!");
-            if (curr->HasLeftChild())
-                que.Enqueue(&curr->LeftChild());
-            if (curr->HasRightChild())
-                que.Enqueue(&curr->RightChild());
-            if (!que.Empty())
-                curr = que.HeadNDequeue();
-            else
-                curr = nullptr;
-            return *this;
-        }
+        BTBreadthIterator& operator++() override; // (throw std::out_of_range when terminated)
+
 
         /* ************************************************************************ */
 
@@ -827,7 +735,7 @@ namespace lasd
 
         void Reset() noexcept override // (should not throw exceptions)
         {
-            if(treePtr != nullptr)
+            if (treePtr != nullptr)
                 curr = &treePtr->Root();
             que.Clear();
 
