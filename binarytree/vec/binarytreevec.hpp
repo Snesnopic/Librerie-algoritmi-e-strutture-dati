@@ -42,7 +42,7 @@ namespace lasd
         public:
             using BinaryTree<Data>::Node::dato;
             unsigned long index{};
-            Vector<NodeVec *> *arrayRef;
+            Vector<NodeVec *> *arrayRef = nullptr;
 
             NodeVec() = default;
 
@@ -52,19 +52,21 @@ namespace lasd
                 index = i;
                 dato = d;
             }
-
+            NodeVec(Vector<NodeVec *> *arr, unsigned long i, Data&& d)
+            {
+                arrayRef = arr;
+                index = i;
+                dato = std::move(d);
+            }
             bool HasLeftChild() const noexcept override // (concrete function should not throw exceptions)
             {
-                if (arrayRef->Size() <= (2 * index) + 1)
-                    return false;
-                return arrayRef->operator[]((2 * index) + 1) != nullptr;
+                return !(arrayRef->Size() <= (2 * index) + 1);
             };
 
             bool HasRightChild() const noexcept override // (concrete function should not throw exceptions)
             {
-                if (arrayRef->Size() <= (2 * index) + 2)
-                    return false;
-                return arrayRef->operator[]((2 * index) + 2) != nullptr;
+
+                return !(arrayRef->Size() <= (2 * index) + 2);
             };
 
             NodeVec& LeftChild() const override // (concrete function must throw std::out_of_range when not existent)
@@ -84,7 +86,7 @@ namespace lasd
             };
         };
 
-        Vector<NodeVec *> array;
+        Vector<NodeVec *> array{};
     public:
 
         // Default constructor
