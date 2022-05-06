@@ -45,9 +45,9 @@ namespace lasd
 
             virtual ~NodeLnk()
             {
-                if (HasRightChild())
+                if (right != nullptr)
                     delete right;
-                if (HasLeftChild())
+                if (left != nullptr)
                     delete left;
             };
 
@@ -75,7 +75,7 @@ namespace lasd
             NodeLnk(Data&& d)
             {
                 dato = std::move(d);
-            }
+            };
 
             bool HasLeftChild() const noexcept override // (concrete function should not throw exceptions)
             {
