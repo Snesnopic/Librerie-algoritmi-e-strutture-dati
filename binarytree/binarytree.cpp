@@ -301,7 +301,6 @@ namespace lasd
         }
         else
         {
-            std::cout << stack.Size();
             if (stack.Empty())
                 curr = nullptr;
             else
