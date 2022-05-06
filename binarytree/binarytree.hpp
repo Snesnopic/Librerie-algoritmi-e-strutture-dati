@@ -116,7 +116,6 @@ namespace lasd
         virtual ~BinaryTree() = default;
 
         /* ************************************************************************ */
-        virtual void Clear() = 0;
 
         // Copy assignment
         BinaryTree& operator=(const BinaryTree& bt) = delete; // Copy assignment of abstract types should not be possible.
