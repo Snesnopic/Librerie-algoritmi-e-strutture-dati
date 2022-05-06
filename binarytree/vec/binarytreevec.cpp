@@ -34,7 +34,11 @@ namespace lasd
     BinaryTreeVec<Data>::BinaryTreeVec(BinaryTreeVec&& btv) noexcept
     {
         std::swap(size, btv.size);
-        std::swap(array, btv.array);
+        std::swap(array,btv.array);
+        for (unsigned long i = 0; i < array.Size(); i++)
+        {
+            array[i]->arrayRef = &array;
+        }
     }
     /* ************************************************************************ */
 
