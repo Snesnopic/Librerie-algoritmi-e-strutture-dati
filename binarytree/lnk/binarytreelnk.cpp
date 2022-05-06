@@ -3,11 +3,11 @@ namespace lasd
 
 /* ************************************************************************** */
     template<typename Data>
-    BinaryTreeLnk<Data>::BinaryTreeLnk(const LinearContainer<Data>& lc) // A binary tree obtained from a LinearContainer
+    BinaryTreeLnk<Data>::BinaryTreeLnk(const LinearContainer <Data>& lc) // A binary tree obtained from a LinearContainer
     {
         size = lc.Size();
         root = new NodeLnk(lc[0]);
-        QueueLst<NodeLnk *> q;
+        QueueLst < NodeLnk * > q;
         bool is_left = true;
         NodeLnk *cur = nullptr;
         q.Enqueue(root);
@@ -64,7 +64,7 @@ namespace lasd
 
     // Copy assignment
     template<typename Data>
-    BinaryTreeLnk<Data>& BinaryTreeLnk<Data>::operator=(const BinaryTreeLnk& btl)
+    BinaryTreeLnk <Data>& BinaryTreeLnk<Data>::operator=(const BinaryTreeLnk& btl)
     {
         if (this != &btl)
         {
@@ -79,7 +79,7 @@ namespace lasd
 
     // Move assignment
     template<typename Data>
-    BinaryTreeLnk<Data>& BinaryTreeLnk<Data>::operator=(BinaryTreeLnk&& btl) noexcept
+    BinaryTreeLnk <Data>& BinaryTreeLnk<Data>::operator=(BinaryTreeLnk&& btl) noexcept
     {
         if (this != &btl)
         {
