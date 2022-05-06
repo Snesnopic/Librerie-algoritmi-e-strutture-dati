@@ -7,7 +7,20 @@ namespace lasd
     template<typename Data>
     bool BinaryTree<Data>::Node::operator==(const Node& n) const noexcept
     {
-        return ((dato == n.dato) && (&RightChild() == &(n.RightChild())) && (&LeftChild() == &(n.LeftChild())));
+        if(dato != n.dato)
+            return false;
+        if(HasRightChild() && n.HasRightChild())
+        {
+            if(RightChild() == n.RightChild())
+            {
+                if(HasLeftChild() & n.HasLeftChild())
+                {
+                    if(LeftChild() == n.LeftChild())
+                        return true;
+                }
+            }
+        }
+        return false;
     }
 
     template<typename Data>
@@ -45,51 +58,43 @@ namespace lasd
     template<typename Data>
     void BinaryTree<Data>::MapPreOrder(MapFunctor f, void *par)  // Override PreOrderMappableContainer member
     {
-        if (&Root() != nullptr)
-            MapPreOrder(f, par, &Root());
+        MapPreOrder(f, par, &Root());
     }
 
     template<typename Data>
     void BinaryTree<Data>::FoldPreOrder(FoldFunctor f, const void *par, void *acc) const  // Override PreOrderFoldableContainer member
     {
-        if (&Root() != nullptr)
-            FoldPreOrder(f, par, acc, &Root());
+        FoldPreOrder(f, par, acc, &Root());
     }
 
     template<typename Data>
     void BinaryTree<Data>::MapPostOrder(MapFunctor f, void *par) // Override PostOrderMappableContainer member
     {
-        if (&Root() != nullptr)
-            MapPostOrder(f, par, &Root());
+        MapPostOrder(f, par, &Root());
     }
 
     template<typename Data>
     void BinaryTree<Data>::FoldPostOrder(FoldFunctor f, const void *par, void *acc) const // Override PostOrderFoldableContainer member
     {
-        if (&Root() != nullptr)
-            FoldPostOrder(f, par, acc, &Root());
+        FoldPostOrder(f, par, acc, &Root());
     }
 
     template<typename Data>
     void BinaryTree<Data>::MapInOrder(MapFunctor f, void *par) // Override InOrderMappableContainer member
     {
-        if (&Root() != nullptr)
-            MapInOrder(f, par, &Root());
+        MapInOrder(f, par, &Root());
     }
 
     template<typename Data>
     void BinaryTree<Data>::FoldInOrder(FoldFunctor f, const void *par, void *acc) const // Override InOrderFoldableContainer member
     {
-        if (&Root() != nullptr)
-            FoldInOrder(f, par, acc, &Root());
+        FoldInOrder(f, par, acc, &Root());
     }
 
     template<typename Data>
     void BinaryTree<Data>::MapBreadth(MapFunctor f, void *par) // Override BreadthMappableContainer member
     {
-        if (&Root() != nullptr)
-        {
-            QueueLst<Node *> queue;
+            QueueLst<Node *> queue{};
             queue.Enqueue(&Root());
             Node *n = nullptr;
             while (!queue.Empty())
@@ -102,15 +107,13 @@ namespace lasd
                 if (n->HasRightChild())
                     queue.Enqueue(&n->RightChild());
             }
-        }
     }
 
     template<typename Data>
     void BinaryTree<Data>::FoldBreadth(FoldFunctor f, const void *par, void *acc) const  // Override BreadthFoldableContainer member
     {
-        if (&Root() != nullptr)
-        {
-            QueueLst<Node *> queue;
+
+            QueueLst<Node *> queue{};
             queue.Enqueue(&Root());
             Node *n = nullptr;
             while (!queue.Empty())
@@ -123,7 +126,7 @@ namespace lasd
                 if (n->HasRightChild())
                     queue.Enqueue(&n->RightChild());
             }
-        }
+
     }
 
 
