@@ -7,18 +7,18 @@ namespace lasd
     template<typename Data>
     bool BinaryTree<Data>::Node::operator==(const Node& n) const noexcept
     {
-        if(dato != n.dato)
+        if (dato != n.dato)
             return false;
-        if(HasLeftChild() && n.HasLeftChild())
+        if (HasLeftChild() && n.HasLeftChild())
         {
-            if(LeftChild().operator!=(n.LeftChild()))
+            if (LeftChild().operator!=(n.LeftChild()))
             {
                 return false;
             }
         }
-        if(HasRightChild() && n.HasRightChild())
+        if (HasRightChild() && n.HasRightChild())
         {
-            if(RightChild().operator!=(n.RightChild()))
+            if (RightChild().operator!=(n.RightChild()))
                 return false;
         }
         return true;
@@ -95,38 +95,38 @@ namespace lasd
     template<typename Data>
     void BinaryTree<Data>::MapBreadth(MapFunctor f, void *par) // Override BreadthMappableContainer member
     {
-            QueueLst<Node *> queue{};
-            queue.Enqueue(&Root());
-            Node *n = nullptr;
-            while (!queue.Empty())
-            {
-                n = queue.Head();
-                f(n->dato, par);
-                queue.Dequeue();
-                if (n->HasLeftChild())
-                    queue.Enqueue(&n->LeftChild());
-                if (n->HasRightChild())
-                    queue.Enqueue(&n->RightChild());
-            }
+        QueueLst<Node *> queue{};
+        queue.Enqueue(&Root());
+        Node *n = nullptr;
+        while (!queue.Empty())
+        {
+            n = queue.Head();
+            f(n->dato, par);
+            queue.Dequeue();
+            if (n->HasLeftChild())
+                queue.Enqueue(&n->LeftChild());
+            if (n->HasRightChild())
+                queue.Enqueue(&n->RightChild());
+        }
     }
 
     template<typename Data>
     void BinaryTree<Data>::FoldBreadth(FoldFunctor f, const void *par, void *acc) const  // Override BreadthFoldableContainer member
     {
 
-            QueueLst<Node *> queue{};
-            queue.Enqueue(&Root());
-            Node *n = nullptr;
-            while (!queue.Empty())
-            {
-                n = queue.Head();
-                f(n->dato, par, acc);
-                queue.Dequeue();
-                if (n->HasLeftChild())
-                    queue.Enqueue(&n->LeftChild());
-                if (n->HasRightChild())
-                    queue.Enqueue(&n->RightChild());
-            }
+        QueueLst<Node *> queue{};
+        queue.Enqueue(&Root());
+        Node *n = nullptr;
+        while (!queue.Empty())
+        {
+            n = queue.Head();
+            f(n->dato, par, acc);
+            queue.Dequeue();
+            if (n->HasLeftChild())
+                queue.Enqueue(&n->LeftChild());
+            if (n->HasRightChild())
+                queue.Enqueue(&n->RightChild());
+        }
 
     }
 
@@ -191,4 +191,140 @@ namespace lasd
             FoldInOrder(f, par, acc, &n->RightChild());
     }
 
+
+/* ************************************************************************ */
+    template<typename Data>
+    BTPreOrderIterator<Data>::BTPreOrderIterator(const BinaryTree<Data>& bt) // An iterator over a given binary tree
+    {
+        curr = &bt.Root();
+        treePtr = &bt;
+    }
+
+    template<typename Data>
+    BTPreOrderIterator<Data>& BTPreOrderIterator<Data>::operator++()  // (throw std::out_of_range when terminated)
+    {
+        if (Terminated())
+            throw std::out_of_range("Out of range!");
+        if (curr->HasRightChild())
+            stack.Push(&curr->RightChild());
+        if (curr->HasLeftChild())
+            curr = &curr->LeftChild();
+        else
+        {
+            if (!stack.Empty())
+                curr = stack.TopNPop();
+            else
+                curr = nullptr;
+        }
+        return *this;
+    }
+
+/* ************************************************************************ */
+    template<typename Data>
+    struct BinaryTree<Data>::Node *BTPostOrderIterator<Data>::minLeaf(struct BinaryTree<Data>::Node *n)
+    {
+        struct BinaryTree<Data>::Node *tmp = n;
+        if (tmp->HasLeftChild())
+        {
+            stack.Push(tmp);
+            return minLeaf(&tmp->LeftChild());
+        }
+        else
+        {
+            if (tmp->HasRightChild())
+            {
+                stack.Push(tmp);
+                return minLeaf(&tmp->RightChild());
+            }
+            else
+                return tmp;
+        }
+    }
+
+    template<typename Data>
+    BTPostOrderIterator<Data>::BTPostOrderIterator(const BinaryTree<Data>& bt) // An iterator over a given binary tree
+    {
+        treePtr = &bt;
+        curr = minLeaf(&bt.Root());
+    }
+
+    template<typename Data>
+    BTPostOrderIterator<Data>& BTPostOrderIterator<Data>::operator++() // (throw std::out_of_range when terminated)
+    {
+        if (Terminated())
+            throw std::out_of_range("Out of range!");
+        if (curr == &(stack.Top()->RightChild()))
+            curr = stack.TopNPop();
+        else
+        {
+            if (stack.Top()->HasRightChild())
+                curr = minLeaf(&(stack.Top()->RightChild()));
+            else
+                curr = stack.TopNPop();
+        }
+        return *this;
+    }
+
+/* ************************************************************************ */
+    template<typename Data>
+    struct BinaryTree<Data>::Node *BTInOrderIterator<Data>::min(struct BinaryTree<Data>::Node *n)
+    {
+        struct BinaryTree<Data>::Node *tmp = n;
+        if (tmp->HasRightChild())
+            stack.Push(&tmp->RightChild());
+        if (tmp->HasLeftChild())
+        {
+            stack.Push(tmp);
+            tmp = min(&tmp->LeftChild());
+        }
+        return tmp;
+    }
+
+    template<typename Data>
+    BTInOrderIterator<Data>::BTInOrderIterator(const BinaryTree<Data>& bt) // An iterator over a given binary tree
+    {
+        treePtr = &bt;
+        curr = min(&bt.Root());
+    }
+
+    template<typename Data>
+    BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator++()  // (throw std::out_of_range when terminated)
+    {
+        if (Terminated())
+            throw std::out_of_range("Out of range!");
+        if (curr->HasRightChild())
+            curr = min(&curr->RightChild());
+        else
+        {
+            if (stack.Empty())
+                curr = nullptr;
+            else
+                curr = stack.TopNPop();
+        }
+        return *this;
+    }
+
+/* ************************************************************************ */
+    template<typename Data>
+    BTBreadthIterator<Data>::BTBreadthIterator(const BinaryTree<Data>& bt) // An iterator over a given binary tree
+    {
+        curr = &bt.Root();
+        treePtr = &bt;
+    }
+
+    template<typename Data>
+    BTBreadthIterator<Data>& BTBreadthIterator<Data>::operator++()  // (throw std::out_of_range when terminated)
+    {
+        if (Terminated())
+            throw std::out_of_range("Out of range!");
+        if (curr->HasLeftChild())
+            que.Enqueue(&curr->LeftChild());
+        if (curr->HasRightChild())
+            que.Enqueue(&curr->RightChild());
+        if (!que.Empty())
+            curr = que.HeadNDequeue();
+        else
+            curr = nullptr;
+        return *this;
+    }
 }
