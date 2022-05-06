@@ -8,7 +8,6 @@
 #include "../stack/vec/stackvec.hpp"
 #include "../binarytree/lnk/binarytreelnk.hpp"
 #include "../binarytree/vec/binarytreevec.hpp"
-#include <chrono>
 #include <type_traits>
 #include <iostream>
 #include <random>
@@ -1020,10 +1019,7 @@ void mytest()
                 binarytreetest();
             case 6:
             {
-                auto tStart = std::chrono::high_resolution_clock::now();
                 lasdtest();
-                auto tEnd = std::chrono::high_resolution_clock::now();
-                cout << endl << "The test took " << std::chrono::duration<double, std::milli>(tEnd - tStart).count() / 1000 << " seconds!" << endl;
                 break;
             }
             default:
