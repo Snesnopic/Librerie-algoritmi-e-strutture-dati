@@ -102,8 +102,9 @@ namespace lasd
 
 /* ************************************************************************** */
 
-    template <typename Data>
-    class DictionaryContainer { // Must extend TestableContainer<Data>
+    template<typename Data>
+    class DictionaryContainer
+    { // Must extend TestableContainer<Data>
 
     private:
 
