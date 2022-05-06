@@ -6,7 +6,10 @@
 #include "../queue/vec/queuevec.hpp"
 #include "../stack/lst/stacklst.hpp"
 #include "../stack/vec/stackvec.hpp"
+#include "../binarytree/lnk/binarytreelnk.hpp"
+#include "../binarytree/vec/binarytreevec.hpp"
 #include <chrono>
+#include <type_traits>
 #include <iostream>
 #include <random>
 #include <cmath>
@@ -16,7 +19,7 @@ using namespace std;
 using namespace lasd;
 
 const std::string VALID_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-default_random_engine gen;
+default_random_engine gen{};
 uniform_int_distribution<int> dist(0, VALID_CHARS.size() - 1);
 
 string GeneraStringaCasuale(unsigned int lunghezza)
@@ -34,6 +37,20 @@ void FoldSumLessThanN(const Data& dat, const void *_, void *acc)
 {
     if (dat < *((Data *)_))
         *((Data *)acc) += dat;
+}
+
+template<typename Data>
+void FoldSumMoreThanN(const Data& dat, const void *_, void *acc)
+{
+    if (dat > *((Data *)_))
+        *((Data *)acc) += dat;
+}
+
+template<typename Data>
+void FoldProductLessThanN(const Data& dat, const void *_, void *acc)
+{
+    if (dat < *((Data *)_))
+        *((Data *)acc) *= dat;
 }
 
 template<typename Data>
@@ -63,9 +80,21 @@ void MapDouble(Data& dat, void *_)
 }
 
 template<typename Data>
+void MapTriple(Data& dat, void *_)
+{
+    dat = dat * 3;
+}
+
+template<typename Data>
 void MapSquare(Data& dat, void *_)
 {
     dat = pow(dat, 2);
+}
+
+template<typename Data>
+void MapCube(Data& dat, void *_)
+{
+    dat = pow(dat, 3);
 }
 
 template<typename Data>
@@ -75,25 +104,23 @@ void MapUppercase(Data& dat, void *_)
         c = toupper(c);
 }
 
-void vectorinttest()
+template<typename Data>
+void MapAppend(Data& dat, void *_)
 {
-    unsigned long size;
-    cout << "Quanto rendere grande il vettore di interi?: ";
-    cin >> size;
-    Vector<int> v(size);
-    default_random_engine gen(random_device{}());
-    uniform_int_distribution<int> dist(0, 100);
-    for (unsigned long i = 0; i < size; i++)
-    {
-        v[i] = dist(gen);
-    }
-    cout << "Il primo elemento e' " << v.Front() << ", l'ultimo e' " << v.Back() << endl;
+    dat.append(*((std::string *)_));
+}
+
+template<typename Data>
+void vectortest(Vector<Data>& v)
+{
+    cout << "Il primo elemento e' " << v[0] << ", l'ultimo e' " << v[v.Size() - 1] << endl;
     bool selection = false;
     int testtype;
     while (!selection)
     {
-        cout << "0. Esci" << endl << "1. Funzione map: Stampa tutti gli elementi" << endl << "2. Controlla esistenza di un elemento" << endl
-             << "3. Funzione fold: Somma per gli interi minori di n" << endl << "4. Funzione map: 2n" << endl;
+        cout << "0. Torna indietro" << endl << "1. Stampa tutti gli elementi" << endl << "2. Controlla esistenza di un elemento" << endl
+             << "3. Calcola la funzione di fold relativa al dato: Concatenazione per lunghezza minore o uguale a n" << endl << "4. Applica funzione map a tutti gli elementi"
+             << endl;
         cin >> testtype;
         switch (testtype)
         {
@@ -101,31 +128,71 @@ void vectorinttest()
                 selection = true;
                 break;
             case 1:
-                v.Map(&MapPrint<int>, 0);
+                v.Map(&MapPrint<Data>, 0);
                 cout << endl;
                 break;
             case 2:
-                cout << endl << "Inserisci numero da cercare:   ";
-                unsigned long search;
+            {
+                cout << endl << "Inserisci dato da cercare:   ";
+                Data search;
                 cin >> search;
                 if (v.Exists(search))
-                    cout << "Il numero e' presente!" << endl;
+                    cout << "Trovato!" << endl;
                 else
-                    cout << "Il numero non e' presente!" << endl;
+                    cout << "Non trovato!" << endl;
                 break;
+            }
             case 3:
             {
-                cout << endl << "Inserisci n:   ";
-                unsigned long n;
-                cin >> n;
-                unsigned long result = 0;
-                v.Fold(&FoldSumLessThanN<int>, &n, &result);
-                cout << result << endl;
+                if constexpr (is_same<Data, int>::value)
+                {
+                    cout << "Funzione fold per questo tipo di dato: Somma per gli interi minori di n" << endl << "Inserisci n:   ";
+                    long n{};
+                    cin >> n;
+                    long result = 0;
+                    v.Fold(&FoldSumLessThanN<int>, &n, &result);
+                    cout << result << endl;
+                }
+                if constexpr (is_same<Data, double>::value)
+                {
+                    cout << "Funzione fold per questo tipo di dato: Prodotto per i double maggiori di n;" << endl << "Inserisci n:   ";
+                    cout << endl << "Inserisci n:   ";
+                    double n;
+                    cin >> n;
+                    double result = 0;
+                    v.Fold(&FoldProductMoreThanN<double>, &n, &result);
+                    cout << result << endl;
+                }
+                if constexpr (is_same<Data, string>::value)
+                {
+                    cout << "Funzione fold per questo tipo di dato: Concatenazione con lunghezza minore o uguale a n;" << endl << "Inserisci n:   ";
+                    unsigned long n{};
+                    cin >> n;
+                    string result = "";
+                    v.Fold(&FoldConcatLessEqualN<Data>, &n, &result);
+                    cout << result << endl;
+                }
                 break;
             }
             case 4:
-                v.Map(&MapDouble<int>, 0);
-                cout << "Fatto, prova a stampare" << endl;
+                if constexpr (is_same<Data, int>::value)
+                {
+                    cout << "Funzione map per questo tipo di dato: 2n" << endl;
+                    v.Map(&MapDouble<int>, 0);
+                    cout << "Fatto, prova a stampare" << endl;
+                }
+                if constexpr (is_same<Data, double>::value)
+                {
+                    cout << "Funzione map per questo tipo di dato: n^2;" << endl;
+                    v.Map(&MapSquare<double>, 0);
+                    cout << "Fatto, prova a stampare" << endl;
+                }
+                if constexpr (is_same<Data, string>::value)
+                {
+                    cout << "Funzione map per questo tipo di dato: uppercase;" << endl;
+                    v.Map(&MapUppercase<Data>, 0);
+                    cout << "Fatto, prova a stampare" << endl;
+                }
                 break;
             default:
                 cout << "Errore di input" << endl;
@@ -133,143 +200,17 @@ void vectorinttest()
     }
 }
 
-void vectordoubletest()
+template<typename Data>
+void listtest(List<Data>& l)
 {
-    unsigned long size;
-    cout << "Quanto rendere grande il vettore di double?: ";
-    cin >> size;
-    Vector<double> v(size);
-    default_random_engine gen(random_device{}());
-    uniform_real_distribution<double> dist(0, 100);
-    for (unsigned long i = 0; i < size; i++)
-    {
-        v[i] = round(dist(gen) * 1000.0) / 1000.0;
-    }
-    cout << "Il primo elemento e' " << v.Front() << ", l'ultimo e' " << v.Back() << endl;
-    bool selection = false;
-    int testtype;
-    while (!selection)
-    {
-        cout << "0. Esci" << endl << "1. Funzione map: Stampa tutti gli elementi" << endl << "2. Controlla esistenza di un elemento" << endl
-             << "3. Funzione fold: Prodotto per i double maggiori di n" << endl << "4. Funzione map: n*n" << endl;
-        cin >> testtype;
-        switch (testtype)
-        {
-            case 0:
-                selection = true;
-                break;
-            case 1:
-                v.Map(&MapPrint<double>, 0);
-                cout << endl;
-                break;
-            case 2:
-                cout << endl << "Inserisci numero da cercare:   ";
-                double search;
-                cin >> search;
-                if (v.Exists(search))
-                    cout << "Il numero e' presente!" << endl;
-                else
-                    cout << "Il numero non e' presente!" << endl;
-                break;
-            case 3:
-            {
-                cout << endl << "Inserisci n:   ";
-                unsigned long n;
-                cin >> n;
-                unsigned long result = 0;
-                v.Fold(&FoldProductMoreThanN<double>, &n, &result);
-                cout << result << endl;
-                break;
-            }
-            case 4:
-                v.Map(&MapSquare<double>, 0);
-                cout << "Fatto, prova a stampare" << endl;
-                break;
-            default:
-                cout << "Errore di input" << endl;
-        }
-    }
-}
-
-void vectorstringtest()
-{
-    unsigned long size;
-    cout << "Quanto rendere grande il vettore di string?: ";
-    cin >> size;
-    Vector<string> v(size);
-    default_random_engine gen;
-    uniform_int_distribution<int> dist(2, 5);
-    for (unsigned long i = 0; i < size; i++)
-    {
-        v[i] = GeneraStringaCasuale(dist(gen));
-    }
-    cout << "Il primo elemento e' " << v.Front() << ", l'ultimo e' " << v.Back() << endl;
-    bool selection = false;
-    int testtype;
-    while (!selection)
-    {
-        cout << "0. Esci" << endl << "1. Funzione map: Stampa tutti gli elementi" << endl << "2. Controlla esistenza di un elemento" << endl
-             << "3. Funzione fold: Concatenazione per lunghezza minore o uguale a n" << endl << "4. Funzione map: uppercase" << endl;
-        cin >> testtype;
-        switch (testtype)
-        {
-            case 0:
-                selection = true;
-                break;
-            case 1:
-                v.Map(&MapPrint<string>, 0);
-                cout << endl;
-                break;
-            case 2:
-            {
-                cout << endl << "Inserisci stringa da cercare:   ";
-                string search;
-                cin >> search;
-                if (v.Exists(search))
-                    cout << "La stringa e' presente!" << endl;
-                else
-                    cout << "La stringa non e' presente!" << endl;
-                break;
-            }
-            case 3:
-            {
-                cout << endl << "Inserisci n:   ";
-                unsigned long n;
-                cin >> n;
-                string result = "";
-                v.Fold(&FoldConcatLessEqualN<string>, &n, &result);
-                cout << result << endl;
-                break;
-            }
-            case 4:
-                v.Map(&MapUppercase<string>, 0);
-                cout << "Fatto, prova a stampare" << endl;
-                break;
-            default:
-                cout << "Errore di input" << endl;
-        }
-    }
-}
-
-void listinttest()
-{
-    unsigned long size;
-    cout << "Quanto rendere grande la lista di interi?: ";
-    cin >> size;
-    List<int> l;
-    default_random_engine gen(random_device{}());
-    uniform_int_distribution<int> dist(0, 100);
-    for (unsigned long i = 0; i < size; i++)
-    {
-        l.InsertAtBack(dist(gen));
-    }
     cout << "Il primo elemento e' " << l.Front() << ", l'ultimo e' " << l.Back() << endl;
     bool selection = false;
     int testtype;
     while (!selection)
     {
-        cout << "0. Esci" << endl << "1. Funzione map: Stampa tutti gli elementi" << endl << "2. Controlla esistenza di un elemento" << endl
-             << "3. Funzione fold: Somma per gli interi minori di n" << endl << "4. Funzione map: 2n" << endl;
+        cout << "0. Torna indietro" << endl << "1. Stampa tutti gli elementi" << endl << "2. Controlla esistenza di un elemento" << endl
+             << "3. Calcola la funzione di fold relativa al dato: Concatenazione per lunghezza minore o uguale a n" << endl << "4. Applica funzione map a tutti gli elementi"
+             << endl;
         cin >> testtype;
         switch (testtype)
         {
@@ -277,149 +218,71 @@ void listinttest()
                 selection = true;
                 break;
             case 1:
-                l.Map(&MapPrint<int>, 0);
-                cout << endl;
-                break;
-            case 2:
-                cout << endl << "Inserisci numero da cercare:   ";
-                unsigned long search;
-                cin >> search;
-                if (l.Exists(search))
-                    cout << "Il numero e' presente!" << endl;
-                else
-                    cout << "Il numero non e' presente!" << endl;
-                break;
-            case 3:
-            {
-                cout << endl << "Inserisci n:   ";
-                unsigned long n;
-                cin >> n;
-                unsigned long result = 0;
-                l.Fold(&FoldSumLessThanN<int>, &n, &result);
-                cout << result << endl;
-                break;
-            }
-            case 4:
-                l.Map(&MapDouble<int>, 0);
-                cout << "Fatto, prova a stampare" << endl;
-                break;
-            default:
-                cout << "Errore di input" << endl;
-        }
-    }
-}
-
-void listdoubletest()
-{
-    unsigned long size;
-    cout << "Quanto rendere grande la lista di double?: ";
-    cin >> size;
-    List<double> l;
-    default_random_engine gen(random_device{}());
-    uniform_real_distribution<double> dist(0, 100);
-    for (unsigned long i = 0; i < size; i++)
-    {
-        l.InsertAtBack(round(dist(gen) * 1000.0) / 1000.0);
-    }
-    cout << "Il primo elemento e' " << l.Front() << ", l'ultimo e' " << l.Back() << endl;
-    bool selection = false;
-    int testtype;
-    while (!selection)
-    {
-        cout << "0. Esci" << endl << "1. Funzione map: Stampa tutti gli elementi" << endl << "2. Controlla esistenza di un elemento" << endl
-             << "3. Funzione fold: Prodotto per i double maggiori di n" << endl << "4. Funzione map: n*n" << endl;
-        cin >> testtype;
-        switch (testtype)
-        {
-            case 0:
-                selection = true;
-                break;
-            case 1:
-                l.Map(&MapPrint<double>, 0);
-                cout << endl;
-                break;
-            case 2:
-                cout << endl << "Inserisci numero da cercare:   ";
-                double search;
-                cin >> search;
-                if (l.Exists(search))
-                    cout << "Il numero e' presente!" << endl;
-                else
-                    cout << "Il numero non e' presente!" << endl;
-                break;
-            case 3:
-            {
-                cout << endl << "Inserisci n:   ";
-                unsigned long n;
-                cin >> n;
-                unsigned long result = 0;
-                l.Fold(&FoldProductMoreThanN<double>, &n, &result);
-                cout << result << endl;
-                break;
-            }
-            case 4:
-                l.Map(&MapSquare<double>, 0);
-                cout << "Fatto, prova a stampare" << endl;
-                break;
-            default:
-                cout << "Errore di input" << endl;
-        }
-    }
-}
-
-void liststringtest()
-{
-    unsigned long size;
-    cout << "Quanto rendere grande la lista di string?: ";
-    cin >> size;
-    List<string> l;
-    default_random_engine gen;
-    uniform_int_distribution<int> dist(2, 5);
-    for (unsigned long i = 0; i < size; i++)
-    {
-        l.InsertAtBack(GeneraStringaCasuale(dist(gen)));
-    }
-    cout << "Il primo elemento e' " << l.Front() << ", l'ultimo e' " << l.Back() << endl;
-    bool selection = false;
-    int testtype;
-    while (!selection)
-    {
-        cout << "0. Esci" << endl << "1. Funzione map: Stampa tutti gli elementi" << endl << "2. Controlla esistenza di un elemento" << endl
-             << "3. Funzione fold: Concatenazione per lunghezza minore o uguale a n" << endl << "4. Funzione map: uppercase" << endl;
-        cin >> testtype;
-        switch (testtype)
-        {
-            case 0:
-                selection = true;
-                break;
-            case 1:
-                l.Map(&MapPrint<string>, 0);
+                l.Map(&MapPrint<Data>, 0);
                 cout << endl;
                 break;
             case 2:
             {
-                cout << endl << "Inserisci stringa da cercare:   ";
-                string search;
+                cout << endl << "Inserisci dato da cercare:   ";
+                Data search;
                 cin >> search;
                 if (l.Exists(search))
-                    cout << "La stringa e' presente!" << endl;
+                    cout << "Trovato!" << endl;
                 else
-                    cout << "La stringa non e' presente!" << endl;
+                    cout << "Non trovato!" << endl;
                 break;
             }
             case 3:
             {
-                cout << endl << "Inserisci n:   ";
-                unsigned long n;
-                cin >> n;
-                string result = "";
-                l.Fold(&FoldConcatLessEqualN<string>, &n, &result);
-                cout << result << endl;
+                if constexpr (is_same<Data, int>::value)
+                {
+                    cout << "Funzione fold per questo tipo di dato: Somma per gli interi minori di n" << endl << "Inserisci n:   ";
+                    long n{};
+                    cin >> n;
+                    long result = 0;
+                    l.Fold(&FoldSumLessThanN<int>, &n, &result);
+                    cout << result << endl;
+                }
+                if constexpr (is_same<Data, double>::value)
+                {
+                    cout << "Funzione fold per questo tipo di dato: Prodotto per i double maggiori di n;" << endl << "Inserisci n:   ";
+                    cout << endl << "Inserisci n:   ";
+                    double n;
+                    cin >> n;
+                    double result = 0;
+                    l.Fold(&FoldProductMoreThanN<double>, &n, &result);
+                    cout << result << endl;
+                }
+                if constexpr (is_same<Data, string>::value)
+                {
+                    cout << "Funzione fold per questo tipo di dato: Concatenazione con lunghezza minore o uguale a n;" << endl << "Inserisci n:   ";
+                    unsigned long n{};
+                    cin >> n;
+                    string result = "";
+                    l.Fold(&FoldConcatLessEqualN<Data>, &n, &result);
+                    cout << result << endl;
+                }
                 break;
             }
             case 4:
-                l.Map(&MapUppercase<string>, 0);
-                cout << "Fatto, prova a stampare" << endl;
+                if constexpr (is_same<Data, int>::value)
+                {
+                    cout << "Funzione map per questo tipo di dato: 2n" << endl;
+                    l.Map(&MapDouble<int>, 0);
+                    cout << "Fatto, prova a stampare" << endl;
+                }
+                if constexpr (is_same<Data, double>::value)
+                {
+                    cout << "Funzione map per questo tipo di dato: n^2;" << endl;
+                    l.Map(&MapSquare<double>, 0);
+                    cout << "Fatto, prova a stampare" << endl;
+                }
+                if constexpr (is_same<Data, string>::value)
+                {
+                    cout << "Funzione map per questo tipo di dato: uppercase;" << endl;
+                    l.Map(&MapUppercase<Data>, 0);
+                    cout << "Fatto, prova a stampare" << endl;
+                }
                 break;
             default:
                 cout << "Errore di input" << endl;
@@ -435,7 +298,7 @@ void stacktest(Stack<Data>& s)
     int testtype;
     while (!selection)
     {
-        cout << "0. Esci" << endl << "1. Inserisci un elemento" << endl << "2. Rimuovi un elemento" << endl << "3. Visualizza e rimuovi un elemento" << endl
+        cout << "0. Torna indietro" << endl << "1. Inserisci un elemento" << endl << "2. Rimuovi un elemento" << endl << "3. Visualizza e rimuovi un elemento" << endl
              << "4. Visualizza un elemento" << endl << "5. E' vuoto?" << endl << "6. Stampa grandezza" << endl << "7. Svuota la struttura" << endl;
         cin >> testtype;
         switch (testtype)
@@ -500,7 +363,7 @@ void queuetest(Queue<Data>& q)
     int testtype;
     while (!selection)
     {
-        cout << "0. Esci" << endl << "1. Inserisci un elemento" << endl << "2. Rimuovi un elemento" << endl << "3. Visualizza e rimuovi un elemento" << endl
+        cout << "0. Torna indietro" << endl << "1. Inserisci un elemento" << endl << "2. Rimuovi un elemento" << endl << "3. Visualizza e rimuovi un elemento" << endl
              << "4. Visualizza un elemento" << endl << "5. E' vuoto?" << endl << "6. Stampa grandezza" << endl << "7. Svuota la struttura" << endl;
         cin >> testtype;
         switch (testtype)
@@ -557,28 +420,180 @@ void queuetest(Queue<Data>& q)
     }
 }
 
-void vectortest()
+template<typename Data>
+void binarytreetest(BinaryTree<Data>& bt)
 {
-    cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl;
     bool selection = false;
-    int testtype = 0;
+    int testtype;
+    cout << endl << "Seleziona il tipo di operazione" << endl;
     while (!selection)
     {
+        cout << "0. Torna indietro" << endl << "1. Visualizza in ampiezza" << endl << "2. Visualizza in pre-ordine" << endl << "3. Visualizza in ordine" << endl
+             << "4. Visualizza in post-ordine" << endl << "5. Controlla esistenza di un valore" << endl << "6. Calcola la funzione di fold relativa al dato" << endl
+             << "7. Applica funzione map a tutti gli elementi" << endl;
         cin >> testtype;
         switch (testtype)
         {
+            case 0:
+                selection = true;
+                break;
             case 1:
-                vectorinttest();
-                selection = true;
+            {
+                bt.MapBreadth(&MapPrint<Data>, 0);
+                cout << endl;
                 break;
+            }
             case 2:
-                vectordoubletest();
-                selection = true;
+            {
+                bt.MapPreOrder(&MapPrint<Data>, 0);
+                cout << endl;
                 break;
+            }
             case 3:
-                vectorstringtest();
+            {
+                bt.MapInOrder(&MapPrint<Data>, 0);
+                cout << endl;
+                break;
+            }
+            case 4:
+            {
+                bt.MapPostOrder(&MapPrint<Data>, 0);
+                cout << endl;
+                break;
+            }
+            case 5:
+            {
+                Data search{};
+                cout << "Inserisci l'elemento da cercare: ";
+                cin >> search;
+                BTPreOrderIterator<Data> i(bt);
+                bool found = false;
+                for (; i.Terminated() || !(found); ++i)
+                {
+                    if (*i == search)
+                    {
+                        found = true;
+                        cout << "Trovato!" << endl;
+                    }
+                }
+                if (!found)
+                    cout << "Non trovato!" << endl;
+                break;
+            }
+            case 6:
+            {
+                if constexpr (is_same<Data, int>::value)
+                {
+                    cout << "Funzione fold per questo tipo di dato: Prodotto per gli interi minori di n" << endl << "Inserisci n:   ";
+                    int n{};
+                    cin >> n;
+                    long result{};
+                    bt.Fold(&FoldProductLessThanN<Data>, &n, &result);
+                    cout << result << endl;
+                }
+                if constexpr (is_same<Data, double>::value)
+                {
+                    cout << "Funzione fold per questo tipo di dato: Somma per i double maggiori di n;" << endl << "Inserisci n:   ";
+                    double n{};
+                    cin >> n;
+                    double result{};
+                    bt.Fold(&FoldSumMoreThanN<Data>, &n, &result);
+                    cout << result << endl;
+                }
+                if constexpr (is_same<Data, string>::value)
+                {
+                    cout << "Funzione fold per questo tipo di dato: Concatenazione con lunghezza minore o uguale a n;" << endl << "Inserisci n:   ";
+                    unsigned long n{};
+                    cin >> n;
+                    string result = "";
+                    bt.Fold(&FoldConcatLessEqualN<Data>, &n, &result);
+                    cout << result << endl;
+                }
+                break;
+            }
+            case 7:
+            {
+                if constexpr (is_same<Data, int>::value)
+                {
+                    cout << "Funzione map per questo tipo di dato: 3n" << endl;
+                    bt.Map(&MapTriple<Data>, 0);
+                    cout << "Fatto, prova a stampare" << endl;
+                }
+                if constexpr (is_same<Data, double>::value)
+                {
+                    cout << "Funzione map per questo tipo di dato: n^3;" << endl;
+                    bt.Map(&MapCube<Data>, 0);
+                    cout << "Fatto, prova a stampare" << endl;
+                }
+                if constexpr (is_same<Data, string>::value)
+                {
+                    cout << "Funzione map per questo tipo di dato: n + str;" << endl << "Inserisci str:   ";
+                    string n = "";
+                    cin >> n;
+                    bt.Map(&MapAppend<Data>, &n);
+                    cout << "Fatto, prova a stampare" << endl;
+                }
+                break;
+            }
+            default:
+                cout << "Errore di input" << endl;
+        }
+    }
+}
+
+void vectortest()
+{
+    unsigned long size;
+    cout << "Quanto rendere grande il vettore?: ";
+    default_random_engine gen(random_device{}());
+    cin >> size;
+    int testtype;
+    cin >> testtype;
+    bool selection = false;
+    while (!selection)
+    {
+        cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro";
+        cin >> testtype;
+        switch (testtype)
+        {
+            case 0:
                 selection = true;
                 break;
+            case 1:
+            {
+                uniform_int_distribution<int> dist(0, 100);
+                Vector<int> v(size);
+                for (unsigned long i = 0; i < size; i++)
+                {
+                    v[i] = dist(gen);
+                }
+                vectortest(v);
+                break;
+            }
+            case 2:
+            {
+                uniform_real_distribution<double> dist(0, 100);
+
+                Vector<double> v(size);
+                for (unsigned long i = 0; i < size; i++)
+                {
+                    v[i] = round(dist(gen) * 1000.0) / 1000.0;
+                }
+                vectortest(v);
+                break;
+            }
+            case 3:
+            {
+                uniform_int_distribution<int> dist(2, 5);
+
+                Vector<string> v(size);
+                for (unsigned long i = 0; i < size; i++)
+                {
+                    v[i] = GeneraStringaCasuale(dist(gen));
+                }
+                vectortest(v);
+                break;
+            }
             default:
                 cout << "Input non valido" << endl;
         }
@@ -587,26 +602,56 @@ void vectortest()
 
 void listtest()
 {
-    cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl;
+    unsigned long size;
+    cout << "Quanto rendere grande la lista?: ";
+    default_random_engine gen(random_device{}());
+    cin >> size;
+    int testtype;
+    cin >> testtype;
     bool selection = false;
-    int testtype = 0;
     while (!selection)
     {
+        cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro";
         cin >> testtype;
         switch (testtype)
         {
+            case 0:
+                selection = true;
+                break;
             case 1:
-                listinttest();
-                selection = true;
+            {
+                uniform_int_distribution<int> dist(0, 100);
+                List<int> l;
+                for (unsigned long i = 0; i < size; i++)
+                {
+                    l.InsertAtBack(dist(gen));
+                }
+                listtest(l);
                 break;
+            }
             case 2:
-                listdoubletest();
-                selection = true;
+            {
+                uniform_real_distribution<double> dist(0, 100);
+
+                List<double> l;
+                for (unsigned long i = 0; i < size; i++)
+                {
+                    l.InsertAtBack(round(dist(gen) * 1000.0) / 1000.0);
+                }
+                listtest(l);
                 break;
+            }
             case 3:
-                liststringtest();
-                selection = true;
+            {
+                uniform_int_distribution<int> dist(2, 5);
+                List<string> l;
+                for (unsigned long i = 0; i < size; i++)
+                {
+                    l.InsertAtBack(GeneraStringaCasuale(dist(gen)));
+                }
+                listtest(l);
                 break;
+            }
             default:
                 cout << "Input non valido" << endl;
         }
@@ -638,13 +683,16 @@ void stacktest()
     cout << "Quanto rendere grande lo stack?: ";
     default_random_engine gen(random_device{}());
     cin >> size;
-    cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl;
+    cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro";
     bool selection = false;
     while (!selection)
     {
         cin >> testtype;
         switch (testtype)
         {
+            case 0:
+                selection = true;
+                break;
             case 1:
             {
                 uniform_int_distribution<int> dist(0, 100);
@@ -660,10 +708,8 @@ void stacktest()
                 else
                 {
                     StackLst<int> s;
-
                     stacktest(s);
                 }
-                selection = true;
                 break;
             }
             case 2:
@@ -687,7 +733,6 @@ void stacktest()
                     }
                     stacktest(s);
                 }
-                selection = true;
                 break;
             }
             case 3:
@@ -711,7 +756,6 @@ void stacktest()
                     }
                     stacktest(s);
                 }
-                selection = true;
                 break;
             }
             default:
@@ -745,13 +789,16 @@ void queuetest()
     cout << "Quanto rendere grande la queue?: ";
     default_random_engine gen(random_device{}());
     cin >> size;
-    cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl;
+    cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro";
     bool selection = false;
     while (!selection)
     {
         cin >> testtype;
         switch (testtype)
         {
+            case 0:
+                selection = true;
+                break;
             case 1:
             {
                 uniform_int_distribution<int> dist(0, 100);
@@ -773,7 +820,6 @@ void queuetest()
                     }
                     queuetest(q);
                 }
-                selection = true;
                 break;
             }
             case 2:
@@ -797,7 +843,6 @@ void queuetest()
                     }
                     queuetest(q);
                 }
-                selection = true;
                 break;
             }
             case 3:
@@ -821,7 +866,122 @@ void queuetest()
                     }
                     queuetest(q);
                 }
+                break;
+            }
+            default:
+                cout << "Input non valido" << endl;
+        }
+    }
+}
+
+void binarytreetest()
+{
+    bool usevec;
+    int testtype = 0;
+    cout << endl << "Che implementazione usare?" << endl << "1. Vettore" << endl << "2. Lista" << endl;
+    while (testtype != 1 && testtype != 2)
+    {
+        cin >> testtype;
+        switch (testtype)
+        {
+            case 1:
+                usevec = true;
+                break;
+            case 2:
+                usevec = false;
+                break;
+            default:
+                cout << "Input non valido" << endl;
+        }
+    }
+    testtype = 0;
+    unsigned long size;
+    cout << "Quanto rendere grande l'albero?: ";
+    default_random_engine gen(random_device{}());
+    cin >> size;
+    cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro";
+    bool selection = false;
+    while (!selection)
+    {
+        cin >> testtype;
+        switch (testtype)
+        {
+            case 0:
                 selection = true;
+                break;
+            case 1:
+            {
+                uniform_int_distribution<int> dist(0, 100);
+                if (usevec)
+                {
+                    Vector<int> v(size);
+                    for (unsigned long i = 0; i < size; i++)
+                    {
+                        v[i] = dist(gen);
+                    }
+                    BinaryTreeVec<int> bt(v);
+                    binarytreetest(bt);
+                }
+                else
+                {
+                    List<int> l;
+                    for (unsigned long i = 0; i < size; i++)
+                    {
+                        l.InsertAtFront(dist(gen));
+                    }
+                    BinaryTreeLnk<int> bt(l);
+                    binarytreetest(bt);
+                }
+                break;
+            }
+            case 2:
+            {
+                uniform_real_distribution<double> dist(0, 100);
+                if (usevec)
+                {
+                    Vector<double> v(size);
+                    for (unsigned long i = 0; i < size; i++)
+                    {
+                        v[i] = round(dist(gen) * 1000.0) / 1000.0;
+                    }
+                    BinaryTreeVec<double> bt(v);
+                    binarytreetest(bt);
+                }
+                else
+                {
+                    List<double> l;
+                    for (unsigned long i = 0; i < size; i++)
+                    {
+                        l.InsertAtFront(round(dist(gen) * 1000.0) / 1000.0);
+                    }
+                    BinaryTreeLnk<double> bt(l);
+                    binarytreetest(bt);
+                }
+                break;
+            }
+            case 3:
+            {
+                uniform_int_distribution<int> dist(2, 5);
+                if (usevec)
+                {
+                    Vector<string> v(size);
+                    for (unsigned long i = 0; i < size; i++)
+                    {
+                        v[i] = GeneraStringaCasuale(dist(gen));
+                    }
+                    BinaryTreeVec<string> bt(v);
+                    binarytreetest(bt);
+                }
+                else
+                {
+                    List<string> l;
+                    for (unsigned long i = 0; i < size; i++)
+                    {
+                        l.InsertAtFront(GeneraStringaCasuale(dist(gen)));
+                    }
+                    BinaryTreeLnk<string> bt(l);
+                    binarytreetest(bt);
+                }
                 break;
             }
             default:
@@ -832,38 +992,38 @@ void queuetest()
 
 void mytest()
 {
-    cout << endl << "Test menu' " << endl << "1. Test su Liste" << endl << "2. Test su Vector" << endl << "3. Test su Stack" << endl << "4. Test su Queue" << endl
-         << "5. Test del professore" << endl;
     bool selection = false;
     int testtype = 0;
     while (!selection)
     {
+        cout << endl << "Test menu' " << endl << "0. Esci" << endl << "1. Test su Liste" << endl << "2. Test su Vector" << endl << "3. Test su Stack" << endl << "4. Test su Queue"
+             << endl << "5. Test su Binarytree" << endl << "6. Test del professore" << endl;
         cin >> testtype;
         switch (testtype)
         {
+            case 0:
+                selection = true;
+                break;
             case 1:
                 listtest();
-                selection = true;
                 break;
             case 2:
                 vectortest();
-                selection = true;
                 break;
             case 3:
                 stacktest();
-                selection = true;
                 break;
             case 4:
                 queuetest();
-                selection = true;
                 break;
             case 5:
+                binarytreetest();
+            case 6:
             {
                 auto tStart = std::chrono::high_resolution_clock::now();
                 lasdtest();
                 auto tEnd = std::chrono::high_resolution_clock::now();
                 cout << endl << "The test took " << std::chrono::duration<double, std::milli>(tEnd - tStart).count() / 1000 << " seconds!" << endl;
-                selection = true;
                 break;
             }
             default:
