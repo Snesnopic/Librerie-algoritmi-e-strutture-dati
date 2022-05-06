@@ -69,7 +69,7 @@ namespace lasd
             friend class BinaryTree<Data>;
 
             /* ********************************************************************** */
-            Data dato;
+            Data dato{};
 
             // Destructor
             virtual ~Node() = default;
@@ -533,6 +533,8 @@ namespace lasd
         void Reset() noexcept override // (should not throw exceptions)
         {
             stack.Clear();
+            if(treePtr != nullptr)
+                curr = minLeaf(&treePtr->Root());
         }
 
     };
@@ -559,7 +561,10 @@ namespace lasd
             if (tmp->HasRightChild())
                 stack.Push(&tmp->RightChild());
             if (tmp->HasLeftChild())
+            {
+                stack.Push(tmp);
                 tmp = min(&tmp->LeftChild());
+            }
             return tmp;
         }
 
@@ -568,8 +573,8 @@ namespace lasd
         // Specific constructors
         BTInOrderIterator(const BinaryTree<Data>& bt) // An iterator over a given binary tree
         {
-            curr = min(&bt.Root());
             treePtr = &bt;
+            curr = min(&bt.Root());
         }
 
         /* ************************************************************************ */
@@ -665,7 +670,12 @@ namespace lasd
             if (curr->HasRightChild())
                 curr = min(&curr->RightChild());
             else
-                curr = stack.TopNPop();
+            {
+                if(stack.Empty())
+                    curr = nullptr;
+                else
+                    curr = stack.TopNPop();
+            }
             return *this;
         }
         /* ************************************************************************ */
@@ -675,7 +685,8 @@ namespace lasd
         void Reset() noexcept override // (should not throw exceptions)
         {
             stack.Clear();
-            curr = min(&treePtr->Root());
+            if(treePtr != nullptr)
+                curr = min(&treePtr->Root());
         }
 
     };
