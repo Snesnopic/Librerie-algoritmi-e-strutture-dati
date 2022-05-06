@@ -9,18 +9,19 @@ namespace lasd
     {
         if(dato != n.dato)
             return false;
-        if(HasRightChild() && n.HasRightChild())
+        if(HasLeftChild() && n.HasLeftChild())
         {
-            if(RightChild() == n.RightChild())
+            if(LeftChild().operator!=(n.LeftChild()))
             {
-                if(HasLeftChild() & n.HasLeftChild())
-                {
-                    if(LeftChild() == n.LeftChild())
-                        return true;
-                }
+                return false;
             }
         }
-        return false;
+        if(HasRightChild() && n.HasRightChild())
+        {
+            if(RightChild().operator!=(n.RightChild()))
+                return false;
+        }
+        return true;
     }
 
     template<typename Data>
