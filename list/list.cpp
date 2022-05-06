@@ -353,7 +353,6 @@ namespace lasd
         if (n->next != nullptr)
             MapPostOrder(f, par, n->next);
         f(n->dato, par);
-        n = n->next;
     }
 
 //Fold functions
