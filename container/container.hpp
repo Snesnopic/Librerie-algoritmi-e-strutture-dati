@@ -103,49 +103,6 @@ namespace lasd
 /* ************************************************************************** */
 
     template<typename Data>
-    class DictionaryContainer
-    { // Must extend TestableContainer<Data>
-
-    private:
-
-        // ...
-
-    protected:
-
-        // ...
-
-    public:
-
-        // Destructor
-        // ~DictionaryContainer() specifiers
-
-        /* ************************************************************************ */
-
-        // Copy assignment
-        // type operator=(argument); // Copy assignment of abstract types should not be possible.
-
-        // Move assignment
-        // type operator=(argument); // Move assignment of abstract types should not be possible.
-
-        /* ************************************************************************ */
-
-        // Comparison operators
-        // type operator==(argument) specifiers; // Comparison of abstract types might not be possible.
-        // type operator!=(argument) specifiers; // Comparison of abstract types might not be possible.
-
-        /* ************************************************************************ */
-
-        // Specific member functions
-
-        // type Insert(argument) specifiers; // Copy of the value
-        // type Insert(argument) specifiers; // Move of the value
-        // type Remove(argument) specifiers;
-
-    };
-
-/* ************************************************************************** */
-
-    template<typename Data>
     class TestableContainer : virtual public Container  // Must extend Container
     {
 
@@ -181,6 +138,49 @@ namespace lasd
         // Specific member functions
 
         virtual bool Exists(const Data& d) const noexcept = 0; // (concrete function should not throw exceptions)
+
+    };
+
+/* ************************************************************************** */
+
+    template<typename Data>
+    class DictionaryContainer : virtual public TestableContainer<Data> // Must extend TestableContainer<Data>
+    {
+
+    private:
+
+        // ...
+
+    protected:
+
+        // ...
+
+    public:
+
+        // Destructor
+        virtual ~DictionaryContainer() = default;
+
+        /* ************************************************************************ */
+
+        // Copy assignment
+        virtual DictionaryContainer& operator=(const DictionaryContainer& dc) = delete; // Copy assignment of abstract types should not be possible.
+
+        // Move assignment
+        virtual DictionaryContainer& operator=(DictionaryContainer&& dc) = delete; // Move assignment of abstract types should not be possible.
+
+        /* ************************************************************************ */
+
+        // Comparison operators
+        virtual bool operator==(const DictionaryContainer& dc) const noexcept = delete; // Comparison of abstract types might not be possible.
+        virtual bool operator!=(const DictionaryContainer& dc) const noexcept = delete; // Comparison of abstract types might not be possible.
+
+        /* ************************************************************************ */
+
+        // Specific member functions
+
+        virtual void Insert(const Data& d); // Copy of the value
+        virtual void Insert(Data&& d); // Move of the value
+        virtual void Remove(const Data& d); // Override DictionaryContainer member
 
     };
 
