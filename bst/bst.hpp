@@ -104,31 +104,181 @@ namespace lasd
 
         // Auxiliary member functions
 
-        virtual Data DataNDelete(NodeLnk *n);
+        virtual Data DataNDelete(NodeLnk *n)
+        {
+            Data d = std::move(n->dato);
+            delete n;
+            return d;
+        }
 
-        virtual NodeLnk *Detach(NodeLnk) noexcept;
+        virtual NodeLnk* Detach(NodeLnk n) noexcept
+        {
+            n->left = nullptr;
+            n->right = nullptr;
+            return n;
+        }
 
         virtual NodeLnk *DetachMin(NodeLnk *& n) noexcept;
 
         virtual NodeLnk *DetachMax(NodeLnk *& n) noexcept;
 
-        virtual NodeLnk *Skip2Left(NodeLnk *& n) noexcept;
+        virtual NodeLnk *Skip2Left(NodeLnk *& n) noexcept
+        {
+            NodeLnk* l = nullptr;
+            if(n != nullptr)
+            {
+                std::swap(l,n->left);
+                std::swap(l,n);
+                size--;
+            }
+            return l;
+        }
 
-        virtual NodeLnk *Skip2Right(NodeLnk *& n) noexcept;
+        virtual NodeLnk *Skip2Right(NodeLnk *& n) noexcept
+        {
+            NodeLnk* r = nullptr;
+            if(n != nullptr)
+            {
+                std::swap(r,n->right);
+                std::swap(r,n);
+                size--;
+            }
+            return r;
+        }
 
-        virtual NodeLnk *& FindPointerToMin(NodeLnk *& n) noexcept; // Both mutable & unmutable versions
-        virtual NodeLnk *const& FindPointerToMin(NodeLnk *const& n) const noexcept; // Both mutable & unmutable versions
-        virtual NodeLnk *& FindPointerToMax(NodeLnk *& n) noexcept; // Both mutable & unmutable versions
-        virtual NodeLnk *const& FindPointerToMax(NodeLnk *const& n) const noexcept; // Both mutable & unmutable versions
+        virtual NodeLnk *& FindPointerToMin(NodeLnk *& n) noexcept// Both mutable & unmutable versions
+        {
+            return const_cast<NodeLnk *&>(static_cast<const BST<Data> *>(this)->FindPointerToMin(n));
+        }
+        virtual NodeLnk *const& FindPointerToMin(NodeLnk *const& n) const noexcept // Both mutable & unmutable versions
+        {
+            NodeLnk* const* ptr = &n;
+            NodeLnk* curr = n;
+            if(curr != nullptr)
+            {
+                while(curr->left != nullptr)
+                {
+                    ptr = &curr->left;
+                    curr = curr->left;
+                }
+            }
+            return *ptr;
+        }
+        virtual NodeLnk *& FindPointerToMax(NodeLnk *& n) noexcept // Both mutable & unmutable versions
+        {
+            return const_cast<NodeLnk *&>(static_cast<const BST<Data> *>(this)->FindPointerToMax(n));
+        }
+        virtual NodeLnk *const& FindPointerToMax(NodeLnk *const& n) const noexcept // Both mutable & unmutable versions
+        {
+            NodeLnk* const* ptr = &n;
+            NodeLnk* curr = n;
+            if(curr != nullptr)
+            {
+                while(curr->right != nullptr)
+                {
+                    ptr = &curr->right;
+                    curr = curr->right;
+                }
+            }
+            return *ptr;
+        }
+        virtual NodeLnk *& FindPointerTo(NodeLnk *& n, const Data& d) noexcept // Both mutable & unmutable versions
+        {
+            return const_cast<NodeLnk *&>(static_cast<const BST<Data> *>(this)->FindPointerTo(n,d));
+        }
+        virtual NodeLnk *const& FindPointerTo(NodeLnk *const& n, const Data& d) noexcept // Both mutable & unmutable versions
+        {
+            NodeLnk* const* ptr = &n;
+            NodeLnk* curr = n;
+            while(curr != nullptr)
+            {
+                if(curr->dato < d)
+                {
+                    ptr = &curr->right;
+                    curr = curr->right;
+                }
+                else
+                {
+                    if(curr->dato > d)
+                    {
+                        ptr = &curr->left;
+                        curr = curr->left;
+                    }
+                    else
+                        break;
+                }
+            }
+            return *ptr;
+        }
 
-        virtual NodeLnk *& FindPointerTo(NodeLnk *& n, const Data&) noexcept; // Both mutable & unmutable versions
-        virtual NodeLnk *const& FindPointerTo(NodeLnk *const& n, const Data&) noexcept; // Both mutable & unmutable versions
+        virtual NodeLnk **FindPointerToPredecessor(NodeLnk *& n, const Data& d) noexcept // Both mutable & unmutable versions
+        {
+            return const_cast<NodeLnk **>(static_cast<const BST<Data> *>(this)->FindPointerToPredecessor(n,d));
+        }
+        virtual NodeLnk *const *FindPointerToPredecessor(NodeLnk *const& n, const Data& d) const noexcept // Both mutable & unmutable versions
+        {
+            NodeLnk* const* ptr = &n;
+            NodeLnk* const* tmp = nullptr;
+            while(true)
+            {
+                NodeLnk& cur = **ptr;
+                if(cur.element < d)
+                {
+                    tmp = ptr;
+                    if(cur.right == nullptr)
+                        return tmp;
+                    else
+                        ptr = &cur.right;
+                }
+                else
+                {
+                    if(cur.right == nullptr)
+                        return tmp;
+                    else
+                    {
+                        if(cur.element > d)
+                            ptr = &cur.left;
+                        else
+                            return &FindPointerToMax(cur.left);
+                    }
+                }
 
-        virtual NodeLnk **FindPointerToPredecessor(NodeLnk *& n, const Data&) noexcept; // Both mutable & unmutable versions
-        virtual NodeLnk *const *FindPointerToPredecessor(NodeLnk *const& n, const Data&) const noexcept; // Both mutable & unmutable versions
-        virtual NodeLnk **FindPointerToSuccessor(NodeLnk *& n, const Data&) noexcept; // Both mutable & unmutable versions
-        virtual NodeLnk *const *FindPointerToSuccessor(NodeLnk *const& n, const Data&) const noexcept; // Both mutable & unmutable versions
+            }
+        }
+        virtual NodeLnk **FindPointerToSuccessor(NodeLnk *& n, const Data& d) noexcept // Both mutable & unmutable versions
+        {
+            return const_cast<NodeLnk **>(static_cast<const BST<Data> *>(this)->FindPointerToSuccessor(n,d));
+        }
+        virtual NodeLnk *const *FindPointerToSuccessor(NodeLnk *const& n, const Data& d) const noexcept // Both mutable & unmutable versions
+        {
+            NodeLnk* const* ptr = &n;
+            NodeLnk* const* tmp = nullptr;
+            while(true)
+            {
+                NodeLnk& cur = **ptr;
+                if(cur.element > d)
+                {
+                    tmp = ptr;
+                    if(cur.left == nullptr)
+                        return tmp;
+                    else
+                        ptr = &cur.left;
+                }
+                else
+                {
+                    if(cur.right == nullptr)
+                        return tmp;
+                    else
+                    {
+                        if(cur.element < d)
+                            ptr = &cur.right;
+                        else
+                            return &FindPointerToMin(cur.right);
+                    }
+                }
 
+            }
+        }
     };
 
 /* ************************************************************************** */
