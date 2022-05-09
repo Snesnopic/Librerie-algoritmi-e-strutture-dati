@@ -34,6 +34,7 @@ include_directories(zlasdtest/list)
 include_directories(zlasdtest/queue)
 include_directories(zlasdtest/stack)
 include_directories(zlasdtest/vector)
+include_directories(zlasdtest/bst)
 include_directories(zmytest)
 
 add_executable(Librerie_algoritmi_e_strutture_dati
