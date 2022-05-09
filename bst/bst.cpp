@@ -1,3 +1,5 @@
+#include "binarytreelnk.hpp"
+#include "bst.hpp"
 namespace lasd
 {
 
@@ -35,8 +37,8 @@ namespace lasd
     {
         if(size == bst.size)
         {
-            BTPreOrderIterator<Data> i(*this);
-            BTPreOrderIterator<Data> j(bst);
+            BTInOrderIterator<Data> i(*this);
+            BTInOrderIterator<Data> j(bst);
             while(!i.Terminated())
             {
                 if(*i != *j)
