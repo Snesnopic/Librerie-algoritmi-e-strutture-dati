@@ -114,13 +114,14 @@ void vectortest(Vector<Data>& v)
 {
     cout << "Il primo elemento e' " << v[0] << ", l'ultimo e' " << v[v.Size() - 1] << endl;
     bool selection = false;
-    int testtype;
     while (!selection)
     {
         cout << "0. Torna indietro" << endl << "1. Stampa tutti gli elementi" << endl << "2. Controlla esistenza di un elemento" << endl
              << "3. Calcola la funzione di fold relativa al dato: Concatenazione per lunghezza minore o uguale a n" << endl << "4. Applica funzione map a tutti gli elementi"
              << endl;
-        cin >> testtype;
+        string input;
+        cin >> input;
+        int testtype = stoi(input);
         switch (testtype)
         {
             case 0:
@@ -158,7 +159,7 @@ void vectortest(Vector<Data>& v)
                     cout << endl << "Inserisci n:   ";
                     double n;
                     cin >> n;
-                    double result = 0;
+                    double result = 1;
                     v.Fold(&FoldProductMoreThanN<double>, &n, &result);
                     cout << result << endl;
                 }
@@ -204,13 +205,14 @@ void listtest(List<Data>& l)
 {
     cout << "Il primo elemento e' " << l.Front() << ", l'ultimo e' " << l.Back() << endl;
     bool selection = false;
-    int testtype;
     while (!selection)
     {
         cout << "0. Torna indietro" << endl << "1. Stampa tutti gli elementi" << endl << "2. Controlla esistenza di un elemento" << endl
              << "3. Calcola la funzione di fold relativa al dato: Concatenazione per lunghezza minore o uguale a n" << endl << "4. Applica funzione map a tutti gli elementi"
              << endl;
-        cin >> testtype;
+        string input;
+        cin >> input;
+        int testtype = stoi(input);
         switch (testtype)
         {
             case 0:
@@ -248,7 +250,7 @@ void listtest(List<Data>& l)
                     cout << endl << "Inserisci n:   ";
                     double n;
                     cin >> n;
-                    double result = 0;
+                    double result = 1;
                     l.Fold(&FoldProductMoreThanN<double>, &n, &result);
                     cout << result << endl;
                 }
@@ -299,7 +301,9 @@ void stacktest(Stack<Data>& s)
     {
         cout << "0. Torna indietro" << endl << "1. Inserisci un elemento" << endl << "2. Rimuovi un elemento" << endl << "3. Visualizza e rimuovi un elemento" << endl
              << "4. Visualizza un elemento" << endl << "5. E' vuoto?" << endl << "6. Stampa grandezza" << endl << "7. Svuota la struttura" << endl;
-        cin >> testtype;
+        string input;
+        cin >> input;
+        testtype = stoi(input);
         switch (testtype)
         {
             case 0:
@@ -364,7 +368,9 @@ void queuetest(Queue<Data>& q)
     {
         cout << "0. Torna indietro" << endl << "1. Inserisci un elemento" << endl << "2. Rimuovi un elemento" << endl << "3. Visualizza e rimuovi un elemento" << endl
              << "4. Visualizza un elemento" << endl << "5. E' vuoto?" << endl << "6. Stampa grandezza" << endl << "7. Svuota la struttura" << endl;
-        cin >> testtype;
+        string input;
+        cin >> input;
+        testtype = stoi(input);
         switch (testtype)
         {
             case 0:
@@ -430,7 +436,9 @@ void binarytreetest(BinaryTree<Data>& bt)
         cout << "0. Torna indietro" << endl << "1. Visualizza in ampiezza" << endl << "2. Visualizza in pre-ordine" << endl << "3. Visualizza in ordine" << endl
              << "4. Visualizza in post-ordine" << endl << "5. Controlla esistenza di un valore" << endl << "6. Calcola la funzione di fold relativa al dato" << endl
              << "7. Applica funzione map a tutti gli elementi" << endl;
-        cin >> testtype;
+        string input;
+        cin >> input;
+        testtype = stoi(input);
         switch (testtype)
         {
             case 0:
@@ -486,7 +494,7 @@ void binarytreetest(BinaryTree<Data>& bt)
                     cout << "Funzione fold per questo tipo di dato: Prodotto per gli interi minori di n" << endl << "Inserisci n:   ";
                     int n{};
                     cin >> n;
-                    long result{};
+                    long result = 1;
                     bt.Fold(&FoldProductLessThanN<Data>, &n, &result);
                     cout << result << endl;
                 }
@@ -495,7 +503,7 @@ void binarytreetest(BinaryTree<Data>& bt)
                     cout << "Funzione fold per questo tipo di dato: Somma per i double maggiori di n;" << endl << "Inserisci n:   ";
                     double n{};
                     cin >> n;
-                    double result{};
+                    double result = 0;
                     bt.Fold(&FoldSumMoreThanN<Data>, &n, &result);
                     cout << result << endl;
                 }
@@ -545,14 +553,17 @@ void vectortest()
     unsigned long size;
     cout << "Quanto rendere grande il vettore?: ";
     default_random_engine gen(random_device{}());
-    cin >> size;
+    string input;
+    cin >> input;
+    size = stoi(input);
     int testtype;
-    cin >> testtype;
     bool selection = false;
     while (!selection)
     {
         cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro";
-        cin >> testtype;
+        string input;
+        cin >> input;
+        testtype = stoi(input);
         switch (testtype)
         {
             case 0:
@@ -606,12 +617,13 @@ void listtest()
     default_random_engine gen(random_device{}());
     cin >> size;
     int testtype;
-    cin >> testtype;
     bool selection = false;
     while (!selection)
     {
         cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro";
-        cin >> testtype;
+        string input;
+        cin >> input;
+        testtype = stoi(input);
         switch (testtype)
         {
             case 0:
@@ -664,7 +676,9 @@ void stacktest()
     cout << endl << "Che implementazione usare?" << endl << "1. Vettore" << endl << "2. Lista" << endl;
     while (testtype != 1 && testtype != 2)
     {
-        cin >> testtype;
+        string input;
+        cin >> input;
+        testtype = stoi(input);
         switch (testtype)
         {
             case 1:
@@ -681,12 +695,16 @@ void stacktest()
     unsigned long size;
     cout << "Quanto rendere grande lo stack?: ";
     default_random_engine gen(random_device{}());
-    cin >> size;
+    string input;
+    cin >> input;
+    size = stoi(input);
     cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro";
     bool selection = false;
     while (!selection)
     {
-        cin >> testtype;
+        string input;
+        cin >> input;
+        testtype = stoi(input);
         switch (testtype)
         {
             case 0:
@@ -787,12 +805,16 @@ void queuetest()
     unsigned long size;
     cout << "Quanto rendere grande la queue?: ";
     default_random_engine gen(random_device{}());
-    cin >> size;
+    string input;
+    cin >> input;
+    size = stoi(input);
     cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro";
     bool selection = false;
     while (!selection)
     {
-        cin >> testtype;
+        string input;
+        cin >> input;
+        testtype = stoi(input);
         switch (testtype)
         {
             case 0:
@@ -880,7 +902,9 @@ void binarytreetest()
     cout << endl << "Che implementazione usare?" << endl << "1. Vettore" << endl << "2. Lista" << endl;
     while (testtype != 1 && testtype != 2)
     {
-        cin >> testtype;
+        string input;
+        cin >> input;
+        testtype = stoi(input);
         switch (testtype)
         {
             case 1:
@@ -902,7 +926,9 @@ void binarytreetest()
     bool selection = false;
     while (!selection)
     {
-        cin >> testtype;
+        string input;
+        cin >> input;
+        testtype = stoi(input);
         switch (testtype)
         {
             case 0:
@@ -997,7 +1023,9 @@ void mytest()
     {
         cout << endl << "Test menu' " << endl << "0. Esci" << endl << "1. Test su Liste" << endl << "2. Test su Vector" << endl << "3. Test su Stack" << endl << "4. Test su Queue"
              << endl << "5. Test su Binarytree" << endl << "6. Test del professore" << endl;
-        cin >> testtype;
+        string input;
+        cin >> input;
+        testtype = stoi(input);
         switch (testtype)
         {
             case 0:
