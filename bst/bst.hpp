@@ -70,35 +70,113 @@ namespace lasd
 
         // Specific member functions
 
-        virtual const Data& Min() const; // (concrete function must throw std::length_error when empty)
-        virtual Data MinNRemove(); // (concrete function must throw std::length_error when empty)
-        virtual void RemoveMin(); // (concrete function must throw std::length_error when empty)
+        virtual const Data& Min() const // (concrete function must throw std::length_error when empty)
+        {
+            if(size == 0)
+                throw std::length_error("Length error!");
+            return FindPointerToMin(root)->dato;
+        }
+        virtual Data MinNRemove() // (concrete function must throw std::length_error when empty)
+        {
+            if(size == 0)
+                throw std::length_error("Length error!");
+            return DataNDelete(&FindPointerToMin(root));
+        }
+        virtual void RemoveMin() // (concrete function must throw std::length_error when empty)
+        {
+            if(size == 0)
+                throw std::length_error("Length error!");
+            delete &FindPointerToMin(root);
+        }
 
-        virtual const Data& Max() const; // (concrete function must throw std::length_error when empty)
-        virtual Data MaxNRemove(); // (concrete function must throw std::length_error when empty)
-        virtual void RemoveMax(); // (concrete function must throw std::length_error when empty)
+        virtual const Data& Max() const // (concrete function must throw std::length_error when empty)
+        {
+            if(size == 0)
+                throw std::length_error("Length error!");
+            return &FindPointerToMax(root)->dato;
+        }
+        virtual Data MaxNRemove() // (concrete function must throw std::length_error when empty)
+        {
+            if(size == 0)
+                throw std::length_error("Length error!");
+            return DataNDelete(&FindPointerToMax(root));
+        }
+        virtual void RemoveMax() // (concrete function must throw std::length_error when empty)
+        {
+            if(size == 0)
+                throw std::length_error("Length error!");
+            delete &FindPointerToMax(root);
+        }
 
-        virtual const Data& Predecessor(const Data& d) const; // (concrete function must throw std::length_error when not found)
-        virtual Data PredecessorNRemove(const Data& d); // (concrete function must throw std::length_error when not found)
-        virtual void RemovePredecessor(const Data& d); // (concrete function must throw std::length_error when not found)
+        virtual const Data& Predecessor(const Data& d) const // (concrete function must throw std::length_error when not found)
+        {
+            NodeLnk* ptr = &FindPointerToPredecessor(root, d);
+            if(ptr==nullptr)
+                throw std::length_error("Length error!");
+            return ptr->dato;
+        }
+        virtual Data PredecessorNRemove(const Data& d) // (concrete function must throw std::length_error when not found)
+        {
+            NodeLnk* ptr = &FindPointerToPredecessor(root, d);
+            if(ptr==nullptr)
+                throw std::length_error("Length error!");
+            return DataNDelete(Detach(*ptr));
+        }
+        virtual void RemovePredecessor(const Data& d) // (concrete function must throw std::length_error when not found)
+        {
+            NodeLnk* ptr = &FindPointerToPredecessor(root, d);
+            if(ptr==nullptr)
+                throw std::length_error("Length error!");
+            Remove(ptr->dato);
+        }
 
-        virtual const Data& Successor(const Data& d) const; // (concrete function must throw std::length_error when not found)
-        virtual Data SuccessorNRemove(const Data& d); // (concrete function must throw std::length_error when not found)
-        virtual void RemoveSuccessor(const Data& d); // (concrete function must throw std::length_error when not found)
+        virtual const Data& Successor(const Data& d) const // (concrete function must throw std::length_error when not found)
+        {
+            NodeLnk* ptr = &FindPointerToSuccessor(root, d);
+            if(ptr==nullptr)
+                throw std::length_error("Length error!");
+            return ptr->dato;
+        }
+        virtual Data SuccessorNRemove(const Data& d) // (concrete function must throw std::length_error when not found)
+        {
+            NodeLnk* ptr = FindPointerToSuccessor(root, d);
+            if(ptr==nullptr)
+                throw std::length_error("Length error!");
+            return DataNDelete(Detach(ptr));
+        }
+        virtual void RemoveSuccessor(const Data& d) // (concrete function must throw std::length_error when not found)
+        {
+            NodeLnk* ptr = FindPointerToSuccessor(root, d);
+            if(ptr==nullptr)
+                throw std::length_error("Length error!");
+            Detach(*ptr);
+        }
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from DictionaryContainer)
 
-        virtual void Insert(const Data& d) override; // Override DictionaryContainer member (Copy of the value)
-        virtual void Insert(Data&& d) override; // Override DictionaryContainer member (Move of the value)
-        virtual void Remove(const Data& d) override; // Override DictionaryContainer member
+        virtual void Insert(const Data& d) override// Override DictionaryContainer member (Copy of the value)
+        {
+            // qualcosa?
+        }
+        virtual void Insert(Data&& d) override // Override DictionaryContainer member (Move of the value)
+        {
+            // qualcosa?
+        }
+        virtual void Remove(const Data& d) override // Override DictionaryContainer member
+        {
+            // qualcosa?
+        }
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from TestableContainer)
 
-        virtual bool Exists(const Data& d) const noexcept override; // Override TestableContainer member
+        virtual bool Exists(const Data& d) const noexcept override // Override TestableContainer member
+        {
+            return FindPointerTo(root,d) != nullptr;
+        }
 
     protected:
 
@@ -106,21 +184,40 @@ namespace lasd
 
         virtual Data DataNDelete(NodeLnk *n)
         {
+            // qualcosa?
+
             Data d = std::move(n->dato);
             delete n;
             return d;
         }
 
-        virtual NodeLnk* Detach(NodeLnk n) noexcept
+        virtual NodeLnk* Detach(NodeLnk *& n) noexcept
         {
-            n->left = nullptr;
-            n->right = nullptr;
+            if(n->HasRightChild() && n->HasLeftChild())
+            {
+                //
+                n = DetachMin(n);
+                //
+            }
+            else
+            {
+                if(n->HasRightChild())
+                    n = Skip2Right();
+                if(n->HasLeftChild())
+                    n = Skip2Left();
+            }
             return n;
         }
 
-        virtual NodeLnk *DetachMin(NodeLnk *& n) noexcept;
+        virtual NodeLnk *DetachMin(NodeLnk *& n) noexcept
+        {
+            // qualcosa?
+        }
 
-        virtual NodeLnk *DetachMax(NodeLnk *& n) noexcept;
+        virtual NodeLnk *DetachMax(NodeLnk *& n) noexcept
+        {
+            // qualcosa?
+        }
 
         virtual NodeLnk *Skip2Left(NodeLnk *& n) noexcept
         {
