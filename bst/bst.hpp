@@ -167,6 +167,7 @@ namespace lasd
         virtual void Remove(const Data& d) override // Override DictionaryContainer member
         {
             // qualcosa?
+            delete Detach(FindPointerTo(d));
         }
 
         /* ************************************************************************ */
