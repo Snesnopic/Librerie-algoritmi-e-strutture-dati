@@ -85,3 +85,11 @@ cmake-build-debug/CMakeFiles/Librerie_algoritmi_e_strutture_dati.dir/progress.ma
 cmake-build-debug/CMakeFiles/Makefile2
 cmake-build-debug/CMakeFiles/progress.marks
 .idea/codeStyles/codeStyleConfig.xml
+*.out
+*.ts
+cmake-build-debug-coverage/CMakeFiles/3.23.1/CompilerIdC/CMakeCCompilerId.c
+cmake-build-debug-coverage/CMakeFiles/3.23.1/CompilerIdCXX/CMakeCXXCompilerId.cpp
+cmake-build-debug-coverage/CMakeFiles/Librerie_algoritmi_e_strutture_dati.dir/compiler_depend.make
+cmake-build-debug/CMakeFiles/3.23.1/CompilerIdC/CMakeCCompilerId.c
+cmake-build-debug/CMakeFiles/3.23.1/CompilerIdCXX/CMakeCXXCompilerId.cpp
+cmake-build-debug/CMakeFiles/Librerie_algoritmi_e_strutture_dati.dir/compiler_depend.make
