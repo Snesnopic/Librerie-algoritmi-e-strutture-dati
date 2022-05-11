@@ -46,7 +46,10 @@ namespace lasd
                 ++i;
                 ++j;
             }
+            return true;
         }
+        else
+            return false;
     }
 
     template<typename Data>
