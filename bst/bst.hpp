@@ -185,8 +185,7 @@ namespace lasd
 
         virtual Data DataNDelete(NodeLnk *n)
         {
-            // qualcosa?
-
+            n = Detach(n);
             Data d = std::move(n->dato);
             delete n;
             return d;
@@ -195,11 +194,7 @@ namespace lasd
         virtual NodeLnk* Detach(NodeLnk *& n) noexcept
         {
             if(n->HasRightChild() && n->HasLeftChild())
-            {
-                //
                 n = DetachMin(n);
-                //
-            }
             else
             {
                 if(n->HasRightChild())
@@ -210,12 +205,17 @@ namespace lasd
             return n;
         }
 
-        virtual NodeLnk *DetachMin(NodeLnk *& n) noexcept
+        virtual NodeLnk* DetachMin(NodeLnk *& n) noexcept
         {
-            // qualcosa?
+            NodeLnk* ptr = FindPointerToMin(n->right);
+            NodeLnk* m = nullptr;
+            std::swap(m,ptr);
+            std::swap(m,n);
+            size--;
+            return m;
         }
 
-        virtual NodeLnk *DetachMax(NodeLnk *& n) noexcept
+        virtual NodeLnk* DetachMax(NodeLnk *& n) noexcept
         {
             // qualcosa?
         }
