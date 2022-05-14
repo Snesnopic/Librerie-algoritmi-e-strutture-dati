@@ -178,9 +178,9 @@ namespace lasd
 
         // Specific member functions
 
-        virtual void Insert(const Data& d); // Copy of the value
-        virtual void Insert(Data&& d); // Move of the value
-        virtual void Remove(const Data& d); // Override DictionaryContainer member
+        virtual void Insert(const Data& d) = 0; // Copy of the value
+        virtual void Insert(Data&& d) = 0; // Move of the value
+        virtual void Remove(const Data& d) = 0; // Override DictionaryContainer member
 
     };
 
