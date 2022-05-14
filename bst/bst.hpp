@@ -189,7 +189,8 @@ namespace lasd
         {
             NodeLnk *ptr = nullptr;
             NodeLnk *ptr2 = Detach(FindPointerTo(root, d));
-            std::swap(ptr,ptr2);
+            if(ptr2 != nullptr)
+                std::swap(ptr,ptr2);
             delete ptr;
             size--;
         }
