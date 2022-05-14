@@ -1,5 +1,3 @@
-// #include "..."
-
 namespace lasd
 {
 
@@ -113,7 +111,6 @@ namespace lasd
     template<typename Data>
     void BinaryTree<Data>::FoldBreadth(FoldFunctor f, const void *par, void *acc) const  // Override BreadthFoldableContainer member
     {
-
         QueueLst<Node *> queue{};
         queue.Enqueue(&Root());
         Node *n = nullptr;
