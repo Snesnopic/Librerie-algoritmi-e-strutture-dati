@@ -2,7 +2,7 @@
 #define BST_HPP
 
 /* ************************************************************************** */
-
+#include <iostream>
 #include "../binarytree/lnk/binarytreelnk.hpp"
 
 /* ************************************************************************** */
@@ -86,9 +86,11 @@ namespace lasd
 
         virtual void RemoveMin() // (concrete function must throw std::length_error when empty)
         {
+
             if (size == 0)
                 throw std::length_error("Length error!");
-            delete DetachMin(root);
+            NodeLnk *ptr = DetachMin(root);
+            delete ptr;
         }
 
         virtual const Data& Max() const // (concrete function must throw std::length_error when empty)
@@ -109,7 +111,10 @@ namespace lasd
         {
             if (size == 0)
                 throw std::length_error("Length error!");
-            delete DetachMax(root);
+            NodeLnk *ptr = nullptr;
+            NodeLnk* ptr2 = DetachMax(root);
+            std::swap(ptr,ptr2);
+            delete ptr;
         }
 
         virtual const Data& Predecessor(const Data& d) const // (concrete function must throw std::length_error when not found)
@@ -122,15 +127,17 @@ namespace lasd
 
         virtual Data PredecessorNRemove(const Data& d) // (concrete function must throw std::length_error when not found)
         {
-            NodeLnk *ptr = *FindPointerToPredecessor(root, d);
+            NodeLnk *ptr = nullptr;
+            std::swap(ptr,*FindPointerToPredecessor(root, d));
             if (ptr == nullptr)
                 throw std::length_error("Length error!");
-            return DataNDelete(Detach(ptr));
+            return DataNDelete(ptr);
         }
 
         virtual void RemovePredecessor(const Data& d) // (concrete function must throw std::length_error when not found)
         {
-            NodeLnk *ptr = *FindPointerToPredecessor(root, d);
+            NodeLnk *ptr = nullptr;
+            std::swap(ptr,*FindPointerToPredecessor(root, d));
             if (ptr == nullptr)
                 throw std::length_error("Length error!");
             delete Detach(ptr);
@@ -146,7 +153,8 @@ namespace lasd
 
         virtual Data SuccessorNRemove(const Data& d) // (concrete function must throw std::length_error when not found)
         {
-            NodeLnk *ptr = *FindPointerToSuccessor(root, d);
+            NodeLnk *ptr = nullptr;
+            std::swap(ptr,*FindPointerToSuccessor(root, d));
             if (ptr == nullptr)
                 throw std::length_error("Length error!");
             return DataNDelete(Detach(ptr));
@@ -154,7 +162,8 @@ namespace lasd
 
         virtual void RemoveSuccessor(const Data& d) // (concrete function must throw std::length_error when not found)
         {
-            NodeLnk *ptr = *FindPointerToSuccessor(root, d);
+            NodeLnk *ptr = nullptr;
+            std::swap(ptr,*FindPointerToSuccessor(root, d));
             if (ptr == nullptr)
                 throw std::length_error("Length error!");
             delete Detach(ptr);
@@ -178,7 +187,10 @@ namespace lasd
 
         virtual void Remove(const Data& d) override // Override DictionaryContainer member
         {
-            delete Detach(FindPointerTo(root, d));
+            NodeLnk *ptr = nullptr;
+            std::swap(ptr, FindPointerTo(root, d));
+            delete Detach(ptr);
+            size--;
         }
 
         /* ************************************************************************ */
@@ -205,15 +217,17 @@ namespace lasd
         {
             if (n != nullptr)
             {
-                if (n->left == nullptr)
-                    return Skip2Right(n);
-                else if (n->right == nullptr)
-                    return Skip2Left(n);
+                if(n->HasRightChild() && n->HasLeftChild())
+                {
+                    return DetachMin(n->right);
+                }
                 else
                 {
-                    NodeLnk *detach = DetachMax(n->left);
-                    std::swap(n->dato, detach->dato);
-                    return detach;
+                    if(n->HasRightChild())
+                        return Skip2Right(n);
+                    if(n->HasLeftChild())
+                        return Skip2Left(n);
+                    return n;
                 }
             }
             return nullptr;
@@ -338,7 +352,7 @@ namespace lasd
                 if (cur.dato < d)
                 {
                     tmp = ptr;
-                    if (cur.right == nullptr)
+                    if (cur.right == nullptr || cur.right->dato == d)
                         return tmp;
                     else
                         ptr = &cur.right;
@@ -355,7 +369,6 @@ namespace lasd
                             return &FindPointerToMax(cur.left);
                     }
                 }
-
             }
         }
 
@@ -374,7 +387,7 @@ namespace lasd
                 if (cur.dato > d)
                 {
                     tmp = ptr;
-                    if (cur.left == nullptr)
+                    if (cur.left == nullptr || cur.left->dato == d)
                         return tmp;
                     else
                         ptr = &cur.left;
@@ -391,7 +404,6 @@ namespace lasd
                             return &FindPointerToMin(cur.right);
                     }
                 }
-
             }
         }
     };
