@@ -1,5 +1,5 @@
-#include "binarytreelnk.hpp"
 #include "bst.hpp"
+
 namespace lasd
 {
 
@@ -9,7 +9,7 @@ namespace lasd
     template<typename Data>
     BST<Data>::BST(const LinearContainer<Data>& lc) // A bst obtained from a LinearContainer
     {
-        for(unsigned long i = 0; i<lc.Size();i++)
+        for (unsigned long i = 0; i < lc.Size(); i++)
         {
             Insert(lc[i]);
         }
@@ -35,13 +35,13 @@ namespace lasd
     template<typename Data>
     bool BST<Data>::operator==(const BST& bst) const noexcept
     {
-        if(size == bst.size)
+        if (size == bst.size)
         {
             BTInOrderIterator<Data> i(*this);
             BTInOrderIterator<Data> j(bst);
-            while(!i.Terminated())
+            while (!i.Terminated())
             {
-                if(*i != *j)
+                if (*i != *j)
                     return false;
                 ++i;
                 ++j;
