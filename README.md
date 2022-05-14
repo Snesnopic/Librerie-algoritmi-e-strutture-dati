@@ -160,13 +160,14 @@ Le funzionalita da realizzare sono di seguito elencate:
    a tutti gli elementi: **funzioni map**; operazioni di **accumulazione di un valore (in
    ampiezza/pre-ordine/ordine/post-ordine)** estratto dagli elementi: **funzioni fold**; test
    di **vuotezza**; lettura della **dimensione**; **svuotamento** della struttura).
-   Al fine di poter testare adeguatamente le librerie sopra descritte, si richiede di definire (esternamente alle
+   
+Al fine di poter testare adeguatamente le librerie sopra descritte, si richiede di definire (esternamente alle
    stesse, in un opportuno file di test richiamato dal “main”) un insieme di procedure
    che implementi le seguenti funzionalita:
 1. **scelta del tipo di dati** da gestire (interi, ecc.);
 2. **popolamento della struttura** precedentemente scelta con _n_ valori del tipo opportuno
    generati casualmente, dove _n_ è un parametro dato dall’utente in ingresso;
-3. **visualizzazione in ampiezza/pre-ordine/ordine/post-ordine di tutti gli elementi** (effettuata per mezzo
+**visualizzazione in ampiezza/pre-ordine/ordine/post-ordine di tutti gli elementi** (effettuata per mezzo
    dell’opportuna **funzione map**);
 4. **controllo di esistenza** di un dato valore;
 5. **calcolo di una delle seguenti funzioni** (effettuato per mezzo delle **funzioni fold**) e
