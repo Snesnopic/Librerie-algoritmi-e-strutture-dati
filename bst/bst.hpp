@@ -167,11 +167,13 @@ namespace lasd
         virtual void Insert(const Data& d) override// Override DictionaryContainer member (Copy of the value)
         {
             FindPointerTo(root, d) = new NodeLnk(d);
+            size++;
         }
 
         virtual void Insert(Data&& d) override // Override DictionaryContainer member (Move of the value)
         {
             FindPointerTo(root, d) = new NodeLnk(std::move(d));
+            size++;
         }
 
         virtual void Remove(const Data& d) override // Override DictionaryContainer member
@@ -194,7 +196,7 @@ namespace lasd
 
         virtual Data DataNDelete(NodeLnk *n)
         {
-            Data d = std::move(n->dato);
+            Data d = n->dato;
             delete n;
             return d;
         }
