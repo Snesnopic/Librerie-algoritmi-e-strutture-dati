@@ -8,6 +8,7 @@
 #include "../stack/vec/stackvec.hpp"
 #include "../binarytree/lnk/binarytreelnk.hpp"
 #include "../binarytree/vec/binarytreevec.hpp"
+#include "../bst/bst.hpp"
 #include <type_traits>
 #include <iostream>
 #include <random>
@@ -541,6 +542,123 @@ void binarytreetest(BinaryTree<Data>& bt)
     }
 }
 
+template<typename Data>
+void bsttest(BST<Data>& bst)
+{
+    bool selection = false;
+    int testtype;
+    cout << endl << "Seleziona il tipo di operazione" << endl;
+    while (!selection)
+    {
+        cout << "0. Torna indietro" << endl << "1. Visualizza in ampiezza" << endl << "2. Visualizza in pre-ordine" << endl << "3. Visualizza in ordine" << endl
+             << "4. Visualizza in post-ordine" << endl << "5. Controlla esistenza di un valore" << endl << "6. Calcola la funzione di fold relativa al dato" << endl
+             << "7. Applica funzione map a tutti gli elementi" << endl;
+        string input;
+        cin >> input;
+        testtype = stoi(input);
+        switch (testtype)
+        {
+            case 0:
+                selection = true;
+                break;
+            case 1:
+            {
+                bst.MapBreadth(&MapPrint<Data>, 0);
+                cout << endl;
+                break;
+            }
+            case 2:
+            {
+                bst.MapPreOrder(&MapPrint<Data>, 0);
+                cout << endl;
+                break;
+            }
+            case 3:
+            {
+                bst.MapInOrder(&MapPrint<Data>, 0);
+                cout << endl;
+                break;
+            }
+            case 4:
+            {
+                bst.MapPostOrder(&MapPrint<Data>, 0);
+                cout << endl;
+                break;
+            }
+            case 5:
+            {
+                Data search{};
+                cout << "Inserisci l'elemento da cercare: ";
+                cin >> search;
+                bool found = bst.Exists(search);
+                if (!found)
+                    cout << "Non trovato!" << endl;
+                else
+                    cout << "Trovato!" << endl;
+                break;
+            }
+            case 6:
+            {
+                if constexpr (is_same<Data, int>::value)
+                {
+                    cout << "Funzione fold per questo tipo di dato: Prodotto per gli interi minori di n" << endl << "Inserisci n:   ";
+                    int n{};
+                    cin >> n;
+                    long result = 1;
+                    bst.Fold(&FoldProductLessThanN<Data>, &n, &result);
+                    cout << result << endl;
+                }
+                if constexpr (is_same<Data, double>::value)
+                {
+                    cout << "Funzione fold per questo tipo di dato: Somma per i double maggiori di n;" << endl << "Inserisci n:   ";
+                    double n{};
+                    cin >> n;
+                    double result = 0;
+                    bst.Fold(&FoldSumMoreThanN<Data>, &n, &result);
+                    cout << result << endl;
+                }
+                if constexpr (is_same<Data, string>::value)
+                {
+                    cout << "Funzione fold per questo tipo di dato: Concatenazione con lunghezza minore o uguale a n;" << endl << "Inserisci n:   ";
+                    unsigned long n{};
+                    cin >> n;
+                    string result = "";
+                    bst.Fold(&FoldConcatLessEqualN<Data>, &n, &result);
+                    cout << result << endl;
+                }
+                break;
+            }
+            case 7:
+            {
+                if constexpr (is_same<Data, int>::value)
+                {
+                    cout << "Funzione map per questo tipo di dato: 3n" << endl;
+                    bst.Map(&MapTriple<Data>, 0);
+                    cout << "Fatto, prova a stampare" << endl;
+                }
+                if constexpr (is_same<Data, double>::value)
+                {
+                    cout << "Funzione map per questo tipo di dato: n^3;" << endl;
+                    bst.Map(&MapCube<Data>, 0);
+                    cout << "Fatto, prova a stampare" << endl;
+                }
+                if constexpr (is_same<Data, string>::value)
+                {
+                    cout << "Funzione map per questo tipo di dato: n + str;" << endl << "Inserisci str:   ";
+                    string n = "";
+                    cin >> n;
+                    bst.Map(&MapAppend<Data>, &n);
+                    cout << "Fatto, prova a stampare" << endl;
+                }
+                break;
+            }
+            default:
+                cout << "Errore di input" << endl;
+        }
+    }
+
+}
+
 void vectortest()
 {
     unsigned long size;
@@ -915,10 +1033,10 @@ void binarytreetest()
     cout << "Quanto rendere grande l'albero?: ";
     default_random_engine gen(random_device{}());
     cin >> size;
-    cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro";
     bool selection = false;
     while (!selection)
     {
+        cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro";
         string input;
         cin >> input;
         testtype = stoi(input);
@@ -1008,6 +1126,67 @@ void binarytreetest()
     }
 }
 
+void bsttest()
+{
+    int testtype;
+    unsigned long size;
+    cout << "Quanto rendere grande l'albero?: ";
+    default_random_engine gen(random_device{}());
+    cin >> size;
+    bool selection = false;
+    while (!selection)
+    {
+        cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro";
+        string input;
+        cin >> input;
+        testtype = stoi(input);
+        switch (testtype)
+        {
+            case 0:
+                selection = true;
+                break;
+            case 1:
+            {
+                uniform_int_distribution<int> dist(0, 100);
+                Vector<int> v(size);
+                for (unsigned long i = 0; i < size; i++)
+                {
+                    v[i] = dist(gen);
+                }
+                BST<int> bst(v);
+                bsttest(bst);
+                break;
+            }
+            case 2:
+            {
+                uniform_real_distribution<double> dist(0, 100);
+                Vector<double> v(size);
+                for (unsigned long i = 0; i < size; i++)
+                {
+                    v[i] = round(dist(gen) * 1000.0) / 1000.0;
+                }
+                BST<double> bst(v);
+                bsttest(bst);
+                break;
+            }
+            case 3:
+            {
+                uniform_int_distribution<int> dist(2, 5);
+                Vector<string> v(size);
+                for (unsigned long i = 0; i < size; i++)
+                {
+                    v[i] = GeneraStringaCasuale(dist(gen));
+                }
+                BST<string> bst(v);
+                bsttest(bst);
+                break;
+            }
+            default:
+                cout << "Input non valido" << endl;
+        }
+    }
+}
+
 void mytest()
 {
     bool selection = false;
@@ -1015,7 +1194,7 @@ void mytest()
     while (!selection)
     {
         cout << endl << "Test menu' " << endl << "0. Esci" << endl << "1. Test su Liste" << endl << "2. Test su Vector" << endl << "3. Test su Stack" << endl << "4. Test su Queue"
-             << endl << "5. Test su Binarytree" << endl << "6. Test del professore" << endl;
+             << endl << "5. Test su Binarytree" << endl << "6. Test su BST" << endl << "7. Test del professore" << endl;
         string input;
         cin >> input;
         testtype = stoi(input);
@@ -1038,7 +1217,11 @@ void mytest()
                 break;
             case 5:
                 binarytreetest();
+                break;
             case 6:
+                bsttest();
+                break;
+            case 7:
             {
                 lasdtest();
                 break;
