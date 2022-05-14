@@ -188,8 +188,9 @@ namespace lasd
         virtual void Remove(const Data& d) override // Override DictionaryContainer member
         {
             NodeLnk *ptr = nullptr;
-            std::swap(ptr, FindPointerTo(root, d));
-            delete Detach(ptr);
+            NodeLnk *ptr2 = Detach(FindPointerTo(root, d));
+            std::swap(ptr,ptr2);
+            delete ptr;
             size--;
         }
 
