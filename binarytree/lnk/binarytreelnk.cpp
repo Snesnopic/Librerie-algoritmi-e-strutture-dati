@@ -6,7 +6,7 @@ namespace lasd
     BinaryTreeLnk<Data>::BinaryTreeLnk(const LinearContainer<Data>& lc) // A binary tree obtained from a LinearContainer
     {
         size = lc.Size();
-        if(size != 0)
+        if (size != 0)
         {
             root = new NodeLnk(lc[0]);
             QueueLst<NodeLnk *> q;
