@@ -72,84 +72,92 @@ namespace lasd
 
         virtual const Data& Min() const // (concrete function must throw std::length_error when empty)
         {
-            if(size == 0)
+            if (size == 0)
                 throw std::length_error("Length error!");
             return FindPointerToMin(root)->dato;
         }
+
         virtual Data MinNRemove() // (concrete function must throw std::length_error when empty)
         {
-            if(size == 0)
+            if (size == 0)
                 throw std::length_error("Length error!");
-            return DataNDelete(&FindPointerToMin(root));
+            return DataNDelete(DetachMin(root));
         }
+
         virtual void RemoveMin() // (concrete function must throw std::length_error when empty)
         {
-            if(size == 0)
+            if (size == 0)
                 throw std::length_error("Length error!");
-            delete &FindPointerToMin(root);
+            delete DetachMin(root);
         }
 
         virtual const Data& Max() const // (concrete function must throw std::length_error when empty)
         {
-            if(size == 0)
+            if (size == 0)
                 throw std::length_error("Length error!");
-            return &FindPointerToMax(root)->dato;
+            return FindPointerToMax(root)->dato;
         }
+
         virtual Data MaxNRemove() // (concrete function must throw std::length_error when empty)
         {
-            if(size == 0)
+            if (size == 0)
                 throw std::length_error("Length error!");
-            return DataNDelete(&FindPointerToMax(root));
+            return DataNDelete(DetachMax(root));
         }
+
         virtual void RemoveMax() // (concrete function must throw std::length_error when empty)
         {
-            if(size == 0)
+            if (size == 0)
                 throw std::length_error("Length error!");
-            delete &FindPointerToMax(root);
+            delete DetachMax(root);
         }
 
         virtual const Data& Predecessor(const Data& d) const // (concrete function must throw std::length_error when not found)
         {
-            NodeLnk* ptr = &FindPointerToPredecessor(root, d);
-            if(ptr==nullptr)
+            NodeLnk *ptr = *FindPointerToPredecessor(root, d);
+            if (ptr == nullptr)
                 throw std::length_error("Length error!");
             return ptr->dato;
         }
+
         virtual Data PredecessorNRemove(const Data& d) // (concrete function must throw std::length_error when not found)
         {
-            NodeLnk* ptr = &FindPointerToPredecessor(root, d);
-            if(ptr==nullptr)
+            NodeLnk *ptr = *FindPointerToPredecessor(root, d);
+            if (ptr == nullptr)
                 throw std::length_error("Length error!");
-            return DataNDelete(Detach(*ptr));
+            return DataNDelete(Detach(ptr));
         }
+
         virtual void RemovePredecessor(const Data& d) // (concrete function must throw std::length_error when not found)
         {
-            NodeLnk* ptr = &FindPointerToPredecessor(root, d);
-            if(ptr==nullptr)
+            NodeLnk *ptr = *FindPointerToPredecessor(root, d);
+            if (ptr == nullptr)
                 throw std::length_error("Length error!");
-            Remove(ptr->dato);
+            delete Detach(ptr);
         }
 
         virtual const Data& Successor(const Data& d) const // (concrete function must throw std::length_error when not found)
         {
-            NodeLnk* ptr = &FindPointerToSuccessor(root, d);
-            if(ptr==nullptr)
+            NodeLnk *ptr = *FindPointerToSuccessor(root, d);
+            if (ptr == nullptr)
                 throw std::length_error("Length error!");
             return ptr->dato;
         }
+
         virtual Data SuccessorNRemove(const Data& d) // (concrete function must throw std::length_error when not found)
         {
-            NodeLnk* ptr = FindPointerToSuccessor(root, d);
-            if(ptr==nullptr)
+            NodeLnk *ptr = *FindPointerToSuccessor(root, d);
+            if (ptr == nullptr)
                 throw std::length_error("Length error!");
             return DataNDelete(Detach(ptr));
         }
+
         virtual void RemoveSuccessor(const Data& d) // (concrete function must throw std::length_error when not found)
         {
-            NodeLnk* ptr = FindPointerToSuccessor(root, d);
-            if(ptr==nullptr)
+            NodeLnk *ptr = *FindPointerToSuccessor(root, d);
+            if (ptr == nullptr)
                 throw std::length_error("Length error!");
-            Detach(*ptr);
+            delete Detach(ptr);
         }
 
         /* ************************************************************************ */
@@ -158,16 +166,17 @@ namespace lasd
 
         virtual void Insert(const Data& d) override// Override DictionaryContainer member (Copy of the value)
         {
-            // qualcosa?
+            FindPointerTo(root, d) = new NodeLnk(d);
         }
+
         virtual void Insert(Data&& d) override // Override DictionaryContainer member (Move of the value)
         {
-            // qualcosa?
+            FindPointerTo(root, d) = new NodeLnk(std::move(d));
         }
+
         virtual void Remove(const Data& d) override // Override DictionaryContainer member
         {
-            // qualcosa?
-            delete Detach(FindPointerTo(d));
+            delete Detach(FindPointerTo(root, d));
         }
 
         /* ************************************************************************ */
@@ -176,7 +185,7 @@ namespace lasd
 
         virtual bool Exists(const Data& d) const noexcept override // Override TestableContainer member
         {
-            return FindPointerTo(root,d) != nullptr;
+            return FindPointerTo(root, d) != nullptr;
         }
 
     protected:
@@ -185,48 +194,46 @@ namespace lasd
 
         virtual Data DataNDelete(NodeLnk *n)
         {
-            n = Detach(n);
             Data d = std::move(n->dato);
             delete n;
             return d;
         }
 
-        virtual NodeLnk* Detach(NodeLnk *& n) noexcept
+        virtual NodeLnk *Detach(NodeLnk *& n) noexcept
         {
-            if(n->HasRightChild() && n->HasLeftChild())
-                n = DetachMin(n);
-            else
+            if (n != nullptr)
             {
-                if(n->HasRightChild())
-                    n = Skip2Right();
-                if(n->HasLeftChild())
-                    n = Skip2Left();
+                if (n->left == nullptr)
+                    return Skip2Right(n);
+                else if (n->right == nullptr)
+                    return Skip2Left(n);
+                else
+                {
+                    NodeLnk *detach = DetachMax(n->left);
+                    std::swap(n->dato, detach->dato);
+                    return detach;
+                }
             }
-            return n;
+            return nullptr;
         }
 
-        virtual NodeLnk* DetachMin(NodeLnk *& n) noexcept
+        virtual NodeLnk *DetachMin(NodeLnk *& n) noexcept
         {
-            NodeLnk* ptr = FindPointerToMin(n->right);
-            NodeLnk* m = nullptr;
-            std::swap(m,ptr);
-            std::swap(m,n);
-            size--;
-            return m;
+            return Skip2Right(FindPointerToMin(n));
         }
 
-        virtual NodeLnk* DetachMax(NodeLnk *& n) noexcept
+        virtual NodeLnk *DetachMax(NodeLnk *& n) noexcept
         {
-            // qualcosa?
+            return Skip2Left(FindPointerToMax(n));
         }
 
         virtual NodeLnk *Skip2Left(NodeLnk *& n) noexcept
         {
-            NodeLnk* l = nullptr;
-            if(n != nullptr)
+            NodeLnk *l = nullptr;
+            if (n != nullptr)
             {
-                std::swap(l,n->left);
-                std::swap(l,n);
+                std::swap(l, n->left);
+                std::swap(l, n);
                 size--;
             }
             return l;
@@ -234,11 +241,11 @@ namespace lasd
 
         virtual NodeLnk *Skip2Right(NodeLnk *& n) noexcept
         {
-            NodeLnk* r = nullptr;
-            if(n != nullptr)
+            NodeLnk *r = nullptr;
+            if (n != nullptr)
             {
-                std::swap(r,n->right);
-                std::swap(r,n);
+                std::swap(r, n->right);
+                std::swap(r, n);
                 size--;
             }
             return r;
@@ -248,13 +255,14 @@ namespace lasd
         {
             return const_cast<NodeLnk *&>(static_cast<const BST<Data> *>(this)->FindPointerToMin(n));
         }
+
         virtual NodeLnk *const& FindPointerToMin(NodeLnk *const& n) const noexcept // Both mutable & unmutable versions
         {
-            NodeLnk* const* ptr = &n;
-            NodeLnk* curr = n;
-            if(curr != nullptr)
+            NodeLnk *const *ptr = &n;
+            NodeLnk *curr = n;
+            if (curr != nullptr)
             {
-                while(curr->left != nullptr)
+                while (curr->left != nullptr)
                 {
                     ptr = &curr->left;
                     curr = curr->left;
@@ -262,17 +270,19 @@ namespace lasd
             }
             return *ptr;
         }
+
         virtual NodeLnk *& FindPointerToMax(NodeLnk *& n) noexcept // Both mutable & unmutable versions
         {
             return const_cast<NodeLnk *&>(static_cast<const BST<Data> *>(this)->FindPointerToMax(n));
         }
+
         virtual NodeLnk *const& FindPointerToMax(NodeLnk *const& n) const noexcept // Both mutable & unmutable versions
         {
-            NodeLnk* const* ptr = &n;
-            NodeLnk* curr = n;
-            if(curr != nullptr)
+            NodeLnk *const *ptr = &n;
+            NodeLnk *curr = n;
+            if (curr != nullptr)
             {
-                while(curr->right != nullptr)
+                while (curr->right != nullptr)
                 {
                     ptr = &curr->right;
                     curr = curr->right;
@@ -280,24 +290,26 @@ namespace lasd
             }
             return *ptr;
         }
+
         virtual NodeLnk *& FindPointerTo(NodeLnk *& n, const Data& d) noexcept // Both mutable & unmutable versions
         {
-            return const_cast<NodeLnk *&>(static_cast<const BST<Data> *>(this)->FindPointerTo(n,d));
+            return const_cast<NodeLnk *&>(static_cast<const BST<Data> *>(this)->FindPointerTo(n, d));
         }
-        virtual NodeLnk *const& FindPointerTo(NodeLnk *const& n, const Data& d) noexcept // Both mutable & unmutable versions
+
+        virtual NodeLnk *const& FindPointerTo(NodeLnk *const& n, const Data& d) const noexcept // Both mutable & unmutable versions
         {
-            NodeLnk* const* ptr = &n;
-            NodeLnk* curr = n;
-            while(curr != nullptr)
+            NodeLnk *const *ptr = &n;
+            NodeLnk *curr = n;
+            while (curr != nullptr)
             {
-                if(curr->dato < d)
+                if (curr->dato < d)
                 {
                     ptr = &curr->right;
                     curr = curr->right;
                 }
                 else
                 {
-                    if(curr->dato > d)
+                    if (curr->dato > d)
                     {
                         ptr = &curr->left;
                         curr = curr->left;
@@ -311,30 +323,31 @@ namespace lasd
 
         virtual NodeLnk **FindPointerToPredecessor(NodeLnk *& n, const Data& d) noexcept // Both mutable & unmutable versions
         {
-            return const_cast<NodeLnk **>(static_cast<const BST<Data> *>(this)->FindPointerToPredecessor(n,d));
+            return const_cast<NodeLnk **>(static_cast<const BST<Data> *>(this)->FindPointerToPredecessor(n, d));
         }
+
         virtual NodeLnk *const *FindPointerToPredecessor(NodeLnk *const& n, const Data& d) const noexcept // Both mutable & unmutable versions
         {
-            NodeLnk* const* ptr = &n;
-            NodeLnk* const* tmp = nullptr;
-            while(true)
+            NodeLnk *const *ptr = &n;
+            NodeLnk *const *tmp = nullptr;
+            while (true)
             {
                 NodeLnk& cur = **ptr;
-                if(cur.element < d)
+                if (cur.dato < d)
                 {
                     tmp = ptr;
-                    if(cur.right == nullptr)
+                    if (cur.right == nullptr)
                         return tmp;
                     else
                         ptr = &cur.right;
                 }
                 else
                 {
-                    if(cur.right == nullptr)
+                    if (cur.right == nullptr)
                         return tmp;
                     else
                     {
-                        if(cur.element > d)
+                        if (cur.dato > d)
                             ptr = &cur.left;
                         else
                             return &FindPointerToMax(cur.left);
@@ -343,32 +356,34 @@ namespace lasd
 
             }
         }
+
         virtual NodeLnk **FindPointerToSuccessor(NodeLnk *& n, const Data& d) noexcept // Both mutable & unmutable versions
         {
-            return const_cast<NodeLnk **>(static_cast<const BST<Data> *>(this)->FindPointerToSuccessor(n,d));
+            return const_cast<NodeLnk **>(static_cast<const BST<Data> *>(this)->FindPointerToSuccessor(n, d));
         }
+
         virtual NodeLnk *const *FindPointerToSuccessor(NodeLnk *const& n, const Data& d) const noexcept // Both mutable & unmutable versions
         {
-            NodeLnk* const* ptr = &n;
-            NodeLnk* const* tmp = nullptr;
-            while(true)
+            NodeLnk *const *ptr = &n;
+            NodeLnk *const *tmp = nullptr;
+            while (true)
             {
                 NodeLnk& cur = **ptr;
-                if(cur.element > d)
+                if (cur.dato > d)
                 {
                     tmp = ptr;
-                    if(cur.left == nullptr)
+                    if (cur.left == nullptr)
                         return tmp;
                     else
                         ptr = &cur.left;
                 }
                 else
                 {
-                    if(cur.right == nullptr)
+                    if (cur.right == nullptr)
                         return tmp;
                     else
                     {
-                        if(cur.element < d)
+                        if (cur.dato < d)
                             ptr = &cur.right;
                         else
                             return &FindPointerToMin(cur.right);
