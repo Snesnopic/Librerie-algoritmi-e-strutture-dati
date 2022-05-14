@@ -782,7 +782,7 @@ void listtest()
 
 void stacktest()
 {
-    bool usevec;
+    bool usevec{};
     int testtype = 0;
     cout << endl << "Che implementazione usare?" << endl << "1. Vettore" << endl << "2. Lista" << endl;
     while (testtype != 1 && testtype != 2)
@@ -894,7 +894,7 @@ void stacktest()
 
 void queuetest()
 {
-    bool usevec;
+    bool usevec{};
     int testtype = 0;
     cout << endl << "Che implementazione usare?" << endl << "1. Vettore" << endl << "2. Lista" << endl;
     while (testtype != 1 && testtype != 2)
@@ -1008,7 +1008,7 @@ void queuetest()
 
 void binarytreetest()
 {
-    bool usevec;
+    bool usevec{};
     int testtype = 0;
     cout << endl << "Che implementazione usare?" << endl << "1. Vettore" << endl << "2. Lista" << endl;
     while (testtype != 1 && testtype != 2)
