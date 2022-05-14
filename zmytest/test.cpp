@@ -473,18 +473,11 @@ void binarytreetest(BinaryTree<Data>& bt)
                 Data search{};
                 cout << "Inserisci l'elemento da cercare: ";
                 cin >> search;
-                BTPreOrderIterator<Data> i(bt);
-                bool found = false;
-                for (; i.Terminated() || !(found); ++i)
-                {
-                    if (*i == search)
-                    {
-                        found = true;
-                        cout << "Trovato!" << endl;
-                    }
-                }
+                bool found = bt.Exists(search);
                 if (!found)
                     cout << "Non trovato!" << endl;
+                else
+                    cout << "Trovato!" << endl;
                 break;
             }
             case 6:
