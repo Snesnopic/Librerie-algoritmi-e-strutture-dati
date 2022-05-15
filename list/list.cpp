@@ -53,7 +53,7 @@ namespace lasd
             }
             if (next != nullptr && n.next != nullptr)    //o hanno un prossimo...
             {
-                if (*next == *n.next)                    //ed è lo stesso...
+                if (*next == *n.next)                    //ed ï¿½ lo stesso...
                     return true;
             }
         }
@@ -399,5 +399,4 @@ namespace lasd
         f(n->dato, par, acc);
     }
 /* ************************************************************************** */
-
 }
