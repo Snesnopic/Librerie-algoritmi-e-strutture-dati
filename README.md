@@ -162,21 +162,22 @@ Le funzionalita da realizzare sono di seguito elencate:
    di **vuotezza**; lettura della **dimensione**; **svuotamento** della struttura).
    
 Al fine di poter testare adeguatamente le librerie sopra descritte, si richiede di definire (esternamente alle
-   stesse, in un opportuno file di test richiamato dal “main”) un insieme di procedure
-   che implementi le seguenti funzionalita:
+stesse, in un opportuno file di test richiamato dal “main”) un insieme di procedure
+che implementi le seguenti funzionalita:
 1. **scelta del tipo di dati** da gestire (interi, ecc.);
 2. **popolamento della struttura** precedentemente scelta con _n_ valori del tipo opportuno
    generati casualmente, dove _n_ è un parametro dato dall’utente in ingresso;
 **visualizzazione in ampiezza/pre-ordine/ordine/post-ordine di tutti gli elementi** (effettuata per mezzo
    dell’opportuna **funzione map**);
-4. **controllo di esistenza** di un dato valore;
-5. **calcolo di una delle seguenti funzioni** (effettuato per mezzo delle **funzioni fold**) e
+3. **controllo di esistenza** di un dato valore;
+4. **calcolo di una delle seguenti funzioni** (effettuato per mezzo delle **funzioni fold**) e
    relativa visualizzazione del risultato: prodotto per gli interi minori di _n_, somma per i
    float maggiori di _n_, e concatenazione per le stringhe con lunghezza minore o uguale a _n_,
    dove _n_ è un parametro dato dall’utente in ingresso.
-   Da un opportuno menu, dovrà essere inoltre possibile operare sulla struttura scelta attraverso le
-   funzioni di libreria di cui al punto (3). Infine, è necessario prevedere l’accesso alla funzionalità
-   di test prevista dal docente.
-   Il codice sorgente prodotto dovrà seguire pedissequamente (sia nei nomi delle funzioni di libreria,
-   sia nella strutturazione, gerarchia di classi e nei nomi delle diverse directory e file “.cpp” e
-   “.hpp”) la forma riportata nel template Exercise4.zip associato al presente esercizio.
+   
+Da un opportuno menu, dovrà essere inoltre possibile operare sulla struttura scelta attraverso le
+funzioni di libreria di cui al punto (3). Infine, è necessario prevedere l’accesso alla funzionalità
+di test prevista dal docente.
+Il codice sorgente prodotto dovrà seguire pedissequamente (sia nei nomi delle funzioni di libreria,
+sia nella strutturazione, gerarchia di classi e nei nomi delle diverse directory e file “.cpp” e
+“.hpp”) la forma riportata nel template Exercise4.zip associato al presente esercizio.
