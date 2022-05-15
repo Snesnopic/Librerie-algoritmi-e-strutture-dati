@@ -268,8 +268,6 @@ namespace lasd
     struct BinaryTree<Data>::Node *BTInOrderIterator<Data>::min(struct BinaryTree<Data>::Node *n)
     {
         struct BinaryTree<Data>::Node *tmp = n;
-        if (tmp->HasRightChild())
-            stack.Push(&tmp->RightChild());
         if (tmp->HasLeftChild())
         {
             stack.Push(tmp);
@@ -292,9 +290,10 @@ namespace lasd
             throw std::out_of_range("Out of range!");
         if (curr->HasRightChild())
         {
-            curr = min(&curr->RightChild());
-            if (curr == stack.Top())
+            if (!stack.Empty() && curr == stack.Top())
                 stack.Pop();
+            else
+                curr = min(&curr->RightChild());
         }
         else
         {
