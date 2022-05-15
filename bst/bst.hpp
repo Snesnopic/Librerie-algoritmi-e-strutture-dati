@@ -81,7 +81,10 @@ namespace lasd
         {
             if (size == 0)
                 throw std::length_error("Length error!");
-            return DataNDelete(DetachMin(root));
+            NodeLnk *ptr = nullptr;
+            NodeLnk* ptr2 = DetachMin(root);
+            std::swap(ptr, ptr2);
+            return DataNDelete(ptr);
         }
 
         virtual void RemoveMin() // (concrete function must throw std::length_error when empty)
@@ -89,7 +92,9 @@ namespace lasd
 
             if (size == 0)
                 throw std::length_error("Length error!");
-            NodeLnk *ptr = DetachMin(root);
+            NodeLnk *ptr = nullptr;
+            NodeLnk* ptr2 = DetachMin(root);
+            std::swap(ptr,ptr2);
             delete ptr;
         }
 
@@ -104,7 +109,10 @@ namespace lasd
         {
             if (size == 0)
                 throw std::length_error("Length error!");
-            return DataNDelete(DetachMax(root));
+            NodeLnk *ptr = nullptr;
+            NodeLnk* ptr2 = DetachMax(root);
+            std::swap(ptr, ptr2);
+            return DataNDelete(ptr);
         }
 
         virtual void RemoveMax() // (concrete function must throw std::length_error when empty)
@@ -131,7 +139,7 @@ namespace lasd
             std::swap(ptr,*FindPointerToPredecessor(root, d));
             if (ptr == nullptr)
                 throw std::length_error("Length error!");
-            return DataNDelete(ptr);
+            return DataNDelete(Detach(ptr));
         }
 
         virtual void RemovePredecessor(const Data& d) // (concrete function must throw std::length_error when not found)
