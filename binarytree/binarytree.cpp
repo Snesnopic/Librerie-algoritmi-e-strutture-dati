@@ -31,6 +31,8 @@ namespace lasd
     template<typename Data>
     bool BinaryTree<Data>::operator==(const BinaryTree& bt) const noexcept
     {
+        if(size == 0 && 0 == bt.size)
+            return true;
         if (size == bt.size)
             return Root() == bt.Root();
         return false;
