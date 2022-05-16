@@ -95,7 +95,7 @@ namespace lasd
     {
         QueueLst<Node *> queue{};
         queue.Enqueue(&Root());
-        Node *n = nullptr;
+        Node *n;
         while (!queue.Empty())
         {
             n = queue.Head();
@@ -113,7 +113,7 @@ namespace lasd
     {
         QueueLst<Node *> queue{};
         queue.Enqueue(&Root());
-        Node *n = nullptr;
+        Node *n;
         while (!queue.Empty())
         {
             n = queue.Head();
@@ -193,7 +193,8 @@ namespace lasd
     template<typename Data>
     BTPreOrderIterator<Data>::BTPreOrderIterator(const BinaryTree<Data>& bt) // An iterator over a given binary tree
     {
-        curr = &bt.Root();
+        if(!bt.Empty())
+            curr = &bt.Root();
         treePtr = &bt;
     }
 
@@ -238,7 +239,8 @@ namespace lasd
     BTPostOrderIterator<Data>::BTPostOrderIterator(const BinaryTree<Data>& bt) // An iterator over a given binary tree
     {
         treePtr = &bt;
-        curr = minLeaf(&bt.Root());
+        if(!bt.Empty())
+            curr = minLeaf(&bt.Root());
     }
 
     template<typename Data>
@@ -280,7 +282,8 @@ namespace lasd
     BTInOrderIterator<Data>::BTInOrderIterator(const BinaryTree<Data>& bt) // An iterator over a given binary tree
     {
         treePtr = &bt;
-        curr = min(&bt.Root());
+        if(!bt.Empty())
+            curr = min(&bt.Root());
     }
 
     template<typename Data>
@@ -309,7 +312,8 @@ namespace lasd
     template<typename Data>
     BTBreadthIterator<Data>::BTBreadthIterator(const BinaryTree<Data>& bt) // An iterator over a given binary tree
     {
-        curr = &bt.Root();
+        if(!bt.Empty())
+            curr = &bt.Root();
         treePtr = &bt;
     }
 
