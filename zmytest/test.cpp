@@ -70,7 +70,7 @@ void FoldConcatLessEqualN(const Data& dat, const void *_, void *acc)
 template<typename Data>
 void MapPrint(Data& dat, void *_)
 {
-    std::cout << dat << " ";
+    cout << dat << " ";
 }
 
 template<typename Data>
@@ -107,7 +107,7 @@ void MapUppercase(Data& dat, void *_)
 template<typename Data>
 void MapAppend(Data& dat, void *_)
 {
-    dat.append(*((std::string *)_));
+    dat.append(*((string *)_));
 }
 
 template<typename Data>
@@ -552,7 +552,7 @@ void bsttest(BST<Data>& bst)
     {
         cout << "0. Torna indietro" << endl << "1. Visualizza in ampiezza" << endl << "2. Visualizza in pre-ordine" << endl << "3. Visualizza in ordine" << endl
              << "4. Visualizza in post-ordine" << endl << "5. Controlla esistenza di un valore" << endl << "6. Calcola la funzione di fold relativa al dato" << endl
-             << "7. Applica funzione map a tutti gli elementi" << endl;
+             << "7. Rimuovi un valore" << endl;
         string input;
         cin >> input;
         testtype = stoi(input);
@@ -630,33 +630,29 @@ void bsttest(BST<Data>& bst)
             }
             case 7:
             {
-                if constexpr (is_same<Data, int>::value)
+                Data search{};
+                cout << "Inserisci l'elemento da rimuovere: ";
+                cin >> search;
+                bool found = bst.Exists(search);
+                if (!found)
+                    cout << "Valore non trovato!" << endl;
+                else
                 {
-                    cout << "Funzione map per questo tipo di dato: 3n" << endl;
-                    bst.Map(&MapTriple<Data>, 0);
-                    cout << "Fatto, prova a stampare" << endl;
-                }
-                if constexpr (is_same<Data, double>::value)
-                {
-                    cout << "Funzione map per questo tipo di dato: n^3;" << endl;
-                    bst.Map(&MapCube<Data>, 0);
-                    cout << "Fatto, prova a stampare" << endl;
-                }
-                if constexpr (is_same<Data, string>::value)
-                {
-                    cout << "Funzione map per questo tipo di dato: n + str;" << endl << "Inserisci str:   ";
-                    string n = "";
-                    cin >> n;
-                    bst.Map(&MapAppend<Data>, &n);
-                    cout << "Fatto, prova a stampare" << endl;
+                    bst.Remove((Data)search);
+                    cout << "Valore trovato e eliminato!" << endl;
+                    if(bst.Exists(search))
+                        cout << "Qualcosa non va"<<endl;
                 }
                 break;
+            }
+            case 8:
+            {
+                cout << "La size è: "<<bst.Size()<<endl;
             }
             default:
                 cout << "Errore di input" << endl;
         }
     }
-
 }
 
 void vectortest()
@@ -1036,7 +1032,7 @@ void binarytreetest()
     bool selection = false;
     while (!selection)
     {
-        cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro";
+        cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro" << endl;
         string input;
         cin >> input;
         testtype = stoi(input);
@@ -1136,7 +1132,7 @@ void bsttest()
     bool selection = false;
     while (!selection)
     {
-        cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro";
+        cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro" << endl;
         string input;
         cin >> input;
         testtype = stoi(input);
@@ -1148,36 +1144,33 @@ void bsttest()
             case 1:
             {
                 uniform_int_distribution<int> dist(0, 100);
-                Vector<int> v(size);
+                BST<int> bst;
                 for (unsigned long i = 0; i < size; i++)
                 {
-                    v[i] = dist(gen);
+                    bst.Insert(dist(gen));
                 }
-                BST<int> bst(v);
                 bsttest(bst);
                 break;
             }
             case 2:
             {
                 uniform_real_distribution<double> dist(0, 100);
-                Vector<double> v(size);
+                BST<double> bst;
                 for (unsigned long i = 0; i < size; i++)
                 {
-                    v[i] = round(dist(gen) * 1000.0) / 1000.0;
+                    bst.Insert(round(dist(gen) * 1000.0) / 1000.0);
                 }
-                BST<double> bst(v);
                 bsttest(bst);
                 break;
             }
             case 3:
             {
                 uniform_int_distribution<int> dist(2, 5);
-                Vector<string> v(size);
+                BST<string> bst;
                 for (unsigned long i = 0; i < size; i++)
                 {
-                    v[i] = GeneraStringaCasuale(dist(gen));
+                    bst.Insert(GeneraStringaCasuale(dist(gen)));
                 }
-                BST<string> bst(v);
                 bsttest(bst);
                 break;
             }
