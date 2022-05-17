@@ -183,25 +183,27 @@ namespace lasd
 
         virtual void Insert(const Data& d) override// Override DictionaryContainer member (Copy of the value)
         {
-            FindPointerTo(root, d) = new NodeLnk(d);
-            size++;
+            NodeLnk*& ptr = FindPointerTo(root,d);
+            if(ptr == nullptr)
+            {
+                size++;
+                ptr = new NodeLnk(d);
+            }
         }
 
         virtual void Insert(Data&& d) override // Override DictionaryContainer member (Move of the value)
         {
-            FindPointerTo(root, d) = new NodeLnk(std::move(d));
-            size++;
+            NodeLnk*& ptr = FindPointerTo(root,d);
+            if(ptr == nullptr)
+            {
+                size++;
+                ptr = new NodeLnk(std::move(d));
+            }
         }
 
         virtual void Remove(const Data& d) override // Override DictionaryContainer member
         {
-            NodeLnk* ptr = Detach(FindPointerTo(root, d));
-            if(ptr != nullptr)
-            {
-                delete ptr;
-                NodeLnk* ptr2 = nullptr;
-                std::swap(ptr,ptr2);
-            }
+            delete DetachMax(FindPointerTo(root,d));
         }
 
         /* ************************************************************************ */
@@ -371,7 +373,7 @@ namespace lasd
                 }
                 else
                 {
-                    if (cur.right == nullptr)
+                    if (cur.left == nullptr)
                         return tmp;
                     else
                     {
