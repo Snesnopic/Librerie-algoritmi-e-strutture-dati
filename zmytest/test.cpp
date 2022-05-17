@@ -648,6 +648,7 @@ void bsttest(BST<Data>& bst)
             case 8:
             {
                 cout << "La size è: "<<bst.Size()<<endl;
+                break;
             }
             default:
                 cout << "Errore di input" << endl;
@@ -1182,36 +1183,6 @@ void bsttest()
 
 void mytest()
 {
-    try
-    {
-
-
-    List<int> l;
-    for(int i = 0; i<10;i++)
-    {
-        l.InsertAtBack(i);
-    }
-    BinaryTreeLnk<int> btl(l);
-    BTInOrderIterator<int> i(btl);
-    BTPreOrderIterator<int> pr(btl);
-    BTPostOrderIterator<int> po(btl);
-    BTBreadthIterator<int> b(btl);
-    int j = 1;
-    while(!i.Terminated())
-    {
-        cout<<"Iterazione "<<j<<": "<<*i<<*pr<<*po<<*b<<endl;
-        ++i;
-        ++pr;
-        ++po;
-        ++b;
-        j++;
-    }
-    }
-    catch(...)
-    {
-        cout<<"Errore!!!!!!!!!!!";
-        return;
-    }
     bool selection = false;
     int testtype = 0;
     while (!selection)
