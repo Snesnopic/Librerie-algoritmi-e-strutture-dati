@@ -668,7 +668,7 @@ void vectortest()
     bool selection = false;
     while (!selection)
     {
-        cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro";
+        cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro" << endl;
         string input;
         cin >> input;
         testtype = stoi(input);
@@ -728,7 +728,7 @@ void listtest()
     bool selection = false;
     while (!selection)
     {
-        cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro";
+        cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro" << endl;
         string input;
         cin >> input;
         testtype = stoi(input);
@@ -806,7 +806,7 @@ void stacktest()
     string input;
     cin >> input;
     size = stoi(input);
-    cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro";
+    cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro" << endl;
     bool selection = false;
     while (!selection)
     {
@@ -916,7 +916,7 @@ void queuetest()
     string input;
     cin >> input;
     size = stoi(input);
-    cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro";
+    cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro" << endl;
     bool selection = false;
     while (!selection)
     {
@@ -1187,7 +1187,7 @@ void mytest()
     int testtype = 0;
     while (!selection)
     {
-        cout << endl << "Test menu' " << endl << "0. Esci" << endl << "1. Test su Liste" << endl << "2. Test su Vector" << endl << "3. Test su Stack" << endl << "4. Test su Queue"
+        cout << endl << "Test menu' " << endl << "0. Esci" << endl << "1. Test su List" << endl << "2. Test su Vector" << endl << "3. Test su Stack" << endl << "4. Test su Queue"
              << endl << "5. Test su Binarytree" << endl << "6. Test su BST" << endl << "7. Test del professore" << endl;
         string input;
         cin >> input;
