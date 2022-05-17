@@ -224,9 +224,9 @@ namespace lasd
     struct BinaryTree<Data>::Node *BTPostOrderIterator<Data>::minLeaf(struct BinaryTree<Data>::Node *n)
     {
         struct BinaryTree<Data>::Node *tmp = n;
+
+
         stack.Push(tmp);
-        if (tmp->HasRightChild())
-            stack.Push(&tmp->RightChild());
         if (tmp->HasLeftChild())
         {
             return minLeaf(&tmp->LeftChild());
@@ -258,10 +258,12 @@ namespace lasd
                 curr = stack.TopNPop();
             else
             {
-                if (stack.Top()->HasRightChild())
-                    curr = minLeaf(&(stack.TopNPop()->RightChild()));
-                else
-                    curr = stack.TopNPop();
+                if (stack.Top()->HasLeftChild() && curr == &(stack.Top()->LeftChild())) {
+                    if (!stack.Top()->HasRightChild())
+                        curr = stack.TopNPop();
+                    else
+                        curr = minLeaf(&(stack.Top()->RightChild()));
+                }
             }
         }
         return *this;
