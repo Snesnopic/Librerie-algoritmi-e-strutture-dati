@@ -645,8 +645,6 @@ void bsttest(BST<Data>& bst)
                 }
                 break;
             }
-            case 8:
-                cout << bst.Size() << endl;
             default:
                 cout << "Errore di input" << endl;
         }
@@ -1180,12 +1178,6 @@ void bsttest()
 
 void mytest()
 {
-    List<int> l;
-    l.InsertAtBack(0);
-    l.InsertAtBack(-1);
-    l.InsertAtBack(1);
-    BST<int> bst(l);
-    bst.Remove(1);
     bool selection = false;
     int testtype = 0;
     while (!selection)
