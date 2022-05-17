@@ -118,7 +118,7 @@ void vectortest(Vector<Data>& v)
     while (!selection)
     {
         cout << "0. Torna indietro" << endl << "1. Stampa tutti gli elementi" << endl << "2. Controlla esistenza di un elemento" << endl
-             << "3. Calcola la funzione di fold relativa al dato: Concatenazione per lunghezza minore o uguale a n" << endl << "4. Applica funzione map a tutti gli elementi"
+             << "3. Calcola la funzione fold relativa al dato" << endl << "4. Applica funzione map a tutti gli elementi"
              << endl;
         string input;
         cin >> input;
@@ -209,7 +209,7 @@ void listtest(List<Data>& l)
     while (!selection)
     {
         cout << "0. Torna indietro" << endl << "1. Stampa tutti gli elementi" << endl << "2. Controlla esistenza di un elemento" << endl
-             << "3. Calcola la funzione di fold relativa al dato: Concatenazione per lunghezza minore o uguale a n" << endl << "4. Applica funzione map a tutti gli elementi"
+             << "3. Calcola la funzione fold relativa al dato" << endl << "4. Applica funzione map a tutti gli elementi"
              << endl;
         string input;
         cin >> input;
@@ -435,7 +435,7 @@ void binarytreetest(BinaryTree<Data>& bt)
     while (!selection)
     {
         cout << "0. Torna indietro" << endl << "1. Visualizza in ampiezza" << endl << "2. Visualizza in pre-ordine" << endl << "3. Visualizza in ordine" << endl
-             << "4. Visualizza in post-ordine" << endl << "5. Controlla esistenza di un valore" << endl << "6. Calcola la funzione di fold relativa al dato" << endl
+             << "4. Visualizza in post-ordine" << endl << "5. Controlla esistenza di un valore" << endl << "6. Calcola la funzione fold relativa al dato" << endl
              << "7. Applica funzione map a tutti gli elementi" << endl;
         string input;
         cin >> input;
@@ -551,7 +551,7 @@ void bsttest(BST<Data>& bst)
     while (!selection)
     {
         cout << "0. Torna indietro" << endl << "1. Visualizza in ampiezza" << endl << "2. Visualizza in pre-ordine" << endl << "3. Visualizza in ordine" << endl
-             << "4. Visualizza in post-ordine" << endl << "5. Controlla esistenza di un valore" << endl << "6. Calcola la funzione di fold relativa al dato" << endl
+             << "4. Visualizza in post-ordine" << endl << "5. Controlla esistenza di un valore" << endl << "6. Calcola la funzione fold relativa al dato" << endl
              << "7. Rimuovi un valore" << endl;
         string input;
         cin >> input;
@@ -638,7 +638,7 @@ void bsttest(BST<Data>& bst)
                     cout << "Valore non trovato!" << endl;
                 else
                 {
-                    bst.Remove((Data)search);
+                    bst.Remove(search);
                     cout << "Valore trovato e eliminato!" << endl;
                     if(bst.Exists(search))
                         cout << "Qualcosa non va"<<endl;
@@ -646,10 +646,7 @@ void bsttest(BST<Data>& bst)
                 break;
             }
             case 8:
-            {
-                cout << "La size è: "<<bst.Size()<<endl;
-                break;
-            }
+                cout << bst.Size() << endl;
             default:
                 cout << "Errore di input" << endl;
         }
@@ -1146,7 +1143,7 @@ void bsttest()
             {
                 uniform_int_distribution<int> dist(0, 100);
                 BST<int> bst;
-                for (unsigned long i = 0; i < size; i++)
+                for (; bst.Size() < size;)
                 {
                     bst.Insert(dist(gen));
                 }
@@ -1157,7 +1154,7 @@ void bsttest()
             {
                 uniform_real_distribution<double> dist(0, 100);
                 BST<double> bst;
-                for (unsigned long i = 0; i < size; i++)
+                for (; bst.Size() < size;)
                 {
                     bst.Insert(round(dist(gen) * 1000.0) / 1000.0);
                 }
@@ -1168,7 +1165,7 @@ void bsttest()
             {
                 uniform_int_distribution<int> dist(2, 5);
                 BST<string> bst;
-                for (unsigned long i = 0; i < size; i++)
+                for (; bst.Size() < size;)
                 {
                     bst.Insert(GeneraStringaCasuale(dist(gen)));
                 }
@@ -1183,6 +1180,12 @@ void bsttest()
 
 void mytest()
 {
+    List<int> l;
+    l.InsertAtBack(0);
+    l.InsertAtBack(-1);
+    l.InsertAtBack(1);
+    BST<int> bst(l);
+    bst.Remove(1);
     bool selection = false;
     int testtype = 0;
     while (!selection)
