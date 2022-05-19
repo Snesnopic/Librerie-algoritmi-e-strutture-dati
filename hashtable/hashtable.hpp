@@ -1,71 +1,86 @@
-#ifndef HASHTABLETEST_HPP
-#define HASHTABLETEST_HPP
-
-#include "../../hashtable/hashtable.hpp"
+#ifndef HASHTABLE_HPP
+#define HASHTABLE_HPP
 
 /* ************************************************************************** */
 
-template<typename HT>
-void EqualHT(unsigned int& testnum, unsigned int& testerr, const HT& ht1, const HT& ht2)
-{
-    testnum++;
-    bool tst;
-    try
-    {
-        std::cout << " " << testnum << " (" << testerr << ") The two hash tables are " << ((tst = (ht1 == ht2)) ? "" : "not ") << "equal: ";
-        std::cout << (tst ? "Correct" : "Error") << "!" << std::endl;
-    }
-    catch (std::exception exc)
-    {
-        std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
-    }
-    testerr += (1 - (unsigned int)tst);
-}
-
-template<typename HT>
-void NonEqualHT(unsigned int& testnum, unsigned int& testerr, const HT& ht1, const HT& ht2)
-{
-    testnum++;
-    bool tst;
-    try
-    {
-        std::cout << " " << testnum << " (" << testerr << ") The two hash tables are " << ((tst = (ht1 != ht2)) ? "not " : "") << "equal: ";
-        std::cout << (tst ? "Correct" : "Error") << "!" << std::endl;
-    }
-    catch (std::exception exc)
-    {
-        std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
-    }
-    testerr += (1 - (unsigned int)tst);
-}
+#include <random>
 
 /* ************************************************************************** */
 
-template<typename Data>
-void CountHT(unsigned int& testnum, unsigned int& testerr, const lasd::HashTable <Data>& ht, const lasd::LinearContainer <Data>& con, unsigned int num)
-{
-    testnum++;
-    bool tst;
-    unsigned int cnt = 0;
-    try
-    {
-        for (unsigned int i = 0; i < con.Size(); ++i)
-        {
-            if (ht.Exists(con[i]))
-            {
-                ++cnt;
-            }
-        }
-        std::cout << " " << testnum << " (" << testerr << ") The hash table contains " << cnt << " elements of the linear container: ";
-        std::cout << ((tst = (cnt == num)) ? "Correct" : "Error") << "!" << std::endl;
-    }
-    catch (std::exception exc)
-    {
-        std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
-    }
-    testerr += (1 - (unsigned int)tst);
-}
+#include "../container/container.hpp"
 
 /* ************************************************************************** */
+
+namespace lasd
+{
+
+/* ************************************************************************** */
+
+    template<typename Data>
+    class Hash
+    {
+
+    public:
+
+        // type operator()(argument) specifiers; // (concrete function should not throw exceptions)
+
+    };
+
+/* ************************************************************************** */
+
+    template<typename Data>
+    class HashTable
+    { // Must extend DictionaryContainer<Data>,
+        //             MappableContainer<Data>,
+        //             FoldableContainer<Data>
+
+    private:
+
+        // ...
+
+    protected:
+
+        // using DictionaryContainer<Data>::???;
+
+        // ...
+
+    public:
+
+        // Destructor
+        // ~HashTable() specifiers
+
+        /* ************************************************************************ */
+
+        // Copy assignment
+        // type operator=(argument); // Copy assignment of abstract types should not be possible.
+
+        // Move assignment
+        // type operator=(argument); // Move assignment of abstract types should not be possible.
+
+        /* ************************************************************************ */
+
+        // Comparison operators
+        // type operator==(argument) specifiers; // Comparison of abstract binary tree is possible.
+        // type operator!=(argument) specifiers; // Comparison of abstract binary tree is possible.
+
+        /* ************************************************************************ */
+
+        // Specific member function
+
+        // type Resize(argument) specifiers; // Resize the hashtable to a given size
+
+    protected:
+
+        // Auxiliary member functions
+
+        // type HashKey(argument) specifiers;
+
+    };
+
+/* ************************************************************************** */
+
+}
+
+#include "hashtable.cpp"
 
 #endif
