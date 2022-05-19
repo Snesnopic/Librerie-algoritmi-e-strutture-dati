@@ -181,7 +181,11 @@ namespace lasd
         virtual void Insert(const Data& d) = 0; // Copy of the value
         virtual void Insert(Data&& d) = 0; // Move of the value
         virtual void Remove(const Data& d) = 0; // Override DictionaryContainer member
-
+/*
+        virtual void Insert(const LinearContainer& lc) = 0; // Copy of the value
+        virtual void Insert(LinearContainer&& lc) = 0; // Move of the value
+        virtual void Remove(const LinearContainer& lc) = 0; // Override DictionaryContainer member
+*/
     };
 
 /* ************************************************************************** */
