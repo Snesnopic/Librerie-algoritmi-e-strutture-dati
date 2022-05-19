@@ -86,6 +86,63 @@ void Remove(unsigned int& testnum, unsigned int& testerr, lasd::DictionaryContai
     testerr += (1 - (unsigned int)tst);
 }
 
+template<typename Data>
+void InsertC(unsigned int& testnum, unsigned int& testerr, lasd::DictionaryContainer<Data>& con, const lasd::LinearContainer<Data>& lc)
+{
+    testnum++;
+    bool tst = true;
+    try
+    {
+        std::cout << " " << testnum << " (" << testerr << ") Insertion in the dictionary container of the values of the given linear container: ";
+        con.Insert(lc);
+        std::cout << "Correct!" << std::endl;
+    }
+    catch (std::exception exc)
+    {
+        tst = false;
+        std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
+    }
+    testerr += (1 - (unsigned int)tst);
+}
+
+template<typename Data>
+void InsertM(unsigned int& testnum, unsigned int& testerr, lasd::DictionaryContainer<Data>& con, lasd::LinearContainer<Data>&& lc)
+{
+    testnum++;
+    bool tst = true;
+    try
+    {
+        std::cout << " " << testnum << " (" << testerr << ") Insertion in the dictionary container of the values of the given linear container: ";
+        con.Insert(std::move(lc));
+        std::cout << "Correct!" << std::endl;
+    }
+    catch (std::exception exc)
+    {
+        tst = false;
+        std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
+    }
+    testerr += (1 - (unsigned int)tst);
+}
+
+template<typename Data>
+void Remove(unsigned int& testnum, unsigned int& testerr, lasd::DictionaryContainer<Data>& con, const lasd::LinearContainer<Data>& lc)
+{
+    testnum++;
+    bool tst = true;
+    try
+    {
+        std::cout << " " << testnum << " (" << testerr << ") Removal from the dictionary container of the values of the given linear container: ";
+        con.Remove(lc);
+        std::cout << "Correct!" << std::endl;
+    }
+    catch (std::exception exc)
+    {
+        tst = false;
+        std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
+    }
+    testerr += (1 - (unsigned int)tst);
+}
+
 /* ************************************************************************** */
 
 // LinearContainer member functions!

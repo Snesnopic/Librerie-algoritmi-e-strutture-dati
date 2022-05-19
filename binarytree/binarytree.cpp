@@ -31,7 +31,7 @@ namespace lasd
     template<typename Data>
     bool BinaryTree<Data>::operator==(const BinaryTree& bt) const noexcept
     {
-        if(size == 0 && 0 == bt.size)
+        if (size == 0 && 0 == bt.size)
             return true;
         if (size == bt.size)
             return Root() == bt.Root();
@@ -195,7 +195,7 @@ namespace lasd
     template<typename Data>
     BTPreOrderIterator<Data>::BTPreOrderIterator(const BinaryTree<Data>& bt) // An iterator over a given binary tree
     {
-        if(!bt.Empty())
+        if (!bt.Empty())
             curr = &bt.Root();
         treePtr = &bt;
     }
@@ -241,7 +241,7 @@ namespace lasd
     BTPostOrderIterator<Data>::BTPostOrderIterator(const BinaryTree<Data>& bt) // An iterator over a given binary tree
     {
         treePtr = &bt;
-        if(!bt.Empty())
+        if (!bt.Empty())
             curr = minLeaf(&bt.Root());
     }
 
@@ -258,7 +258,8 @@ namespace lasd
                 curr = stack.TopNPop();
             else
             {
-                if (stack.Top()->HasLeftChild() && curr == &(stack.Top()->LeftChild())) {
+                if (stack.Top()->HasLeftChild() && curr == &(stack.Top()->LeftChild()))
+                {
                     if (!stack.Top()->HasRightChild())
                         curr = stack.TopNPop();
                     else
@@ -286,7 +287,7 @@ namespace lasd
     BTInOrderIterator<Data>::BTInOrderIterator(const BinaryTree<Data>& bt) // An iterator over a given binary tree
     {
         treePtr = &bt;
-        if(!bt.Empty())
+        if (!bt.Empty())
             curr = min(&bt.Root());
     }
 
@@ -316,7 +317,7 @@ namespace lasd
     template<typename Data>
     BTBreadthIterator<Data>::BTBreadthIterator(const BinaryTree<Data>& bt) // An iterator over a given binary tree
     {
-        if(!bt.Empty())
+        if (!bt.Empty())
             curr = &bt.Root();
         treePtr = &bt;
     }

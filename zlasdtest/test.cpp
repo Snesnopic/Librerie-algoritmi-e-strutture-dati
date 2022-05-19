@@ -6,7 +6,7 @@
 
 #include "./exercise4/test.hpp"
 
-// #include "./exercise5/test.hpp"
+#include "./exercise5/test.hpp"
 
 /* ************************************************************************** */
 

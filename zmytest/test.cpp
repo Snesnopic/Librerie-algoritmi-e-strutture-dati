@@ -118,8 +118,7 @@ void vectortest(Vector<Data>& v)
     while (!selection)
     {
         cout << "0. Torna indietro" << endl << "1. Stampa tutti gli elementi" << endl << "2. Controlla esistenza di un elemento" << endl
-             << "3. Calcola la funzione fold relativa al dato" << endl << "4. Applica funzione map a tutti gli elementi"
-             << endl;
+             << "3. Calcola la funzione fold relativa al dato" << endl << "4. Applica funzione map a tutti gli elementi" << endl;
         string input;
         cin >> input;
         int testtype = stoi(input);
@@ -209,8 +208,7 @@ void listtest(List<Data>& l)
     while (!selection)
     {
         cout << "0. Torna indietro" << endl << "1. Stampa tutti gli elementi" << endl << "2. Controlla esistenza di un elemento" << endl
-             << "3. Calcola la funzione fold relativa al dato" << endl << "4. Applica funzione map a tutti gli elementi"
-             << endl;
+             << "3. Calcola la funzione fold relativa al dato" << endl << "4. Applica funzione map a tutti gli elementi" << endl;
         string input;
         cin >> input;
         int testtype = stoi(input);
@@ -640,8 +638,8 @@ void bsttest(BST<Data>& bst)
                 {
                     bst.Remove(search);
                     cout << "Valore trovato e eliminato!" << endl;
-                    if(bst.Exists(search))
-                        cout << "Qualcosa non va"<<endl;
+                    if (bst.Exists(search))
+                        cout << "Qualcosa non va" << endl;
                 }
                 break;
             }
@@ -663,7 +661,8 @@ void vectortest()
     bool selection = false;
     while (!selection)
     {
-        cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro" << endl;
+        cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro"
+             << endl;
         string input;
         cin >> input;
         testtype = stoi(input);
@@ -723,7 +722,8 @@ void listtest()
     bool selection = false;
     while (!selection)
     {
-        cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro" << endl;
+        cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro"
+             << endl;
         string input;
         cin >> input;
         testtype = stoi(input);
@@ -1028,7 +1028,8 @@ void binarytreetest()
     bool selection = false;
     while (!selection)
     {
-        cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro" << endl;
+        cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro"
+             << endl;
         string input;
         cin >> input;
         testtype = stoi(input);
@@ -1128,7 +1129,8 @@ void bsttest()
     bool selection = false;
     while (!selection)
     {
-        cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro" << endl;
+        cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro"
+             << endl;
         string input;
         cin >> input;
         testtype = stoi(input);

@@ -82,7 +82,7 @@ namespace lasd
             if (size == 0)
                 throw std::length_error("Length error!");
             NodeLnk *ptr = nullptr;
-            NodeLnk* ptr2 = DetachMin(root);
+            NodeLnk *ptr2 = DetachMin(root);
             std::swap(ptr, ptr2);
             return DataNDelete(ptr);
         }
@@ -93,8 +93,8 @@ namespace lasd
             if (size == 0)
                 throw std::length_error("Length error!");
             NodeLnk *ptr = nullptr;
-            NodeLnk* ptr2 = DetachMin(root);
-            std::swap(ptr,ptr2);
+            NodeLnk *ptr2 = DetachMin(root);
+            std::swap(ptr, ptr2);
             delete ptr;
         }
 
@@ -110,7 +110,7 @@ namespace lasd
             if (size == 0)
                 throw std::length_error("Length error!");
             NodeLnk *ptr = nullptr;
-            NodeLnk* ptr2 = DetachMax(root);
+            NodeLnk *ptr2 = DetachMax(root);
             std::swap(ptr, ptr2);
             return DataNDelete(ptr);
         }
@@ -120,8 +120,8 @@ namespace lasd
             if (size == 0)
                 throw std::length_error("Length error!");
             NodeLnk *ptr = nullptr;
-            NodeLnk* ptr2 = DetachMax(root);
-            std::swap(ptr,ptr2);
+            NodeLnk *ptr2 = DetachMax(root);
+            std::swap(ptr, ptr2);
             delete ptr;
         }
 
@@ -136,7 +136,7 @@ namespace lasd
         virtual Data PredecessorNRemove(const Data& d) // (concrete function must throw std::length_error when not found)
         {
             NodeLnk *ptr = nullptr;
-            std::swap(ptr,*FindPointerToPredecessor(root, d));
+            std::swap(ptr, *FindPointerToPredecessor(root, d));
             if (ptr == nullptr)
                 throw std::length_error("Length error!");
             return DataNDelete(Detach(ptr));
@@ -145,7 +145,7 @@ namespace lasd
         virtual void RemovePredecessor(const Data& d) // (concrete function must throw std::length_error when not found)
         {
             NodeLnk *ptr = nullptr;
-            std::swap(ptr,*FindPointerToPredecessor(root, d));
+            std::swap(ptr, *FindPointerToPredecessor(root, d));
             if (ptr == nullptr)
                 throw std::length_error("Length error!");
             delete Detach(ptr);
@@ -162,7 +162,7 @@ namespace lasd
         virtual Data SuccessorNRemove(const Data& d) // (concrete function must throw std::length_error when not found)
         {
             NodeLnk *ptr = nullptr;
-            std::swap(ptr,*FindPointerToSuccessor(root, d));
+            std::swap(ptr, *FindPointerToSuccessor(root, d));
             if (ptr == nullptr)
                 throw std::length_error("Length error!");
             return DataNDelete(Detach(ptr));
@@ -171,7 +171,7 @@ namespace lasd
         virtual void RemoveSuccessor(const Data& d) // (concrete function must throw std::length_error when not found)
         {
             NodeLnk *ptr = nullptr;
-            std::swap(ptr,*FindPointerToSuccessor(root, d));
+            std::swap(ptr, *FindPointerToSuccessor(root, d));
             if (ptr == nullptr)
                 throw std::length_error("Length error!");
             delete Detach(ptr);
@@ -183,8 +183,8 @@ namespace lasd
 
         virtual void Insert(const Data& d) override// Override DictionaryContainer member (Copy of the value)
         {
-            NodeLnk*& ptr = FindPointerTo(root,d);
-            if(ptr == nullptr)
+            NodeLnk *& ptr = FindPointerTo(root, d);
+            if (ptr == nullptr)
             {
                 size++;
                 ptr = new NodeLnk(d);
@@ -193,8 +193,8 @@ namespace lasd
 
         virtual void Insert(Data&& d) override // Override DictionaryContainer member (Move of the value)
         {
-            NodeLnk*& ptr = FindPointerTo(root,d);
-            if(ptr == nullptr)
+            NodeLnk *& ptr = FindPointerTo(root, d);
+            if (ptr == nullptr)
             {
                 size++;
                 ptr = new NodeLnk(std::move(d));
@@ -203,7 +203,7 @@ namespace lasd
 
         virtual void Remove(const Data& d) override // Override DictionaryContainer member
         {
-            delete DetachMax(FindPointerTo(root,d));
+            delete DetachMax(FindPointerTo(root, d));
         }
 
         /* ************************************************************************ */
@@ -230,15 +230,15 @@ namespace lasd
         {
             if (n != nullptr)
             {
-                if(n->HasRightChild() && n->HasLeftChild())
+                if (n->HasRightChild() && n->HasLeftChild())
                 {
                     return DetachMin(n->right);
                 }
                 else
                 {
-                    if(n->HasRightChild())
+                    if (n->HasRightChild())
                         return Skip2Right(n);
-                    if(n->HasLeftChild())
+                    if (n->HasLeftChild())
                         return Skip2Left(n);
                     size--;
                     return n;

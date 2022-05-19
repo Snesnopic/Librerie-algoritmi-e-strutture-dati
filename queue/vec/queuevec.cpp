@@ -178,7 +178,7 @@ namespace lasd
     template<typename Data>
     void QueueVec<Data>::Expand() noexcept
     {
-        if(size == 0)
+        if (size == 0)
             size = 1;
         Data *tmp = new Data[size * 2];
         SwapVectors(tmp);

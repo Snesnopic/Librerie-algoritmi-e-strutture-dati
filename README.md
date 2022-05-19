@@ -160,21 +160,22 @@ Le funzionalita da realizzare sono di seguito elencate:
    a tutti gli elementi: **funzioni map**; operazioni di **accumulazione di un valore (in
    ampiezza/pre-ordine/ordine/post-ordine)** estratto dagli elementi: **funzioni fold**; test
    di **vuotezza**; lettura della **dimensione**; **svuotamento** della struttura).
-   
+
 Al fine di poter testare adeguatamente le librerie sopra descritte, si richiede di definire (esternamente alle
 stesse, in un opportuno file di test richiamato dal “main”) un insieme di procedure
 che implementi le seguenti funzionalita:
+
 1. **scelta del tipo di dati** da gestire (interi, ecc.);
 2. **popolamento della struttura** precedentemente scelta con _n_ valori del tipo opportuno
    generati casualmente, dove _n_ è un parametro dato dall’utente in ingresso;
-**visualizzazione in ampiezza/pre-ordine/ordine/post-ordine di tutti gli elementi** (effettuata per mezzo
+   **visualizzazione in ampiezza/pre-ordine/ordine/post-ordine di tutti gli elementi** (effettuata per mezzo
    dell’opportuna **funzione map**);
 3. **controllo di esistenza** di un dato valore;
 4. **calcolo di una delle seguenti funzioni** (effettuato per mezzo delle **funzioni fold**) e
    relativa visualizzazione del risultato: prodotto per gli interi minori di _n_, somma per i
    float maggiori di _n_, e concatenazione per le stringhe con lunghezza minore o uguale a _n_,
    dove _n_ è un parametro dato dall’utente in ingresso.
-   
+
 Da un opportuno menu, dovrà essere inoltre possibile operare sulla struttura scelta attraverso le
 funzioni di libreria di cui al punto (3). Infine, è necessario prevedere l’accesso alla funzionalità
 di test prevista dal docente.
@@ -183,38 +184,44 @@ sia nella strutturazione, gerarchia di classi e nei nomi delle diverse directory
 “.hpp”) la forma riportata nel template Exercise4.zip associato al presente esercizio.
 
 ## ESERCIZIO 5
+
 ## - TABELLE HASH -
-  Implementare una libreria di funzioni in **Linguaggio C++** per la gestione di una struttura dati
-  dinamica di tipo **tabella hash** contenente **dati generici**, ovvero interi, float, stringhe, struct, ecc.
-  Tale struttura dovrà essere implementata sfruttando le seguenti due **tecniche di risoluzione dei
-  conflitti**: (1) **indirizzamento chiuso / hashing aperto / concatenamento**; (2) **indirizzamento
-  aperto / hashing chiuso.**
 
-  Le funzionalità da realizzare sono di seguito elencate: 
-  1. **costruzione** e **distruzione** di una struttura dati;
-  2. operazioni di **assegnamento** e **confronto** tra istanze diverse della struttura dati;
-  3. operazioni specifiche della struttura dati (**inserimento/eliminazione** di un elemento);
-  4. operazioni generiche sulla struttura dati (**controllo di esistenza** di un dato valore; operazioni di **applicazione di una funzione** a tutti gli elementi: **funzioni map**; operazioni
-  di **accumulazione di un valore** estratto dagli elementi: **funzioni fold**; lettura della
-  **dimensione**; **svuotamento** della struttura).
+Implementare una libreria di funzioni in **Linguaggio C++** per la gestione di una struttura dati
+dinamica di tipo **tabella hash** contenente **dati generici**, ovvero interi, float, stringhe, struct, ecc.
+Tale struttura dovrà essere implementata sfruttando le seguenti due **tecniche di risoluzione dei
+conflitti**: (1) **indirizzamento chiuso / hashing aperto / concatenamento**; (2) **indirizzamento
+aperto / hashing chiuso.**
 
-  Al fine di poter testare adeguatamente le librerie sopra descritte, si richiede di definire (esternamente alle stesse, in un opportuno file di test richiamato dal “main”) un insieme di procedure
-  che implementi le seguenti funzionalità:
-  1. **scelta dell’implementazione** (indirizzamento chiuso vs indirizzamento aperto) e del
-  **tipo di dati** da gestire (interi, ecc.);
-  2. **popolamento della struttura** precedentemente scelta con _n_ valori del tipo opportuno
-  generati casualmente, dove _n_ è un parametro dato dall’utente in ingresso; 
-  3. **visualizzazione di tutti gli elementi** (effettuata per mezzo della **funzione map**);
-  4. **controllo di esistenza** di un dato valore;
-  5. **calcolo di una delle seguenti funzioni** (effettuato per mezzo della **funzione fold**) e
-  relativa visualizzazione del risultato: prodotto per gli interi minori di _n_, somma per i
-  float maggiori di _n_, e concatenazione per le stringhe con lunghezza minore o uguale a _n_,
-  dove _n_ è un parametro dato dall’utente in ingresso. 
+Le funzionalità da realizzare sono di seguito elencate:
 
-  Da un opportuno menu, dovrà essere inoltre possibile operare sulla struttura scelta attraverso le 
-  funzioni di libreria di cui al punto (3). Infine, è necessario prevedere l’accesso alla funzionalità
-  di test prevista dal docente.
+1. **costruzione** e **distruzione** di una struttura dati;
+2. operazioni di **assegnamento** e **confronto** tra istanze diverse della struttura dati;
+3. operazioni specifiche della struttura dati (**inserimento/eliminazione** di un elemento);
+4. operazioni generiche sulla struttura dati (**controllo di esistenza** di un dato valore; operazioni di **applicazione
+   di una funzione** a tutti gli elementi: **funzioni map**; operazioni
+   di **accumulazione di un valore** estratto dagli elementi: **funzioni fold**; lettura della
+   **dimensione**; **svuotamento** della struttura).
 
-  Il codice sorgente prodotto dovrà seguire pedissequamente (sia nei nomi delle funzioni di libreria,
-  sia nella strutturazione, gerarchia di classi e nei nomi delle diverse directory e file “.cpp” e
-  “.hpp”) la forma riportata nel template Exercise5.zip associato al presente esercizio.
+Al fine di poter testare adeguatamente le librerie sopra descritte, si richiede di definire (esternamente alle stesse,
+in un opportuno file di test richiamato dal “main”) un insieme di procedure
+che implementi le seguenti funzionalità:
+
+1. **scelta dell’implementazione** (indirizzamento chiuso vs indirizzamento aperto) e del
+   **tipo di dati** da gestire (interi, ecc.);
+2. **popolamento della struttura** precedentemente scelta con _n_ valori del tipo opportuno
+   generati casualmente, dove _n_ è un parametro dato dall’utente in ingresso;
+3. **visualizzazione di tutti gli elementi** (effettuata per mezzo della **funzione map**);
+4. **controllo di esistenza** di un dato valore;
+5. **calcolo di una delle seguenti funzioni** (effettuato per mezzo della **funzione fold**) e
+   relativa visualizzazione del risultato: prodotto per gli interi minori di _n_, somma per i
+   float maggiori di _n_, e concatenazione per le stringhe con lunghezza minore o uguale a _n_,
+   dove _n_ è un parametro dato dall’utente in ingresso.
+
+Da un opportuno menu, dovrà essere inoltre possibile operare sulla struttura scelta attraverso le
+funzioni di libreria di cui al punto (3). Infine, è necessario prevedere l’accesso alla funzionalità
+di test prevista dal docente.
+
+Il codice sorgente prodotto dovrà seguire pedissequamente (sia nei nomi delle funzioni di libreria,
+sia nella strutturazione, gerarchia di classi e nei nomi delle diverse directory e file “.cpp” e
+“.hpp”) la forma riportata nel template Exercise5.zip associato al presente esercizio.
