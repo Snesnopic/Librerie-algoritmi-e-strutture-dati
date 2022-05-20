@@ -583,6 +583,7 @@ void bsttest(BST<Data> &bst) {
             }
             case 8:
                 cout << "Il BST ha size: " << bst.Size() << endl;
+                break;
             default:
                 cout << "Errore di input" << endl;
         }
