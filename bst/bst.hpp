@@ -81,9 +81,7 @@ namespace lasd
         {
             if (size == 0)
                 throw std::length_error("Length error!");
-            NodeLnk *ptr = nullptr;
-            NodeLnk *ptr2 = DetachMin(root);
-            std::swap(ptr, ptr2);
+            NodeLnk *ptr = DetachMin(root);
             return DataNDelete(ptr);
         }
 
@@ -92,9 +90,7 @@ namespace lasd
 
             if (size == 0)
                 throw std::length_error("Length error!");
-            NodeLnk *ptr = nullptr;
-            NodeLnk *ptr2 = DetachMin(root);
-            std::swap(ptr, ptr2);
+            NodeLnk *ptr = DetachMin(root);
             delete ptr;
         }
 
@@ -109,9 +105,7 @@ namespace lasd
         {
             if (size == 0)
                 throw std::length_error("Length error!");
-            NodeLnk *ptr = nullptr;
-            NodeLnk *ptr2 = DetachMax(root);
-            std::swap(ptr, ptr2);
+            NodeLnk *ptr = DetachMax(root);
             return DataNDelete(ptr);
         }
 
@@ -119,9 +113,7 @@ namespace lasd
         {
             if (size == 0)
                 throw std::length_error("Length error!");
-            NodeLnk *ptr = nullptr;
-            NodeLnk *ptr2 = DetachMax(root);
-            std::swap(ptr, ptr2);
+            NodeLnk *ptr =  DetachMax(root);
             delete ptr;
         }
 
@@ -203,7 +195,11 @@ namespace lasd
 
         virtual void Remove(const Data& d) override // Override DictionaryContainer member
         {
-            delete DetachMax(FindPointerTo(root, d));
+            NodeLnk *& ptr = FindPointerTo(root, d);
+            if (ptr != nullptr)
+            {
+                delete Detach(ptr);
+            }
         }
 
         /* ************************************************************************ */
@@ -241,7 +237,10 @@ namespace lasd
                     if (n->HasLeftChild())
                         return Skip2Left(n);
                     size--;
-                    return n;
+                    NodeLnk* t = new NodeLnk(n->dato);
+                    delete n;
+                    n = nullptr;
+                    return t;
                 }
             }
             return nullptr;
