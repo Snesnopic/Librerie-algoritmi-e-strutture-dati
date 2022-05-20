@@ -11,14 +11,12 @@
 
 /* ************************************************************************** */
 
-namespace lasd
-{
+namespace lasd {
 
 /* ************************************************************************** */
 
     template<typename Data>
-    class Hash
-    {
+    class Hash {
 
     public:
 
@@ -29,8 +27,7 @@ namespace lasd
 /* ************************************************************************** */
 
     template<typename Data>
-    class HashTable
-    { // Must extend DictionaryContainer<Data>,
+    class HashTable { // Must extend DictionaryContainer<Data>,
         //             MappableContainer<Data>,
         //             FoldableContainer<Data>
 

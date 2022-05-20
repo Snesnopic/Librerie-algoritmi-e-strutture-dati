@@ -13,8 +13,7 @@
 
 /* ************************************************************************** */
 
-namespace lasd
-{
+namespace lasd {
 
 /* ************************************************************************** */
 
@@ -27,8 +26,7 @@ namespace lasd
               virtual public PreOrderFoldableContainer<Data>,
               virtual public PostOrderFoldableContainer<Data>,
               virtual public InOrderFoldableContainer<Data>,
-              virtual public BreadthFoldableContainer<Data>
-    {
+              virtual public BreadthFoldableContainer<Data> {
         // Must extend PreOrderMappableContainer<Data>,
         //             PostOrderMappableContainer<Data>,
         //             InOrderMappableContainer<Data>,
@@ -50,8 +48,7 @@ namespace lasd
 
     public:
 
-        struct Node
-        {
+        struct Node {
 
         private:
 
@@ -60,8 +57,10 @@ namespace lasd
         protected:
 
             // Comparison operators
-            bool operator==(const Node& n) const noexcept; // Comparison of abstract types is possible, but should not be visible.
-            bool operator!=(const Node& n) const noexcept; // Comparison of abstract types is possible, but should not be visible.
+            bool operator==(
+                    const Node &n) const noexcept; // Comparison of abstract types is possible, but should not be visible.
+            bool operator!=(
+                    const Node &n) const noexcept; // Comparison of abstract types is possible, but should not be visible.
 
         public:
 
@@ -76,22 +75,23 @@ namespace lasd
             /* ********************************************************************** */
 
             // Copy assignment
-            Node& operator=(const Node& n) = delete; // Copy assignment of abstract types should not be possible.
+            Node &operator=(const Node &n) = delete; // Copy assignment of abstract types should not be possible.
 
             // Move assignment
-            Node& operator=(Node&& n) noexcept = delete; // Move assignment of abstract types should not be possible.
+            Node &operator=(Node &&n) noexcept = delete; // Move assignment of abstract types should not be possible.
 
             /* ********************************************************************** */
 
 
             // Specific member functions
 
-            Data& Element() noexcept // Mutable access to the element (concrete function should not throw exceptions)
+            Data &Element() noexcept // Mutable access to the element (concrete function should not throw exceptions)
             {
                 return dato;
             };
 
-            const Data& Element() const noexcept // Immutable access to the element (concrete function should not throw exceptions)
+            const Data &
+            Element() const noexcept // Immutable access to the element (concrete function should not throw exceptions)
             {
                 return dato;
             };
@@ -104,8 +104,8 @@ namespace lasd
             virtual bool HasLeftChild() const noexcept = 0; // (concrete function should not throw exceptions)
             virtual bool HasRightChild() const noexcept = 0; // (concrete function should not throw exceptions)
 
-            virtual Node& LeftChild() const = 0; // (concrete function must throw std::out_of_range when not existent)
-            virtual Node& RightChild() const = 0; // (concrete function must throw std::out_of_range when not existent)
+            virtual Node &LeftChild() const = 0; // (concrete function must throw std::out_of_range when not existent)
+            virtual Node &RightChild() const = 0; // (concrete function must throw std::out_of_range when not existent)
 
         };
 
@@ -117,22 +117,24 @@ namespace lasd
         /* ************************************************************************ */
 
         // Copy assignment
-        BinaryTree& operator=(const BinaryTree& bt) = delete; // Copy assignment of abstract types should not be possible.
+        BinaryTree &
+        operator=(const BinaryTree &bt) = delete; // Copy assignment of abstract types should not be possible.
 
         // Move assignment
-        BinaryTree& operator=(BinaryTree&& bt) noexcept = delete; // Move assignment of abstract types should not be possible.
+        BinaryTree &
+        operator=(BinaryTree &&bt) noexcept = delete; // Move assignment of abstract types should not be possible.
 
         /* ************************************************************************ */
 
         // Comparison operators
-        bool operator==(const BinaryTree& bt) const noexcept; // Comparison of abstract binary tree is possible.
-        bool operator!=(const BinaryTree& bt) const noexcept; // Comparison of abstract binary tree is possible.
+        bool operator==(const BinaryTree &bt) const noexcept; // Comparison of abstract binary tree is possible.
+        bool operator!=(const BinaryTree &bt) const noexcept; // Comparison of abstract binary tree is possible.
 
         /* ************************************************************************ */
 
         // Specific member functions
 
-        virtual Node& Root() const = 0; // (concrete function must throw std::length_error when empty)
+        virtual Node &Root() const = 0; // (concrete function must throw std::length_error when empty)
         /* ************************************************************************ */
 
         // Specific member functions (inherited from MappableContainer)
@@ -159,7 +161,8 @@ namespace lasd
 
         // Specific member functions (inherited from PreOrderFoldableContainer)
 
-        void FoldPreOrder(FoldFunctor f, const void *par, void *acc) const override; // Override PreOrderFoldableContainer member
+        void FoldPreOrder(FoldFunctor f, const void *par,
+                          void *acc) const override; // Override PreOrderFoldableContainer member
 
         /* ************************************************************************ */
 
@@ -171,7 +174,8 @@ namespace lasd
 
         // Specific member functions (inherited from PostOrderFoldableContainer)
 
-        void FoldPostOrder(FoldFunctor f, const void *par, void *acc) const override; // Override PostOrderFoldableContainer member
+        void FoldPostOrder(FoldFunctor f, const void *par,
+                           void *acc) const override; // Override PostOrderFoldableContainer member
 
         /* ************************************************************************ */
 
@@ -183,7 +187,8 @@ namespace lasd
 
         // Specific member functions (inherited from InOrderFoldableContainer)
 
-        void FoldInOrder(FoldFunctor f, const void *par, void *acc) const override; // Override InOrderFoldableContainer member
+        void FoldInOrder(FoldFunctor f, const void *par,
+                         void *acc) const override; // Override InOrderFoldableContainer member
 
         /* ************************************************************************ */
 
@@ -195,7 +200,8 @@ namespace lasd
 
         // Specific member functions (inherited from BreadthFoldableContainer)
 
-        void FoldBreadth(FoldFunctor f, const void *par, void *acc) const override; // Override BreadthFoldableContainer member
+        void FoldBreadth(FoldFunctor f, const void *par,
+                         void *acc) const override; // Override BreadthFoldableContainer member
 
     protected:
 
@@ -207,7 +213,8 @@ namespace lasd
 
         // Auxiliary member functions (for PreOrderFoldableContainer)
 
-        void FoldPreOrder(FoldFunctor f, const void *par, void *acc, Node *n) const; // Accessory function executing from one node of the tree
+        void FoldPreOrder(FoldFunctor f, const void *par, void *acc,
+                          Node *n) const; // Accessory function executing from one node of the tree
 
         /* ************************************************************************ */
 
@@ -219,7 +226,8 @@ namespace lasd
 
         // Auxiliary member functions (for PostOrderFoldableContainer)
 
-        void FoldPostOrder(FoldFunctor f, const void *par, void *acc, Node *n) const; // Accessory function executing from one node of the tree
+        void FoldPostOrder(FoldFunctor f, const void *par, void *acc,
+                           Node *n) const; // Accessory function executing from one node of the tree
 
         /* ************************************************************************ */
 
@@ -231,15 +239,15 @@ namespace lasd
 
         // Auxiliary member functions (for InOrderFoldableContainer)
 
-        void FoldInOrder(FoldFunctor f, const void *par, void *acc, Node *n) const; // Accessory function executing from one node of the tree
+        void FoldInOrder(FoldFunctor f, const void *par, void *acc,
+                         Node *n) const; // Accessory function executing from one node of the tree
 
     };
 
 /* ************************************************************************** */
 
     template<typename Data>
-    class BTPreOrderIterator : virtual public ForwardIterator<Data>, virtual public ResettableIterator<Data>
-    {
+    class BTPreOrderIterator : virtual public ForwardIterator<Data>, virtual public ResettableIterator<Data> {
         // Must extend ForwardIterator<Data>,
         //             ResettableIterator<Data>
 
@@ -254,22 +262,20 @@ namespace lasd
     public:
 
         // Specific constructors
-        BTPreOrderIterator(const BinaryTree<Data>& bt); // An iterator over a given binary tree
+        BTPreOrderIterator(const BinaryTree<Data> &bt); // An iterator over a given binary tree
 
 
         /* ************************************************************************ */
 
         // Copy constructor
-        BTPreOrderIterator(const BTPreOrderIterator& poi)
-        {
+        BTPreOrderIterator(const BTPreOrderIterator &poi) {
             curr = poi.curr;
             stack = poi.stack;
             treePtr = poi.treePtr;
         }
 
         // Move constructor
-        BTPreOrderIterator(BTPreOrderIterator&& poi) noexcept
-        {
+        BTPreOrderIterator(BTPreOrderIterator &&poi) noexcept {
             std::swap(curr, poi.curr);
             std::swap(stack, poi.stack);
             std::swap(treePtr, poi.treePtr);
@@ -278,18 +284,15 @@ namespace lasd
         /* ************************************************************************ */
 
         // Destructor
-        virtual ~BTPreOrderIterator()
-        {
+        virtual ~BTPreOrderIterator() {
             stack.Clear();
         }
 
         /* ************************************************************************ */
 
         // Copy assignment
-        BTPreOrderIterator& operator=(const BTPreOrderIterator& poi)
-        {
-            if (this != &poi)
-            {
+        BTPreOrderIterator &operator=(const BTPreOrderIterator &poi) {
+            if (this != &poi) {
                 curr = poi.curr;
                 stack = poi.stack;
                 treePtr = poi.treePtr;
@@ -298,10 +301,8 @@ namespace lasd
         }
 
         // Move assignment
-        BTPreOrderIterator& operator=(BTPreOrderIterator&& poi) noexcept
-        {
-            if (this != &poi)
-            {
+        BTPreOrderIterator &operator=(BTPreOrderIterator &&poi) noexcept {
+            if (this != &poi) {
                 std::swap(curr, poi.curr);
                 std::swap(stack, poi.stack);
                 std::swap(treePtr, poi.treePtr);
@@ -312,13 +313,11 @@ namespace lasd
         /* ************************************************************************ */
 
         // Comparison operators
-        bool operator==(const BTPreOrderIterator& poi) const noexcept
-        {
+        bool operator==(const BTPreOrderIterator &poi) const noexcept {
             return curr == poi.curr;
         }
 
-        bool operator!=(const BTPreOrderIterator& poi) const noexcept
-        {
+        bool operator!=(const BTPreOrderIterator &poi) const noexcept {
             return !(*this == poi);
         }
 
@@ -326,7 +325,7 @@ namespace lasd
 
         // Specific member functions (inherited from Iterator)
 
-        Data& operator*() const override // (throw std::out_of_range when terminated)
+        Data &operator*() const override // (throw std::out_of_range when terminated)
         {
             if (Terminated())
                 throw std::out_of_range("Out of range!");
@@ -342,7 +341,7 @@ namespace lasd
 
         // Specific member functions (inherited from ForwardIterator)
 
-        BTPreOrderIterator& operator++() override; // (throw std::out_of_range when terminated)
+        BTPreOrderIterator &operator++() override; // (throw std::out_of_range when terminated)
 
 
         /* ************************************************************************ */
@@ -361,8 +360,7 @@ namespace lasd
 /* ************************************************************************** */
 
     template<typename Data>
-    class BTPostOrderIterator : virtual public ForwardIterator<Data>, virtual public ResettableIterator<Data>
-    {
+    class BTPostOrderIterator : virtual public ForwardIterator<Data>, virtual public ResettableIterator<Data> {
         // Must extend ForwardIterator<Data>,
         //             ResettableIterator<Data>
 
@@ -382,22 +380,20 @@ namespace lasd
     public:
 
         // Specific constructors
-        BTPostOrderIterator(const BinaryTree<Data>& bt); // An iterator over a given binary tree
+        BTPostOrderIterator(const BinaryTree<Data> &bt); // An iterator over a given binary tree
 
 
         /* ************************************************************************ */
 
         // Copy constructor
-        BTPostOrderIterator(const BTPostOrderIterator& poi)
-        {
+        BTPostOrderIterator(const BTPostOrderIterator &poi) {
             curr = poi.curr;
             stack = poi.stack;
             treePtr = poi.treePtr;
         }
 
         // Move constructor
-        BTPostOrderIterator(BTPostOrderIterator&& poi) noexcept
-        {
+        BTPostOrderIterator(BTPostOrderIterator &&poi) noexcept {
             std::swap(curr, poi.curr);
             std::swap(stack, poi.stack);
             std::swap(treePtr, poi.treePtr);
@@ -406,18 +402,15 @@ namespace lasd
         /* ************************************************************************ */
 
         // Destructor
-        virtual ~BTPostOrderIterator()
-        {
+        virtual ~BTPostOrderIterator() {
             stack.Clear();
         }
 
         /* ************************************************************************ */
 
         // Copy assignment
-        BTPostOrderIterator& operator=(const BTPostOrderIterator& poi)
-        {
-            if (this != &poi)
-            {
+        BTPostOrderIterator &operator=(const BTPostOrderIterator &poi) {
+            if (this != &poi) {
                 curr = poi.curr;
                 stack = poi.stack;
                 treePtr = poi.treePtr;
@@ -426,10 +419,8 @@ namespace lasd
         }
 
         // Move assignment
-        BTPostOrderIterator& operator=(BTPostOrderIterator&& poi) noexcept
-        {
-            if (this != &poi)
-            {
+        BTPostOrderIterator &operator=(BTPostOrderIterator &&poi) noexcept {
+            if (this != &poi) {
                 std::swap(curr, poi.curr);
                 std::swap(stack, poi.stack);
                 std::swap(treePtr, poi.treePtr);
@@ -440,16 +431,14 @@ namespace lasd
         /* ************************************************************************ */
 
         // Comparison operators
-        bool operator==(const BTPostOrderIterator& poi) const noexcept
-        {
+        bool operator==(const BTPostOrderIterator &poi) const noexcept {
             if (curr == poi.curr && stack == poi.stack && treePtr == poi.treePtr)
                 return true;
             else
                 return false;
         }
 
-        bool operator!=(const BTPostOrderIterator& poi) const noexcept
-        {
+        bool operator!=(const BTPostOrderIterator &poi) const noexcept {
             return !(*this == poi);
         }
 
@@ -457,7 +446,7 @@ namespace lasd
 
         // Specific member functions (inherited from Iterator)
 
-        Data& operator*() const override // (throw std::out_of_range when terminated)
+        Data &operator*() const override // (throw std::out_of_range when terminated)
         {
             if (Terminated())
                 throw std::out_of_range("Out of range!");
@@ -471,7 +460,7 @@ namespace lasd
         /* ************************************************************************ */
         // Specific member functions (inherited from ForwardIterator)
 
-        BTPostOrderIterator& operator++() override; // (throw std::out_of_range when terminated)
+        BTPostOrderIterator &operator++() override; // (throw std::out_of_range when terminated)
 
         /* ************************************************************************ */
 
@@ -489,8 +478,7 @@ namespace lasd
 /* ************************************************************************** */
 
     template<typename Data>
-    class BTInOrderIterator : virtual public ForwardIterator<Data>, virtual public ResettableIterator<Data>
-    {
+    class BTInOrderIterator : virtual public ForwardIterator<Data>, virtual public ResettableIterator<Data> {
         // Must extend ForwardIterator<Data>,
         //             ResettableIterator<Data>
 
@@ -508,22 +496,20 @@ namespace lasd
     public:
 
         // Specific constructors
-        BTInOrderIterator(const BinaryTree<Data>& bt); // An iterator over a given binary tree
+        BTInOrderIterator(const BinaryTree<Data> &bt); // An iterator over a given binary tree
 
 
         /* ************************************************************************ */
 
         // Copy constructor
-        BTInOrderIterator(const BTInOrderIterator& ii)
-        {
+        BTInOrderIterator(const BTInOrderIterator &ii) {
             curr = ii.curr;
             stack = ii.stack;
             treePtr = ii.treePtr;
         }
 
         // Move constructor
-        BTInOrderIterator(BTInOrderIterator&& ii) noexcept
-        {
+        BTInOrderIterator(BTInOrderIterator &&ii) noexcept {
             std::swap(curr, ii.curr);
             std::swap(stack, ii.stack);
             std::swap(treePtr, ii.treePtr);
@@ -532,18 +518,15 @@ namespace lasd
         /* ************************************************************************ */
 
         // Destructor
-        virtual ~BTInOrderIterator()
-        {
+        virtual ~BTInOrderIterator() {
             stack.Clear();
         }
 
         /* ************************************************************************ */
 
         // Copy assignment
-        BTInOrderIterator& operator=(const BTInOrderIterator& ii)
-        {
-            if (this != &ii)
-            {
+        BTInOrderIterator &operator=(const BTInOrderIterator &ii) {
+            if (this != &ii) {
                 curr = ii.curr;
                 stack = ii.stack;
                 treePtr = ii.treePtr;
@@ -552,10 +535,8 @@ namespace lasd
         }
 
         // Move assignment
-        BTInOrderIterator& operator=(BTInOrderIterator&& ii) noexcept
-        {
-            if (this != &ii)
-            {
+        BTInOrderIterator &operator=(BTInOrderIterator &&ii) noexcept {
+            if (this != &ii) {
                 std::swap(curr, ii.curr);
                 std::swap(stack, ii.stack);
                 std::swap(treePtr, ii.treePtr);
@@ -566,16 +547,14 @@ namespace lasd
         /* ************************************************************************ */
 
         // Comparison operators
-        bool operator==(const BTInOrderIterator& ii) const noexcept
-        {
+        bool operator==(const BTInOrderIterator &ii) const noexcept {
             if (curr == ii.curr && stack == ii.stack && treePtr == ii.treePtr)
                 return true;
             else
                 return false;
         }
 
-        bool operator!=(const BTInOrderIterator& ii) const noexcept
-        {
+        bool operator!=(const BTInOrderIterator &ii) const noexcept {
             return !(*this == ii);
         }
 
@@ -583,7 +562,7 @@ namespace lasd
 
         // Specific member functions (inherited from Iterator)
 
-        Data& operator*() const override // (throw std::out_of_range when terminated)
+        Data &operator*() const override // (throw std::out_of_range when terminated)
         {
             if (Terminated())
                 throw std::out_of_range("Out of range!");
@@ -597,7 +576,7 @@ namespace lasd
         /* ************************************************************************ */
         // Specific member functions (inherited from ForwardIterator)
 
-        BTInOrderIterator& operator++() override; // (throw std::out_of_range when terminated)
+        BTInOrderIterator &operator++() override; // (throw std::out_of_range when terminated)
 
         /* ************************************************************************ */
 
@@ -615,8 +594,7 @@ namespace lasd
 /* ************************************************************************** */
 
     template<typename Data>
-    class BTBreadthIterator : virtual public ForwardIterator<Data>, virtual public ResettableIterator<Data>
-    {
+    class BTBreadthIterator : virtual public ForwardIterator<Data>, virtual public ResettableIterator<Data> {
         // Must extend ForwardIterator<Data>,
         //             ResettableIterator<Data>
 
@@ -632,22 +610,20 @@ namespace lasd
     public:
 
         // Specific constructors
-        BTBreadthIterator(const BinaryTree<Data>& bt); // An iterator over a given binary tree
+        BTBreadthIterator(const BinaryTree<Data> &bt); // An iterator over a given binary tree
 
 
         /* ************************************************************************ */
 
         // Copy constructor
-        BTBreadthIterator(const BTBreadthIterator& bi)
-        {
+        BTBreadthIterator(const BTBreadthIterator &bi) {
             treePtr = bi.treePtr;
             curr = bi.curr;
             que = bi.que;
         }
 
         // Move constructor
-        BTBreadthIterator(BTBreadthIterator&& bi) noexcept
-        {
+        BTBreadthIterator(BTBreadthIterator &&bi) noexcept {
             std::swap(treePtr, bi.treePtr);
             std::swap(curr, bi.curr);
             std::swap(que, bi.que);
@@ -656,18 +632,15 @@ namespace lasd
         /* ************************************************************************ */
 
         // Destructor
-        virtual ~BTBreadthIterator()
-        {
+        virtual ~BTBreadthIterator() {
             que.Clear();
         }
 
         /* ************************************************************************ */
 
         // Copy assignment
-        BTBreadthIterator& operator=(const BTBreadthIterator& bi)
-        {
-            if (this != &bi)
-            {
+        BTBreadthIterator &operator=(const BTBreadthIterator &bi) {
+            if (this != &bi) {
                 treePtr = bi.treePtr;
                 curr = bi.curr;
                 que = bi.que;
@@ -676,10 +649,8 @@ namespace lasd
         }
 
         // Move assignment
-        BTBreadthIterator& operator=(BTBreadthIterator&& bi) noexcept
-        {
-            if (this != &bi)
-            {
+        BTBreadthIterator &operator=(BTBreadthIterator &&bi) noexcept {
+            if (this != &bi) {
                 std::swap(treePtr, bi.treePtr);
                 std::swap(curr, bi.curr);
                 std::swap(que, bi.que);
@@ -690,16 +661,14 @@ namespace lasd
         /* ************************************************************************ */
 
         // Comparison operators
-        bool operator==(const BTBreadthIterator& bi) const noexcept
-        {
+        bool operator==(const BTBreadthIterator &bi) const noexcept {
             if (treePtr == bi.treePtr && curr == bi.curr && que == bi.que)
                 return true;
             else
                 return false;
         }
 
-        bool operator!=(const BTBreadthIterator& bi) const noexcept
-        {
+        bool operator!=(const BTBreadthIterator &bi) const noexcept {
             return !(*this == bi);
         }
 
@@ -707,7 +676,7 @@ namespace lasd
 
         // Specific member functions (inherited from Iterator)
 
-        Data& operator*() const override // (throw std::out_of_range when terminated)
+        Data &operator*() const override // (throw std::out_of_range when terminated)
         {
             if (Terminated())
                 throw std::out_of_range("Out of range!");
@@ -724,7 +693,7 @@ namespace lasd
 
         // Specific member functions (inherited from ForwardIterator)
 
-        BTBreadthIterator& operator++() override; // (throw std::out_of_range when terminated)
+        BTBreadthIterator &operator++() override; // (throw std::out_of_range when terminated)
 
 
         /* ************************************************************************ */

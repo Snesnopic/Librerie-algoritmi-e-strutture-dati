@@ -42,7 +42,7 @@ void NonEqualHT(unsigned int& testnum, unsigned int& testerr, const HT& ht1, con
 /* ************************************************************************** */
 
 template<typename Data>
-void CountHT(unsigned int& testnum, unsigned int& testerr, const lasd::HashTable <Data>& ht, const lasd::LinearContainer <Data>& con, unsigned int num)
+void CountHT(unsigned int& testnum, unsigned int& testerr, const lasd::HashTable<Data>& ht, const lasd::LinearContainer<Data>& con, unsigned int num)
 {
     testnum++;
     bool tst;

@@ -8,14 +8,12 @@
 
 /* ************************************************************************** */
 
-namespace lasd
-{
+namespace lasd {
 
 /* ************************************************************************** */
 
     template<typename Data>
-    class QueueVec : virtual public Queue<Data>, virtual protected Vector<Data>
-    {
+    class QueueVec : virtual public Queue<Data>, virtual protected Vector<Data> {
         // Must extend Queue<Data>,
         //             Vector<Data>
 
@@ -41,8 +39,7 @@ namespace lasd
         /* ************************************************************************ */
 
         // Specific constructor
-        QueueVec(const LinearContainer<Data>& lc) : Vector<Data>(lc)
-        {
+        QueueVec(const LinearContainer<Data> &lc) : Vector<Data>(lc) {
             elements = size;
             tail = elements - 1;
         }; // A queue obtained from a LinearContainer
@@ -50,10 +47,10 @@ namespace lasd
         /* ************************************************************************ */
 
         // Copy constructor
-        QueueVec(const QueueVec& qv);
+        QueueVec(const QueueVec &qv);
 
         // Move constructor
-        QueueVec(QueueVec&& qv) noexcept;
+        QueueVec(QueueVec &&qv) noexcept;
 
         /* ************************************************************************ */
 
@@ -63,28 +60,29 @@ namespace lasd
         /* ************************************************************************ */
 
         // Copy assignment
-        QueueVec& operator=(const QueueVec& qv);
+        QueueVec &operator=(const QueueVec &qv);
 
         // Move assignment
-        QueueVec& operator=(QueueVec&& qv) noexcept;
+        QueueVec &operator=(QueueVec &&qv) noexcept;
 
         /* ************************************************************************ */
 
         // Comparison operators
-        bool operator==(const QueueVec& qv) const noexcept;
+        bool operator==(const QueueVec &qv) const noexcept;
 
-        bool operator!=(const QueueVec& qv) const noexcept;
+        bool operator!=(const QueueVec &qv) const noexcept;
 
         /* ************************************************************************ */
 
         // Specific member functions (inherited from Queue)
 
-        const Data& Head() const override; // Override Queue member (constant version; must throw std::length_error when empty)
-        Data& Head() override; // Override Queue member (must throw std::length_error when empty)
+        const Data &
+        Head() const override; // Override Queue member (constant version; must throw std::length_error when empty)
+        Data &Head() override; // Override Queue member (must throw std::length_error when empty)
         void Dequeue() override; // Override Queue member (must throw std::length_error when empty)
-        Data& HeadNDequeue() override; // Override Queue member (must throw std::length_error when empty)
-        void Enqueue(const Data& d) noexcept override; // Override Queue member (copy of the value)
-        void Enqueue(Data&& d) noexcept override; // Override Queue member (move of the value)
+        Data &HeadNDequeue() override; // Override Queue member (must throw std::length_error when empty)
+        void Enqueue(const Data &d) noexcept override; // Override Queue member (copy of the value)
+        void Enqueue(Data &&d) noexcept override; // Override Queue member (move of the value)
 
         /* ************************************************************************ */
 

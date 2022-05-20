@@ -8,14 +8,12 @@
 
 /* ************************************************************************** */
 
-namespace lasd
-{
+namespace lasd {
 
 /* ************************************************************************** */
 
     template<typename Data>
-    class HashTableOpnAdr
-    { // Must extend HashTable<Data>
+    class HashTableOpnAdr { // Must extend HashTable<Data>
 
     private:
 

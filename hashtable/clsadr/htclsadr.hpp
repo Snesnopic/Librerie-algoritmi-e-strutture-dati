@@ -8,14 +8,12 @@
 
 /* ************************************************************************** */
 
-namespace lasd
-{
+namespace lasd {
 
 /* ************************************************************************** */
 
     template<typename Data>
-    class HashTableClsAdr
-    { // Must extend HashTable<Data>
+    class HashTableClsAdr { // Must extend HashTable<Data>
 
     private:
 
