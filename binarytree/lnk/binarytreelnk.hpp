@@ -12,148 +12,148 @@ namespace lasd
 
 /* ************************************************************************** */
 
-    template<typename Data>
-    class BinaryTreeLnk : virtual public BinaryTree<Data>
-    {
-        // Must extend BinaryTree<Data>
+	template<typename Data>
+	class BinaryTreeLnk : virtual public BinaryTree<Data>
+	{
+		// Must extend BinaryTree<Data>
 
-    private:
+	private:
 
 
-    protected:
+	protected:
 
-        using BinaryTree<Data>::size;
-        // ...
+		using BinaryTree<Data>::size;
+		// ...
 
-        struct NodeLnk : virtual public BinaryTree<Data>::Node   // Must extend Node
-        {
+		struct NodeLnk : virtual public BinaryTree<Data>::Node   // Must extend Node
+		{
 
-        private:
+		private:
 
-            // ...
+			// ...
 
-        protected:
+		protected:
 
-            // ...
+			// ...
 
-        public:
-            using BinaryTree<Data>::Node::dato;
-            NodeLnk *right = nullptr;
-            NodeLnk *left = nullptr;
+		public:
+			using BinaryTree<Data>::Node::dato;
+			NodeLnk *right = nullptr;
+			NodeLnk *left = nullptr;
 
-            NodeLnk() = default;
+			NodeLnk() = default;
 
-            virtual ~NodeLnk()
-            {
-                if (right != nullptr)
-                    delete right;
-                if (left != nullptr)
-                    delete left;
-            };
+			virtual ~NodeLnk()
+			{
+				if (right != nullptr)
+					delete right;
+				if (left != nullptr)
+					delete left;
+			};
 
-            NodeLnk(const NodeLnk& nl)
-            {
-                dato = nl.dato;
-                if (nl.HasRightChild())
-                    right = new NodeLnk(nl.RightChild());
-                if (nl.HasLeftChild())
-                    left = new NodeLnk(nl.LeftChild());
-            };
+			NodeLnk(const NodeLnk& nl)
+			{
+				dato = nl.dato;
+				if (nl.HasRightChild())
+					right = new NodeLnk(nl.RightChild());
+				if (nl.HasLeftChild())
+					left = new NodeLnk(nl.LeftChild());
+			};
 
-            NodeLnk(NodeLnk&& nl)
-            {
-                std::swap(dato, nl.dato);
-                std::swap(right, nl.right);
-                std::swap(left, nl.left);
-            };
+			NodeLnk(NodeLnk&& nl)
+			{
+				std::swap(dato, nl.dato);
+				std::swap(right, nl.right);
+				std::swap(left, nl.left);
+			};
 
-            NodeLnk(const Data& d)
-            {
-                dato = d;
-            };
+			NodeLnk(const Data& d)
+			{
+				dato = d;
+			};
 
-            NodeLnk(Data&& d)
-            {
-                dato = std::move(d);
-            };
+			NodeLnk(Data&& d)
+			{
+				dato = std::move(d);
+			};
 
-            bool HasLeftChild() const noexcept override // (concrete function should not throw exceptions)
-            {
-                return (left != nullptr);
-            };
+			bool HasLeftChild() const noexcept override // (concrete function should not throw exceptions)
+			{
+				return (left != nullptr);
+			};
 
-            bool HasRightChild() const noexcept override // (concrete function should not throw exceptions)
-            {
-                return (right != nullptr);
-            };
+			bool HasRightChild() const noexcept override // (concrete function should not throw exceptions)
+			{
+				return (right != nullptr);
+			};
 
-            NodeLnk& LeftChild() const override // (concrete function must throw std::out_of_range when not existent)
-            {
-                if (!HasLeftChild())
-                    throw std::out_of_range("Out of range!");
-                return *left;
-            };
+			NodeLnk& LeftChild() const override // (concrete function must throw std::out_of_range when not existent)
+			{
+				if (!HasLeftChild())
+					throw std::out_of_range("Out of range!");
+				return *left;
+			};
 
-            NodeLnk& RightChild() const override // (concrete function must throw std::out_of_range when not existent)
-            {
-                if (!HasRightChild())
-                    throw std::out_of_range("Out of range!");
-                return *right;
+			NodeLnk& RightChild() const override // (concrete function must throw std::out_of_range when not existent)
+			{
+				if (!HasRightChild())
+					throw std::out_of_range("Out of range!");
+				return *right;
 
-            };
+			};
 
-        };
+		};
 
-        NodeLnk *root = nullptr;
-    public:
+		NodeLnk *root = nullptr;
+	public:
 
-        // Default constructor
-        BinaryTreeLnk() = default;
+		// Default constructor
+		BinaryTreeLnk() = default;
 
-        /* ************************************************************************ */
+		/* ************************************************************************ */
 
-        // Specific constructors
-        BinaryTreeLnk(const LinearContainer<Data>& lc); // A binary tree obtained from a LinearContainer
+		// Specific constructors
+		BinaryTreeLnk(const LinearContainer<Data>& lc); // A binary tree obtained from a LinearContainer
 
-        /* ************************************************************************ */
+		/* ************************************************************************ */
 
-        // Copy constructor
-        BinaryTreeLnk(const BinaryTreeLnk& btl);
+		// Copy constructor
+		BinaryTreeLnk(const BinaryTreeLnk& btl);
 
-        // Move constructor
-        BinaryTreeLnk(BinaryTreeLnk&& btl) noexcept;
+		// Move constructor
+		BinaryTreeLnk(BinaryTreeLnk&& btl) noexcept;
 
-        /* ************************************************************************ */
+		/* ************************************************************************ */
 
-        // Destructor
-        virtual ~BinaryTreeLnk();
+		// Destructor
+		virtual ~BinaryTreeLnk();
 
-        /* ************************************************************************ */
+		/* ************************************************************************ */
 
-        // Copy assignment
-        BinaryTreeLnk& operator=(const BinaryTreeLnk& btl);
+		// Copy assignment
+		BinaryTreeLnk& operator=(const BinaryTreeLnk& btl);
 
-        // Move assignment
-        BinaryTreeLnk& operator=(BinaryTreeLnk&& btl) noexcept;
+		// Move assignment
+		BinaryTreeLnk& operator=(BinaryTreeLnk&& btl) noexcept;
 
-        /* ************************************************************************ */
+		/* ************************************************************************ */
 
-        // Specific member functions (inherited from BinaryTree)
+		// Specific member functions (inherited from BinaryTree)
 
-        NodeLnk& Root() const override // Override BinaryTree member (throw std::length_error when empty)
-        {
-            if (size == 0)
-                throw std::length_error("Lenght error!");
-            return *root;
-        }
+		NodeLnk& Root() const override // Override BinaryTree member (throw std::length_error when empty)
+		{
+			if (size == 0)
+				throw std::length_error("Lenght error!");
+			return *root;
+		}
 
-        /* ************************************************************************ */
+		/* ************************************************************************ */
 
-        // Specific member functions (inherited from Container)
+		// Specific member functions (inherited from Container)
 
-        void Clear() override; // Override Container member
+		void Clear() override; // Override Container member
 
-    };
+	};
 
 /* ************************************************************************** */
 

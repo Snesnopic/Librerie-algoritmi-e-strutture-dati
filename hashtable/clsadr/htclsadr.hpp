@@ -8,101 +8,103 @@
 
 /* ************************************************************************** */
 
-namespace lasd {
+namespace lasd
+{
 
 /* ************************************************************************** */
 
-    template<typename Data>
-    class HashTableClsAdr { // Must extend HashTable<Data>
+	template<typename Data>
+	class HashTableClsAdr : virtual public HashTable<Data>
+	{ // Must extend HashTable<Data>
 
-    private:
+	private:
 
-        // ...
+		// ...
 
-    protected:
+	protected:
 
-        // using HashTable<Data>::???;
+		using HashTable<Data>::size;
+		Vector<List<Data>> table;
+		// ...
 
-        // ...
+	public:
 
-    public:
+		// Default constructor
+		// HashTableClsAdr() specifiers;
 
-        // Default constructor
-        // HashTableClsAdr() specifiers;
+		/* ************************************************************************ */
 
-        /* ************************************************************************ */
+		// Specific constructors
+		// HashTableClsAdr(argument) specifiers; // A hash table of a given size
+		// HashTableClsAdr(argument) specifiers; // A hash table obtained from a LinearContainer
+		// HashTableClsAdr(argument) specifiers; // A hash table of a given size obtained from a LinearContainer
 
-        // Specific constructors
-        // HashTableClsAdr(argument) specifiers; // A hash table of a given size
-        // HashTableClsAdr(argument) specifiers; // A hash table obtained from a LinearContainer
-        // HashTableClsAdr(argument) specifiers; // A hash table of a given size obtained from a LinearContainer
+		/* ************************************************************************ */
 
-        /* ************************************************************************ */
+		// Copy constructor
+		// HashTableClsAdr(argument) specifiers;
 
-        // Copy constructor
-        // HashTableClsAdr(argument) specifiers;
+		// Move constructor
+		// HashTableClsAdr(argument) specifiers;
 
-        // Move constructor
-        // HashTableClsAdr(argument) specifiers;
+		/* ************************************************************************ */
 
-        /* ************************************************************************ */
+		// Destructor
+		// ~HashTableClsAdr() specifiers;
 
-        // Destructor
-        // ~HashTableClsAdr() specifiers;
+		/* ************************************************************************ */
 
-        /* ************************************************************************ */
+		// Copy assignment
+		// type operator=(argument) specifiers;
 
-        // Copy assignment
-        // type operator=(argument) specifiers;
+		// Move assignment
+		// type operator=(argument) specifiers;
 
-        // Move assignment
-        // type operator=(argument) specifiers;
+		/* ************************************************************************ */
 
-        /* ************************************************************************ */
+		// Comparison operators
+		// type operator==(argument) specifiers;
+		// type operator!=(argument) specifiers;
 
-        // Comparison operators
-        // type operator==(argument) specifiers;
-        // type operator!=(argument) specifiers;
+		/* ************************************************************************ */
 
-        /* ************************************************************************ */
+		// Specific member functions (inherited from HashTable)
 
-        // Specific member functions (inherited from HashTable)
+		// type Resize(argument) specifiers; // Resize the hashtable to a given size
 
-        // type Resize(argument) specifiers; // Resize the hashtable to a given size
+		/* ************************************************************************ */
 
-        /* ************************************************************************ */
+		// Specific member functions (inherited from DictionaryContainer)
 
-        // Specific member functions (inherited from DictionaryContainer)
+		// type Insert(argument) specifiers; // Override DictionaryContainer member (Copy of the value)
+		// type Insert(argument) specifiers; // Override DictionaryContainer member (Move of the value)
+		// type Remove(argument) specifiers; // Override DictionaryContainer member
 
-        // type Insert(argument) specifiers; // Override DictionaryContainer member (Copy of the value)
-        // type Insert(argument) specifiers; // Override DictionaryContainer member (Move of the value)
-        // type Remove(argument) specifiers; // Override DictionaryContainer member
+		/* ************************************************************************ */
 
-        /* ************************************************************************ */
+		// Specific member functions (inherited from TestableContainer)
 
-        // Specific member functions (inherited from TestableContainer)
+		// type Exists(argument) specifiers; // Override TestableContainer member
 
-        // type Exists(argument) specifiers; // Override TestableContainer member
+		/* ************************************************************************ */
 
-        /* ************************************************************************ */
+		// Specific member functions (inherited from MappableContainer)
 
-        // Specific member functions (inherited from MappableContainer)
+		// type Map(argument) specifiers; // Override MappableContainer member
 
-        // type Map(argument) specifiers; // Override MappableContainer member
+		/* ************************************************************************ */
 
-        /* ************************************************************************ */
+		// Specific member functions (inherited from FoldableContainer)
 
-        // Specific member functions (inherited from FoldableContainer)
+		// type Fold(argument) specifiers; // Override FoldableContainer member
 
-        // type Fold(argument) specifiers; // Override FoldableContainer member
+		/* ************************************************************************ */
 
-        /* ************************************************************************ */
+		// Specific member functions (inherited from Container)
 
-        // Specific member functions (inherited from Container)
+		// type Clear() specifiers; // Override Container member
 
-        // type Clear() specifiers; // Override Container member
-
-    };
+	};
 
 /* ************************************************************************** */
 

@@ -22,6 +22,9 @@ include_directories(stack/lst)
 include_directories(stack/vec)
 include_directories(vector)
 include_directories(bst)
+include_directories(hashtable)
+include_directories(hashtable/opnadr)
+include_directories(hashtable/clsadr)
 include_directories(zlasdtest)
 include_directories(zlasdtest/binarytree)
 include_directories(zlasdtest/container)
@@ -29,7 +32,9 @@ include_directories(zlasdtest/exercise1)
 include_directories(zlasdtest/exercise2)
 include_directories(zlasdtest/exercise3)
 include_directories(zlasdtest/exercise4)
+include_directories(zlasdtest/exercise5)
 include_directories(zlasdtest/iterator)
+include_directories(zlasdtest/hashtable)
 include_directories(zlasdtest/list)
 include_directories(zlasdtest/queue)
 include_directories(zlasdtest/stack)
@@ -47,6 +52,8 @@ add_executable(Librerie_algoritmi_e_strutture_dati
         zlasdtest/exercise3/simpletest.cpp
         zlasdtest/exercise4/simpletest.cpp
         zlasdtest/exercise4/fulltest.cpp
+        zlasdtest/exercise5/simpletest.cpp
+        zlasdtest/exercise5/fulltest.cpp
         zlasdtest/test.cpp
         zmytest/test.cpp
         main.cpp)
