@@ -102,3 +102,5 @@ cmake-build-debug-coverage/CMakeFiles/3.18.4/CompilerIdC/CMakeCCompilerId.c
 cmake-build-debug/CMakeFiles/Progress/11
 cmake-build-debug/CMakeFiles/Progress/7
 *.d
+*.internal
+cmake-build-debug/CMakeFiles/Progress/10
