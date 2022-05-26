@@ -50,20 +50,56 @@ namespace lasd
 
 		using DictionaryContainer<Data>::size;
 		Hash<Data> hash{};
-		unsigned long a;
-		unsigned long b;
+		unsigned long a{};
+		unsigned long b{};
+		unsigned long p = 34019;
 		// ...
 
 	public:
 
 		// Constructor
-		HashTable();
+		HashTable()
+		{
+			std::default_random_engine gen(std::random_device{}());
+			std::uniform_int_distribution<unsigned long> dista(1, p);
+			while(true)
+			{
+				a = dista(gen);
+				if(a <= 1) continue;
+				if (a <= 3)  break;
+				unsigned long range = sqrt(a);
+				if (a % 2 == 0 || a % 3 == 0)
+					continue;
+				for (unsigned long i = 5; i <= range; i += 6)
+				{
+					if (a % i == 0 || a % (i + 2) == 0)
+						continue;
+				}
+				break;
+			}
+			std::uniform_int_distribution<unsigned long> distb(0, a-1);
+			while(true)
+			{
+				b = distb(gen);
+				if(b <= 1) continue;
+				if (b <= 3)  break;
+				unsigned long range = sqrt(b);
+				if (b % 2 == 0 || b % 3 == 0)
+					continue;
+				for (unsigned long i = 5; i <= b; i += 6)
+				{
+					if (b % i == 0 || b % (i + 2) == 0)
+						continue;
+				}
+				break;
+			}
+		}
 
 		// Destructor
 		virtual ~HashTable() = default;
 
 		/* ************************************************************************ */
-		
+
 		// Comparison operators
 		virtual bool operator==(const HashTable& ht) const noexcept = delete; // Comparison of abstract binary tree is possible.
 		virtual bool operator!=(const HashTable& ht) const noexcept = delete; // Comparison of abstract binary tree is possible.
@@ -80,7 +116,7 @@ namespace lasd
 
 		unsigned long HashKey(const Data& d)
 		{
-			return hash(d);
+			return ((((a)*hash(d))+b)% p) % size;
 		}
 
 		// Copy assignment
