@@ -24,6 +24,10 @@ namespace lasd
 	protected:
 
 		using HashTable<Data>::size;
+		using HashTable<Data>::a;
+		using HashTable<Data>::b;
+		using HashTable<Data>::p;
+		using HashTable<Data>>::hash;
 		Vector<Data> table;
 		// ...
 
@@ -35,22 +39,22 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Specific constructors
-		// HashTableOpnAdr(argument) specifiers; // A hash table of a given size
-		// HashTableOpnAdr(argument) specifiers; // A hash table obtained from a LinearContainer
-		// HashTableOpnAdr(argument) specifiers; // A hash table of a given size obtained from a LinearContainer
+		HashTableOpnAdr(unsigned long s); // A hash table of a given size
+		HashTableOpnAdr(const LinearContainer<Data>& lc); // A hash table obtained from a LinearContainer
+		HashTableOpnAdr(unsigned long s, const LinearContainer<Data>& ls); // A hash table of a given size obtained from a LinearContainer
 
 		/* ************************************************************************ */
 
 		// Copy constructor
-		// HashTableOpnAdr(argument) specifiers;
+		HashTableOpnAdr(const HashTableOpnAdr& ht);
 
 		// Move constructor
-		// HashTableOpnAdr(argument) specifiers;
+		HashTableOpnAdr(HashTableOpnAdr&& ht) noexcept;
 
 		/* ************************************************************************ */
 
 		// Destructor
-		// ~HashTableOpnAdr() specifiers;
+		virtual ~HashTableOpnAdr();
 
 		/* ************************************************************************ */
 
@@ -63,28 +67,42 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Comparison operators
-		// type operator==(argument) specifiers;
-		// type operator!=(argument) specifiers;
+		virtual bool operator==(const HashTableOpnAdr& ht) const noexcept;
+		virtual bool operator!=(const HashTableOpnAdr& ht) const noexcept;
 
 		/* ************************************************************************ */
 
 		// Specific member functions (inherited from HashTable)
 
-		// type Resize(argument) specifiers; // Resize the hashtable to a given size
+		void Resize(unsigned long s) override // Resize the hashtable to a given size
+		{
+
+		}
 
 		/* ************************************************************************ */
 
 		// Specific member functions (inherited from DictionaryContainer)
 
-		// type Insert(argument) specifiers; // Override DictionaryContainer member (Copy of the value)
-		// type Insert(argument) specifiers; // Override DictionaryContainer member (Move of the value)
-		// type Remove(argument) specifiers; // Override DictionaryContainer member
+		bool Insert(const Data& d) // Override DictionaryContainer member (Copy of the value)
+		{
 
+		}
+		bool Insert(Data&& d) // Override DictionaryContainer member (Move of the value)
+		{
+
+		}
+		bool Remove(const Data& d) // Override DictionaryContainer member
+		{
+
+		}
 		/* ************************************************************************ */
 
 		// Specific member functions (inherited from TestableContainer)
 
-		// type Exists(argument) specifiers; // Override TestableContainer member
+		bool Exists(const Data& d) // Override TestableContainer member
+		{
+
+		}
 
 		/* ************************************************************************ */
 
