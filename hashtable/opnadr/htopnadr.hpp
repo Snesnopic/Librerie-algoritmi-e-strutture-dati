@@ -28,13 +28,15 @@ namespace lasd
 		using HashTable<Data>::b;
 		using HashTable<Data>::p;
 		using HashTable<Data>::hash;
-		Vector<Data> table{};
+		using HashTable<Data>::HashKey;
+		Vector<Data*> table{};
+		Vector<bool> deleted{};
 		// ...
 
 	public:
 
 		// Default constructor
-		HashTableOpnAdr() = default;
+		HashTableOpnAdr(): HashTableOpnAdr(1){};
 
 		/* ************************************************************************ */
 
@@ -42,36 +44,118 @@ namespace lasd
 		HashTableOpnAdr(unsigned long s) // A hash table of a given size
 		{
 			table.Resize(s);
+			deleted.Resize(s);
+			for(unsigned long i = 0 ; i < s ; i++)
+			{
+				table[i] = nullptr;
+				deleted[i] = false;
+			}
 		}
-		HashTableOpnAdr(const LinearContainer<Data>& lc); // A hash table obtained from a LinearContainer
-		HashTableOpnAdr(unsigned long s, const LinearContainer<Data>& ls); // A hash table of a given size obtained from a LinearContainer
+		HashTableOpnAdr(const LinearContainer<Data>& lc): HashTableOpnAdr(lc.Size()) // A hash table obtained from a LinearContainer
+		{
+			Insert(lc);
+		}
+		HashTableOpnAdr(unsigned long s, const LinearContainer<Data>& lc)// A hash table of a given size obtained from a LinearContainer
+		{
+			if(s < lc.Size())
+				s = lc.Size();
+			table.Resize(s);
+			for(unsigned long i = 0 ; i < s ; i++)
+			{
+				table[i] = nullptr;
+				deleted[i] = false;
+			}
+			Insert(lc);
+		}
 
 		/* ************************************************************************ */
 
 		// Copy constructor
-		HashTableOpnAdr(const HashTableOpnAdr& ht);
+		HashTableOpnAdr(const HashTableOpnAdr& ht) : HashTableOpnAdr(ht.size)
+		{
+			HashTable<Data>::operator=(ht);
+			size = 0;
+			for(unsigned long i = 0; i < ht.table.Size() ; i++)
+			{
+				if(ht.table[i] != nullptr && !ht.deleted[i])
+					Insert(*(ht.table[i]));
+			}
+		}
 
 		// Move constructor
-		HashTableOpnAdr(HashTableOpnAdr&& ht) noexcept;
+		HashTableOpnAdr(HashTableOpnAdr&& ht) noexcept : HashTableOpnAdr(ht.size)
+		{
+			HashTable<Data>::operator=(std::move(ht));
+			size = 0;
+			for(unsigned long i = 0; i < ht.table.Size() ; i++)
+			{
+				if(ht.table[i] != nullptr && !ht.deleted[i])
+					Insert(std::move(*(ht.table[i])));
+			}
+			ht.Clear();
+		}
 
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~HashTableOpnAdr();
+		virtual ~HashTableOpnAdr()
+		{
+			for(unsigned long i = 0; i < table.Size();i++)
+			{
+				if(table[i] != nullptr)
+					delete table[i];
+			}
+			table.Clear();
+			deleted.Clear();
+		}
 
 		/* ************************************************************************ */
 
 		// Copy assignment
-		HashTableOpnAdr& operator=(const HashTableOpnAdr& ht);
+		HashTableOpnAdr& operator=(const HashTableOpnAdr& ht)
+		{
+			if(*this != ht)
+			{
+				HashTable<Data>::operator=(ht);
+				table = ht.table;
+			}
+			return *this;
+		}
 
 		// Move assignment
-		HashTableOpnAdr& operator=(HashTableOpnAdr&& ht) noexcept;
+		HashTableOpnAdr& operator=(HashTableOpnAdr&& ht) noexcept
+		{
+			if(*this != ht)
+			{
+				HashTable<Data>::operator=(std::move(ht));
+				table = std::move(ht.table);
+			}
+			return *this;
+		}
 
 		/* ************************************************************************ */
 
 		// Comparison operators
-		bool operator==(const HashTableOpnAdr& ht) const noexcept;
-		bool operator!=(const HashTableOpnAdr& ht) const noexcept;
+		bool operator==(const HashTableOpnAdr& ht) const noexcept
+		{
+			if(size == ht.size)
+			{
+				for(unsigned long i = 0; i < size ; i++)
+				{
+					if(table[i] != nullptr && !deleted[i])
+					{
+						if(!ht.Exists(*table[i]))
+							return false;
+					}
+				}
+				return true;
+			}
+			return false;
+		}
+		bool operator!=(const HashTableOpnAdr& ht) const noexcept
+		{
+			return !(*this == ht);
+		}
 
 		/* ************************************************************************ */
 
@@ -79,7 +163,18 @@ namespace lasd
 
 		void Resize(unsigned long s) override // Resize the hashtable to a given size
 		{
-
+			if(s >= size)		//>= perché compiendo una Resize su una Hash con la stessa size di prima possiamo rimuovere i valori contrassegnati 'eliminati'
+			{
+				HashTableOpnAdr newHash(s);
+				for(unsigned long i = 0; i < s; i++)
+				{
+					if(table[i] != nullptr && !deleted[i])
+					{
+						newHash.Insert(std::move(*table[i]));
+					}
+				}
+				std::swap(*this,newHash);
+			}
 		}
 
 		/* ************************************************************************ */
@@ -88,28 +183,49 @@ namespace lasd
 
 		bool Insert(const Data& d) // Override DictionaryContainer member (Copy of the value)
 		{
-			if(table[HashKey(d)])
+			unsigned long j = HashKey(d);
+			for(unsigned long i = 0; i < table.Size(); i++)
 			{
-				size++;
-				return true;
+				if((table[(j+i)%table.Size()]) == nullptr || deleted[(j+i)%table.Size()])
+				{
+					if(deleted[(j+i)%table.Size()])
+						delete table[(j+i)%table.Size()];
+					table[(j+i)%table.Size()] = new Data(d);
+					return true;
+				}
+				if(*(table[(j+i)%table.Size()]) == d)
+					break;
 			}
 			return false;
 		}
 		bool Insert(Data&& d) // Override DictionaryContainer member (Move of the value)
 		{
-			if(table[HashKey(d)])
+			unsigned long j = HashKey(d);
+			for(unsigned long i = 0; i < table.Size(); i++)
 			{
-				size++;
-				return true;
+				if((table[(j+i)%table.Size()]) == nullptr || deleted[(j+i)%table.Size()])
+				{
+					if(deleted[(j+i)%table.Size()])
+						delete table[(j+i)%table.Size()];
+					table[(j+i)%table.Size()] = new Data(std::move(d));
+					return true;
+				}
+				if(*(table[(j+i)%table.Size()]) == d)
+					break;
 			}
 			return false;
 		}
 		bool Remove(const Data& d) // Override DictionaryContainer member
 		{
-			if(table[HashKey(d)])
+			unsigned long j = HashKey(d);
+			for(unsigned long i = 0; i < table.Size(); i++)
 			{
-				size--;
-				return true;
+				if(*(table[(j+i)%table.Size()]) == d && !deleted[(j+i)%table.Size()])
+				{
+					size--;
+					deleted[(j+i)%table.Size()] = true;
+					return true;
+				}
 			}
 			return false;
 		}
@@ -129,9 +245,15 @@ namespace lasd
 
 		// Specific member functions (inherited from TestableContainer)
 
-		bool Exists(const Data& d) // Override TestableContainer member
+		bool Exists(const Data& d) const noexcept override // Override TestableContainer member
 		{
-			return table.Exists(d);
+			unsigned long j = HashKey(d);
+			for(unsigned long i = 0; i < table.Size(); i++)
+			{
+				if(*(table[(j+i)%table.Size()]) == d)
+					return true;
+			}
+			return false;
 		}
 
 		/* ************************************************************************ */
@@ -141,12 +263,12 @@ namespace lasd
 		using typename MappableContainer<Data>::MapFunctor;
 
 		void Map(MapFunctor f, void *par) override // Override MappableContainer member
-		{/*
+		{
 			for(unsigned long i = 0 ; i < table.Size() ; i++)
 			{
-				if(!table[i].Empty)
-					table[i].Map(f,par);
-			}*/
+				if(table[i] != nullptr && !deleted[i])
+					f(*table[i],par);
+			}
 		}
 
 		/* ************************************************************************ */
@@ -156,12 +278,12 @@ namespace lasd
 		using typename FoldableContainer<Data>::FoldFunctor;
 
 		void Fold(FoldFunctor f, const void *par, void *acc) const override // Override FoldableContainer member
-		{/*
+		{
 			for(unsigned long i = 0 ; i < table.Size() ; i++)
 			{
-				if(!table[i].Empty)
-					table[i].Fold(f,par,acc);
-			}*/
+				if(table[i] != nullptr && !deleted[i])
+					f(*table[i],par,acc);
+			}
 		}
 
 		/* ************************************************************************ */
@@ -170,7 +292,13 @@ namespace lasd
 
 		void Clear() noexcept // Override Container member
 		{
+			for(unsigned long i;i<table.Size();i++)
+			{
+				if(table[i] != nullptr)
+					delete table[i];
+			}
 			table.Clear();
+			deleted.Clear();
 			size = 0;
 		}
 
