@@ -61,19 +61,15 @@ namespace lasd
 		// Copy constructor
 		HashTableClsAdr(const HashTableClsAdr& ht)
 		{
+			HashTable<Data>::operator=(ht);
 			table = ht.table;
-			size = ht.size;
-			a = ht.a;
-			b = ht.b;
 		}
 
 		// Move constructor
 		HashTableClsAdr(HashTableClsAdr&& ht) noexcept
 		{
+			HashTable<Data>::operator=(std::move(ht));
 			table = std::move(ht.table);
-			size = std::move(ht.size);
-			a = std::move(ht.a);
-			b = std::move(ht.b);
 		}
 
 		/* ************************************************************************ */
