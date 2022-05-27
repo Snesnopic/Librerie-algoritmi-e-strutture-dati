@@ -32,7 +32,10 @@ namespace lasd
 		Vector<Data*> table{};
 		Vector<bool> deleted{};
 		// ...
-
+        virtual unsigned long HashKey(const Data& d) const
+        {
+            return (((a*hash(d))+b)% p) % table.Size();
+        }
 	public:
 
 		// Default constructor
@@ -60,6 +63,7 @@ namespace lasd
 			if(s < lc.Size())
 				s = lc.Size();
 			table.Resize(s);
+            deleted.Resize(s);
 			for(unsigned long i = 0 ; i < s ; i++)
 			{
 				table[i] = nullptr;
@@ -170,7 +174,7 @@ namespace lasd
 				{
 					if(table[i] != nullptr && !deleted[i])
 					{
-						newHash.Insert(std::move(*table[i]));
+						newHash.Insert(*table[i]);
 					}
 				}
 				std::swap(*this,newHash);
@@ -186,44 +190,51 @@ namespace lasd
 			unsigned long j = HashKey(d);
 			for(unsigned long i = 0; i < table.Size(); i++)
 			{
-				if((table[(j+i)%table.Size()]) == nullptr || deleted[(j+i)%table.Size()])
+                unsigned long index = (j+i)%table.Size();
+				if((table[index]) == nullptr || deleted[(j+i)%table.Size()])
 				{
-					if(deleted[(j+i)%table.Size()])
-						delete table[(j+i)%table.Size()];
-					table[(j+i)%table.Size()] = new Data(d);
+					if(deleted[index])
+						delete table[index];
+					table[index] = new Data(d);
+                    size++;
 					return true;
 				}
-				if(*(table[(j+i)%table.Size()]) == d)
+				if((table[index]) != nullptr && *(table[index]) == d)
 					break;
 			}
 			return false;
 		}
 		bool Insert(Data&& d) // Override DictionaryContainer member (Move of the value)
 		{
-			unsigned long j = HashKey(d);
-			for(unsigned long i = 0; i < table.Size(); i++)
-			{
-				if((table[(j+i)%table.Size()]) == nullptr || deleted[(j+i)%table.Size()])
-				{
-					if(deleted[(j+i)%table.Size()])
-						delete table[(j+i)%table.Size()];
-					table[(j+i)%table.Size()] = new Data(std::move(d));
-					return true;
-				}
-				if(*(table[(j+i)%table.Size()]) == d)
-					break;
-			}
-			return false;
+            unsigned long j = HashKey(d);
+            for(unsigned long i = 0; i < table.Size(); i++)
+            {
+                unsigned long index = (j+i)%table.Size();
+                if((table[index]) == nullptr || deleted[(j+i)%table.Size()])
+                {
+                    if(deleted[index])
+                        delete table[index];
+                    table[index] = new Data(std::move(d));
+                    size++;
+                    return true;
+                }
+                if((table[index]) != nullptr && *(table[index]) == d)
+                    break;
+            }
+            return false;
 		}
 		bool Remove(const Data& d) // Override DictionaryContainer member
 		{
 			unsigned long j = HashKey(d);
 			for(unsigned long i = 0; i < table.Size(); i++)
 			{
-				if(*(table[(j+i)%table.Size()]) == d && !deleted[(j+i)%table.Size()])
+                unsigned long index = (j+i)%table.Size();
+                if(table[index] == nullptr)
+                    return false;
+				if(*(table[index]) == d && !deleted[index])
 				{
 					size--;
-					deleted[(j+i)%table.Size()] = true;
+					deleted[index] = true;
 					return true;
 				}
 			}
@@ -250,7 +261,10 @@ namespace lasd
 			unsigned long j = HashKey(d);
 			for(unsigned long i = 0; i < table.Size(); i++)
 			{
-				if(*(table[(j+i)%table.Size()]) == d)
+                unsigned long index = (j+i)%table.Size();
+                if(table[index] == nullptr)
+                    return false;
+				if(*(table[index]) == d && !deleted[index])
 					return true;
 			}
 			return false;
