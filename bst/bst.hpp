@@ -30,7 +30,11 @@ namespace lasd
 	public:
 
 		// Default constructor
-		BST() = default;
+		BST()
+        {
+            size = 0;
+            root = nullptr;
+        }
 
 		/* ************************************************************************ */
 
@@ -224,6 +228,8 @@ namespace lasd
 
 		virtual bool Exists(const Data& d) const noexcept override // Override TestableContainer member
 		{
+			if(size == 0)
+				return false;
 			return FindPointerTo(root, d) != nullptr;
 		}
 
@@ -244,17 +250,27 @@ namespace lasd
 			{
 				if (n == root)
 				{
-					NodeLnk *& ptr = *FindPointerToPredecessor(root, n->dato);
+					NodeLnk** ptr = FindPointerToPredecessor(root, n->dato);
+					if (ptr == nullptr)
+					{
+						ptr = FindPointerToSuccessor(root, n->dato);
+						if(ptr == nullptr)
+                        {
+                            NodeLnk *t = new NodeLnk(std::move(n->dato));
+                            delete n;
+                            n = nullptr;
+                            return t;
+                        }
+					}
 					if (ptr != nullptr)
 					{
-						std::swap(n->dato, ptr->dato);
-						return Detach(ptr);
+						std::swap(n->dato, (*ptr)->dato);
+						return Detach(*ptr);
 					}
-					return nullptr;
 				}
 				if (n->HasRightChild() && n->HasLeftChild())
 				{
-					return DetachMin(n->right);
+					return Skip2Right(n);
 				}
 				else
 				{
