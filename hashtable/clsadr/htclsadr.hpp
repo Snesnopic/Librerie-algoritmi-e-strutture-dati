@@ -29,20 +29,32 @@ namespace lasd
 		using HashTable<Data>::b;
 		using HashTable<Data>::p;
 		using HashTable<Data>::hash;
-		Vector<BST<Data>> table;
+		using HashTable<Data>::HashKey;
+		Vector<BST<Data>> table{};
 		// ...
 
 	public:
 
 		// Default constructor
-		// HashTableClsAdr() specifiers;
+		HashTableClsAdr() = default;
 
 		/* ************************************************************************ */
 
 		// Specific constructors
-		HashTableClsAdr(unsigned long s); // A hash table of a given size
-		HashTableClsAdr(const LinearContainer<Data>& lc); // A hash table obtained from a LinearContainer
-		HashTableClsAdr(unsigned long s, const LinearContainer<Data>& ls); // A hash table of a given size obtained from a LinearContainer
+		HashTableClsAdr(unsigned long s) // A hash table of a given size
+		{
+			table.Resize(s);
+		}
+		HashTableClsAdr(const LinearContainer<Data>& lc) : HashTableClsAdr(lc.Size())// A hash table obtained from a LinearContainer
+		{
+			size = lc.Size();
+			Insert(lc);
+		}
+		HashTableClsAdr(unsigned long s, const LinearContainer<Data>& lc) : HashTableClsAdr(s)// A hash table of a given size obtained from a LinearContainer
+		{
+			size = lc.Size();
+			Insert(lc);
+		}
 
 		/* ************************************************************************ */
 
@@ -53,13 +65,15 @@ namespace lasd
 			size = ht.size;
 			a = ht.a;
 			b = ht.b;
-			hash;
 		}
 
 		// Move constructor
 		HashTableClsAdr(HashTableClsAdr&& ht) noexcept
 		{
-
+			table = std::move(ht.table);
+			size = std::move(ht.size);
+			a = std::move(ht.a);
+			b = std::move(ht.b);
 		}
 
 		/* ************************************************************************ */
@@ -73,16 +87,62 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Copy assignment
-		HashTableClsAdr& operator=(argument) specifiers;
+		HashTableClsAdr& operator=(const HashTableClsAdr& ht)
+		{
+			if(*this != ht)
+			{
+				HashTable<Data>::operator=(ht);
+				table = ht.table;
+			}
+			return *this;
+		}
 
 		// Move assignment
-		HashTableClsAdr& operator=(argument) specifiers;
+		HashTableClsAdr& operator=(HashTableClsAdr&& ht) noexcept
+		{
+			if(*this != ht)
+			{
+				HashTable<Data>::operator=(std::move(ht));
+				table = std::move(ht.table);
+			}
+			return *this;
+		}
 
 		/* ************************************************************************ */
 
 		// Comparison operators
-		bool operator==(const HashTableClsAdr& ht) const noexcept;
-		bool operator!=(const HashTableClsAdr& ht) const noexcept;
+		bool operator==(const HashTableClsAdr& ht) const noexcept
+		{
+			if(size == ht.size)
+			{
+				BST<Data> bst1;
+				for(unsigned long i = 0;i < table.Size();i++)
+				{
+					BTInOrderIterator<Data> j(table[i]);
+					while(!j.Terminated())
+					{
+						bst1.Insert(*j);
+						++j;
+					}
+				}
+				BST<Data> bst2;
+				for(unsigned long i = 0;i < ht.table.Size();i++)
+				{
+					BTInOrderIterator<Data> j(ht.table[i]);
+					while(!j.Terminated())
+					{
+						bst1.Insert(*j);
+						++j;
+					}
+				}
+				return bst1 == bst2;
+			}
+			return false;
+		}
+		bool operator!=(const HashTableClsAdr& ht) const noexcept
+		{
+			return !(*this == ht);
+		}
 
 		/* ************************************************************************ */
 
@@ -91,6 +151,23 @@ namespace lasd
 		void Resize(const unsigned long newSize) // Resize the hashtable to a given size
 		{
 			Vector<BST<Data>> newTable(newSize);
+			for(unsigned long i = 0; i < table.Size();i++)
+			{
+				if(table[i].Empty())
+					continue;
+				else
+				{
+					BTInOrderIterator<Data> j(table[i]);
+					while(!j.Terminated())
+					{
+						newTable[this->HashKey(*j)].Insert(*j);
+						++j;
+					}
+					table[i].Clear();
+				}
+			}
+			table.Clear();
+			std::swap(table,newTable);
 		}
 
 		/* ************************************************************************ */
@@ -99,17 +176,43 @@ namespace lasd
 
 		bool Insert(const Data& d) // Override DictionaryContainer member (Copy of the value)
 		{
-			return table[HashKey(d)].Insert(d);
+			if(table[HashKey(d)].Insert(d))
+			{
+				size++;
+				return true;
+			}
+			return false;
 		}
 		bool Insert(Data&& d) // Override DictionaryContainer member (Move of the value)
 		{
-			return table[HashKey(d)].Insert(std::move(d));
+			if(table[HashKey(d)].Insert(std::move(d)))
+			{
+				size++;
+				return true;
+			}
+			return false;
 		}
 		bool Remove(const Data& d) // Override DictionaryContainer member
 		{
-			return table[HashKey(d)].Remove(d);
+			if(table[HashKey(d)].Remove(d))
+			{
+				size--;
+				return true;
+			}
+			return false;
 		}
-
+		void Insert(const LinearContainer<Data>& lc)
+		{
+			DictionaryContainer<Data>::Insert(lc);
+		};
+		void Insert(LinearContainer<Data>&& lc)
+		{
+			DictionaryContainer<Data>::Insert(std::move(lc));
+		};
+		void Remove(const LinearContainer<Data>& lc)
+		{
+			DictionaryContainer<Data>::Remove(lc);
+		};
 		/* ************************************************************************ */
 
 		// Specific member functions (inherited from TestableContainer)
@@ -129,7 +232,7 @@ namespace lasd
 		{
 			for(unsigned long i = 0 ; i < table.Size() ; i++)
 			{
-				if(!table[i].Empty)
+				if(!table[i].Empty())
 					table[i].Map(f,par);
 			}
 		}
@@ -144,7 +247,7 @@ namespace lasd
 		{
 			for(unsigned long i = 0 ; i < table.Size() ; i++)
 			{
-				if(!table[i].Empty)
+				if(!table[i].Empty())
 					table[i].Fold(f,par,acc);
 			}
 		}
