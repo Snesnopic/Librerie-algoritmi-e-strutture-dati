@@ -6,7 +6,7 @@
 | Esercizio 2 (Queue e Stack)          |  25/30  |                            Arithmetic Exception nel confronto tra due QueueVec |
  | Esercizio 3 (Binarytree e Iteratori) | 22,5/30 | Confronto tra BinaryTree vuoti, PostOrder e InOrder Iterator rotti, test rotto |
 | Esercizio 4 (Binary Search Tree)     |  ?/30   |                                                                    Poi vediamo |
-| Esercizio 3 (Hashmap)                |  ?/30   |                                                                    Poi vediamo |
+| Esercizio 5 (Hashmap)                |  ?/30   |                                                                    Poi vediamo |
 # ESERCIZIO 1
 
 ## - VETTORI E LISTE DI DATI GENERICI -
