@@ -1182,8 +1182,8 @@ void mytest()
 	int testtype = 0;
 	while (!selection)
 	{
-		cout << endl << "Test menu' " << endl << "0. Esci" << endl << "1. Test su List" << endl << "2. Test su Vector" << endl << "3. Test su Stack" << endl << "4. Test su Queue" <<
-		endl << "5. Test su Binarytree" <<endl << "6. Test su BST" << endl <<"7. Test su Hashmap"<< endl << "8. Test del professore" << endl;
+		cout << endl << "Test menu' " << endl << "0. Esci" << endl << "1. Test su List" << endl << "2. Test su Vector" << endl << "3. Test su Stack" << endl << "4. Test su Queue"
+		<< endl << "5. Test su Binarytree" <<endl << "6. Test su BST" << endl <<"7. Test su Hashmap"<< endl << "8. Test del professore" << endl;
 		string input;
 		cin >> input;
 		testtype = stoi(input);
