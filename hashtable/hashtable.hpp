@@ -114,7 +114,7 @@ namespace lasd
 
 		// Auxiliary member functions
 
-		unsigned long HashKey(const Data& d) const
+		virtual unsigned long HashKey(const Data& d) const
 		{
 			return (((a*hash(d))+b)% p) % size;
 		}
