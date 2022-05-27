@@ -148,24 +148,24 @@ namespace lasd
 
 		void Resize(const unsigned long newSize) // Resize the hashtable to a given size
 		{
-			Vector<BST<Data>> newTable(newSize);
+            HashTableClsAdr<Data> newHash(newSize);
 			for(unsigned long i = 0; i < table.Size();i++)
 			{
 				if(table[i].Empty())
 					continue;
 				else
 				{
-					BTInOrderIterator<Data> j(table[i]);
+					BTBreadthIterator<Data> j(table[i]);
 					while(!j.Terminated())
 					{
-						newTable[this->HashKey(*j)].Insert(*j);
+                        newHash.Insert(*j);
 						++j;
 					}
 					table[i].Clear();
 				}
 			}
 			table.Clear();
-			std::swap(table,newTable);
+			std::swap(*this,newHash);
 		}
 
 		/* ************************************************************************ */
@@ -263,6 +263,7 @@ namespace lasd
 		void Clear() noexcept // Override Container member
 		{
 			table.Clear();
+            table.Resize(1);
 			size = 0;
 		}
 
