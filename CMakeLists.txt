@@ -4,7 +4,7 @@ project(Librerie_algoritmi_e_strutture_dati)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS -Wall)
 set(CMAKE_CXX_FLAGS -O0)
-set(CMAKE_CXX_FLAGS -ggdb)
+set(CMAKE_CXX_FLAGS -ggdb3)
 set(CMAKE_CXX_FLAGS --coverage)
 
 include_directories(.)
