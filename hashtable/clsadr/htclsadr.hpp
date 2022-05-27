@@ -32,7 +32,10 @@ namespace lasd
 		using HashTable<Data>::HashKey;
 		Vector<BST<Data>> table{};
 		// ...
-
+		unsigned long HashKey(const Data& d) const override
+		{
+			return (((a*hash(d))+b)% p) % table.Size();
+		}
 	public:
 
 		// Default constructor
@@ -47,12 +50,11 @@ namespace lasd
 		}
 		HashTableClsAdr(const LinearContainer<Data>& lc) : HashTableClsAdr(lc.Size())// A hash table obtained from a LinearContainer
 		{
-			size = lc.Size();
 			Insert(lc);
 		}
-		HashTableClsAdr(unsigned long s, const LinearContainer<Data>& lc) : HashTableClsAdr(s)// A hash table of a given size obtained from a LinearContainer
+		HashTableClsAdr(unsigned long s, const LinearContainer<Data>& lc) // A hash table of a given size obtained from a LinearContainer
 		{
-			size = lc.Size();
+            table.Resize(s);
 			Insert(lc);
 		}
 
@@ -172,7 +174,8 @@ namespace lasd
 
 		bool Insert(const Data& d) // Override DictionaryContainer member (Copy of the value)
 		{
-			if(table[HashKey(d)].Insert(d))
+            unsigned long j = HashKey(d);
+            if(table[j].Insert(d))
 			{
 				size++;
 				return true;
@@ -181,7 +184,8 @@ namespace lasd
 		}
 		bool Insert(Data&& d) // Override DictionaryContainer member (Move of the value)
 		{
-			if(table[HashKey(d)].Insert(std::move(d)))
+            unsigned long j = HashKey(d);
+            if(table[j].Insert(std::move(d)))
 			{
 				size++;
 				return true;
@@ -190,7 +194,8 @@ namespace lasd
 		}
 		bool Remove(const Data& d) // Override DictionaryContainer member
 		{
-			if(table[HashKey(d)].Remove(d))
+			unsigned long j = HashKey(d);
+			if(!table.Empty() && table[j].Remove(d))
 			{
 				size--;
 				return true;
@@ -215,7 +220,10 @@ namespace lasd
 
 		bool Exists(const Data& d) const noexcept // Override TestableContainer member
 		{
-			return table[HashKey(d)].Exists(d);
+			unsigned long j = HashKey(d);
+            if(!table[j].Empty())
+			    return table[j].Exists(d);
+            return false;
 		}
 
 		/* ************************************************************************ */
