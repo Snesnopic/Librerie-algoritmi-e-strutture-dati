@@ -206,6 +206,18 @@ namespace lasd
 			}
 			return false;
 		}
+		void Insert(const LinearContainer<Data>& lc)
+		{
+			DictionaryContainer<Data>::Insert(lc);
+		};
+		void Insert(LinearContainer<Data>&& lc)
+		{
+			DictionaryContainer<Data>::Insert(std::move(lc));
+		};
+		void Remove(const LinearContainer<Data>& lc)
+		{
+			DictionaryContainer<Data>::Remove(lc);
+		};
 		/* ************************************************************************ */
 
 		// Specific member functions (inherited from TestableContainer)
