@@ -143,10 +143,13 @@ namespace lasd
 		NodeLnk& Root() const override // Override BinaryTree member (throw std::length_error when empty)
 		{
 			if (size == 0 || root == nullptr)
-				throw std::length_error("Lenght error!");
+				throw std::length_error("Length error!");
 			return *root;
 		}
-
+        virtual bool Empty() const noexcept override
+        {
+            return size == 0 || root == nullptr;
+        }
 		/* ************************************************************************ */
 
 		// Specific member functions (inherited from Container)
