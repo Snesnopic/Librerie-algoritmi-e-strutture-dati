@@ -21,7 +21,7 @@ namespace lasd
 	{
 
 	public:
-		unsigned long operator()(const Data& d) const noexcept
+		unsigned long operator()(const Data& d) const noexcept;/*
 		{
 			void *v = (void *)&d;
 			size_t j = sizeof(d);
@@ -31,7 +31,7 @@ namespace lasd
 				s += (((char *)v)[k]);
 			}
 			return operator()(s);
-		}
+		}*/
 	};
 
 /* ************************************************************************** */
@@ -52,7 +52,7 @@ namespace lasd
 		Hash<Data> hash{};
 		unsigned long a{};
 		unsigned long b{};
-		unsigned long p = 34019;
+		const unsigned long p = 34019;
 		// ...
 
 	public:
@@ -114,9 +114,9 @@ namespace lasd
 
 		// Auxiliary member functions
 
-		unsigned long HashKey(const Data& d)
+		unsigned long HashKey(const Data& d) const
 		{
-			return ((((a)*hash(d))+b)% p) % size;
+			return (((a*hash(d))+b)% p) % size;
 		}
 
 		// Copy assignment
@@ -126,6 +126,7 @@ namespace lasd
 			size = ht.size;
 			a = ht.a;
 			b = ht.b;
+			return *this;
 		}
 
 		// Move assignment
@@ -134,6 +135,7 @@ namespace lasd
 			size = std::move(ht.size);
 			a = std::move(ht.a);
 			b = std::move(ht.b);
+			return *this;
 		}
 
 	};
