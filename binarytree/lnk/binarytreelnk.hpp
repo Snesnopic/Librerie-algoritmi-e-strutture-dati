@@ -142,7 +142,7 @@ namespace lasd
 
 		NodeLnk& Root() const override // Override BinaryTree member (throw std::length_error when empty)
 		{
-			if (size == 0)
+			if (size == 0 || root == nullptr)
 				throw std::length_error("Lenght error!");
 			return *root;
 		}
