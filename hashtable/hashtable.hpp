@@ -114,10 +114,7 @@ namespace lasd
 
 		// Auxiliary member functions
 
-		virtual unsigned long HashKey(const Data& d) const
-		{
-			return (((a*hash(d))+b)% p) % size;
-		}
+		virtual unsigned long HashKey(const Data& d) const = 0;
 
 		// Copy assignment
 
