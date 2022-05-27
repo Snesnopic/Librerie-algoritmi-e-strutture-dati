@@ -25,7 +25,6 @@ namespace lasd
 		using typename BinaryTreeLnk<Data>::BinaryTreeLnk::NodeLnk;
 		using BinaryTreeLnk<Data>::size;
 		using BinaryTreeLnk<Data>::root;
-
 		// ...
 
 	public:
@@ -206,24 +205,6 @@ namespace lasd
 				return true;
 			}
 			return false;
-		}
-
-		void Insert(const LinearContainer<Data>& lc) // Copy of the value
-		{
-			for (unsigned long i = 0; i < lc.Size(); i++)
-				Insert(lc[i]);
-		}
-
-		void Insert(LinearContainer<Data>&& lc) // Move of the value
-		{
-			for (unsigned long i = 0; i < lc.Size(); i++)
-				Insert(std::move(lc[i]));
-		}
-
-		void Remove(const LinearContainer<Data>& lc) // Override DictionaryContainer member
-		{
-			for (unsigned long i = 0; i < lc.Size(); i++)
-				Remove(lc[i]);
 		}
 		/* ************************************************************************ */
 
