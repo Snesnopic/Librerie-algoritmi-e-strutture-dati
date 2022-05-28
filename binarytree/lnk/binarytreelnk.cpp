@@ -15,8 +15,7 @@ namespace lasd
 			q.Enqueue(root);
 			for (int i = 1; i < lc.Size(); i++)
 			{
-				NodeLnk *n = nullptr;
-				n = new NodeLnk(lc[i]);
+				NodeLnk *n = new NodeLnk(lc[i]);
 				q.Enqueue(n);
 				if (is_left)
 				{
