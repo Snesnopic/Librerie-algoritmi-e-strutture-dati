@@ -13,6 +13,7 @@ namespace lasd
 	{
 		table.Resize(s);
 	}
+
 	template<typename Data>
 	HashTableClsAdr<Data>::HashTableClsAdr(unsigned long s, const LinearContainer<Data>& lc) // A hash table of a given size obtained from a LinearContainer
 	{
@@ -110,7 +111,7 @@ namespace lasd
 	template<typename Data>
 	void HashTableClsAdr<Data>::Resize(const unsigned long newSize) // Resize the hashtable to a given size
 	{
-		HashTableClsAdr<Data> newHash(newSize);
+		HashTableClsAdr < Data > newHash(newSize);
 		for (unsigned long i = 0; i < table.Size(); i++)
 		{
 			if (table[i].Empty())

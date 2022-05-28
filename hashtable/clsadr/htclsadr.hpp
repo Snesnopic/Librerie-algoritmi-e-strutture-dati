@@ -33,12 +33,14 @@ namespace lasd
 		using DictionaryContainer<Data>::Insert;
 		using DictionaryContainer<Data>::Remove;
 		Vector<BST<Data>> table{};
+
 		// ...
 		unsigned long HashKey(const Data& d) const override;
+
 	public:
 
 		// Default constructor
-		HashTableClsAdr() : HashTableClsAdr(127){};
+		HashTableClsAdr() : HashTableClsAdr(127) {};
 
 		/* ************************************************************************ */
 
@@ -49,6 +51,7 @@ namespace lasd
 		{
 			Insert(lc);
 		}
+
 		HashTableClsAdr(unsigned long s, const LinearContainer<Data>& lc); // A hash table of a given size obtained from a LinearContainer
 
 
@@ -77,6 +80,7 @@ namespace lasd
 
 		// Comparison operators
 		bool operator==(const HashTableClsAdr& ht) const noexcept;
+
 		bool operator!=(const HashTableClsAdr& ht) const noexcept;
 
 		/* ************************************************************************ */
