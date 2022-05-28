@@ -260,83 +260,37 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Copy constructor
-		BTPreOrderIterator(const BTPreOrderIterator& poi)
-		{
-			curr = poi.curr;
-			stack = poi.stack;
-			treePtr = poi.treePtr;
-		}
+		BTPreOrderIterator(const BTPreOrderIterator& poi);
 
 		// Move constructor
-		BTPreOrderIterator(BTPreOrderIterator&& poi) noexcept
-		{
-			std::swap(curr, poi.curr);
-			std::swap(stack, poi.stack);
-			std::swap(treePtr, poi.treePtr);
-		}
+		BTPreOrderIterator(BTPreOrderIterator&& poi) noexcept;
 
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~BTPreOrderIterator()
-		{
-			stack.Clear();
-		}
+		virtual ~BTPreOrderIterator();
 
 		/* ************************************************************************ */
 
 		// Copy assignment
-		BTPreOrderIterator& operator=(const BTPreOrderIterator& poi)
-		{
-			if (this != &poi)
-			{
-				curr = poi.curr;
-				stack = poi.stack;
-				treePtr = poi.treePtr;
-			}
-			return *this;
-		}
-
+		BTPreOrderIterator& operator=(const BTPreOrderIterator& poi);
 		// Move assignment
-		BTPreOrderIterator& operator=(BTPreOrderIterator&& poi) noexcept
-		{
-			if (this != &poi)
-			{
-				std::swap(curr, poi.curr);
-				std::swap(stack, poi.stack);
-				std::swap(treePtr, poi.treePtr);
-			}
-			return *this;
-		}
+		BTPreOrderIterator& operator=(BTPreOrderIterator&& poi) noexcept;
 
 		/* ************************************************************************ */
 
 		// Comparison operators
-		bool operator==(const BTPreOrderIterator& poi) const noexcept
-		{
-			return curr == poi.curr;
-		}
+		bool operator==(const BTPreOrderIterator& poi) const noexcept;
 
-		bool operator!=(const BTPreOrderIterator& poi) const noexcept
-		{
-			return !(*this == poi);
-		}
+		bool operator!=(const BTPreOrderIterator& poi) const noexcept;
 
 		/* ************************************************************************ */
 
 		// Specific member functions (inherited from Iterator)
 
-		Data& operator*() const override // (throw std::out_of_range when terminated)
-		{
-			if (Terminated())
-				throw std::out_of_range("Out of range!");
-			return curr->dato;
-		}
+		Data& operator*() const override; // (throw std::out_of_range when terminated)
 
-		bool Terminated() const noexcept override // (should not throw exceptions)
-		{
-			return curr == nullptr;
-		}
+		bool Terminated() const noexcept override; // (should not throw exceptions)
 
 		/* ************************************************************************ */
 
@@ -349,12 +303,7 @@ namespace lasd
 
 		// Specific member functions (inherited from ResettableIterator)
 
-		void Reset() noexcept override // (should not throw exceptions)
-		{
-			if (treePtr != nullptr)
-				curr = &treePtr->Root();
-			stack.Clear();
-		}
+		void Reset() noexcept override; // (should not throw exceptions)
 
 	};
 
@@ -388,86 +337,39 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Copy constructor
-		BTPostOrderIterator(const BTPostOrderIterator& poi)
-		{
-			curr = poi.curr;
-			stack = poi.stack;
-			treePtr = poi.treePtr;
-		}
+		BTPostOrderIterator(const BTPostOrderIterator& poi);
 
 		// Move constructor
-		BTPostOrderIterator(BTPostOrderIterator&& poi) noexcept
-		{
-			std::swap(curr, poi.curr);
-			std::swap(stack, poi.stack);
-			std::swap(treePtr, poi.treePtr);
-		}
+		BTPostOrderIterator(BTPostOrderIterator&& poi) noexcept;
 
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~BTPostOrderIterator()
-		{
-			stack.Clear();
-		}
+		virtual ~BTPostOrderIterator();
 
 		/* ************************************************************************ */
 
 		// Copy assignment
-		BTPostOrderIterator& operator=(const BTPostOrderIterator& poi)
-		{
-			if (this != &poi)
-			{
-				curr = poi.curr;
-				stack = poi.stack;
-				treePtr = poi.treePtr;
-			}
-			return *this;
-		}
+		BTPostOrderIterator& operator=(const BTPostOrderIterator& poi);
 
 		// Move assignment
-		BTPostOrderIterator& operator=(BTPostOrderIterator&& poi) noexcept
-		{
-			if (this != &poi)
-			{
-				std::swap(curr, poi.curr);
-				std::swap(stack, poi.stack);
-				std::swap(treePtr, poi.treePtr);
-			}
-			return *this;
-		}
+		BTPostOrderIterator& operator=(BTPostOrderIterator&& poi) noexcept;
 
 		/* ************************************************************************ */
 
 		// Comparison operators
-		bool operator==(const BTPostOrderIterator& poi) const noexcept
-		{
-			if (curr == poi.curr && stack == poi.stack && treePtr == poi.treePtr)
-				return true;
-			else
-				return false;
-		}
+		bool operator==(const BTPostOrderIterator& poi) const noexcept;
 
-		bool operator!=(const BTPostOrderIterator& poi) const noexcept
-		{
-			return !(*this == poi);
-		}
+		bool operator!=(const BTPostOrderIterator& poi) const noexcept;
 
 		/* ************************************************************************ */
 
 		// Specific member functions (inherited from Iterator)
 
-		Data& operator*() const override // (throw std::out_of_range when terminated)
-		{
-			if (Terminated())
-				throw std::out_of_range("Out of range!");
-			return curr->dato;
-		}
+		Data& operator*() const override; // (throw std::out_of_range when terminated)
 
-		bool Terminated() const noexcept override // (should not throw exceptions)
-		{
-			return curr == nullptr;
-		}
+		bool Terminated() const noexcept override; // (should not throw exceptions)
+
 		/* ************************************************************************ */
 		// Specific member functions (inherited from ForwardIterator)
 
@@ -477,12 +379,7 @@ namespace lasd
 
 		// Specific member functions (inherited from ResettableIterator)
 
-		void Reset() noexcept override // (should not throw exceptions)
-		{
-			stack.Clear();
-			if (treePtr != nullptr)
-				curr = minLeaf(&treePtr->Root());
-		}
+		void Reset() noexcept override; // (should not throw exceptions)
 
 	};
 

@@ -3,9 +3,8 @@ namespace lasd
 
 /* ************************************************************************** */
 
-// ...
-//Constructors
-//Initial size constructor
+	//Constructors
+	//Initial size constructor
 	template<typename Data>
 	Vector<Data>::Vector(const unsigned long initialSize)
 	{
@@ -13,7 +12,7 @@ namespace lasd
 		size = initialSize;
 	}
 
-//LinearContainer constructor
+	//LinearContainer constructor
 	template<typename Data>
 	Vector<Data>::Vector(const LinearContainer<Data>& lc)
 	{
@@ -23,7 +22,7 @@ namespace lasd
 			array[i] = lc[i];
 	}
 
-//Copy constructor
+	//Copy constructor
 	template<typename Data>
 	Vector<Data>::Vector(const Vector<Data>& v)
 	{
@@ -32,7 +31,7 @@ namespace lasd
 		std::copy(v.array, v.array + size, array);
 	}
 
-//Move constructor
+	//Move constructor
 	template<typename Data>
 	Vector<Data>::Vector(Vector<Data>&& v) noexcept
 	{
@@ -40,15 +39,15 @@ namespace lasd
 		std::swap(size, v.size);
 	}
 
-//Destructor
+	//Destructor
 	template<typename Data>
 	Vector<Data>::~Vector()
 	{
 		delete[] array;
 	}
 
-//Operators
-//Random access operator
+	//Operators
+	//Random access operator
 	template<typename Data>
 	Data& Vector<Data>::operator[](const unsigned long index) const
 	{
@@ -57,7 +56,7 @@ namespace lasd
 		return array[index];
 	}
 
-//Copy assignment
+	//Copy assignment
 	template<typename Data>
 	Vector<Data>& Vector<Data>::operator=(const Vector& v)
 	{
@@ -72,7 +71,7 @@ namespace lasd
 		return *this;
 	}
 
-//Move assignment
+	//Move assignment
 	template<typename Data>
 	Vector<Data>& Vector<Data>::operator=(Vector<Data>&& v) noexcept
 	{
@@ -84,7 +83,7 @@ namespace lasd
 		return *this;
 	}
 
-//Equal comparison
+	//Equal comparison
 	template<typename Data>
 	bool Vector<Data>::operator==(const Vector& v) const noexcept
 	{
@@ -98,15 +97,15 @@ namespace lasd
 		return true;
 	}
 
-//Not equal comparison
+	//Not equal comparison
 	template<typename Data>
 	bool Vector<Data>::operator!=(const Vector& v) const noexcept
 	{
 		return !(*this == v);
 	}
 
-//Vector functions
-//Resize
+	//Vector functions
+	//Resize
 	template<typename Data>
 	void Vector<Data>::Resize(const unsigned long newSize)
 	{
@@ -130,12 +129,12 @@ namespace lasd
 	}
 
 	template<typename Data>
-	void Vector<Data>::Sort()
+	void Vector<Data>::Sort() noexcept
 	{
 		std::sort(array, array + size);
 	}
 
-//Clear
+	//Clear
 	template<typename Data>
 	void Vector<Data>::Clear()
 	{
@@ -144,7 +143,7 @@ namespace lasd
 		array = nullptr;
 	}
 
-//Front
+	//Front
 	template<typename Data>
 	Data& Vector<Data>::Front() const
 	{
@@ -153,7 +152,7 @@ namespace lasd
 		return array[0];
 	}
 
-//Back
+	//Back
 	template<typename Data>
 	Data& Vector<Data>::Back() const
 	{
@@ -162,7 +161,7 @@ namespace lasd
 		return array[size - 1];
 	}
 
-//Map functions
+	//Map functions
 	template<typename Data>
 	void Vector<Data>::Map(MapFunctor f, void *par)
 	{
@@ -187,7 +186,7 @@ namespace lasd
 		}
 	}
 
-//Fold functions
+	//Fold functions
 	template<typename Data>
 	void Vector<Data>::Fold(FoldFunctor f, const void *par, void *acc) const
 	{

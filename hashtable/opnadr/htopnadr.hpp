@@ -29,6 +29,8 @@ namespace lasd
 		using HashTable<Data>::p;
 		using HashTable<Data>::hash;
 		using HashTable<Data>::HashKey;
+		using DictionaryContainer<Data>::Insert;
+		using DictionaryContainer<Data>::Remove;
 		Vector<Data *> table{};
 		Vector<bool> deleted{};
 
@@ -109,9 +111,7 @@ namespace lasd
 		// Specific member functions (inherited from DictionaryContainer)
 
 		bool Insert(const Data& d); // Override DictionaryContainer member (Copy of the value)
-
 		bool Insert(Data&& d) noexcept; // Override DictionaryContainer member (Move of the value)
-
 		bool Remove(const Data& d); // Override DictionaryContainer member
 
 		/* ************************************************************************ */

@@ -54,6 +54,44 @@ namespace lasd
 	{
 		return !(*this == bst);
 	}
+
+	template<typename Data>
+	bool BST<Data>::Insert(const Data& d) // Override DictionaryContainer member (Copy of the value)
+	{
+		NodeLnk *& ptr = FindPointerTo(root, d);
+		if (ptr == nullptr)
+	{
+		size++;
+		ptr = new NodeLnk(d);
+		return true;
+	}
+	return false;
+	}
+
+	template<typename Data>
+	bool BST<Data>::Insert(Data&& d) noexcept // Override DictionaryContainer member (Move of the value)
+	{
+	NodeLnk *& ptr = FindPointerTo(root, d);
+	if (ptr == nullptr)
+	{
+	size++;
+	ptr = new NodeLnk(std::move(d));
+	return true;
+	}
+	return false;
+	}
+
+	template<typename Data>
+	bool BST<Data>::Remove(const Data& d) // Override DictionaryContainer member
+	{
+		NodeLnk *& ptr = FindPointerTo(root, d);
+		if (ptr != nullptr)
+		{
+		delete Detach(ptr);
+		return true;
+		}
+		return false;
+	}
 /* ************************************************************************** */
 
 }
