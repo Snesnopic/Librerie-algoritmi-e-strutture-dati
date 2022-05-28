@@ -188,7 +188,7 @@ namespace lasd
 			return false;
 		}
 
-		virtual bool Insert(Data&& d) override // Override DictionaryContainer member (Move of the value)
+		virtual bool Insert(Data&& d) noexcept override // Override DictionaryContainer member (Move of the value)
 		{
 			NodeLnk *& ptr = FindPointerTo(root, d);
 			if (ptr == nullptr)
@@ -214,7 +214,7 @@ namespace lasd
 		{
 			DictionaryContainer<Data>::Insert(lc);
 		};
-		void Insert(LinearContainer<Data>&& lc)
+		void Insert(LinearContainer<Data>&& lc) noexcept
 		{
 			DictionaryContainer<Data>::Insert(std::move(lc));
 		};
