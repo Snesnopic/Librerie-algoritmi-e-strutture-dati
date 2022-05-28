@@ -120,7 +120,6 @@ namespace lasd
 
 		virtual HashTable& operator=(const HashTable& ht) // Copy assignment of abstract types should not be possible.
 		{
-			size = ht.size;
 			a = ht.a;
 			b = ht.b;
 			return *this;

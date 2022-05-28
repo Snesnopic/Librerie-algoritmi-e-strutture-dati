@@ -39,7 +39,7 @@ namespace lasd
 	public:
 
 		// Default constructor
-		HashTableClsAdr() = default;
+		HashTableClsAdr() : HashTableClsAdr(127){};
 
 		/* ************************************************************************ */
 
@@ -48,7 +48,7 @@ namespace lasd
 		{
 			table.Resize(s);
 		}
-		HashTableClsAdr(const LinearContainer<Data>& lc) : HashTableClsAdr(lc.Size())// A hash table obtained from a LinearContainer
+		HashTableClsAdr(const LinearContainer<Data>& lc) : HashTableClsAdr()// A hash table obtained from a LinearContainer
 		{
 			Insert(lc);
 		}
@@ -64,7 +64,8 @@ namespace lasd
 		HashTableClsAdr(const HashTableClsAdr& ht)
 		{
 			HashTable<Data>::operator=(ht);
-			table = ht.table;
+            size = ht.size;
+            table = ht.table;
 		}
 
 		// Move constructor
@@ -90,6 +91,7 @@ namespace lasd
 			if(*this != ht)
 			{
 				HashTable<Data>::operator=(ht);
+                size = ht.size;
 				table = ht.table;
 			}
 			return *this;
@@ -129,7 +131,7 @@ namespace lasd
 					BTInOrderIterator<Data> j(ht.table[i]);
 					while(!j.Terminated())
 					{
-						bst1.Insert(*j);
+						bst2.Insert(*j);
 						++j;
 					}
 				}
@@ -176,11 +178,11 @@ namespace lasd
 		{
             unsigned long j = HashKey(d);
             if(table[j].Insert(d))
-			{
-				size++;
-				return true;
-			}
-			return false;
+            {
+                size++;
+                return true;
+            }
+            return false;
 		}
 		bool Insert(Data&& d) // Override DictionaryContainer member (Move of the value)
 		{
@@ -195,7 +197,7 @@ namespace lasd
 		bool Remove(const Data& d) // Override DictionaryContainer member
 		{
 			unsigned long j = HashKey(d);
-			if(!table.Empty() && table[j].Remove(d))
+			if(table[j].Remove(d))
 			{
 				size--;
 				return true;
@@ -221,9 +223,7 @@ namespace lasd
 		bool Exists(const Data& d) const noexcept // Override TestableContainer member
 		{
 			unsigned long j = HashKey(d);
-            if(!table[j].Empty())
-			    return table[j].Exists(d);
-            return false;
+            return table[j].Exists(d);
 		}
 
 		/* ************************************************************************ */
@@ -263,7 +263,7 @@ namespace lasd
 		void Clear() noexcept // Override Container member
 		{
 			table.Clear();
-            table.Resize(1);
+            table.Resize(127);
 			size = 0;
 		}
 

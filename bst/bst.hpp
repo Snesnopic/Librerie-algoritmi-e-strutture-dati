@@ -270,7 +270,7 @@ namespace lasd
 				}
 				if (n->HasRightChild() && n->HasLeftChild())
 				{
-					return Skip2Right(n);
+					return DetachMin(n->left);
 				}
 				else
 				{

@@ -39,7 +39,7 @@ namespace lasd
 	public:
 
 		// Default constructor
-		HashTableOpnAdr(): HashTableOpnAdr(1){};
+		HashTableOpnAdr(): HashTableOpnAdr(127){};
 
 		/* ************************************************************************ */
 
@@ -78,8 +78,7 @@ namespace lasd
 		HashTableOpnAdr(const HashTableOpnAdr& ht) : HashTableOpnAdr(ht.size)
 		{
 			HashTable<Data>::operator=(ht);
-			size = 0;
-			for(unsigned long i = 0; i < ht.table.Size() ; i++)
+            for(unsigned long i = 0; i < ht.table.Size() ; i++)
 			{
 				if(ht.table[i] != nullptr && !ht.deleted[i])
 					Insert(*(ht.table[i]));
@@ -89,14 +88,10 @@ namespace lasd
 		// Move constructor
 		HashTableOpnAdr(HashTableOpnAdr&& ht) noexcept : HashTableOpnAdr(ht.size)
 		{
-			HashTable<Data>::operator=(std::move(ht));
-			size = 0;
-			for(unsigned long i = 0; i < ht.table.Size() ; i++)
-			{
-				if(ht.table[i] != nullptr && !ht.deleted[i])
-					Insert(std::move(*(ht.table[i])));
-			}
-			ht.Clear();
+            HashTable<Data>::operator=(std::move(ht));
+            table = std::move(ht.table);
+            deleted = std::move(ht.deleted);
+            ht.Clear();
 		}
 
 		/* ************************************************************************ */
@@ -104,13 +99,7 @@ namespace lasd
 		// Destructor
 		virtual ~HashTableOpnAdr()
 		{
-			for(unsigned long i = 0; i < table.Size();i++)
-			{
-				if(table[i] != nullptr)
-					delete table[i];
-			}
-			table.Clear();
-			deleted.Clear();
+			Clear();
 		}
 
 		/* ************************************************************************ */
@@ -118,22 +107,22 @@ namespace lasd
 		// Copy assignment
 		HashTableOpnAdr& operator=(const HashTableOpnAdr& ht)
 		{
-			if(*this != ht)
-			{
-				HashTable<Data>::operator=(ht);
-				table = ht.table;
-			}
-			return *this;
+            HashTable<Data>::operator=(ht);
+            for(unsigned long i = 0; i < ht.table.Size() ; i++)
+            {
+                if(ht.table[i] != nullptr && !ht.deleted[i])
+                    Insert(*(ht.table[i]));
+            }
+            return *this;
 		}
 
 		// Move assignment
 		HashTableOpnAdr& operator=(HashTableOpnAdr&& ht) noexcept
 		{
-			if(*this != ht)
-			{
-				HashTable<Data>::operator=(std::move(ht));
-				table = std::move(ht.table);
-			}
+            HashTable<Data>::operator=(std::move(ht));
+            table = std::move(ht.table);
+            deleted = std::move(ht.deleted);
+            ht.Clear();
 			return *this;
 		}
 
@@ -144,7 +133,7 @@ namespace lasd
 		{
 			if(size == ht.size)
 			{
-				for(unsigned long i = 0; i < size ; i++)
+				for(unsigned long i = 0; i < table.Size() ; i++)
 				{
 					if(table[i] != nullptr && !deleted[i])
 					{
@@ -170,15 +159,15 @@ namespace lasd
 			if(s >= size)		//>= perché compiendo una Resize su una Hash con la stessa size di prima possiamo rimuovere i valori contrassegnati 'eliminati'
 			{
 				HashTableOpnAdr newHash(s);
-				for(unsigned long i = 0; i < s; i++)
+				for(unsigned long i = 0; i < table.Size(); i++)
 				{
 					if(table[i] != nullptr && !deleted[i])
 					{
 						newHash.Insert(*table[i]);
 					}
 				}
-				std::swap(*this,newHash);
-			}
+				*this = std::move(newHash);
+            }
 		}
 
 		/* ************************************************************************ */
@@ -187,41 +176,63 @@ namespace lasd
 
 		bool Insert(const Data& d) // Override DictionaryContainer member (Copy of the value)
 		{
-			unsigned long j = HashKey(d);
-			for(unsigned long i = 0; i < table.Size(); i++)
-			{
-                unsigned long index = (j+i)%table.Size();
-				if((table[index]) == nullptr || deleted[(j+i)%table.Size()])
-				{
-					if(deleted[index])
-						delete table[index];
-					table[index] = new Data(d);
-                    size++;
-					return true;
-				}
-				if((table[index]) != nullptr && *(table[index]) == d)
-					break;
-			}
-			return false;
-		}
-		bool Insert(Data&& d) // Override DictionaryContainer member (Move of the value)
-		{
+            if(size == table.Size())
+                Resize((table.Size()*2)+1);
             unsigned long j = HashKey(d);
             for(unsigned long i = 0; i < table.Size(); i++)
             {
                 unsigned long index = (j+i)%table.Size();
-                if((table[index]) == nullptr || deleted[(j+i)%table.Size()])
+                if(table[index] != nullptr)
                 {
-                    if(deleted[index])
-                        delete table[index];
-                    table[index] = new Data(std::move(d));
+                    if(*table[index] == d)
+                    {
+                        if(deleted[index])
+                        {
+                            size++;
+                            deleted[index] = false;
+                            return true;
+                        }
+                        return false;
+                    }
+                }
+                else
+                {
+                    table[index] = new Data(d);
                     size++;
+                    deleted[index] = false;
                     return true;
                 }
-                if((table[index]) != nullptr && *(table[index]) == d)
-                    break;
             }
-            return false;
+		}
+		bool Insert(Data&& d) // Override DictionaryContainer member (Move of the value)
+		{
+            if(size == table.Size())
+                Resize((table.Size()*2)+1);
+            unsigned long j = HashKey(d);
+            for(unsigned long i = 0; i < table.Size(); i++)
+            {
+                unsigned long index = (j+i)%table.Size();
+                if(table[index] != nullptr)
+                {
+                    if(*table[index] == d)
+                    {
+                        if(deleted[index])
+                        {
+                            size++;
+                            deleted[index] = false;
+                            return true;
+                        }
+                        return false;
+                    }
+                }
+                else
+                {
+                    table[index] = new Data(std::move(d));
+                    size++;
+                    deleted[index] = false;
+                    return true;
+                }
+            }
 		}
 		bool Remove(const Data& d) // Override DictionaryContainer member
 		{
@@ -306,13 +317,20 @@ namespace lasd
 
 		void Clear() noexcept // Override Container member
 		{
-			for(unsigned long i;i<table.Size();i++)
-			{
-				if(table[i] != nullptr)
-					delete table[i];
-			}
+            for(unsigned long i = 0 ; i < table.Size() ; i++)
+            {
+                if(table[i] != nullptr)
+                {
+                    delete table[i];
+                    table[i] = nullptr;
+                }
+            }
 			table.Clear();
 			deleted.Clear();
+            table.Resize(1);
+            table[0] = nullptr;
+            deleted.Resize(1);
+            deleted[0] = false;
 			size = 0;
 		}
 
