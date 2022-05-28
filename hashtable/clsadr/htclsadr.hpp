@@ -212,17 +212,17 @@ namespace lasd
 			return false;
 		}
 
-		void Insert(const LinearContainer<Data>& lc)
+		void Insert(const LinearContainer<Data>& lc) override
 		{
 			DictionaryContainer<Data>::Insert(lc);
 		};
 
-		void Insert(LinearContainer<Data>&& lc) noexcept
+		void Insert(LinearContainer<Data>&& lc) noexcept override
 		{
 			DictionaryContainer<Data>::Insert(std::move(lc));
 		};
 
-		void Remove(const LinearContainer<Data>& lc)
+		void Remove(const LinearContainer<Data>& lc) override
 		{
 			DictionaryContainer<Data>::Remove(lc);
 		};
@@ -230,7 +230,7 @@ namespace lasd
 
 		// Specific member functions (inherited from TestableContainer)
 
-		bool Exists(const Data& d) const noexcept // Override TestableContainer member
+		bool Exists(const Data& d) const noexcept override // Override TestableContainer member
 		{
 			unsigned long j = HashKey(d);
 			return table[j].Exists(d);
@@ -270,7 +270,7 @@ namespace lasd
 
 		// Specific member functions (inherited from Container)
 
-		void Clear() noexcept // Override Container member
+		void Clear() noexcept override // Override Container member
 		{
 			table.Clear();
 			table.Resize(127);
