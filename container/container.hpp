@@ -179,7 +179,7 @@ namespace lasd
 		// Specific member functions
 
 		virtual bool Insert(const Data& d) = 0; // Copy of the value
-		virtual bool Insert(Data&& d) = 0; // Move of the value
+		virtual bool Insert(Data&& d) noexcept = 0; // Move of the value
 		virtual bool Remove(const Data& d) = 0; // Override DictionaryContainer member
 
 		virtual void Insert(const LinearContainer<Data>& lc)// Copy of the value
@@ -190,7 +190,7 @@ namespace lasd
 			}
 		}
 
-		virtual void Insert(LinearContainer<Data>&& lc) // Move of the value
+		virtual void Insert(LinearContainer<Data>&& lc) noexcept // Move of the value
 		{
 			for (unsigned long i = 0; i < lc.Size(); i++)
 			{
