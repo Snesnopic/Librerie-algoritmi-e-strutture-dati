@@ -766,7 +766,7 @@ void vectortest()
 				break;
 			case 1:
 			{
-				uniform_int_distribution<int> dist(0, 100);
+				uniform_int_distribution<int> dist(-100, 100);
 				Vector<int> v(size);
 				for (unsigned long i = 0; i < size; i++)
 				{
@@ -826,7 +826,7 @@ void listtest()
 				break;
 			case 1:
 			{
-				uniform_int_distribution<int> dist(0, 100);
+				uniform_int_distribution<int> dist(-100, 100);
 				List<int> l;
 				for (unsigned long i = 0; i < size; i++)
 				{
@@ -907,7 +907,7 @@ void stacktest()
 				break;
 			case 1:
 			{
-				uniform_int_distribution<int> dist(0, 100);
+				uniform_int_distribution<int> dist(-100, 100);
 				if (usevec)
 				{
 					StackVec<int> s;
@@ -1017,7 +1017,7 @@ void queuetest()
 				break;
 			case 1:
 			{
-				uniform_int_distribution<int> dist(0, 100);
+				uniform_int_distribution<int> dist(-100, 100);
 				if (usevec)
 				{
 					QueueVec<int> q;
@@ -1131,7 +1131,7 @@ void binarytreetest()
 				break;
 			case 1:
 			{
-				uniform_int_distribution<int> dist(0, 100);
+				uniform_int_distribution<int> dist(-100, 100);
 				if (usevec)
 				{
 					Vector<int> v(size);
@@ -1231,7 +1231,7 @@ void bsttest()
 				break;
 			case 1:
 			{
-				uniform_int_distribution<int> dist(0, 100);
+				uniform_int_distribution<int> dist(-100, 100);
 				BST<int> bst;
 				for (; bst.Size() < size;)
 				{
@@ -1312,7 +1312,7 @@ void hashtabletest()
 				break;
 			case 1:
 			{
-				uniform_int_distribution<int> dist(0, 100);
+				uniform_int_distribution<int> dist(-1000, 10000);
 				if (openaddr)
 				{
 					HashTableOpnAdr<int> hash(size);
@@ -1351,7 +1351,7 @@ void hashtabletest()
 			}
 			case 3:
 			{
-				uniform_int_distribution<int> dist(2, 5);
+				uniform_int_distribution<int> dist(2, 6);
 				if (openaddr)
 				{
 					HashTableOpnAdr<string> hash(size);
