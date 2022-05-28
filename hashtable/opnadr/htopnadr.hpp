@@ -203,6 +203,7 @@ namespace lasd
                     return true;
                 }
             }
+            return false;
 		}
 		bool Insert(Data&& d) // Override DictionaryContainer member (Move of the value)
 		{
@@ -233,7 +234,8 @@ namespace lasd
                     return true;
                 }
             }
-		}
+            return false;
+        }
 		bool Remove(const Data& d) // Override DictionaryContainer member
 		{
 			unsigned long j = HashKey(d);
