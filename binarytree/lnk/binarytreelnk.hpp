@@ -146,10 +146,11 @@ namespace lasd
 				throw std::length_error("Length error!");
 			return *root;
 		}
-        virtual bool Empty() const noexcept override
-        {
-            return size == 0 || root == nullptr;
-        }
+
+		virtual bool Empty() const noexcept override
+		{
+			return size == 0 || root == nullptr;
+		}
 		/* ************************************************************************ */
 
 		// Specific member functions (inherited from Container)
