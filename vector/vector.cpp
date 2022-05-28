@@ -128,7 +128,11 @@ namespace lasd
 			}
 		}
 	}
-
+    template<typename Data>
+    void Vector<Data>::Sort()
+    {
+        std::sort(array,array+size);
+    }
 //Clear
 	template<typename Data>
 	void Vector<Data>::Clear()
