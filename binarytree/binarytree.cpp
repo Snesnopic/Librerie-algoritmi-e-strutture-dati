@@ -142,7 +142,6 @@ namespace lasd
 		}
 	}
 
-
 	template<typename Data>
 	void BinaryTree<Data>::MapPreOrder(MapFunctor f, void *par, Node *n) // Accessory function executing from one node of the tree
 	{
@@ -203,8 +202,95 @@ namespace lasd
 			FoldInOrder(f, par, acc, &n->RightChild());
 	}
 
+	/* ************************************************************************ */
 
-/* ************************************************************************ */
+	// Copy constructor
+	template<typename Data>
+	BTPreOrderIterator<Data>::BTPreOrderIterator(const BTPreOrderIterator& poi)
+	{
+		curr = poi.curr;
+		stack = poi.stack;
+		treePtr = poi.treePtr;
+	}
+
+	// Move constructor
+	template<typename Data>
+	BTPreOrderIterator<Data>::BTPreOrderIterator(BTPreOrderIterator&& poi) noexcept
+	{
+		std::swap(curr, poi.curr);
+		std::swap(stack, poi.stack);
+		std::swap(treePtr, poi.treePtr);
+	}
+
+	/* ************************************************************************ */
+
+	// Destructor
+	template<typename Data>
+	BTPreOrderIterator<Data>::~BTPreOrderIterator()
+	{
+		stack.Clear();
+	}
+
+	/* ************************************************************************ */
+
+	// Copy assignment
+	template<typename Data>
+	BTPreOrderIterator<Data>& BTPreOrderIterator<Data>::operator=(const BTPreOrderIterator& poi)
+	{
+		if (this != &poi)
+		{
+			curr = poi.curr;
+			stack = poi.stack;
+			treePtr = poi.treePtr;
+		}
+		return *this;
+	}
+
+	// Move assignment
+	template<typename Data>
+	BTPreOrderIterator<Data>& BTPreOrderIterator<Data>::operator=(BTPreOrderIterator&& poi) noexcept
+	{
+		if (this != &poi)
+		{
+			std::swap(curr, poi.curr);
+			std::swap(stack, poi.stack);
+			std::swap(treePtr, poi.treePtr);
+		}
+		return *this;
+	}
+
+	/* ************************************************************************ */
+
+	// Comparison operators
+	template<typename Data>
+	bool BTPreOrderIterator<Data>::operator==(const BTPreOrderIterator& poi) const noexcept
+	{
+		return curr == poi.curr;
+	}
+
+	template<typename Data>
+	bool BTPreOrderIterator<Data>::operator!=(const BTPreOrderIterator& poi) const noexcept
+	{
+		return !(*this == poi);
+	}
+
+	/* ************************************************************************ */
+
+	// Specific member functions (inherited from Iterator)
+	template<typename Data>
+	Data& BTPreOrderIterator<Data>::operator*() const  // (throw std::out_of_range when terminated)
+	{
+		if (Terminated())
+			throw std::out_of_range("Out of range!");
+		return curr->dato;
+	}
+
+	template<typename Data>
+	bool BTPreOrderIterator<Data>::Terminated() const noexcept  // (should not throw exceptions)
+	{
+		return curr == nullptr;
+	}
+
 	template<typename Data>
 	BTPreOrderIterator<Data>::BTPreOrderIterator(const BinaryTree<Data>& bt) // An iterator over a given binary tree
 	{
@@ -232,13 +318,19 @@ namespace lasd
 		return *this;
 	}
 
-/* ************************************************************************ */
+	template<typename Data>
+	void BTPreOrderIterator<Data>::Reset() noexcept  // (should not throw exceptions)
+	{
+		if (treePtr != nullptr)
+			curr = &treePtr->Root();
+		stack.Clear();
+	}
+
+	/* ************************************************************************ */
 	template<typename Data>
 	struct BinaryTree<Data>::Node *BTPostOrderIterator<Data>::minLeaf(struct BinaryTree<Data>::Node *n)
 	{
 		struct BinaryTree<Data>::Node *tmp = n;
-
-
 		stack.Push(tmp);
 		if (tmp->HasLeftChild())
 		{
@@ -250,6 +342,99 @@ namespace lasd
 		}
 	}
 
+	// Copy constructor
+	template<typename Data>
+	BTPostOrderIterator<Data>::BTPostOrderIterator(const BTPostOrderIterator<Data>& poi)
+	{
+		curr = poi.curr;
+		stack = poi.stack;
+		treePtr = poi.treePtr;
+	}
+
+	// Move constructor
+	template<typename Data>
+	BTPostOrderIterator<Data>::BTPostOrderIterator(BTPostOrderIterator<Data>&& poi) noexcept
+	{
+		std::swap(curr, poi.curr);
+		std::swap(stack, poi.stack);
+		std::swap(treePtr, poi.treePtr);
+	}
+
+	/* ************************************************************************ */
+
+	// Destructor
+	template<typename Data>
+	BTPostOrderIterator<Data>::~BTPostOrderIterator()
+	{
+		stack.Clear();
+	}
+
+	/* ************************************************************************ */
+
+	// Copy assignment
+	template<typename Data>
+	BTPostOrderIterator<Data>& BTPostOrderIterator<Data>::operator=(const BTPostOrderIterator<Data>& poi)
+	{
+		if (this != &poi)
+		{
+			curr = poi.curr;
+			stack = poi.stack;
+			treePtr = poi.treePtr;
+		}
+		return *this;
+	}
+
+	// Move assignment
+	template<typename Data>
+	BTPostOrderIterator<Data>& BTPostOrderIterator<Data>::operator=(BTPostOrderIterator<Data>&& poi) noexcept
+	{
+		if (this != &poi)
+		{
+			std::swap(curr, poi.curr);
+			std::swap(stack, poi.stack);
+			std::swap(treePtr, poi.treePtr);
+		}
+		return *this;
+	}
+
+	/* ************************************************************************ */
+
+	// Comparison operators
+	template<typename Data>
+	bool BTPostOrderIterator<Data>::operator==(const BTPostOrderIterator<Data>& poi) const noexcept
+	{
+		if (curr == poi.curr && stack == poi.stack && treePtr == poi.treePtr)
+			return true;
+		else
+			return false;
+	}
+
+	template<typename Data>
+	bool BTPostOrderIterator<Data>::operator!=(const BTPostOrderIterator<Data>& poi) const noexcept
+	{
+		return !(*this == poi);
+	}
+
+	/* ************************************************************************ */
+
+	// Specific member functions (inherited from Iterator)
+	template<typename Data>
+	Data& BTPostOrderIterator<Data>::operator*() const // (throw std::out_of_range when terminated)
+	{
+		if (Terminated())
+			throw std::out_of_range("Out of range!");
+		return curr->dato;
+	}
+
+	template<typename Data>
+	bool BTPostOrderIterator<Data>::Terminated() const noexcept // (should not throw exceptions)
+	{
+		return curr == nullptr;
+	}
+
+	/* ************************************************************************ */
+
+	// Specific member functions (inherited from ForwardIterator)
 	template<typename Data>
 	BTPostOrderIterator<Data>::BTPostOrderIterator(const BinaryTree<Data>& bt) // An iterator over a given binary tree
 	{
@@ -283,7 +468,16 @@ namespace lasd
 		return *this;
 	}
 
-/* ************************************************************************ */
+	template<typename Data>
+	void BTPostOrderIterator<Data>::Reset() noexcept // (should not throw exceptions)
+	{
+		stack.Clear();
+		if (treePtr != nullptr)
+			curr = minLeaf(&treePtr->Root());
+	}
+
+	/* ************************************************************************ */
+
 	template<typename Data>
 	struct BinaryTree<Data>::Node *BTInOrderIterator<Data>::min(struct BinaryTree<Data>::Node *n)
 	{

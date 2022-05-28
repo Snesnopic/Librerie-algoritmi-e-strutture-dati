@@ -25,6 +25,8 @@ namespace lasd
 		using typename BinaryTreeLnk<Data>::BinaryTreeLnk::NodeLnk;
 		using BinaryTreeLnk<Data>::size;
 		using BinaryTreeLnk<Data>::root;
+		using DictionaryContainer<Data>::Insert;
+		using DictionaryContainer<Data>::Remove;
 		// ...
 
 	public:
@@ -176,55 +178,10 @@ namespace lasd
 
 		// Specific member functions (inherited from DictionaryContainer)
 
-		virtual bool Insert(const Data& d) override// Override DictionaryContainer member (Copy of the value)
-		{
-			NodeLnk *& ptr = FindPointerTo(root, d);
-			if (ptr == nullptr)
-			{
-				size++;
-				ptr = new NodeLnk(d);
-				return true;
-			}
-			return false;
-		}
+		virtual bool Insert(const Data& d) override ;// Override DictionaryContainer member (Copy of the value)
+		virtual bool Insert(Data&& d) noexcept override; // Override DictionaryContainer member (Move of the value)
+		virtual bool Remove(const Data& d) override; // Override DictionaryContainer member
 
-		virtual bool Insert(Data&& d) noexcept override // Override DictionaryContainer member (Move of the value)
-		{
-			NodeLnk *& ptr = FindPointerTo(root, d);
-			if (ptr == nullptr)
-			{
-				size++;
-				ptr = new NodeLnk(std::move(d));
-				return true;
-			}
-			return false;
-		}
-
-		virtual bool Remove(const Data& d) override // Override DictionaryContainer member
-		{
-			NodeLnk *& ptr = FindPointerTo(root, d);
-			if (ptr != nullptr)
-			{
-				delete Detach(ptr);
-				return true;
-			}
-			return false;
-		}
-
-		void Insert(const LinearContainer<Data>& lc)
-		{
-			DictionaryContainer<Data>::Insert(lc);
-		};
-
-		void Insert(LinearContainer<Data>&& lc) noexcept
-		{
-			DictionaryContainer<Data>::Insert(std::move(lc));
-		};
-
-		void Remove(const LinearContainer<Data>& lc)
-		{
-			DictionaryContainer<Data>::Remove(lc);
-		};
 		/* ************************************************************************ */
 
 		// Specific member functions (inherited from TestableContainer)
