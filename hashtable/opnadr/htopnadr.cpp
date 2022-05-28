@@ -3,6 +3,12 @@ namespace lasd
 
 /* ************************************************************************** */
 	template<typename Data>
+	unsigned long HashTableOpnAdr<Data>::HashKey(const Data& d) const // Hash function
+	{
+		return (((a * hash(d)) + b) % p) % table.Size();
+	}
+	template<typename Data>
+
 	HashTableOpnAdr<Data>::HashTableOpnAdr(unsigned long s) // A hash table of a given size
 	{
 		table.Resize(s);

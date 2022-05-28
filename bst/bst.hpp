@@ -32,11 +32,7 @@ namespace lasd
 	public:
 
 		// Default constructor
-		BST()
-		{
-			size = 0;
-			root = nullptr;
-		}
+		BST();
 
 		/* ************************************************************************ */
 
@@ -75,110 +71,27 @@ namespace lasd
 
 		// Specific member functions
 
-		virtual const Data& Min() const // (concrete function must throw std::length_error when empty)
-		{
-			if (size == 0)
-				throw std::length_error("Length error!");
-			return FindPointerToMin(root)->dato;
-		}
+		virtual const Data& Min() const; // (concrete function must throw std::length_error when empty)
+		virtual Data MinNRemove(); // (concrete function must throw std::length_error when empty)
+		virtual void RemoveMin(); // (concrete function must throw std::length_error when empty)
 
-		virtual Data MinNRemove() // (concrete function must throw std::length_error when empty)
-		{
-			if (size == 0)
-				throw std::length_error("Length error!");
-			NodeLnk *ptr = DetachMin(root);
-			return DataNDelete(ptr);
-		}
+		virtual const Data& Max() const; // (concrete function must throw std::length_error when empty)
+		virtual Data MaxNRemove(); // (concrete function must throw std::length_error when empty)
+		virtual void RemoveMax(); // (concrete function must throw std::length_error when empty)
 
-		virtual void RemoveMin() // (concrete function must throw std::length_error when empty)
-		{
+		virtual const Data& Predecessor(const Data& d) const; // (concrete function must throw std::length_error when not found)
+		virtual Data PredecessorNRemove(const Data& d); // (concrete function must throw std::length_error when not found)
+		virtual void RemovePredecessor(const Data& d); // (concrete function must throw std::length_error when not found)
 
-			if (size == 0)
-				throw std::length_error("Length error!");
-			NodeLnk *ptr = DetachMin(root);
-			delete ptr;
-		}
-
-		virtual const Data& Max() const // (concrete function must throw std::length_error when empty)
-		{
-			if (size == 0)
-				throw std::length_error("Length error!");
-			return FindPointerToMax(root)->dato;
-		}
-
-		virtual Data MaxNRemove() // (concrete function must throw std::length_error when empty)
-		{
-			if (size == 0)
-				throw std::length_error("Length error!");
-			NodeLnk *ptr = DetachMax(root);
-			return DataNDelete(ptr);
-		}
-
-		virtual void RemoveMax() // (concrete function must throw std::length_error when empty)
-		{
-			if (size == 0)
-				throw std::length_error("Length error!");
-			NodeLnk *ptr = DetachMax(root);
-			delete ptr;
-		}
-
-		virtual const Data& Predecessor(const Data& d) const // (concrete function must throw std::length_error when not found)
-		{
-			NodeLnk *ptr = *FindPointerToPredecessor(root, d);
-			if (ptr == nullptr)
-				throw std::length_error("Length error!");
-			return ptr->dato;
-		}
-
-		virtual Data PredecessorNRemove(const Data& d) // (concrete function must throw std::length_error when not found)
-		{
-			NodeLnk *ptr = nullptr;
-			std::swap(ptr, *FindPointerToPredecessor(root, d));
-			if (ptr == nullptr)
-				throw std::length_error("Length error!");
-			return DataNDelete(Detach(ptr));
-		}
-
-		virtual void RemovePredecessor(const Data& d) // (concrete function must throw std::length_error when not found)
-		{
-			NodeLnk *ptr = nullptr;
-			std::swap(ptr, *FindPointerToPredecessor(root, d));
-			if (ptr == nullptr)
-				throw std::length_error("Length error!");
-			delete Detach(ptr);
-		}
-
-		virtual const Data& Successor(const Data& d) const // (concrete function must throw std::length_error when not found)
-		{
-			NodeLnk *ptr = *FindPointerToSuccessor(root, d);
-			if (ptr == nullptr)
-				throw std::length_error("Length error!");
-			return ptr->dato;
-		}
-
-		virtual Data SuccessorNRemove(const Data& d) // (concrete function must throw std::length_error when not found)
-		{
-			NodeLnk *ptr = nullptr;
-			std::swap(ptr, *FindPointerToSuccessor(root, d));
-			if (ptr == nullptr)
-				throw std::length_error("Length error!");
-			return DataNDelete(Detach(ptr));
-		}
-
-		virtual void RemoveSuccessor(const Data& d) // (concrete function must throw std::length_error when not found)
-		{
-			NodeLnk *ptr = nullptr;
-			std::swap(ptr, *FindPointerToSuccessor(root, d));
-			if (ptr == nullptr)
-				throw std::length_error("Length error!");
-			delete Detach(ptr);
-		}
+		virtual const Data& Successor(const Data& d) const; // (concrete function must throw std::length_error when not found)
+		virtual Data SuccessorNRemove(const Data& d); // (concrete function must throw std::length_error when not found)
+		virtual void RemoveSuccessor(const Data& d); // (concrete function must throw std::length_error when not found)
 
 		/* ************************************************************************ */
 
 		// Specific member functions (inherited from DictionaryContainer)
 
-		virtual bool Insert(const Data& d) override ;// Override DictionaryContainer member (Copy of the value)
+		virtual bool Insert(const Data& d) override;// Override DictionaryContainer member (Copy of the value)
 		virtual bool Insert(Data&& d) noexcept override; // Override DictionaryContainer member (Move of the value)
 		virtual bool Remove(const Data& d) override; // Override DictionaryContainer member
 
@@ -186,23 +99,13 @@ namespace lasd
 
 		// Specific member functions (inherited from TestableContainer)
 
-		virtual bool Exists(const Data& d) const noexcept override // Override TestableContainer member
-		{
-			if (size == 0)
-				return false;
-			return FindPointerTo(root, d) != nullptr;
-		}
+		virtual bool Exists(const Data& d) const noexcept override; // Override TestableContainer member
 
 	protected:
 
 		// Auxiliary member functions
 
-		virtual Data DataNDelete(NodeLnk *n)
-		{
-			Data d = n->dato;
-			delete n;
-			return d;
-		}
+		virtual Data DataNDelete(NodeLnk *n);
 
 		virtual NodeLnk *Detach(NodeLnk *& n) noexcept
 		{

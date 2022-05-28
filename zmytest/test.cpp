@@ -1315,7 +1315,7 @@ void hashtabletest()
 				uniform_int_distribution<int> dist(-1000, 10000);
 				if (openaddr)
 				{
-					HashTableOpnAdr<int> hash(size);
+					HashTableOpnAdr<int> hash;
 					while(hash.Size() < size)
 						hash.Insert(dist(gen));
 					hashtabletest(hash);
@@ -1334,7 +1334,7 @@ void hashtabletest()
 				uniform_real_distribution<double> dist(0, 100);
 				if (openaddr)
 				{
-					HashTableOpnAdr<double> hash(size);
+					HashTableOpnAdr<double> hash;
 					while(hash.Size() < size)
 						hash.Insert(round(dist(gen) * 1000.0) / 1000.0);
 					hashtabletest(hash);
@@ -1354,7 +1354,7 @@ void hashtabletest()
 				uniform_int_distribution<int> dist(2, 6);
 				if (openaddr)
 				{
-					HashTableOpnAdr<string> hash(size);
+					HashTableOpnAdr<string> hash;
 					while(hash.Size() < size)
 						hash.Insert(GeneraStringaCasuale(dist(gen)));
 					hashtabletest(hash);
