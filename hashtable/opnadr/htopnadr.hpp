@@ -141,7 +141,7 @@ namespace lasd
 
 		// Specific member functions (inherited from Container)
 
-		void Clear() noexcept; // Override Container member
+		void Clear() noexcept override; // Override Container member
 
 	};
 
