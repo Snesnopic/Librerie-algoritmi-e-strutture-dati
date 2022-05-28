@@ -205,7 +205,7 @@ namespace lasd
             }
             return false;
 		}
-		bool Insert(Data&& d) // Override DictionaryContainer member (Move of the value)
+		bool Insert(Data&& d) noexcept// Override DictionaryContainer member (Move of the value)
 		{
             if(size == table.Size())
                 Resize((table.Size()*2)+1);
@@ -257,7 +257,7 @@ namespace lasd
 		{
 			DictionaryContainer<Data>::Insert(lc);
 		};
-		void Insert(LinearContainer<Data>&& lc)
+		void Insert(LinearContainer<Data>&& lc) noexcept
 		{
 			DictionaryContainer<Data>::Insert(std::move(lc));
 		};
