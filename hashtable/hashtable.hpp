@@ -62,11 +62,13 @@ namespace lasd
 		{
 			std::default_random_engine gen(std::random_device{}());
 			std::uniform_int_distribution<unsigned long> dista(1, p);
-			while(true)
+			while (true)
 			{
 				a = dista(gen);
-				if(a <= 1) continue;
-				if (a <= 3)  break;
+				if (a <= 1)
+					continue;
+				if (a <= 3)
+					break;
 				unsigned long range = sqrt(a);
 				if (a % 2 == 0 || a % 3 == 0)
 					continue;
@@ -77,12 +79,14 @@ namespace lasd
 				}
 				break;
 			}
-			std::uniform_int_distribution<unsigned long> distb(0, a-1);
-			while(true)
+			std::uniform_int_distribution<unsigned long> distb(0, a - 1);
+			while (true)
 			{
 				b = distb(gen);
-				if(b <= 1) continue;
-				if (b <= 3)  break;
+				if (b <= 1)
+					continue;
+				if (b <= 3)
+					break;
 				unsigned long range = sqrt(b);
 				if (b % 2 == 0 || b % 3 == 0)
 					continue;

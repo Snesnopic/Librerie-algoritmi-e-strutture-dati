@@ -75,7 +75,7 @@ namespace lasd
 		// Specific member functions
 
 		void Resize(const unsigned long newSize); // Resize the vector to a given size
-        void Sort();
+		void Sort();
 
 		/* ************************************************************************ */
 

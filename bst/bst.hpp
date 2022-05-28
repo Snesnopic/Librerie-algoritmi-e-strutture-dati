@@ -31,10 +31,10 @@ namespace lasd
 
 		// Default constructor
 		BST()
-        {
-            size = 0;
-            root = nullptr;
-        }
+		{
+			size = 0;
+			root = nullptr;
+		}
 
 		/* ************************************************************************ */
 
@@ -210,14 +210,17 @@ namespace lasd
 			}
 			return false;
 		}
+
 		void Insert(const LinearContainer<Data>& lc)
 		{
 			DictionaryContainer<Data>::Insert(lc);
 		};
+
 		void Insert(LinearContainer<Data>&& lc) noexcept
 		{
 			DictionaryContainer<Data>::Insert(std::move(lc));
 		};
+
 		void Remove(const LinearContainer<Data>& lc)
 		{
 			DictionaryContainer<Data>::Remove(lc);
@@ -228,7 +231,7 @@ namespace lasd
 
 		virtual bool Exists(const Data& d) const noexcept override // Override TestableContainer member
 		{
-			if(size == 0)
+			if (size == 0)
 				return false;
 			return FindPointerTo(root, d) != nullptr;
 		}
@@ -250,17 +253,17 @@ namespace lasd
 			{
 				if (n == root)
 				{
-					NodeLnk** ptr = FindPointerToPredecessor(root, n->dato);
+					NodeLnk **ptr = FindPointerToPredecessor(root, n->dato);
 					if (ptr == nullptr)
 					{
 						ptr = FindPointerToSuccessor(root, n->dato);
-						if(ptr == nullptr)
-                        {
-                            NodeLnk *t = new NodeLnk(std::move(n->dato));
-                            delete n;
-                            n = nullptr;
-                            return t;
-                        }
+						if (ptr == nullptr)
+						{
+							NodeLnk *t = new NodeLnk(std::move(n->dato));
+							delete n;
+							n = nullptr;
+							return t;
+						}
 					}
 					if (ptr != nullptr)
 					{
