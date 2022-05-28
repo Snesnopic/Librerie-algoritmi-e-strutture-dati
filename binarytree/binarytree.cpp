@@ -479,13 +479,13 @@ namespace lasd
 	/* ************************************************************************ */
 
 	template<typename Data>
-	struct BinaryTree<Data>::Node *BTInOrderIterator<Data>::min(struct BinaryTree<Data>::Node *n)
+	struct BinaryTree<Data>::Node *BTInOrderIterator<Data>::Min(struct BinaryTree<Data>::Node *n)
 	{
 		struct BinaryTree<Data>::Node *tmp = n;
 		if (tmp->HasLeftChild())
 		{
 			stack.Push(tmp);
-			tmp = min(&tmp->LeftChild());
+			tmp = Min(&tmp->LeftChild());
 		}
 		return tmp;
 	}
@@ -495,7 +495,7 @@ namespace lasd
 	{
 		treePtr = &bt;
 		if (!bt.Empty())
-			curr = min(&bt.Root());
+			curr = Min(&bt.Root());
 	}
 
 	template<typename Data>
@@ -508,7 +508,7 @@ namespace lasd
 			if (!stack.Empty() && curr == stack.Top())
 				stack.Pop();
 			else
-				curr = min(&curr->RightChild());
+				curr = Min(&curr->RightChild());
 		}
 		else
 		{

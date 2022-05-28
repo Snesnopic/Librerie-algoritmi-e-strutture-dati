@@ -399,7 +399,7 @@ namespace lasd
 
 	protected:
 
-		struct BinaryTree<Data>::Node *min(struct BinaryTree<Data>::Node *n);
+		struct BinaryTree<Data>::Node *Min(struct BinaryTree<Data>::Node *n);
 
 
 	public:
@@ -504,7 +504,7 @@ namespace lasd
 		{
 			stack.Clear();
 			if (treePtr != nullptr)
-				curr = min(&treePtr->Root());
+				curr = Min(&treePtr->Root());
 		}
 
 	};

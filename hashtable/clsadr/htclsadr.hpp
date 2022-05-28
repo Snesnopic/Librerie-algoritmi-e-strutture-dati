@@ -153,7 +153,7 @@ namespace lasd
 
 		// Specific member functions (inherited from HashTable)
 
-		void Resize(const unsigned long newSize) // Resize the hashtable to a given size
+		void Resize(const unsigned long newSize) override// Resize the hashtable to a given size
 		{
 			HashTableClsAdr<Data> newHash(newSize);
 			for (unsigned long i = 0; i < table.Size(); i++)
@@ -179,7 +179,7 @@ namespace lasd
 
 		// Specific member functions (inherited from DictionaryContainer)
 
-		bool Insert(const Data& d) // Override DictionaryContainer member (Copy of the value)
+		bool Insert(const Data& d) override // Override DictionaryContainer member (Copy of the value)
 		{
 			unsigned long j = HashKey(d);
 			if (table[j].Insert(d))
@@ -190,7 +190,7 @@ namespace lasd
 			return false;
 		}
 
-		bool Insert(Data&& d) noexcept // Override DictionaryContainer member (Move of the value)
+		bool Insert(Data&& d) noexcept override // Override DictionaryContainer member (Move of the value)
 		{
 			unsigned long j = HashKey(d);
 			if (table[j].Insert(std::move(d)))
@@ -201,7 +201,7 @@ namespace lasd
 			return false;
 		}
 
-		bool Remove(const Data& d) // Override DictionaryContainer member
+		bool Remove(const Data& d) override// Override DictionaryContainer member
 		{
 			unsigned long j = HashKey(d);
 			if (table[j].Remove(d))
