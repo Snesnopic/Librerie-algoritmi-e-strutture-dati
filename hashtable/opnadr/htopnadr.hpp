@@ -34,11 +34,8 @@ namespace lasd
 		Vector<Data *> table{};
 		Vector<bool> deleted{};
 
-		// ...
-		virtual unsigned long HashKey(const Data& d) const override
-		{
-			return (((a * hash(d)) + b) % p) % table.Size();
-		}
+		// Hash function
+		virtual unsigned long HashKey(const Data& d) const override;
 
 	public:
 

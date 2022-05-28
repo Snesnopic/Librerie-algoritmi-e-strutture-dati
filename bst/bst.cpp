@@ -5,6 +5,15 @@ namespace lasd
 
 /* ************************************************************************** */
 
+
+	// Default constructor
+	template<typename Data>
+	BST<Data>::BST()
+	{
+		size = 0;
+		root = nullptr;
+	}
+
 	// Specific constructors
 	template<typename Data>
 	BST<Data>::BST(const LinearContainer<Data>& lc) // A bst obtained from a LinearContainer
@@ -55,43 +64,177 @@ namespace lasd
 		return !(*this == bst);
 	}
 
+	// Specific member functions
+	template<typename Data>
+	const Data& BST<Data>::Min() const // (concrete function must throw std::length_error when empty)
+	{
+		if (size == 0)
+			throw std::length_error("Length error!");
+		return FindPointerToMin(root)->dato;
+	}
+
+	template<typename Data>
+	Data BST<Data>::MinNRemove() // (concrete function must throw std::length_error when empty)
+	{
+		if (size == 0)
+			throw std::length_error("Length error!");
+		NodeLnk * ptr = DetachMin(root);
+		return DataNDelete(ptr);
+	}
+
+	template<typename Data>
+	void BST<Data>::RemoveMin() // (concrete function must throw std::length_error when empty)
+	{
+
+		if (size == 0)
+			throw std::length_error("Length error!");
+		NodeLnk * ptr = DetachMin(root);
+		delete ptr;
+	}
+
+	template<typename Data>
+	const Data& BST<Data>::Max() const // (concrete function must throw std::length_error when empty)
+	{
+		if (size == 0)
+			throw std::length_error("Length error!");
+		return FindPointerToMax(root)->dato;
+	}
+
+	template<typename Data>
+	Data BST<Data>::MaxNRemove() // (concrete function must throw std::length_error when empty)
+	{
+		if (size == 0)
+			throw std::length_error("Length error!");
+		NodeLnk * ptr = DetachMax(root);
+		return DataNDelete(ptr);
+	}
+
+	template<typename Data>
+	void BST<Data>::RemoveMax() // (concrete function must throw std::length_error when empty)
+	{
+		if (size == 0)
+			throw std::length_error("Length error!");
+		NodeLnk * ptr = DetachMax(root);
+		delete ptr;
+	}
+
+	template<typename Data>
+	const Data& BST<Data>::Predecessor(const Data& d) const // (concrete function must throw std::length_error when not found)
+	{
+		NodeLnk * ptr = *FindPointerToPredecessor(root, d);
+		if (ptr == nullptr)
+			throw std::length_error("Length error!");
+		return ptr->dato;
+	}
+
+	template<typename Data>
+	Data BST<Data>::PredecessorNRemove(const Data& d) // (concrete function must throw std::length_error when not found)
+	{
+		NodeLnk * ptr = nullptr;
+		std::swap(ptr, *FindPointerToPredecessor(root, d));
+		if (ptr == nullptr)
+			throw std::length_error("Length error!");
+		return DataNDelete(Detach(ptr));
+	}
+
+	template<typename Data>
+	void BST<Data>::RemovePredecessor(const Data& d) // (concrete function must throw std::length_error when not found)
+	{
+		NodeLnk * ptr = nullptr;
+		std::swap(ptr, *FindPointerToPredecessor(root, d));
+		if (ptr == nullptr)
+			throw std::length_error("Length error!");
+		delete Detach(ptr);
+	}
+
+	template<typename Data>
+	const Data& BST<Data>::Successor(const Data& d) const // (concrete function must throw std::length_error when not found)
+	{
+		NodeLnk * ptr = *FindPointerToSuccessor(root, d);
+		if (ptr == nullptr)
+			throw std::length_error("Length error!");
+		return ptr->dato;
+	}
+
+	template<typename Data>
+	Data BST<Data>::SuccessorNRemove(const Data& d) // (concrete function must throw std::length_error when not found)
+	{
+		NodeLnk * ptr = nullptr;
+		std::swap(ptr, *FindPointerToSuccessor(root, d));
+		if (ptr == nullptr)
+			throw std::length_error("Length error!");
+		return DataNDelete(Detach(ptr));
+	}
+
+	template<typename Data>
+	void BST<Data>::RemoveSuccessor(const Data& d) // (concrete function must throw std::length_error when not found)
+	{
+		NodeLnk * ptr = nullptr;
+		std::swap(ptr, *FindPointerToSuccessor(root, d));
+		if (ptr == nullptr)
+			throw std::length_error("Length error!");
+		delete Detach(ptr);
+	}
+
+	// Specific member functions (inherited from DictionaryContainer)
 	template<typename Data>
 	bool BST<Data>::Insert(const Data& d) // Override DictionaryContainer member (Copy of the value)
 	{
-		NodeLnk *& ptr = FindPointerTo(root, d);
+		NodeLnk * &ptr = FindPointerTo(root, d);
 		if (ptr == nullptr)
-	{
-		size++;
-		ptr = new NodeLnk(d);
-		return true;
-	}
-	return false;
+		{
+			size++;
+			ptr = new NodeLnk(d);
+			return true;
+		}
+		return false;
 	}
 
 	template<typename Data>
 	bool BST<Data>::Insert(Data&& d) noexcept // Override DictionaryContainer member (Move of the value)
 	{
-	NodeLnk *& ptr = FindPointerTo(root, d);
-	if (ptr == nullptr)
-	{
-	size++;
-	ptr = new NodeLnk(std::move(d));
-	return true;
-	}
-	return false;
+		NodeLnk * &ptr = FindPointerTo(root, d);
+		if (ptr == nullptr)
+		{
+			size++;
+			ptr = new NodeLnk(std::move(d));
+			return true;
+		}
+		return false;
 	}
 
 	template<typename Data>
 	bool BST<Data>::Remove(const Data& d) // Override DictionaryContainer member
 	{
-		NodeLnk *& ptr = FindPointerTo(root, d);
+		NodeLnk * &ptr = FindPointerTo(root, d);
 		if (ptr != nullptr)
 		{
-		delete Detach(ptr);
-		return true;
+			delete Detach(ptr);
+			return true;
 		}
 		return false;
 	}
+
+	// Specific member functions (inherited from TestableContainer)
+	template<typename Data>
+	bool BST<Data>::Exists(const Data& d) const noexcept // Override TestableContainer member
+	{
+		if (size == 0)
+			return false;
+		return FindPointerTo(root, d) != nullptr;
+	}
+
+	// Auxiliary member functions
+	template<typename Data>
+	Data BST<Data>::DataNDelete(NodeLnk * n)
+	{
+		Data d = n->dato;
+		delete n;
+		return d;
+	}
+
+
+};
 /* ************************************************************************** */
 
 }
