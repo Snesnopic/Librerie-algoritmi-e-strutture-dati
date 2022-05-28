@@ -153,6 +153,53 @@ namespace lasd
 		return operator[](size - 1);
 	}
 
+    template<typename Data>
+    bool List<Data>::Insert(const Data& d) // Copy of the value
+    {
+        if(FoldableContainer<Data>::Exists(d))
+            return false;
+        else
+            InsertAtFront(d);
+		return true;
+    }
+    template<typename Data>
+    bool List<Data>::Insert(Data&& d) noexcept // Move of the value
+    {
+        if(FoldableContainer<Data>::Exists(d))
+            return false;
+        else
+            InsertAtFront(std::move(d));
+		return true;
+    }
+    template<typename Data>
+    bool List<Data>::Remove(const Data& d) // Override DictionaryContainer member
+    {
+        Node* temp = head;
+        Node* prev = nullptr;
+        if (temp != nullptr && temp->dato == d)
+        {
+            head = temp->next; // Changed head
+			temp->next = nullptr;
+            delete temp;            // free old head
+			size--;
+            return true;
+        }
+        else
+        {
+            while (temp != nullptr && temp->dato != d)
+            {
+                prev = temp;
+                temp = temp->next;
+            }
+            if (temp == nullptr)
+                return false;
+            prev->next = temp->next;
+			temp->next = nullptr;
+            delete temp;
+			size--;
+            return true;
+        }
+    }
 //Copy assignment
 	template<typename Data>
 	List<Data>& List<Data>::operator=(const List& l)
