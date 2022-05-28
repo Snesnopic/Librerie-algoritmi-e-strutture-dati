@@ -9,6 +9,8 @@
 #include "../binarytree/lnk/binarytreelnk.hpp"
 #include "../binarytree/vec/binarytreevec.hpp"
 #include "../bst/bst.hpp"
+#include "../hashtable/clsadr/htclsadr.hpp"
+#include "../hashtable/opnadr/htopnadr.hpp"
 #include <type_traits>
 #include <iostream>
 #include <random>
@@ -584,8 +586,7 @@ void bsttest(BST<Data>& bst)
 				Data search{};
 				cout << "Inserisci l'elemento da cercare: ";
 				cin >> search;
-				bool found = bst.Exists(search);
-				if (!found)
+				if (!bst.Exists(search))
 					cout << "Non trovato!" << endl;
 				else
 					cout << "Trovato!" << endl;
@@ -628,19 +629,113 @@ void bsttest(BST<Data>& bst)
 				cout << "Inserisci l'elemento da rimuovere: ";
 				cin >> search;
 				bool found = bst.Exists(search);
-				if (!found)
+				if (!bst.Remove(search))
 					cout << "Valore non trovato!" << endl;
 				else
-				{
-					if (bst.Remove(search))
-						cout << "Valore trovato e eliminato!" << endl;
-					else
-						cout << "Valore non trovato, non ho eliminato niente!" << endl;
-				}
+					cout << "Valore trovato e eliminato!" << endl;
 				break;
 			}
 			case 8:
 				cout << "Il BST ha size: " << bst.Size() << endl;
+				break;
+			default:
+				cout << "Errore di input" << endl;
+		}
+	}
+}
+
+template<typename Data>
+void hashtabletest(HashTable<Data>& hash)
+{
+	bool selection = false;
+	int testtype;
+	cout << endl << "Seleziona il tipo di operazione" << endl;
+	while (!selection)
+	{
+		cout << "0. Torna indietro" << endl << "1. Stampa tutti gli elementi" << endl << "2. Inserisci un valore" << endl << "3. Controlla esistenza di un valore" << endl
+			 << "4. Calcola la funzione fold relativa al dato" << endl << "5. Rimuovi un valore" << endl << "6. Stampa la size" << endl;
+		string input;
+		cin >> input;
+		testtype = stoi(input);
+		switch (testtype)
+		{
+			case 0:
+				selection = true;
+				break;
+			case 1:
+			{
+				hash.Map(&MapPrint<Data>, 0);
+				cout << endl;
+				break;
+			}
+			case 2:
+			{
+				Data insert{};
+				cout << "Inserisci l'elemento da inserire: ";
+				cin >> insert;
+				bool found = hash.Insert(insert);
+				if (!found)
+					cout << "Non inserito (probabilmente è già presente)!" << endl;
+				else
+					cout << "Inserito!" << endl;
+				break;
+			}
+			case 3:
+			{
+				Data search{};
+				cout << "Inserisci l'elemento da cercare: ";
+				cin >> search;
+				bool found = hash.Exists(search);
+				if (!found)
+					cout << "Non trovato!" << endl;
+				else
+					cout << "Trovato!" << endl;
+				break;
+			}
+			case 4:
+			{
+				if constexpr (is_same<Data, int>::value)
+				{
+					cout << "Funzione fold per questo tipo di dato: Prodotto per gli interi minori di n" << endl << "Inserisci n:   ";
+					int n{};
+					cin >> n;
+					long result = 1;
+					hash.Fold(&FoldProductLessThanN<Data>, &n, &result);
+					cout << result << endl;
+				}
+				if constexpr (is_same<Data, double>::value)
+				{
+					cout << "Funzione fold per questo tipo di dato: Somma per i double maggiori di n;" << endl << "Inserisci n:   ";
+					double n{};
+					cin >> n;
+					double result = 0;
+					hash.Fold(&FoldSumMoreThanN<Data>, &n, &result);
+					cout << result << endl;
+				}
+				if constexpr (is_same<Data, string>::value)
+				{
+					cout << "Funzione fold per questo tipo di dato: Concatenazione con lunghezza minore o uguale a n;" << endl << "Inserisci n:   ";
+					unsigned long n{};
+					cin >> n;
+					string result = "";
+					hash.Fold(&FoldConcatLessEqualN<Data>, &n, &result);
+					cout << result << endl;
+				}
+				break;
+			}
+			case 5:
+			{
+				Data search{};
+				cout << "Inserisci l'elemento da rimuovere: ";
+				cin >> search;
+				if (!hash.Remove(search))
+					cout << "Valore non trovato!" << endl;
+				else
+					cout << "Valore trovato e eliminato!" << endl;
+				break;
+			}
+			case 6:
+				cout << "La hashmap ha size: " << hash.Size() << endl;
 				break;
 			default:
 				cout << "Errore di input" << endl;
@@ -1176,6 +1271,109 @@ void bsttest()
 	}
 }
 
+void hashtabletest()
+{
+	bool openaddr{};
+	int testtype = 0;
+	cout << endl << "Che implementazione usare?" << endl << "1. Indirizzamento aperto" << endl << "2. Indirizzamento chiuso" << endl;
+	while (testtype != 1 && testtype != 2)
+	{
+		string input;
+		cin >> input;
+		testtype = stoi(input);
+		switch (testtype)
+		{
+			case 1:
+				openaddr = true;
+				break;
+			case 2:
+				openaddr = false;
+				break;
+			default:
+				cout << "Input non valido" << endl;
+		}
+	}
+	testtype = 0;
+	unsigned long size;
+	cout << "Quanto rendere grande l'hash table?: ";
+	default_random_engine gen(random_device{}());
+	cin >> size;
+	bool selection = false;
+	while (!selection)
+	{
+		cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro" << endl;
+		string input;
+		cin >> input;
+		testtype = stoi(input);
+		switch (testtype)
+		{
+			case 0:
+				selection = true;
+				break;
+			case 1:
+			{
+				uniform_int_distribution<int> dist(0, 100);
+				if (openaddr)
+				{
+					HashTableOpnAdr<int> hash(size);
+					while(hash.Size() < size)
+						hash.Insert(dist(gen));
+					hashtabletest(hash);
+				}
+				else
+				{
+					HashTableClsAdr<int> hash(size);
+					while(hash.Size() < size)
+						hash.Insert(dist(gen));
+					hashtabletest(hash);
+				}
+				break;
+			}
+			case 2:
+			{
+				uniform_real_distribution<double> dist(0, 100);
+				if (openaddr)
+				{
+					HashTableOpnAdr<double> hash(size);
+					while(hash.Size() < size)
+						hash.Insert(round(dist(gen) * 1000.0) / 1000.0);
+					hashtabletest(hash);
+				}
+				else
+				{
+					HashTableClsAdr<double> hash(size);
+					while(hash.Size() < size)
+						hash.Insert(round(dist(gen) * 1000.0) / 1000.0);
+					hashtabletest(hash);
+				}
+
+				break;
+			}
+			case 3:
+			{
+				uniform_int_distribution<int> dist(2, 5);
+				if (openaddr)
+				{
+					HashTableOpnAdr<string> hash(size);
+					while(hash.Size() < size)
+						hash.Insert(GeneraStringaCasuale(dist(gen)));
+					hashtabletest(hash);
+				}
+				else
+				{
+					HashTableClsAdr<string> hash(size);
+					while(hash.Size() < size)
+						hash.Insert(GeneraStringaCasuale(dist(gen)));
+					hashtabletest(hash);
+				}
+				break;
+			}
+			default:
+				cout << "Input non valido" << endl;
+		}
+	}
+}
+
 void mytest()
 {
 	bool selection = false;
@@ -1211,6 +1409,7 @@ void mytest()
 				bsttest();
 				break;
 			case 7:
+				hashtabletest();
 				break;
 			case 8:
 			{

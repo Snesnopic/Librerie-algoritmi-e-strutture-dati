@@ -49,7 +49,7 @@ namespace lasd
 		return *this;
 	}
 
-// Move assignment
+	// Move assignment
 	template<typename Data>
 	HashTableOpnAdr<Data>& HashTableOpnAdr<Data>::operator=(HashTableOpnAdr&& ht) noexcept
 	{

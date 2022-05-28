@@ -72,7 +72,7 @@ void RemoveMin(unsigned int& testnum, unsigned int& testerr, lasd::BST<Data>& bs
 	testnum++;
 	try
 	{
-		std::cout << " " << testnum << " (" << testerr << ") Remove min from the the bst: ";
+		std::cout << " " << testnum << " (" << testerr << ") Remove Min from the the bst: ";
 		bst.RemoveMin();
 		std::cout << ((tst = chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
