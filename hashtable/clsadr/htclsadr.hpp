@@ -30,7 +30,7 @@ namespace lasd
 		using HashTable<Data>::p;
 		using HashTable<Data>::hash;
 		using HashTable<Data>::HashKey;
-		Vector<BST<Data>> table{};
+		Vector<List<Data>> table{};
 		// ...
 		unsigned long HashKey(const Data& d) const override
 		{
@@ -115,28 +115,24 @@ namespace lasd
 		{
 			if(size == ht.size)
 			{
-				BST<Data> bst1;
-				for(unsigned long i = 0;i < table.Size();i++)
-				{
-					BTInOrderIterator<Data> j(table[i]);
-					while(!j.Terminated())
-					{
-						bst1.Insert(*j);
-						++j;
-					}
-				}
-				BST<Data> bst2;
-				for(unsigned long i = 0;i < ht.table.Size();i++)
-				{
-					BTInOrderIterator<Data> j(ht.table[i]);
-					while(!j.Terminated())
-					{
-						bst2.Insert(*j);
-						++j;
-					}
-				}
-				return bst1 == bst2;
-			}
+				BST<Data> v1;
+                BST<Data> v2;
+                for(unsigned long i = 0;i <table.Size();i++)
+                {
+                    for(unsigned long j = 0; j<table[i].Size() ;j++)
+                    {
+                        v1.Insert(table[i][j]);
+                    }
+                }
+                for(unsigned long i = 0;i <ht.table.Size();i++)
+                {
+                    for(unsigned long j = 0; j<ht.table[i].Size() ;j++)
+                    {
+                        v2.Insert(ht.table[i][j]);
+                    }
+                }
+                return v1 == v2;
+            }
 			return false;
 		}
 		bool operator!=(const HashTableClsAdr& ht) const noexcept
@@ -151,23 +147,16 @@ namespace lasd
 		void Resize(const unsigned long newSize) // Resize the hashtable to a given size
 		{
             HashTableClsAdr<Data> newHash(newSize);
-			for(unsigned long i = 0; i < table.Size();i++)
-			{
-				if(table[i].Empty())
-					continue;
-				else
-				{
-					BTBreadthIterator<Data> j(table[i]);
-					while(!j.Terminated())
-					{
-                        newHash.Insert(*j);
-						++j;
-					}
-					table[i].Clear();
-				}
-			}
-			table.Clear();
-			std::swap(*this,newHash);
+            for(unsigned long i = 0;i <table.Size();i++)
+            {
+                for(unsigned long j = 0; j<table[i].Size() ;j++)
+                {
+                    newHash.Insert(table[i][j]);
+                }
+            }
+            table.Clear();
+            std::swap(*this,newHash);
+
 		}
 
 		/* ************************************************************************ */
@@ -184,7 +173,7 @@ namespace lasd
             }
             return false;
 		}
-		bool Insert(Data&& d) // Override DictionaryContainer member (Move of the value)
+		bool Insert(Data&& d) noexcept// Override DictionaryContainer member (Move of the value)
 		{
             unsigned long j = HashKey(d);
             if(table[j].Insert(std::move(d)))
@@ -208,7 +197,7 @@ namespace lasd
 		{
 			DictionaryContainer<Data>::Insert(lc);
 		};
-		void Insert(LinearContainer<Data>&& lc)
+		void Insert(LinearContainer<Data>&& lc) noexcept
 		{
 			DictionaryContainer<Data>::Insert(std::move(lc));
 		};
