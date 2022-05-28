@@ -13,7 +13,8 @@ namespace lasd
 /* ************************************************************************** */
 
 	template<typename Data>
-	class List : virtual public LinearContainer<Data>, virtual public PreOrderMappableContainer<Data>, virtual public PostOrderMappableContainer<Data>, virtual public PreOrderFoldableContainer<Data>, virtual public PostOrderFoldableContainer<Data>
+	class List : virtual public LinearContainer<Data>, virtual public PreOrderMappableContainer<Data>, virtual public PostOrderMappableContainer<Data>,
+            virtual public PreOrderFoldableContainer<Data>, virtual public PostOrderFoldableContainer<Data>, virtual public DictionaryContainer<Data>
 	{
 		// Must extend LinearContainer<Data>,
 		//             PreOrderMappableContainer<Data>,
@@ -119,7 +120,6 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Specific member functions
-
 		void InsertAtFront(const Data& d) noexcept; // Copy of the value
 		void InsertAtFront(Data&& d) noexcept; // Move of the value
 		void RemoveFromFront(); // (must throw std::length_error when empty)
@@ -127,6 +127,9 @@ namespace lasd
 
 		void InsertAtBack(const Data& d) noexcept; // Copy of the value
 		void InsertAtBack(Data&& d) noexcept; // Move of the value
+        bool Insert(const Data& d) override; // Copy of the value
+        bool Insert(Data&& d) noexcept override; // Move of the value
+        bool Remove(const Data& d) override; // Override DictionaryContainer member
 
 		/* ************************************************************************ */
 
