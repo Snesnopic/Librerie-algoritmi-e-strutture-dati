@@ -24,7 +24,7 @@ const std::string VALID_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTU
 default_random_engine gen{};
 uniform_int_distribution<int> dist(0, VALID_CHARS.size() - 1);
 
-string GeneraStringaCasuale(unsigned int lunghezza)
+string GeneraStringaCasuale(const unsigned int lunghezza)
 {
 	ostringstream oss;
 	for (unsigned int i = 0; i < lunghezza; i++)
@@ -76,27 +76,15 @@ void MapPrint(Data& dat, void *_)
 }
 
 template<typename Data>
-void MapDouble(Data& dat, void *_)
+void MapMultiply(Data& dat, void *_)
 {
-	dat = dat * 2;
+	dat = dat * *(short *)(_);
 }
 
 template<typename Data>
-void MapTriple(Data& dat, void *_)
+void MapPower(Data& dat, void *_)
 {
-	dat = dat * 3;
-}
-
-template<typename Data>
-void MapSquare(Data& dat, void *_)
-{
-	dat = pow(dat, 2);
-}
-
-template<typename Data>
-void MapCube(Data& dat, void *_)
-{
-	dat = pow(dat, 3);
+	dat = pow(dat, *(short *)_);
 }
 
 template<typename Data>
@@ -179,13 +167,15 @@ void vectortest(Vector<Data>& v)
 				if constexpr (is_same<Data, int>::value)
 				{
 					cout << "Funzione map per questo tipo di dato: 2n" << endl;
-					v.Map(&MapDouble<int>, 0);
+					short a = 2;
+					v.Map(&MapMultiply<int>, &a);
 					cout << "Fatto, prova a stampare" << endl;
 				}
 				if constexpr (is_same<Data, double>::value)
 				{
 					cout << "Funzione map per questo tipo di dato: n^2;" << endl;
-					v.Map(&MapSquare<double>, 0);
+					short a = 2;
+					v.Map(&MapPower<double>, &a);
 					cout << "Fatto, prova a stampare" << endl;
 				}
 				if constexpr (is_same<Data, string>::value)
@@ -268,13 +258,15 @@ void listtest(List<Data>& l)
 				if constexpr (is_same<Data, int>::value)
 				{
 					cout << "Funzione map per questo tipo di dato: 2n" << endl;
-					l.Map(&MapDouble<int>, 0);
+					short a = 2;
+					l.Map(&MapMultiply<int>, &a);
 					cout << "Fatto, prova a stampare" << endl;
 				}
 				if constexpr (is_same<Data, double>::value)
 				{
 					cout << "Funzione map per questo tipo di dato: n^2;" << endl;
-					l.Map(&MapSquare<double>, 0);
+					short a = 2;
+					l.Map(&MapPower<double>, &a);
 					cout << "Fatto, prova a stampare" << endl;
 				}
 				if constexpr (is_same<Data, string>::value)
@@ -471,8 +463,7 @@ void binarytreetest(BinaryTree<Data>& bt)
 				Data search{};
 				cout << "Inserisci l'elemento da cercare: ";
 				cin >> search;
-				bool found = bt.Exists(search);
-				if (!found)
+				if (!bt.Exists(search))
 					cout << "Non trovato!" << endl;
 				else
 					cout << "Trovato!" << endl;
@@ -514,13 +505,15 @@ void binarytreetest(BinaryTree<Data>& bt)
 				if constexpr (is_same<Data, int>::value)
 				{
 					cout << "Funzione map per questo tipo di dato: 3n" << endl;
-					bt.Map(&MapTriple<Data>, 0);
+					short a = 3;
+					bt.Map(&MapMultiply<Data>, &a);
 					cout << "Fatto, prova a stampare" << endl;
 				}
 				if constexpr (is_same<Data, double>::value)
 				{
 					cout << "Funzione map per questo tipo di dato: n^3;" << endl;
-					bt.Map(&MapCube<Data>, 0);
+					short a = 2;
+					bt.Map(&MapPower<Data>, &a);
 					cout << "Fatto, prova a stampare" << endl;
 				}
 				if constexpr (is_same<Data, string>::value)
@@ -628,7 +621,6 @@ void bsttest(BST<Data>& bst)
 				Data search{};
 				cout << "Inserisci l'elemento da rimuovere: ";
 				cin >> search;
-				bool found = bst.Exists(search);
 				if (!bst.Remove(search))
 					cout << "Valore non trovato!" << endl;
 				else
@@ -652,8 +644,7 @@ void hashtabletest(HashTable<Data>& hash)
 	cout << endl << "Seleziona il tipo di operazione" << endl;
 	while (!selection)
 	{
-		cout << "0. Torna indietro" << endl << "1. Stampa tutti gli elementi" << endl << "2. Inserisci un valore" << endl << "3. Controlla esistenza di un valore" << endl
-			 << "4. Calcola la funzione fold relativa al dato" << endl << "5. Rimuovi un valore" << endl << "6. Stampa la size" << endl;
+		cout << "0. Torna indietro" << endl << "1. Stampa tutti gli elementi" << endl << "2. Inserisci un valore" << endl << "3. Controlla esistenza di un valore" << endl << "4. Calcola la funzione fold relativa al dato" << endl << "5. Rimuovi un valore" << endl << "6. Stampa la size" << endl;
 		string input;
 		cin >> input;
 		testtype = stoi(input);
@@ -673,8 +664,7 @@ void hashtabletest(HashTable<Data>& hash)
 				Data insert{};
 				cout << "Inserisci l'elemento da inserire: ";
 				cin >> insert;
-				bool found = hash.Insert(insert);
-				if (!found)
+				if (!hash.Insert(insert))
 					cout << "Non inserito (probabilmente è già presente)!" << endl;
 				else
 					cout << "Inserito!" << endl;
@@ -685,8 +675,7 @@ void hashtabletest(HashTable<Data>& hash)
 				Data search{};
 				cout << "Inserisci l'elemento da cercare: ";
 				cin >> search;
-				bool found = hash.Exists(search);
-				if (!found)
+				if (!hash.Exists(search))
 					cout << "Non trovato!" << endl;
 				else
 					cout << "Trovato!" << endl;
@@ -1312,18 +1301,18 @@ void hashtabletest()
 				break;
 			case 1:
 			{
-				uniform_int_distribution<int> dist(-1000, 10000);
+				uniform_int_distribution<int> dist(-100, 100);
 				if (openaddr)
 				{
 					HashTableOpnAdr<int> hash;
-					while(hash.Size() < size)
+					while (hash.Size() < size)
 						hash.Insert(dist(gen));
 					hashtabletest(hash);
 				}
 				else
 				{
 					HashTableClsAdr<int> hash(size);
-					while(hash.Size() < size)
+					while (hash.Size() < size)
 						hash.Insert(dist(gen));
 					hashtabletest(hash);
 				}
@@ -1335,14 +1324,14 @@ void hashtabletest()
 				if (openaddr)
 				{
 					HashTableOpnAdr<double> hash;
-					while(hash.Size() < size)
+					while (hash.Size() < size)
 						hash.Insert(round(dist(gen) * 1000.0) / 1000.0);
 					hashtabletest(hash);
 				}
 				else
 				{
 					HashTableClsAdr<double> hash(size);
-					while(hash.Size() < size)
+					while (hash.Size() < size)
 						hash.Insert(round(dist(gen) * 1000.0) / 1000.0);
 					hashtabletest(hash);
 				}
@@ -1355,14 +1344,14 @@ void hashtabletest()
 				if (openaddr)
 				{
 					HashTableOpnAdr<string> hash;
-					while(hash.Size() < size)
+					while (hash.Size() < size)
 						hash.Insert(GeneraStringaCasuale(dist(gen)));
 					hashtabletest(hash);
 				}
 				else
 				{
 					HashTableClsAdr<string> hash(size);
-					while(hash.Size() < size)
+					while (hash.Size() < size)
 						hash.Insert(GeneraStringaCasuale(dist(gen)));
 					hashtabletest(hash);
 				}
