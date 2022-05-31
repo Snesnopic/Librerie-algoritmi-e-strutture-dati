@@ -20,16 +20,18 @@
 using namespace std;
 using namespace lasd;
 
-const std::string VALID_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-default_random_engine gen{};
-uniform_int_distribution<int> dist(0, VALID_CHARS.size() - 1);
+
+default_random_engine gen(random_device{}());
+
 
 string GeneraStringaCasuale(const unsigned int lunghezza)
 {
+	const string validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	uniform_int_distribution<int> dist(0, validChars.size() - 1);
 	ostringstream oss;
 	for (unsigned int i = 0; i < lunghezza; i++)
 	{
-		oss << VALID_CHARS[dist(gen)];
+		oss << validChars[dist(gen)];
 	}
 	return oss.str();
 }
@@ -736,7 +738,6 @@ void vectortest()
 {
 	unsigned long size;
 	cout << "Quanto rendere grande il vettore?: ";
-	default_random_engine gen(random_device{}());
 	string input;
 	cin >> input;
 	size = stoi(input);
@@ -798,7 +799,6 @@ void listtest()
 {
 	unsigned long size;
 	cout << "Quanto rendere grande la lista?: ";
-	default_random_engine gen(random_device{}());
 	cin >> size;
 	int testtype;
 	bool selection = false;
@@ -878,7 +878,6 @@ void stacktest()
 	testtype = 0;
 	unsigned long size;
 	cout << "Quanto rendere grande lo stack?: ";
-	default_random_engine gen(random_device{}());
 	string input;
 	cin >> input;
 	size = stoi(input);
@@ -988,7 +987,6 @@ void queuetest()
 	testtype = 0;
 	unsigned long size;
 	cout << "Quanto rendere grande la queue?: ";
-	default_random_engine gen(random_device{}());
 	string input;
 	cin >> input;
 	size = stoi(input);
@@ -1104,7 +1102,6 @@ void binarytreetest()
 	testtype = 0;
 	unsigned long size;
 	cout << "Quanto rendere grande l'albero?: ";
-	default_random_engine gen(random_device{}());
 	cin >> size;
 	bool selection = false;
 	while (!selection)
@@ -1204,7 +1201,6 @@ void bsttest()
 	int testtype;
 	unsigned long size;
 	cout << "Quanto rendere grande l'albero?: ";
-	default_random_engine gen(random_device{}());
 	cin >> size;
 	bool selection = false;
 	while (!selection)
@@ -1285,7 +1281,6 @@ void hashtabletest()
 	testtype = 0;
 	unsigned long size;
 	cout << "Quanto rendere grande l'hash table?: ";
-	default_random_engine gen(random_device{}());
 	cin >> size;
 	bool selection = false;
 	while (!selection)
