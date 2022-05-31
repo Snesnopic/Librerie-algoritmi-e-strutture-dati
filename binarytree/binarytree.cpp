@@ -478,6 +478,74 @@ namespace lasd
 
 	/* ************************************************************************ */
 
+
+	// Copy constructor
+	template<typename Data>
+	BTInOrderIterator<Data>::BTInOrderIterator(const BTInOrderIterator& ii)
+	{
+		curr = ii.curr;
+		stack = ii.stack;
+		treePtr = ii.treePtr;
+	}
+
+	// Move constructor
+	template<typename Data>
+	BTInOrderIterator<Data>::BTInOrderIterator(BTInOrderIterator&& ii) noexcept
+	{
+		std::swap(curr, ii.curr);
+		std::swap(stack, ii.stack);
+		std::swap(treePtr, ii.treePtr);
+	}
+
+	// Destructor
+	template<typename Data>
+	BTInOrderIterator<Data>::~BTInOrderIterator()
+	{
+		stack.Clear();
+	}
+
+	// Copy assignment
+	template<typename Data>
+	BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator=(const BTInOrderIterator& ii)
+	{
+		if (this != &ii)
+		{
+			curr = ii.curr;
+			stack = ii.stack;
+			treePtr = ii.treePtr;
+		}
+		return *this;
+	}
+
+	// Move assignment
+	template<typename Data>
+	BTInOrderIterator<Data>& BTInOrderIterator<Data>::operator=(BTInOrderIterator&& ii) noexcept
+	{
+		if (this != &ii)
+		{
+			std::swap(curr, ii.curr);
+			std::swap(stack, ii.stack);
+			std::swap(treePtr, ii.treePtr);
+		}
+		return *this;
+	}
+
+	// Comparison operators
+	template<typename Data>
+	bool BTInOrderIterator<Data>::operator==(const BTInOrderIterator& ii) const noexcept
+	{
+		if (curr == ii.curr && stack == ii.stack && treePtr == ii.treePtr)
+			return true;
+		else
+			return false;
+	}
+
+	template<typename Data>
+	bool BTInOrderIterator<Data>::operator!=(const BTInOrderIterator& ii) const noexcept
+	{
+		return !(*this == ii);
+	}
+
 	template<typename Data>
 	struct BinaryTree<Data>::Node *BTInOrderIterator<Data>::Min(struct BinaryTree<Data>::Node *n)
 	{
@@ -496,6 +564,21 @@ namespace lasd
 		treePtr = &bt;
 		if (!bt.Empty())
 			curr = Min(&bt.Root());
+	}
+
+	// Specific member functions (inherited from Iterator)
+	template<typename Data>
+	Data& BTInOrderIterator<Data>::operator*() const // (throw std::out_of_range when terminated)
+	{
+		if (Terminated())
+			throw std::out_of_range("Out of range!");
+		return curr->dato;
+	}
+
+	template<typename Data>
+	bool BTInOrderIterator<Data>::Terminated() const noexcept // (should not throw exceptions)
+	{
+		return curr == nullptr;
 	}
 
 	template<typename Data>
@@ -520,6 +603,15 @@ namespace lasd
 		return *this;
 	}
 
+	// Specific member functions (inherited from ResettableIterator)
+	template<typename Data>
+	void BTInOrderIterator<Data>::Reset() noexcept // (should not throw exceptions)
+	{
+		stack.Clear();
+		if (treePtr != nullptr)
+			curr = Min(&treePtr->Root());
+	}
+
 /* ************************************************************************ */
 	template<typename Data>
 	BTBreadthIterator<Data>::BTBreadthIterator(const BinaryTree<Data>& bt) // An iterator over a given binary tree
@@ -527,6 +619,98 @@ namespace lasd
 		if (!bt.Empty())
 			curr = &bt.Root();
 		treePtr = &bt;
+	}
+
+	// Copy constructor
+	template<typename Data>
+	BTBreadthIterator<Data>::BTBreadthIterator(const BTBreadthIterator& bi)
+	{
+		treePtr = bi.treePtr;
+		curr = bi.curr;
+		que = bi.que;
+	}
+
+	// Move constructor
+	template<typename Data>
+	BTBreadthIterator<Data>::BTBreadthIterator(BTBreadthIterator&& bi) noexcept
+	{
+		std::swap(treePtr, bi.treePtr);
+		std::swap(curr, bi.curr);
+		std::swap(que, bi.que);
+	}
+
+/* ************************************************************************ */
+
+// Destructor
+	template<typename Data>
+	BTBreadthIterator<Data>::~BTBreadthIterator()
+	{
+		que.Clear();
+	}
+
+/* ************************************************************************ */
+
+// Copy assignment
+	template<typename Data>
+	BTBreadthIterator<Data>& BTBreadthIterator<Data>::operator=(const BTBreadthIterator& bi)
+	{
+		if (this != &bi)
+		{
+			treePtr = bi.treePtr;
+			curr = bi.curr;
+			que = bi.que;
+		}
+		return *this;
+	}
+
+// Move assignment
+	template<typename Data>
+	BTBreadthIterator<Data>& BTBreadthIterator<Data>::operator=(BTBreadthIterator&& bi) noexcept
+	{
+		if (this != &bi)
+		{
+			std::swap(treePtr, bi.treePtr);
+			std::swap(curr, bi.curr);
+			std::swap(que, bi.que);
+		}
+		return *this;
+	}
+
+/* ************************************************************************ */
+
+// Comparison operators
+	template<typename Data>
+	bool BTBreadthIterator<Data>::operator==(const BTBreadthIterator& bi) const noexcept
+	{
+		if (treePtr == bi.treePtr && curr == bi.curr && que == bi.que)
+			return true;
+		else
+			return false;
+	}
+
+	template<typename Data>
+	bool BTBreadthIterator<Data>::operator!=(const BTBreadthIterator& bi) const noexcept
+	{
+		return !(*this == bi);
+	}
+
+/* ************************************************************************ */
+
+	// Specific member functions (inherited from Iterator)
+
+	template<typename Data>
+	Data& BTBreadthIterator<Data>::operator*() const // (throw std::out_of_range when terminated)
+	{
+		if (Terminated())
+			throw std::out_of_range("Out of range!");
+		else
+			return curr->dato;
+	}
+
+	template<typename Data>
+	bool BTBreadthIterator<Data>::Terminated() const noexcept // (should not throw exceptions)
+	{
+		return curr == nullptr;
 	}
 
 	template<typename Data>
@@ -543,5 +727,14 @@ namespace lasd
 		else
 			curr = nullptr;
 		return *this;
+	}
+
+	//Specific member functions (inherited from ResettableIterator)
+	template<typename Data>
+	void BTBreadthIterator<Data>::Reset() noexcept // (should not throw exceptions)
+	{
+		if (treePtr != nullptr)
+			curr = &treePtr->Root();
+		que.Clear();
 	}
 }
