@@ -274,6 +274,7 @@ namespace lasd
 
 		// Copy assignment
 		BTPreOrderIterator& operator=(const BTPreOrderIterator& poi);
+
 		// Move assignment
 		BTPreOrderIterator& operator=(BTPreOrderIterator&& poi) noexcept;
 
@@ -411,86 +412,39 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Copy constructor
-		BTInOrderIterator(const BTInOrderIterator& ii)
-		{
-			curr = ii.curr;
-			stack = ii.stack;
-			treePtr = ii.treePtr;
-		}
+		BTInOrderIterator(const BTInOrderIterator& ii);
 
 		// Move constructor
-		BTInOrderIterator(BTInOrderIterator&& ii) noexcept
-		{
-			std::swap(curr, ii.curr);
-			std::swap(stack, ii.stack);
-			std::swap(treePtr, ii.treePtr);
-		}
+		BTInOrderIterator(BTInOrderIterator&& ii) noexcept;
 
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~BTInOrderIterator()
-		{
-			stack.Clear();
-		}
+		virtual ~BTInOrderIterator();
 
 		/* ************************************************************************ */
 
 		// Copy assignment
-		BTInOrderIterator& operator=(const BTInOrderIterator& ii)
-		{
-			if (this != &ii)
-			{
-				curr = ii.curr;
-				stack = ii.stack;
-				treePtr = ii.treePtr;
-			}
-			return *this;
-		}
+		BTInOrderIterator& operator=(const BTInOrderIterator& ii);
 
 		// Move assignment
-		BTInOrderIterator& operator=(BTInOrderIterator&& ii) noexcept
-		{
-			if (this != &ii)
-			{
-				std::swap(curr, ii.curr);
-				std::swap(stack, ii.stack);
-				std::swap(treePtr, ii.treePtr);
-			}
-			return *this;
-		}
+		BTInOrderIterator& operator=(BTInOrderIterator&& ii) noexcept;
 
 		/* ************************************************************************ */
 
 		// Comparison operators
-		bool operator==(const BTInOrderIterator& ii) const noexcept
-		{
-			if (curr == ii.curr && stack == ii.stack && treePtr == ii.treePtr)
-				return true;
-			else
-				return false;
-		}
+		bool operator==(const BTInOrderIterator& ii) const noexcept;
 
-		bool operator!=(const BTInOrderIterator& ii) const noexcept
-		{
-			return !(*this == ii);
-		}
+		bool operator!=(const BTInOrderIterator& ii) const noexcept;
 
 		/* ************************************************************************ */
 
 		// Specific member functions (inherited from Iterator)
 
-		Data& operator*() const override // (throw std::out_of_range when terminated)
-		{
-			if (Terminated())
-				throw std::out_of_range("Out of range!");
-			return curr->dato;
-		}
+		Data& operator*() const override; // (throw std::out_of_range when terminated)
 
-		bool Terminated() const noexcept override // (should not throw exceptions)
-		{
-			return curr == nullptr;
-		}
+		bool Terminated() const noexcept override; // (should not throw exceptions)
+
 		/* ************************************************************************ */
 		// Specific member functions (inherited from ForwardIterator)
 
@@ -500,12 +454,7 @@ namespace lasd
 
 		// Specific member functions (inherited from ResettableIterator)
 
-		void Reset() noexcept override // (should not throw exceptions)
-		{
-			stack.Clear();
-			if (treePtr != nullptr)
-				curr = Min(&treePtr->Root());
-		}
+		void Reset() noexcept override; // (should not throw exceptions)
 
 	};
 
@@ -535,87 +484,38 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Copy constructor
-		BTBreadthIterator(const BTBreadthIterator& bi)
-		{
-			treePtr = bi.treePtr;
-			curr = bi.curr;
-			que = bi.que;
-		}
+		BTBreadthIterator(const BTBreadthIterator& bi);
 
 		// Move constructor
-		BTBreadthIterator(BTBreadthIterator&& bi) noexcept
-		{
-			std::swap(treePtr, bi.treePtr);
-			std::swap(curr, bi.curr);
-			std::swap(que, bi.que);
-		}
+		BTBreadthIterator(BTBreadthIterator&& bi) noexcept;
 
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~BTBreadthIterator()
-		{
-			que.Clear();
-		}
+		virtual ~BTBreadthIterator();
 
 		/* ************************************************************************ */
 
 		// Copy assignment
-		BTBreadthIterator& operator=(const BTBreadthIterator& bi)
-		{
-			if (this != &bi)
-			{
-				treePtr = bi.treePtr;
-				curr = bi.curr;
-				que = bi.que;
-			}
-			return *this;
-		}
+		BTBreadthIterator& operator=(const BTBreadthIterator& bi);
 
 		// Move assignment
-		BTBreadthIterator& operator=(BTBreadthIterator&& bi) noexcept
-		{
-			if (this != &bi)
-			{
-				std::swap(treePtr, bi.treePtr);
-				std::swap(curr, bi.curr);
-				std::swap(que, bi.que);
-			}
-			return *this;
-		}
+		BTBreadthIterator& operator=(BTBreadthIterator&& bi) noexcept;
 
 		/* ************************************************************************ */
 
 		// Comparison operators
-		bool operator==(const BTBreadthIterator& bi) const noexcept
-		{
-			if (treePtr == bi.treePtr && curr == bi.curr && que == bi.que)
-				return true;
-			else
-				return false;
-		}
+		bool operator==(const BTBreadthIterator& bi) const noexcept;
 
-		bool operator!=(const BTBreadthIterator& bi) const noexcept
-		{
-			return !(*this == bi);
-		}
+		bool operator!=(const BTBreadthIterator& bi) const noexcept;
 
 		/* ************************************************************************ */
 
 		// Specific member functions (inherited from Iterator)
 
-		Data& operator*() const override // (throw std::out_of_range when terminated)
-		{
-			if (Terminated())
-				throw std::out_of_range("Out of range!");
-			else
-				return curr->dato;
-		}
+		Data& operator*() const override; // (throw std::out_of_range when terminated)
 
-		bool Terminated() const noexcept override // (should not throw exceptions)
-		{
-			return curr == nullptr;
-		}
+		bool Terminated() const noexcept override; // (should not throw exceptions)
 
 		/* ************************************************************************ */
 
@@ -628,13 +528,7 @@ namespace lasd
 
 		// Specific member functions (inherited from ResettableIterator)
 
-		void Reset() noexcept override // (should not throw exceptions)
-		{
-			if (treePtr != nullptr)
-				curr = &treePtr->Root();
-			que.Clear();
-
-		}
+		void Reset() noexcept override; // (should not throw exceptions)
 
 	};
 
