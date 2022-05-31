@@ -87,7 +87,7 @@ namespace lasd
 
 		// Specific member functions (inherited from HashTable)
 
-		void Resize(const unsigned long newSize); // Resize the hashtable to a given size
+		void Resize(unsigned long newSize) override; // Resize the hashtable to a given size
 
 		/* ************************************************************************ */
 

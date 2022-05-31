@@ -3,19 +3,18 @@ namespace lasd
 
 /* ************************************************************************** */
 
-// Copy constructor
+	// Copy constructor
 	template<typename Data>
-	QueueVec<Data>::QueueVec(const QueueVec& qv)
+	QueueVec<Data>::QueueVec(const QueueVec& qv) : Vector<Data>(qv.elements)
 	{
 		elements = qv.elements;
 		size = elements;
 		tail = elements - 1;
-		array = new Data[size];
 		for (unsigned long i = 0; i < elements; i++)
 			array[i] = qv.array[(i + qv.head) % qv.size];
 	}
 
-// Move constructor
+	// Move constructor
 	template<typename Data>
 	QueueVec<Data>::QueueVec(QueueVec&& qv) noexcept
 	{
@@ -30,7 +29,7 @@ namespace lasd
 
 /* ************************************************************************ */
 
-// Copy assignment
+	// Copy assignment
 	template<typename Data>
 	QueueVec<Data>& QueueVec<Data>::operator=(const QueueVec& qv)
 	{
@@ -47,7 +46,7 @@ namespace lasd
 		return *this;
 	}
 
-// Move assignment
+	// Move assignment
 	template<typename Data>
 	QueueVec<Data>& QueueVec<Data>::operator=(QueueVec&& qv) noexcept
 	{
@@ -67,7 +66,7 @@ namespace lasd
 
 /* ************************************************************************ */
 
-// Comparison operators
+	// Comparison operators
 	template<typename Data>
 	bool QueueVec<Data>::operator==(const QueueVec& qv) const noexcept
 	{
@@ -91,7 +90,7 @@ namespace lasd
 
 /* ************************************************************************ */
 
-// Specific member functions (inherited from Queue)
+	// Specific member functions (inherited from Queue)
 	template<typename Data>
 	const Data& QueueVec<Data>::Head() const // Override Queue member (constant version; must throw std::length_error when empty)
 	{
@@ -152,7 +151,7 @@ namespace lasd
 
 /* ************************************************************************ */
 
-// Specific member functions (inherited from Container)
+	// Specific member functions (inherited from Container)
 	template<typename Data>
 	bool QueueVec<Data>::Empty() const noexcept // Override Container member
 	{

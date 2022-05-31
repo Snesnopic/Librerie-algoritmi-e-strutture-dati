@@ -142,28 +142,15 @@ namespace lasd
 		// Specific member functions (inherited from BreadthMappableContainer)
 		using typename MappableContainer<Data>::MapFunctor;
 
-		void MapBreadth(MapFunctor f, void *par) override // Override BreadthMappableContainer member // Override BreadthMappableContainer member
-		{
-			for (unsigned long i = 0; i < array.Size(); i++)
-			{
-				if (array[i] != nullptr)
-					f(array[i]->dato, par);
-			}
-		};
+		void MapBreadth(MapFunctor f, void *par) override;// Override BreadthMappableContainer member // Override BreadthMappableContainer member
 
 		/* ************************************************************************ */
 
 		// Specific member functions (inherited from BreadthFoldableContainer)
 		using typename FoldableContainer<Data>::FoldFunctor;
 
-		void FoldBreadth(FoldFunctor f, const void *par, void *acc) const override // Override BreadthFoldableContainer member
-		{
-			for (unsigned long i = 0; i < array.Size(); i++)
-			{
-				if (array[i] != nullptr)
-					f(array[i]->dato, par, acc);
-			}
-		};
+		void FoldBreadth(FoldFunctor f, const void *par, void *acc) const override; // Override BreadthFoldableContainer member
+
 	};
 
 /* ************************************************************************** */

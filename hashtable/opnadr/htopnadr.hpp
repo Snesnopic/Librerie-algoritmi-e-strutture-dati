@@ -47,10 +47,7 @@ namespace lasd
 		// Specific constructors
 		HashTableOpnAdr(unsigned long s); // A hash table of a given size
 
-		HashTableOpnAdr(const LinearContainer<Data>& lc) : HashTableOpnAdr(lc.Size()) // A hash table obtained from a LinearContainer
-		{
-			Insert(lc);
-		}
+		HashTableOpnAdr(const LinearContainer<Data>& lc); // A hash table obtained from a LinearContainer
 
 		HashTableOpnAdr(unsigned long s, const LinearContainer<Data>& lc);// A hash table of a given size obtained from a LinearContainer
 
@@ -58,24 +55,10 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Copy constructor
-		HashTableOpnAdr(const HashTableOpnAdr& ht) : HashTableOpnAdr(ht.size)
-		{
-			HashTable<Data>::operator=(ht);
-			for (unsigned long i = 0; i < ht.table.Size(); i++)
-			{
-				if (ht.table[i] != nullptr && !ht.deleted[i])
-					Insert(*(ht.table[i]));
-			}
-		}
+		HashTableOpnAdr(const HashTableOpnAdr& ht);
 
 		// Move constructor
-		HashTableOpnAdr(HashTableOpnAdr&& ht) noexcept: HashTableOpnAdr(ht.size)
-		{
-			HashTable<Data>::operator=(std::move(ht));
-			table = std::move(ht.table);
-			deleted = std::move(ht.deleted);
-			ht.Clear();
-		}
+		HashTableOpnAdr(HashTableOpnAdr&& ht) noexcept;
 
 		/* ************************************************************************ */
 
@@ -124,7 +107,6 @@ namespace lasd
 		using typename MappableContainer<Data>::MapFunctor;
 
 		void Map(MapFunctor f, void *par) override; // Override MappableContainer member
-
 
 		/* ************************************************************************ */
 

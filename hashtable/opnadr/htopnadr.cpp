@@ -7,8 +7,8 @@ namespace lasd
 	{
 		return (((a * hash(d)) + b) % p) % table.Size();
 	}
-	template<typename Data>
 
+	template<typename Data>
 	HashTableOpnAdr<Data>::HashTableOpnAdr(unsigned long s) // A hash table of a given size
 	{
 		table.Resize(s);
@@ -18,6 +18,22 @@ namespace lasd
 			table[i] = nullptr;
 			deleted[i] = false;
 		}
+	}
+
+	template<typename Data>
+	HashTableOpnAdr<Data>::HashTableOpnAdr(const LinearContainer<Data>& lc) // A hash table obtained from a LinearContainer
+	{
+		unsigned long s = 127;
+		if (s < lc.Size())
+			s = lc.Size();
+		table.Resize(s);
+		deleted.Resize(s);
+		for (unsigned long i = 0; i < s; i++)
+		{
+			table[i] = nullptr;
+			deleted[i] = false;
+		}
+		Insert(lc);
 	}
 
 	template<typename Data>
@@ -33,6 +49,28 @@ namespace lasd
 			deleted[i] = false;
 		}
 		Insert(lc);
+	}
+
+	// Copy constructor
+	template<typename Data>
+	HashTableOpnAdr<Data>::HashTableOpnAdr(const HashTableOpnAdr& ht)
+	{
+		HashTable<Data>::operator=(ht);
+		for (unsigned long i = 0; i < ht.table.Size(); i++)
+		{
+			if (ht.table[i] != nullptr && !ht.deleted[i])
+				Insert(*(ht.table[i]));
+		}
+	}
+
+	// Move constructor
+	template<typename Data>
+	HashTableOpnAdr<Data>::HashTableOpnAdr(HashTableOpnAdr&& ht) noexcept
+	{
+		HashTable<Data>::operator=(std::move(ht));
+		table = std::move(ht.table);
+		deleted = std::move(ht.deleted);
+		ht.Clear();
 	}
 
 	// Destructor
@@ -113,7 +151,7 @@ namespace lasd
 	template<typename Data>
 	bool HashTableOpnAdr<Data>::Insert(const Data& d) // Override DictionaryContainer member (Copy of the value)
 	{
-		if (size == table.Size())
+		if (size >= table.Size()/2)
 			Resize((table.Size() * 2) + 1);
 		unsigned long j = HashKey(d);
 		for (unsigned long i = 0; i < table.Size(); i++)
@@ -146,7 +184,7 @@ namespace lasd
 	template<typename Data>
 	bool HashTableOpnAdr<Data>::Insert(Data&& d) noexcept// Override DictionaryContainer member (Move of the value)
 	{
-		if (size == table.Size())
+		if (size >= table.Size()/2)
 			Resize((table.Size() * 2) + 1);
 		unsigned long j = HashKey(d);
 		for (unsigned long i = 0; i < table.Size(); i++)

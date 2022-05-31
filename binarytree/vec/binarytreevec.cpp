@@ -89,6 +89,30 @@ namespace lasd
 		return *this;
 	}
 
+	// Specific member functions (inherited from BreadthMappableContainer)
+	template<typename Data>
+	void BinaryTreeVec<Data>::MapBreadth(MapFunctor f, void *par) // Override BreadthMappableContainer member // Override BreadthMappableContainer member
+	{
+		for (unsigned long i = 0; i < array.Size(); i++)
+	{
+		if (array[i] != nullptr)
+		f(array[i]->dato, par);
+	}
+	}
+
+	/* ************************************************************************ */
+
+	// Specific member functions (inherited from BreadthFoldableContainer)
+	template<typename Data>
+	void BinaryTreeVec<Data>::FoldBreadth(FoldFunctor f, const void *par, void *acc) const // Override BreadthFoldableContainer member
+	{
+	for (unsigned long i = 0; i < array.Size(); i++)
+	{
+	if (array[i] != nullptr)
+	f(array[i]->dato, par, acc);
+	}
+	}
+
 /* ************************************************************************** */
 
 }

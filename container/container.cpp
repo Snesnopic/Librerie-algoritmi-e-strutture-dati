@@ -68,7 +68,7 @@ namespace lasd
 	}
 
 	template<typename Data>
-	 void DictionaryContainer<Data>::Remove(const LinearContainer<Data>& lc) // Override DictionaryContainer member
+	void DictionaryContainer<Data>::Remove(const LinearContainer<Data>& lc) // Override DictionaryContainer member
 	{
 		for (unsigned long i = 0; i < lc.Size(); i++)
 		{

@@ -13,7 +13,7 @@ namespace lasd
 			bool is_left = true;
 			NodeLnk *cur = nullptr;
 			q.Enqueue(root);
-			for (int i = 1; i < lc.Size(); i++)
+			for (unsigned long i = 1; i < lc.Size(); i++)
 			{
 				NodeLnk *n = new NodeLnk(lc[i]);
 				q.Enqueue(n);
@@ -89,6 +89,12 @@ namespace lasd
 			std::swap(size, btl.size);
 		}
 		return *this;
+	}
+
+	template<typename Data>
+	bool BinaryTreeLnk<Data>::Empty() const noexcept
+	{
+		return size == 0 || root == nullptr;
 	}
 
 	template<typename Data>

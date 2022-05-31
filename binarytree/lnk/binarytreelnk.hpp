@@ -147,10 +147,7 @@ namespace lasd
 			return *root;
 		}
 
-		virtual bool Empty() const noexcept override
-		{
-			return size == 0 || root == nullptr;
-		}
+		virtual bool Empty() const noexcept override;
 		/* ************************************************************************ */
 
 		// Specific member functions (inherited from Container)

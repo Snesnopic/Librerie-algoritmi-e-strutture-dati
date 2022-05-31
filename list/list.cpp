@@ -2,22 +2,22 @@ namespace lasd
 {
 
 /* ************************************************************************** */
-//Node methods
-//Node copy constructor
+	//Node methods
+	//Node Data copy constructor
 	template<typename Data>
 	List<Data>::Node::Node(const Data& d)
 	{
 		dato = d;
 	}
 
-//Node Data move constructor
+	//Node Data move constructor
 	template<typename Data>
 	List<Data>::Node::Node(Data&& d) noexcept
 	{
 		std::swap(dato, d);
 	}
 
-//Node Node copy constructor
+	//Node Node copy constructor
 	template<typename Data>
 	List<Data>::Node::Node(const Node& n)
 	{
@@ -25,7 +25,7 @@ namespace lasd
 		next = n.next;
 	}
 
-//Node Node move constructor
+	//Node Node move constructor
 	template<typename Data>
 	List<Data>::Node::Node(Node&& n) noexcept
 	{
@@ -33,15 +33,15 @@ namespace lasd
 		std::swap(next, n.next);
 	}
 
-//Node destructor
+	//Node destructor
 	template<typename Data>
 	List<Data>::Node::~Node()
 	{
 		delete next;
 	}
 
-//Node operators
-//Equal comparison
+	//Node operators
+	//Equal comparison
 	template<typename Data>
 	bool List<Data>::Node::operator==(const Node& n) const noexcept
 	{
@@ -53,22 +53,22 @@ namespace lasd
 			}
 			if (next != nullptr && n.next != nullptr)    //o hanno un prossimo...
 			{
-				if (*next == *n.next)                    //ed � lo stesso...
+				if (*next == *n.next)                    //ed è lo stesso...
 					return true;
 			}
 		}
 		return false;
 	}
 
-//Not equal comparison
+	//Not equal comparison
 	template<typename Data>
 	bool List<Data>::Node::operator!=(const Node& n) const noexcept
 	{
 		return !(*this == n);
 	}
 
-//List functions
-//Destructor
+	//List functions
+	//Destructor
 	template<typename Data>
 	List<Data>::~List()
 	{
@@ -76,7 +76,7 @@ namespace lasd
 			delete head;
 	}
 
-//LinearContainer constructor
+	//LinearContainer constructor
 	template<typename Data>
 	List<Data>::List(const LinearContainer<Data>& lc)
 	{
@@ -93,7 +93,7 @@ namespace lasd
 		size = lc.Size();
 	}
 
-//Copy constructor
+	//Copy constructor
 	template<typename Data>
 	List<Data>::List(const List& l)
 	{
@@ -114,7 +114,7 @@ namespace lasd
 
 	}
 
-//Move constructor
+	//Move constructor
 	template<typename Data>
 	List<Data>::List(List&& l) noexcept
 	{
@@ -125,7 +125,7 @@ namespace lasd
 		}
 	}
 
-//Clear
+	//Clear
 	template<typename Data>
 	void List<Data>::Clear()
 	{
@@ -135,7 +135,7 @@ namespace lasd
 		size = 0;
 	}
 
-//Front
+	//Front
 	template<typename Data>
 	Data& List<Data>::Front() const
 	{
