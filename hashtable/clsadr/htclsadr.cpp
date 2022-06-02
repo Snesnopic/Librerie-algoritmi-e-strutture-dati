@@ -157,7 +157,7 @@ namespace lasd
 	template<typename Data>
 	bool HashTableClsAdr<Data>::Remove(const Data& d) // Override DictionaryContainer member
 	{
-		if(table[HashKey(d)].Remove(d))
+		if (table[HashKey(d)].Remove(d))
 		{
 			size--;
 			return true;
@@ -169,7 +169,7 @@ namespace lasd
 	template<typename Data>
 	bool HashTableClsAdr<Data>::Exists(const Data& d) const noexcept // Override TestableContainer member
 	{
-		if(table[HashKey(d)].Exists(d))
+		if (table[HashKey(d)].Exists(d))
 			return true;
 		return false;
 	}

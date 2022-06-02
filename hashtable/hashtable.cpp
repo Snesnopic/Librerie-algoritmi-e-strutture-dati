@@ -77,7 +77,7 @@ namespace lasd
 	HashTable<Data>::HashTable()
 	{
 		std::default_random_engine gen(std::random_device{}());
-		std::uniform_int_distribution<unsigned long> dista(5,5381);
+		std::uniform_int_distribution<unsigned long> dista(5, 5381);
 		while (true)
 		{
 			a = dista(gen);

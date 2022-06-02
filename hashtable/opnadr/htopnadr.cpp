@@ -151,7 +151,7 @@ namespace lasd
 	template<typename Data>
 	bool HashTableOpnAdr<Data>::Insert(const Data& d) // Override DictionaryContainer member (Copy of the value)
 	{
-		if (size >= table.Size()/2)
+		if (size >= table.Size() / 2)
 			Resize((table.Size() * 2) + 1);
 		unsigned long j = HashKey(d);
 		for (unsigned long i = 0; i < table.Size(); i++)
@@ -184,7 +184,7 @@ namespace lasd
 	template<typename Data>
 	bool HashTableOpnAdr<Data>::Insert(Data&& d) noexcept// Override DictionaryContainer member (Move of the value)
 	{
-		if (size >= table.Size()/2)
+		if (size >= table.Size() / 2)
 			Resize((table.Size() * 2) + 1);
 		unsigned long j = HashKey(d);
 		for (unsigned long i = 0; i < table.Size(); i++)
