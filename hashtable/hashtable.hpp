@@ -43,7 +43,7 @@ namespace lasd
 		const Hash<Data> hash{};
 		short a{};
 		short b{};
-		const short p = 34019;
+		const int p = 34019;
 		// ...
 
 	public:
