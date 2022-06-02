@@ -746,7 +746,6 @@ void vectortest()
 	while (!selection)
 	{
 		cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro" << endl;
-		string input;
 		cin >> input;
 		testtype = stoi(input);
 		switch (testtype)
@@ -885,7 +884,6 @@ void stacktest()
 	bool selection = false;
 	while (!selection)
 	{
-		string input;
 		cin >> input;
 		testtype = stoi(input);
 		switch (testtype)
@@ -994,7 +992,6 @@ void queuetest()
 	bool selection = false;
 	while (!selection)
 	{
-		string input;
 		cin >> input;
 		testtype = stoi(input);
 		switch (testtype)
