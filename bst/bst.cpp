@@ -232,4 +232,4 @@ namespace lasd
 		delete n;
 		return d;
 	}
-};
+}
