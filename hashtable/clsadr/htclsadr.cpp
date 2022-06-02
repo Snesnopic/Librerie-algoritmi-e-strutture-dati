@@ -111,14 +111,14 @@ namespace lasd
 	template<typename Data>
 	void HashTableClsAdr<Data>::Resize(const unsigned long newSize) // Resize the hashtable to a given size
 	{
-		HashTableClsAdr < Data > newHash(newSize);
+		HashTableClsAdr<Data> newHash(newSize);
 		for (unsigned long i = 0; i < table.Size(); i++)
 		{
 			if (table[i].Empty())
 				continue;
 			else
 			{
-				BTBreadthIterator<Data> j(table[i]);
+				BTInOrderIterator<Data> j(table[i]);
 				while (!j.Terminated())
 				{
 					newHash.Insert(*j);
@@ -135,8 +135,7 @@ namespace lasd
 	template<typename Data>
 	bool HashTableClsAdr<Data>::Insert(const Data& d) // Override DictionaryContainer member (Copy of the value)
 	{
-		unsigned long j = HashKey(d);
-		if (table[j].Insert(d))
+		if (table[HashKey(d)].Insert(d))
 		{
 			size++;
 			return true;
@@ -147,8 +146,7 @@ namespace lasd
 	template<typename Data>
 	bool HashTableClsAdr<Data>::Insert(Data&& d) noexcept // Override DictionaryContainer member (Move of the value)
 	{
-		unsigned long j = HashKey(d);
-		if (table[j].Insert(std::move(d)))
+		if (table[HashKey(d)].Insert(std::move(d)))
 		{
 			size++;
 			return true;
@@ -159,8 +157,7 @@ namespace lasd
 	template<typename Data>
 	bool HashTableClsAdr<Data>::Remove(const Data& d) // Override DictionaryContainer member
 	{
-		unsigned long j = HashKey(d);
-		if (table[j].Remove(d))
+		if(table[HashKey(d)].Remove(d))
 		{
 			size--;
 			return true;
@@ -172,8 +169,9 @@ namespace lasd
 	template<typename Data>
 	bool HashTableClsAdr<Data>::Exists(const Data& d) const noexcept // Override TestableContainer member
 	{
-		unsigned long j = HashKey(d);
-		return table[j].Exists(d);
+		if(table[HashKey(d)].Exists(d))
+			return true;
+		return false;
 	}
 
 	// Specific member functions (inherited from MappableContainer)
