@@ -133,7 +133,7 @@ namespace lasd
 				}
 				if (n->HasRightChild() && n->HasLeftChild())
 				{
-					NodeLnk **ptr = FindPointerToPredecessor(root, n->dato);
+					NodeLnk **ptr = FindPointerToPredecessor(n, n->dato);
 					std::swap(n->dato, (*ptr)->dato);
 					return Detach(*ptr);
 				}
