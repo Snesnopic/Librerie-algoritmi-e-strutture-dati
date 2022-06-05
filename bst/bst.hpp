@@ -121,6 +121,7 @@ namespace lasd
 						{
 							NodeLnk *t = new NodeLnk(std::move(n->dato));
 							delete n;
+							size--;
 							n = nullptr;
 							return t;
 						}
