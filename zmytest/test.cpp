@@ -1357,7 +1357,160 @@ void hashtabletest()
 
 void mytest()
 {
-	bool selection = false;
+	BST<int> bst;
+	for(int i = 0; i < 10; i++)
+	{
+		if(!bst.Insert(i))
+            throw length_error("");
+	}
+	if(bst.Size() != 10)
+        throw length_error("");
+	for(int i = 0; i < 9; i++)
+	{
+		bst.RemoveSuccessor(0);
+	}
+	if(!bst.Remove(0))
+        throw length_error("");
+
+	if(bst.Size() != 0 || !bst.Empty())
+        throw length_error("");
+	for(int i = 0; i < 10; i++)
+	{
+		if(!bst.Insert(i))
+            throw length_error("");
+	}
+	if(bst.Size()!= 10)
+        throw length_error("");
+	for(int i = 0; i < 9; i++)
+	{
+		bst.RemovePredecessor(9);
+		if(!bst.Exists(9))
+            throw length_error("");
+	}
+    if(bst.Size() != 1)
+        throw length_error("");
+    bst.Clear();
+    if(bst.Size() != 0 || !bst.Empty())
+        throw length_error("");
+    for(int i = 0; i < 10; i++)
+    {
+        if(!bst.Insert(i))
+            throw length_error("");
+    }
+    if(bst.Size()!= 10)
+        throw length_error("");
+    for(int i = 0; i < 10; i++)
+    {
+        bst.RemoveMax();
+        if(bst.Exists(10-i))
+            throw length_error("");
+    }
+	if(bst.Size() != 0 || !bst.Empty())
+        throw length_error("");
+    for(int i = 0; i < 10; i++)
+    {
+        if(!bst.Insert(i))
+            throw length_error("");
+    }
+    if(bst.Size()!= 10)
+        throw length_error("");
+    for(int i = 0; i < 10; i++)
+    {
+        bst.RemoveMin();
+        if(bst.Exists(i))
+            throw length_error("");
+    }
+    if(bst.Size() != 0 || !bst.Empty())
+        throw length_error("");
+    for(int i = 0; i < 10; i++)
+    {
+        if(!bst.Insert(i))
+            throw length_error("");
+    }
+    if(bst.Size()!= 10)
+        throw length_error("");
+    for(int i = 0; i < 9; i++)
+    {
+        bst.PredecessorNRemove(9);
+    }
+    bst.Remove(9);
+    if(bst.Size() != 0 || !bst.Empty())
+        throw length_error("");
+    for(int i = 0; i < 10; i++)
+    {
+        if(!bst.Insert(i))
+            throw length_error("");
+    }
+    if(bst.Size()!= 10)
+        throw length_error("");
+    for(int i = 0; i < 9; i++)
+    {
+        bst.SuccessorNRemove(0);
+    }
+    bst.Remove(0);
+    if(bst.Size() != 0 || !bst.Empty())
+        throw length_error("");
+
+
+    for(int i = 0; i < 10; i++)
+    {
+        if(!bst.Insert(i))
+            throw length_error("");
+    }
+    if(bst.Size()!= 10)
+        throw length_error("");
+    for(int i = 0; i < 9; i++)
+    {
+        bst.MaxNRemove();
+    }
+    if(!bst.Remove(0))
+        throw length_error("");
+
+    if(bst.Size() != 0 || !bst.Empty())
+        throw length_error("");
+
+    for(int i = 0; i < 10; i++)
+    {
+        if(!bst.Insert(i))
+            throw length_error("");
+    }
+    if(bst.Size()!= 10)
+        throw length_error("");
+    for(int i = 0; i < 9; i++)
+    {
+        bst.MinNRemove();
+    }
+    if(!bst.Remove(9))
+        throw length_error("");
+    if(bst.Size() != 0 || !bst.Empty())
+        throw length_error("");
+
+    for(int i = 0; i < 100; i++)
+    {
+        bst.Insert(i);
+    }
+    for(int i = 0; i < 100; i++)
+    {
+        bst.Remove(i);
+        if(bst.Exists(i))
+            throw length_error("");
+    }
+    if(bst.Size() != 0 || !bst.Empty())
+        throw length_error("");
+    for(int i = 0; i < 100; i++)
+    {
+        bst.Insert(i);
+    }
+    for(int i = 0; i < 100; i++)
+    {
+        bst.Remove(99-i);
+        if(bst.Exists(99-i))
+            throw length_error("");
+    }
+    if(bst.Size() != 0 || !bst.Empty())
+        throw length_error("");
+
+    bool selection = false;
 	int testtype = 0;
 	while (!selection)
 	{
