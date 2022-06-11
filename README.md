@@ -68,7 +68,7 @@ sia nella strutturazione, gerarchia di classi e nei nomi delle diverse directory
 
 Implementare due librerie di funzioni in **Linguaggio C++** per la gestione di strutture dati dinamiche di tipo **pila**
 e **coda** di **dati generici**, ovvero interi, float, stringhe, struct, ecc. Tali strutture
-dovranno essere implementate concretamente sfruttando le strutture dati precedentemente sviluppate nell’Esercizio 1: (
+dovranno essere implementate concretamente sfruttando le strutture dati precedentemente sviluppate nell’Esercizio 1:
 
 1) **vettori** con efficiente **ridimensionamento automatico** dello spazio
    allocato; (2) **liste**.
