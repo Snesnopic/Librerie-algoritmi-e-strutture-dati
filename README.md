@@ -6,7 +6,7 @@
 |      Esercizio 2 (Queue e Stack)      |  25/30  | Arithmetic Exception nel confronto tra due QueueVec                            |
 | Esercizio 3 (Binarytree e Iteratori)  | 22,5/30 | Confronto tra BinaryTree vuoti, PostOrder e InOrder Iterator rotti, test rotto |
 |   Esercizio 4 (Binary Search Tree)    |  18/30  | Detach della BST inconsistente, quindi segmentation fault                      |
-|         Esercizio 5 (Hashmap)         |  ?/30   | Poi vediamo                                                                    |
+|         Esercizio 5 (Hashmap)         |  30/30  | Nessuno!                                                                       |
 
 # ESERCIZIO 1
 
