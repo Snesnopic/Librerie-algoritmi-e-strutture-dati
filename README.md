@@ -8,7 +8,7 @@
 |   Esercizio 4 (Binary Search Tree)    |  18/30  | Detach della BST inconsistente, quindi segmentation fault                      |
 |         Esercizio 5 (Hashmap)         |  30/30  | Nessuno!                                                                       |
 
-# ESERCIZIO 1
+## ESERCIZIO 1
 
 ## - VETTORI E LISTE DI DATI GENERICI -
 
