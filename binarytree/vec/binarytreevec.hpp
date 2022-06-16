@@ -46,7 +46,7 @@ namespace lasd
 
 			NodeVec() = default;
 
-			NodeVec(Vector<NodeVec *> *arr, unsigned long i, Data& d)
+			NodeVec(Vector<NodeVec *> *arr, unsigned long i, const Data& d)
 			{
 				arrayRef = arr;
 				index = i;
@@ -97,7 +97,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Specific constructors
-		BinaryTreeVec(const LinearContainer<Data>& lc); // A binary tree obtained from a LinearContainer
+		explicit BinaryTreeVec(const LinearContainer<Data>& lc); // A binary tree obtained from a LinearContainer
 
 		/* ************************************************************************ */
 
