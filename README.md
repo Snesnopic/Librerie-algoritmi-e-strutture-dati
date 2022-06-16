@@ -6,9 +6,9 @@
 |      Esercizio 2 (Queue e Stack)      |  25/30  | Arithmetic Exception nel confronto tra due QueueVec                            |
 | Esercizio 3 (Binarytree e Iteratori)  | 22,5/30 | Confronto tra BinaryTree vuoti, PostOrder e InOrder Iterator rotti, test rotto |
 |   Esercizio 4 (Binary Search Tree)    |  18/30  | Detach della BST inconsistente, quindi segmentation fault                      |
-|         Esercizio 5 (Hashmap)         |  ?/30   | Poi vediamo                                                                    |
+|         Esercizio 5 (Hashmap)         |  30/30  | Nessuno!                                                                       |
 
-# ESERCIZIO 1
+## ESERCIZIO 1
 
 ## - VETTORI E LISTE DI DATI GENERICI -
 
@@ -68,7 +68,7 @@ sia nella strutturazione, gerarchia di classi e nei nomi delle diverse directory
 
 Implementare due librerie di funzioni in **Linguaggio C++** per la gestione di strutture dati dinamiche di tipo **pila**
 e **coda** di **dati generici**, ovvero interi, float, stringhe, struct, ecc. Tali strutture
-dovranno essere implementate concretamente sfruttando le strutture dati precedentemente sviluppate nell’Esercizio 1: (
+dovranno essere implementate concretamente sfruttando le strutture dati precedentemente sviluppate nell’Esercizio 1:
 
 1) **vettori** con efficiente **ridimensionamento automatico** dello spazio
    allocato; (2) **liste**.

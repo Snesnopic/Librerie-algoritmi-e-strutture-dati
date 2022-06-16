@@ -121,59 +121,59 @@ namespace lasd
 	template<typename Data>
 	const Data& BST<Data>::Predecessor(const Data& d) const // (concrete function must throw std::length_error when not found)
 	{
-		NodeLnk *ptr = *FindPointerToPredecessor(root, d);
+		NodeLnk *const*ptr = FindPointerToPredecessor(root, d);
 		if (ptr == nullptr)
 			throw std::length_error("Length error!");
-		return ptr->dato;
+		return (*ptr)->dato;
 	}
 
 	template<typename Data>
 	Data BST<Data>::PredecessorNRemove(const Data& d) // (concrete function must throw std::length_error when not found)
 	{
-		NodeLnk *ptr = *FindPointerToPredecessor(root, d);
+		NodeLnk **ptr = FindPointerToPredecessor(root, d);
 		if (ptr == nullptr)
 			throw std::length_error("Length error!");
-		Data& nd(ptr->dato);
-		Remove(ptr->dato);
+		Data& nd((*ptr)->dato);
+		Remove((*ptr)->dato);
 		return nd;
 	}
 
 	template<typename Data>
 	void BST<Data>::RemovePredecessor(const Data& d) // (concrete function must throw std::length_error when not found)
 	{
-		NodeLnk *ptr = *FindPointerToPredecessor(root, d);
+		NodeLnk **ptr = FindPointerToPredecessor(root, d);
 		if (ptr == nullptr)
 			throw std::length_error("Length error!");
-		Remove(ptr->dato);
+		Remove((*ptr)->dato);
 	}
 
 	template<typename Data>
 	const Data& BST<Data>::Successor(const Data& d) const // (concrete function must throw std::length_error when not found)
 	{
-		NodeLnk *ptr = *FindPointerToSuccessor(root, d);
+		NodeLnk *const*ptr = FindPointerToSuccessor(root, d);
 		if (ptr == nullptr)
 			throw std::length_error("Length error!");
-		return ptr->dato;
+		return (*ptr)->dato;
 	}
 
 	template<typename Data>
 	Data BST<Data>::SuccessorNRemove(const Data& d) // (concrete function must throw std::length_error when not found)
 	{
-		NodeLnk *ptr = *FindPointerToSuccessor(root, d);
+		NodeLnk **ptr = FindPointerToSuccessor(root, d);
 		if (ptr == nullptr)
 			throw std::length_error("Length error!");
-		Data& nd(ptr->dato);
-		Remove(ptr->dato);
+		Data& nd((*ptr)->dato);
+		Remove((*ptr)->dato);
 		return nd;
 	}
 
 	template<typename Data>
 	void BST<Data>::RemoveSuccessor(const Data& d) // (concrete function must throw std::length_error when not found)
 	{
-		NodeLnk *ptr = *FindPointerToSuccessor(root, d);
+		NodeLnk **ptr = FindPointerToSuccessor(root, d);
 		if (ptr == nullptr)
 			throw std::length_error("Length error!");
-		Remove(ptr->dato);
+		Remove((*ptr)->dato);
 	}
 
 	// Specific member functions (inherited from DictionaryContainer)
