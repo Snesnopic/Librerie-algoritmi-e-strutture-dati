@@ -37,7 +37,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Specific constructors
-		BST(const LinearContainer<Data>& lc); // A bst obtained from a LinearContainer
+		explicit BST(const LinearContainer<Data>& lc); // A bst obtained from a LinearContainer
 
 		/* ************************************************************************ */
 
