@@ -36,7 +36,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Specific constructor
-		StackLst(const LinearContainer<Data>& lc) : List<Data>(lc) {}; // A stack obtained from a LinearContainer
+		explicit StackLst(const LinearContainer<Data>& lc) : List<Data>(lc) {}; // A stack obtained from a LinearContainer
 
 		/* ************************************************************************ */
 
