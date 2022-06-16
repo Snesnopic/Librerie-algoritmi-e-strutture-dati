@@ -45,9 +45,9 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Specific constructors
-		HashTableClsAdr(unsigned long s); // A hash table of a given size
+		explicit HashTableClsAdr(unsigned long s); // A hash table of a given size
 
-		HashTableClsAdr(const LinearContainer<Data>& lc) : HashTableClsAdr()// A hash table obtained from a LinearContainer
+		explicit HashTableClsAdr(const LinearContainer<Data>& lc) : HashTableClsAdr()// A hash table obtained from a LinearContainer
 		{
 			Insert(lc);
 		}
