@@ -38,7 +38,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Specific constructor
-		StackVec(const LinearContainer<Data>& lc) : Vector<Data>(lc), tail(size - 1) {}; // A stack obtained from a LinearContainer
+		explicit StackVec(const LinearContainer<Data>& lc) : Vector<Data>(lc), tail(size - 1) {}; // A stack obtained from a LinearContainer
 
 		/* ************************************************************************ */
 
