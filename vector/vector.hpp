@@ -39,8 +39,8 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Specific constructors
-		Vector(const unsigned long initialSize); // A vector with a given initial dimension
-		Vector(const LinearContainer<Data>& lc); // A vector obtained from a LinearContainer
+		explicit Vector(const unsigned long initialSize); // A vector with a given initial dimension
+		explicit Vector(const LinearContainer<Data>& lc); // A vector obtained from a LinearContainer
 
 		/* ************************************************************************ */
 
