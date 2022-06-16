@@ -37,7 +37,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Specific constructor
-		QueueLst(const LinearContainer<Data>& lc) : List<Data>(lc) {}; // A queue obtained from a LinearContainer
+		explicit QueueLst(const LinearContainer<Data>& lc) : List<Data>(lc) {}; // A queue obtained from a LinearContainer
 
 		/* ************************************************************************ */
 
