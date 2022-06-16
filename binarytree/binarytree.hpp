@@ -254,7 +254,7 @@ namespace lasd
 	public:
 
 		// Specific constructors
-		BTPreOrderIterator(const BinaryTree<Data>& bt); // An iterator over a given binary tree
+		explicit BTPreOrderIterator(const BinaryTree<Data>& bt); // An iterator over a given binary tree
 
 
 		/* ************************************************************************ */
@@ -332,7 +332,7 @@ namespace lasd
 	public:
 
 		// Specific constructors
-		BTPostOrderIterator(const BinaryTree<Data>& bt); // An iterator over a given binary tree
+		explicit BTPostOrderIterator(const BinaryTree<Data>& bt); // An iterator over a given binary tree
 
 
 		/* ************************************************************************ */
@@ -406,7 +406,7 @@ namespace lasd
 	public:
 
 		// Specific constructors
-		BTInOrderIterator(const BinaryTree<Data>& bt); // An iterator over a given binary tree
+		explicit BTInOrderIterator(const BinaryTree<Data>& bt); // An iterator over a given binary tree
 
 
 		/* ************************************************************************ */
@@ -478,7 +478,7 @@ namespace lasd
 	public:
 
 		// Specific constructors
-		BTBreadthIterator(const BinaryTree<Data>& bt); // An iterator over a given binary tree
+		explicit BTBreadthIterator(const BinaryTree<Data>& bt); // An iterator over a given binary tree
 
 
 		/* ************************************************************************ */
