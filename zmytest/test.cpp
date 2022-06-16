@@ -289,9 +289,9 @@ void stacktest(Stack<Data>& s)
 {
 	cout << "L'elemento in cima e' " << s.Top() << endl;
 	bool selection = false;
-	int testtype;
 	while (!selection)
 	{
+		int testtype;
 		cout << "0. Torna indietro" << endl << "1. Inserisci un elemento" << endl << "2. Rimuovi un elemento" << endl << "3. Visualizza e rimuovi un elemento" << endl << "4. Visualizza un elemento" << endl << "5. E' vuoto?" << endl << "6. Stampa grandezza" << endl << "7. Svuota la struttura"
 			 << endl;
 		string input;
@@ -356,9 +356,9 @@ void queuetest(Queue<Data>& q)
 {
 	cout << "L'elemento in cima e' " << q.Head() << endl;
 	bool selection = false;
-	int testtype;
 	while (!selection)
 	{
+		int testtype;
 		cout << "0. Torna indietro" << endl << "1. Inserisci un elemento" << endl << "2. Rimuovi un elemento" << endl << "3. Visualizza e rimuovi un elemento" << endl << "4. Visualizza un elemento" << endl << "5. E' vuoto?" << endl << "6. Stampa grandezza" << endl << "7. Svuota la struttura"
 			 << endl;
 		string input;
@@ -422,10 +422,10 @@ template<typename Data>
 void binarytreetest(BinaryTree<Data>& bt)
 {
 	bool selection = false;
-	int testtype;
 	cout << endl << "Seleziona il tipo di operazione" << endl;
 	while (!selection)
 	{
+		int testtype;
 		cout << "0. Torna indietro" << endl << "1. Visualizza in ampiezza" << endl << "2. Visualizza in pre-ordine" << endl << "3. Visualizza in ordine" << endl << "4. Visualizza in post-ordine" << endl << "5. Controlla esistenza di un valore" << endl
 			 << "6. Calcola la funzione fold relativa al dato" << endl << "7. Applica funzione map a tutti gli elementi" << endl;
 		string input;
@@ -538,10 +538,10 @@ template<typename Data>
 void bsttest(BST<Data>& bst)
 {
 	bool selection = false;
-	int testtype;
 	cout << endl << "Seleziona il tipo di operazione" << endl;
 	while (!selection)
 	{
+		int testtype;
 		cout << "0. Torna indietro" << endl << "1. Visualizza in ampiezza" << endl << "2. Visualizza in pre-ordine" << endl << "3. Visualizza in ordine" << endl << "4. Visualizza in post-ordine" << endl << "5. Controlla esistenza di un valore" << endl
 			 << "6. Calcola la funzione fold relativa al dato" << endl << "7. Rimuovi un valore" << endl << "8. Stampa la size" << endl;
 		string input;
@@ -642,10 +642,10 @@ template<typename Data>
 void hashtabletest(HashTable<Data>& hash)
 {
 	bool selection = false;
-	int testtype;
 	cout << endl << "Seleziona il tipo di operazione" << endl;
 	while (!selection)
 	{
+		int testtype;
 		cout << "0. Torna indietro" << endl << "1. Stampa tutti gli elementi" << endl << "2. Inserisci un valore" << endl << "3. Controlla esistenza di un valore" << endl << "4. Calcola la funzione fold relativa al dato" << endl << "5. Rimuovi un valore" << endl << "6. Stampa la size" << endl;
 		string input;
 		cin >> input;
@@ -741,10 +741,10 @@ void vectortest()
 	string input;
 	cin >> input;
 	size = stoi(input);
-	int testtype;
 	bool selection = false;
 	while (!selection)
 	{
+		int testtype;
 		cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro" << endl;
 		cin >> input;
 		testtype = stoi(input);
@@ -799,10 +799,10 @@ void listtest()
 	unsigned long size;
 	cout << "Quanto rendere grande la lista?: ";
 	cin >> size;
-	int testtype;
 	bool selection = false;
 	while (!selection)
 	{
+		int testtype;
 		cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro" << endl;
 		string input;
 		cin >> input;
@@ -1195,13 +1195,13 @@ void binarytreetest()
 
 void bsttest()
 {
-	int testtype;
 	unsigned long size;
 	cout << "Quanto rendere grande l'albero?: ";
 	cin >> size;
 	bool selection = false;
 	while (!selection)
 	{
+		int testtype;
 		cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro" << endl;
 		string input;
 		cin >> input;
@@ -1511,9 +1511,9 @@ void mytest()
         throw length_error("");
 
     bool selection = false;
-	int testtype = 0;
 	while (!selection)
 	{
+		int testtype = 0;
 		cout << endl << "Test menu' " << endl << "0. Esci" << endl << "1. Test su List" << endl << "2. Test su Vector" << endl << "3. Test su Stack" << endl << "4. Test su Queue" << endl << "5. Test su Binarytree" << endl << "6. Test su BST" << endl << "7. Test su Hashmap" << endl
 			 << "8. Test del professore" << endl;
 		string input;
