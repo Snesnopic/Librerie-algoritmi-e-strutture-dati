@@ -67,12 +67,12 @@ namespace lasd
 				std::swap(left, nl.left);
 			};
 
-			NodeLnk(const Data& d)
+			explicit NodeLnk(const Data& d)
 			{
 				dato = d;
 			};
 
-			NodeLnk(Data&& d)
+			explicit NodeLnk(Data&& d)
 			{
 				dato = std::move(d);
 			};
@@ -113,7 +113,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Specific constructors
-		BinaryTreeLnk(const LinearContainer<Data>& lc); // A binary tree obtained from a LinearContainer
+		explicit BinaryTreeLnk(const LinearContainer<Data>& lc); // A binary tree obtained from a LinearContainer
 
 		/* ************************************************************************ */
 
