@@ -40,9 +40,9 @@ namespace lasd
 			// Specific constructors
 			Node() = default;
 
-			Node(const Data& d);
+			explicit Node(const Data& d);
 
-			Node(Data&& d) noexcept;
+			explicit Node(Data&& d) noexcept;
 
 
 			/* ********************************************************************** */
@@ -86,7 +86,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Specific constructor
-		List(const LinearContainer<Data>& lc); // A list obtained from a LinearContainer
+		explicit List(const LinearContainer<Data>& lc); // A list obtained from a LinearContainer
 
 		/* ************************************************************************ */
 
