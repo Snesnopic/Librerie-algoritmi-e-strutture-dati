@@ -41,7 +41,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Specific constructor
-		QueueVec(const LinearContainer<Data>& lc) : Vector<Data>(lc)
+		explicit QueueVec(const LinearContainer<Data>& lc) : Vector<Data>(lc)
 		{
 			elements = size;
 			tail = elements - 1;
