@@ -66,7 +66,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~ForwardIterator() = default;
+		virtual ~ForwardIterator() override = default;
 
 		/* ************************************************************************ */
 
@@ -107,7 +107,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~BackwardIterator() = default;
+		virtual ~BackwardIterator() override = default;
 
 		/* ************************************************************************ */
 
@@ -148,7 +148,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~BidirectionalIterator() = default;
+		virtual ~BidirectionalIterator() override = default;
 
 		/* ************************************************************************ */
 
@@ -171,7 +171,7 @@ namespace lasd
 		virtual bool Terminated() const noexcept override
 		{
 			return ForwardTerminated() || BackwardTerminated();
-		}; // Override Iterator member
+		} // Override Iterator member
 
 		virtual bool ForwardTerminated() const noexcept = 0; // (concrete function should not throw exceptions)
 
@@ -192,7 +192,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~ResettableIterator() = default;
+		virtual ~ResettableIterator() override = default;
 
 		/* ************************************************************************ */
 

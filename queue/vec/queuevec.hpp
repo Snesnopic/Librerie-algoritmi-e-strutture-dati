@@ -36,7 +36,7 @@ namespace lasd
 	public:
 
 		// Default constructor
-		QueueVec() : Vector<Data>(1) {};
+		QueueVec() : Vector<Data>(1) {}
 
 		/* ************************************************************************ */
 
@@ -45,7 +45,7 @@ namespace lasd
 		{
 			elements = size;
 			tail = elements - 1;
-		}; // A queue obtained from a LinearContainer
+		} // A queue obtained from a LinearContainer
 
 		/* ************************************************************************ */
 
@@ -58,7 +58,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~QueueVec() = default;
+		virtual ~QueueVec() override = default;
 
 		/* ************************************************************************ */
 

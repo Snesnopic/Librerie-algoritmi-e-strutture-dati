@@ -28,7 +28,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~Queue() = default;
+		virtual ~Queue() override = default;
 
 		/* ************************************************************************ */
 

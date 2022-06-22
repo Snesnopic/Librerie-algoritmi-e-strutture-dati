@@ -40,7 +40,7 @@ namespace lasd
 	public:
 
 		// Default constructor
-		HashTableClsAdr() : HashTableClsAdr(127) {};
+		HashTableClsAdr() : HashTableClsAdr(127) {}
 
 		/* ************************************************************************ */
 
@@ -66,7 +66,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~HashTableClsAdr();
+		virtual ~HashTableClsAdr() override;
 
 		/* ************************************************************************ */
 
@@ -93,15 +93,15 @@ namespace lasd
 
 		// Specific member functions (inherited from DictionaryContainer)
 
-		bool Insert(const Data& d); // Override DictionaryContainer member (Copy of the value)
-		bool Insert(Data&& d) noexcept; // Override DictionaryContainer member (Move of the value)
-		bool Remove(const Data& d); // Override DictionaryContainer member
+		bool Insert(const Data& d) override; // Override DictionaryContainer member (Copy of the value)
+		bool Insert(Data&& d) noexcept override; // Override DictionaryContainer member (Move of the value)
+		bool Remove(const Data& d) override; // Override DictionaryContainer member
 
 		/* ************************************************************************ */
 
 		// Specific member functions (inherited from TestableContainer)
 
-		bool Exists(const Data& d) const noexcept; // Override TestableContainer member
+		bool Exists(const Data& d) const noexcept override; // Override TestableContainer member
 
 		/* ************************************************************************ */
 
@@ -124,7 +124,7 @@ namespace lasd
 
 		// Specific member functions (inherited from Container)
 
-		void Clear() noexcept; // Override Container member
+		void Clear() noexcept override; // Override Container member
 
 	};
 

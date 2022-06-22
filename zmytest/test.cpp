@@ -119,7 +119,7 @@ void vectortest(Vector<Data>& v)
 				selection = true;
 				break;
 			case 1:
-				v.Map(&MapPrint<Data>, 0);
+				v.Map(&MapPrint<Data>, nullptr);
 				cout << endl;
 				break;
 			case 2:
@@ -183,7 +183,7 @@ void vectortest(Vector<Data>& v)
 				if constexpr (is_same<Data, string>::value)
 				{
 					cout << "Funzione map per questo tipo di dato: uppercase;" << endl;
-					v.Map(&MapUppercase<Data>, 0);
+					v.Map(&MapUppercase<Data>, nullptr);
 					cout << "Fatto, prova a stampare" << endl;
 				}
 				break;
@@ -210,7 +210,7 @@ void listtest(List<Data>& l)
 				selection = true;
 				break;
 			case 1:
-				l.Map(&MapPrint<Data>, 0);
+				l.Map(&MapPrint<Data>, nullptr);
 				cout << endl;
 				break;
 			case 2:
@@ -274,7 +274,7 @@ void listtest(List<Data>& l)
 				if constexpr (is_same<Data, string>::value)
 				{
 					cout << "Funzione map per questo tipo di dato: uppercase;" << endl;
-					l.Map(&MapUppercase<Data>, 0);
+					l.Map(&MapUppercase<Data>, nullptr);
 					cout << "Fatto, prova a stampare" << endl;
 				}
 				break;
@@ -438,25 +438,25 @@ void binarytreetest(BinaryTree<Data>& bt)
 				break;
 			case 1:
 			{
-				bt.MapBreadth(&MapPrint<Data>, 0);
+				bt.MapBreadth(&MapPrint<Data>, nullptr);
 				cout << endl;
 				break;
 			}
 			case 2:
 			{
-				bt.MapPreOrder(&MapPrint<Data>, 0);
+				bt.MapPreOrder(&MapPrint<Data>, nullptr);
 				cout << endl;
 				break;
 			}
 			case 3:
 			{
-				bt.MapInOrder(&MapPrint<Data>, 0);
+				bt.MapInOrder(&MapPrint<Data>, nullptr);
 				cout << endl;
 				break;
 			}
 			case 4:
 			{
-				bt.MapPostOrder(&MapPrint<Data>, 0);
+				bt.MapPostOrder(&MapPrint<Data>, nullptr);
 				cout << endl;
 				break;
 			}
@@ -554,25 +554,25 @@ void bsttest(BST<Data>& bst)
 				break;
 			case 1:
 			{
-				bst.MapBreadth(&MapPrint<Data>, 0);
+				bst.MapBreadth(&MapPrint<Data>, nullptr);
 				cout << endl;
 				break;
 			}
 			case 2:
 			{
-				bst.MapPreOrder(&MapPrint<Data>, 0);
+				bst.MapPreOrder(&MapPrint<Data>, nullptr);
 				cout << endl;
 				break;
 			}
 			case 3:
 			{
-				bst.MapInOrder(&MapPrint<Data>, 0);
+				bst.MapInOrder(&MapPrint<Data>, nullptr);
 				cout << endl;
 				break;
 			}
 			case 4:
 			{
-				bst.MapPostOrder(&MapPrint<Data>, 0);
+				bst.MapPostOrder(&MapPrint<Data>, nullptr);
 				cout << endl;
 				break;
 			}
@@ -657,7 +657,7 @@ void hashtabletest(HashTable<Data>& hash)
 				break;
 			case 1:
 			{
-				hash.Map(&MapPrint<Data>, 0);
+				hash.Map(&MapPrint<Data>, nullptr);
 				cout << endl;
 				break;
 			}

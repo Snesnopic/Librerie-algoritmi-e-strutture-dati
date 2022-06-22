@@ -42,15 +42,15 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Copy constructor
-		BST(const BST& bst) : BinaryTreeLnk<Data>(bst) {};
+		BST(const BST& bst) : BinaryTreeLnk<Data>(bst) {}
 
 		// Move constructor
-		BST(BST&& bst) noexcept: BinaryTreeLnk<Data>(std::move(bst)) {};
+		BST(BST&& bst) noexcept: BinaryTreeLnk<Data>(std::move(bst)) {}
 
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~BST() = default;
+		virtual ~BST() override = default;
 
 		/* ************************************************************************ */
 

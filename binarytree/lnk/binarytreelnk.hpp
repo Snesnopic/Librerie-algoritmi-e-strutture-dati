@@ -43,13 +43,13 @@ namespace lasd
 
 			NodeLnk() = default;
 
-			virtual ~NodeLnk()
+			virtual ~NodeLnk() override
 			{
 				if (right != nullptr)
 					delete right;
 				if (left != nullptr)
 					delete left;
-			};
+			}
 
 			NodeLnk(const NodeLnk& nl)
 			{
@@ -58,41 +58,41 @@ namespace lasd
 					right = new NodeLnk(nl.RightChild());
 				if (nl.HasLeftChild())
 					left = new NodeLnk(nl.LeftChild());
-			};
+			}
 
 			NodeLnk(NodeLnk&& nl)
 			{
 				std::swap(dato, nl.dato);
 				std::swap(right, nl.right);
 				std::swap(left, nl.left);
-			};
+			}
 
 			explicit NodeLnk(const Data& d)
 			{
 				dato = d;
-			};
+			}
 
 			explicit NodeLnk(Data&& d)
 			{
 				dato = std::move(d);
-			};
+			}
 
 			bool HasLeftChild() const noexcept override // (concrete function should not throw exceptions)
 			{
 				return (left != nullptr);
-			};
+			}
 
 			bool HasRightChild() const noexcept override // (concrete function should not throw exceptions)
 			{
 				return (right != nullptr);
-			};
+			}
 
 			NodeLnk& LeftChild() const override // (concrete function must throw std::out_of_range when not existent)
 			{
 				if (!HasLeftChild())
 					throw std::out_of_range("Out of range!");
 				return *left;
-			};
+			}
 
 			NodeLnk& RightChild() const override // (concrete function must throw std::out_of_range when not existent)
 			{
@@ -100,7 +100,7 @@ namespace lasd
 					throw std::out_of_range("Out of range!");
 				return *right;
 
-			};
+			}
 
 		};
 
@@ -126,7 +126,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~BinaryTreeLnk();
+		virtual ~BinaryTreeLnk() override;
 
 		/* ************************************************************************ */
 

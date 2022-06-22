@@ -52,7 +52,7 @@ namespace lasd
 		HashTable();
 
 		// Destructor
-		virtual ~HashTable() = default;
+		virtual ~HashTable() override = default;
 
 		/* ************************************************************************ */
 

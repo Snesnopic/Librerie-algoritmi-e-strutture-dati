@@ -89,17 +89,17 @@ namespace lasd
 			Data& Element() noexcept // Mutable access to the element (concrete function should not throw exceptions)
 			{
 				return dato;
-			};
+			}
 
 			const Data& Element() const noexcept // Immutable access to the element (concrete function should not throw exceptions)
 			{
 				return dato;
-			};
+			}
 
 			bool IsLeaf() const noexcept // (concrete function should not throw exceptions)
 			{
 				return !(HasRightChild() || HasLeftChild());
-			};
+			}
 
 			virtual bool HasLeftChild() const noexcept = 0; // (concrete function should not throw exceptions)
 			virtual bool HasRightChild() const noexcept = 0; // (concrete function should not throw exceptions)
@@ -112,7 +112,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~BinaryTree() = default;
+		virtual ~BinaryTree() override = default;
 
 		/* ************************************************************************ */
 
@@ -268,7 +268,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~BTPreOrderIterator();
+		virtual ~BTPreOrderIterator() override;
 
 		/* ************************************************************************ */
 
@@ -346,7 +346,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~BTPostOrderIterator();
+		virtual ~BTPostOrderIterator() override;
 
 		/* ************************************************************************ */
 
@@ -420,7 +420,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~BTInOrderIterator();
+		virtual ~BTInOrderIterator() override;
 
 		/* ************************************************************************ */
 
@@ -492,7 +492,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~BTBreadthIterator();
+		virtual ~BTBreadthIterator() override;
 
 		/* ************************************************************************ */
 

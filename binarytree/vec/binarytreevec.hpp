@@ -63,13 +63,13 @@ namespace lasd
 			bool HasLeftChild() const noexcept override // (concrete function should not throw exceptions)
 			{
 				return !(arrayRef->Size() <= (2 * index) + 1);
-			};
+			}
 
 			bool HasRightChild() const noexcept override // (concrete function should not throw exceptions)
 			{
 
 				return !(arrayRef->Size() <= (2 * index) + 2);
-			};
+			}
 
 			NodeVec& LeftChild() const override // (concrete function must throw std::out_of_range when not existent)
 			{
@@ -77,7 +77,7 @@ namespace lasd
 					throw std::out_of_range("Out of range!");
 				else
 					return *(arrayRef->operator[]((2 * index) + 1));
-			};
+			}
 
 			NodeVec& RightChild() const override // (concrete function must throw std::out_of_range when not existent)
 			{
@@ -85,7 +85,7 @@ namespace lasd
 					throw std::out_of_range("Out of range!");
 				else
 					return *(arrayRef->operator[]((2 * index) + 2));
-			};
+			}
 		};
 
 		Vector<NodeVec *> array{};
@@ -110,7 +110,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~BinaryTreeVec();
+		virtual ~BinaryTreeVec() override;
 
 		/* ************************************************************************ */
 

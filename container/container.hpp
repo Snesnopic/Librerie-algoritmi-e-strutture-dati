@@ -73,7 +73,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~LinearContainer() = default;
+		virtual ~LinearContainer() override = default;
 
 		/* ************************************************************************ */
 
@@ -117,7 +117,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~TestableContainer() = default;
+		virtual ~TestableContainer() override = default;
 
 		/* ************************************************************************ */
 
@@ -158,7 +158,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~DictionaryContainer() = default;
+		virtual ~DictionaryContainer() override = default;
 
 		/* ************************************************************************ */
 
@@ -206,7 +206,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~MappableContainer() = default;
+		virtual ~MappableContainer() override = default;
 
 		/* ************************************************************************ */
 
@@ -249,7 +249,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~FoldableContainer() = default;
+		virtual ~FoldableContainer() override =  default;
 
 		/* ************************************************************************ */
 
@@ -298,7 +298,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~PreOrderMappableContainer() = default;
+		virtual ~PreOrderMappableContainer() override = default;
 
 		/* ************************************************************************ */
 
@@ -346,7 +346,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~PreOrderFoldableContainer() = default;
+		virtual ~PreOrderFoldableContainer() override = default;
 
 		/* ************************************************************************ */
 
@@ -395,7 +395,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~PostOrderMappableContainer() = default;
+		virtual ~PostOrderMappableContainer() override = default;
 
 		/* ************************************************************************ */
 
@@ -444,7 +444,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~PostOrderFoldableContainer() = default;
+		virtual ~PostOrderFoldableContainer() override = default;
 
 		/* ************************************************************************ */
 
@@ -493,7 +493,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~InOrderMappableContainer() = default;
+		virtual ~InOrderMappableContainer() override = default;
 
 		/* ************************************************************************ */
 
@@ -542,7 +542,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~InOrderFoldableContainer() = default;
+		virtual ~InOrderFoldableContainer() override = default;
 
 		/* ************************************************************************ */
 
@@ -591,7 +591,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~BreadthMappableContainer() = default;
+		virtual ~BreadthMappableContainer() override = default;
 
 		/* ************************************************************************ */
 
@@ -640,7 +640,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~BreadthFoldableContainer() = default;
+		virtual ~BreadthFoldableContainer() override = default;
 
 		/* ************************************************************************ */
 
