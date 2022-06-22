@@ -40,7 +40,7 @@ namespace lasd
 	public:
 
 		// Default constructor
-		HashTableOpnAdr() : HashTableOpnAdr(127) {};
+		HashTableOpnAdr() : HashTableOpnAdr(127) {}
 
 		/* ************************************************************************ */
 
@@ -63,7 +63,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~HashTableOpnAdr();
+		virtual ~HashTableOpnAdr() override;
 
 		/* ************************************************************************ */
 
