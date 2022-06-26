@@ -39,36 +39,36 @@ string GeneraStringaCasuale(const unsigned int lunghezza)
 template<typename Data>
 void FoldSumLessThanN(const Data& dat, const void *_, void *acc)
 {
-	if (dat < *((Data *)_))
-		*((Data *)acc) += dat;
+	if (dat < *(static_cast<const Data *>(_)))
+		*(static_cast<Data *>(acc)) += dat;
 }
 
 template<typename Data>
 void FoldSumMoreThanN(const Data& dat, const void *_, void *acc)
 {
-	if (dat > *((Data *)_))
-		*((Data *)acc) += dat;
+	if (dat > *(static_cast<const Data *>(_)))
+		*(static_cast<Data *>(acc)) += dat;
 }
 
 template<typename Data>
 void FoldProductLessThanN(const Data& dat, const void *_, void *acc)
 {
-	if (dat < *((Data *)_))
-		*((Data *)acc) *= dat;
+	if (dat < *(static_cast<const Data *>(_)))
+		*(static_cast<Data *>(acc)) *= dat;
 }
 
 template<typename Data>
 void FoldProductMoreThanN(const Data& dat, const void *_, void *acc)
 {
-	if (dat > *((Data *)_))
-		*((Data *)acc) *= dat;
+	if (dat > *(static_cast<const Data *>(_)))
+		*(static_cast<Data *>(acc)) *= dat;
 }
 
 template<typename Data>
 void FoldConcatLessEqualN(const Data& dat, const void *_, void *acc)
 {
-	if (dat.length() <= *((unsigned long *)_))
-		*((Data *)acc) += dat;
+	if (dat.length() <= *(static_cast<const unsigned long *>(_)))
+		*(static_cast<Data *>(acc)) += dat;
 }
 
 template<typename Data>
@@ -80,13 +80,13 @@ void MapPrint(Data& dat, void *_)
 template<typename Data>
 void MapMultiply(Data& dat, void *_)
 {
-	dat = dat * *(short *)(_);
+	dat = dat * *(static_cast<short *>(_));
 }
 
 template<typename Data>
 void MapPower(Data& dat, void *_)
 {
-	dat = pow(dat, *(short *)_);
+	dat = pow(dat, *(static_cast<short *>(_)));
 }
 
 template<typename Data>
@@ -99,7 +99,7 @@ void MapUppercase(Data& dat, void *_)
 template<typename Data>
 void MapAppend(Data& dat, void *_)
 {
-	dat.append(*((string *)_));
+	dat.append(*(static_cast<string *>(_)));
 }
 
 template<typename Data>

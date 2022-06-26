@@ -62,12 +62,12 @@ namespace lasd
 	template<typename Data>
 	unsigned long Hash<Data>::operator()(const Data& d) const noexcept
 	{
-		void *v = (void *)&d;
+		void *v = static_cast<void *>(&d);
 		size_t j = sizeof(d);
 		std::string s = "";
 		for (size_t k = 0; k < j; k++)
 		{
-			s.push_back(((char *)v)[k]);
+			s.push_back((static_cast<char *>(v))[k]);
 		}
 		return Hash<std::string>{}(s);
 	}

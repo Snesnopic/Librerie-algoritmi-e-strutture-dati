@@ -80,9 +80,9 @@ namespace lasd
 	template<typename Data>
 	void AuxFoldExists(const Data& dat, const void *val, void *exists) noexcept
 	{
-		if (dat == *((Data *)val))
+		if (dat == *(static_cast<const Data *>(val)))
 		{
-			*((bool *)exists) = true;
+			*(static_cast<bool *>(exists)) = true;
 		}
 	}
 
