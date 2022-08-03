@@ -13,7 +13,7 @@ namespace lasd
 /* ************************************************************************** */
 
 	template<typename Data>
-	class Vector : virtual public LinearContainer<Data>, virtual public PreOrderMappableContainer<Data>, virtual public PostOrderMappableContainer<Data>, virtual public PreOrderFoldableContainer<Data>, virtual public PostOrderFoldableContainer<Data>
+	class Vector : virtual public LinearContainer<Data>, virtual public SortableContainer<Data>, virtual public PreOrderMappableContainer<Data>, virtual public PostOrderMappableContainer<Data>, virtual public PreOrderFoldableContainer<Data>, virtual public PostOrderFoldableContainer<Data>
 	{
 		// Must extend LinearContainer<Data>,
 		//             PreOrderMappableContainer<Data>,
@@ -39,7 +39,8 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Specific constructors
-		explicit Vector(const unsigned long initialSize); // A vector with a given initial dimension
+		explicit Vector(unsigned long initialSize); // A vector with a given initial dimension
+        Vector(unsigned long initialSize, Data defaultValue);
 		explicit Vector(const LinearContainer<Data>& lc); // A vector obtained from a LinearContainer
 
 		/* ************************************************************************ */
@@ -53,7 +54,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~Vector() override;
+		~Vector() override;
 
 		/* ************************************************************************ */
 
@@ -74,8 +75,11 @@ namespace lasd
 
 		// Specific member functions
 
-		void Resize(const unsigned long newSize); // Resize the vector to a given size
-		void Sort() noexcept; // Sort the vector in ascending order
+		void Resize(unsigned long newSize); // Resize the vector to a given size
+		void Sort() noexcept final; // Sort the vector in ascending order
+        void SortAscending() noexcept final;
+        void SortDescending() noexcept final;
+        explicit operator std::vector<Data>() const override;
 
 		/* ************************************************************************ */
 
@@ -90,7 +94,7 @@ namespace lasd
 		Data& Front() const override; // Override LinearContainer member (must throw std::length_error when empty)
 		Data& Back() const override; // Override LinearContainer member (must throw std::length_error when empty)
 
-		Data& operator[](const unsigned long index) const override; // Override LinearContainer member (must throw std::out_of_range when out of range)
+		Data& operator[](unsigned long index) const override; // Override LinearContainer member (must throw std::out_of_range when out of range)
 
 		/* ************************************************************************ */
 
