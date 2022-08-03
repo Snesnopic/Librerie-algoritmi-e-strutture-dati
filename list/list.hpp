@@ -99,7 +99,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~List() override;
+		virtual ~List();
 
 		/* ************************************************************************ */
 
@@ -150,7 +150,7 @@ namespace lasd
 
 		Data& Front() const override; // Override LinearContainer member (must throw std::length_error when empty)
 		Data& Back() const override; // Override LinearContainer member (must throw std::length_error when empty)
-		Data& operator[](const unsigned long index) const override; // Override LinearContainer member (must throw std::out_of_range when out of range)
+		Data& operator[](unsigned long index) const override; // Override LinearContainer member (must throw std::out_of_range when out of range)
 
 		/* ************************************************************************ */
 		// Specific member functions (inherited from MappableContainer)
