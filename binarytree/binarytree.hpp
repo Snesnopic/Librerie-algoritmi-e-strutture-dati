@@ -96,13 +96,13 @@ namespace lasd
 				return dato;
 			}
 
-			bool IsLeaf() const noexcept // (concrete function should not throw exceptions)
+			[[nodiscard]] bool IsLeaf() const noexcept // (concrete function should not throw exceptions)
 			{
 				return !(HasRightChild() || HasLeftChild());
 			}
 
-			virtual bool HasLeftChild() const noexcept = 0; // (concrete function should not throw exceptions)
-			virtual bool HasRightChild() const noexcept = 0; // (concrete function should not throw exceptions)
+			[[nodiscard]] virtual bool HasLeftChild() const noexcept = 0; // (concrete function should not throw exceptions)
+			[[nodiscard]] virtual bool HasRightChild() const noexcept = 0; // (concrete function should not throw exceptions)
 
 			virtual Node& LeftChild() const = 0; // (concrete function must throw std::out_of_range when not existent)
 			virtual Node& RightChild() const = 0; // (concrete function must throw std::out_of_range when not existent)
@@ -268,7 +268,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~BTPreOrderIterator() override;
+		~BTPreOrderIterator() override;
 
 		/* ************************************************************************ */
 
@@ -291,7 +291,7 @@ namespace lasd
 
 		Data& operator*() const override; // (throw std::out_of_range when terminated)
 
-		bool Terminated() const noexcept override; // (should not throw exceptions)
+		[[nodiscard]] bool Terminated() const noexcept override; // (should not throw exceptions)
 
 		/* ************************************************************************ */
 
@@ -346,7 +346,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~BTPostOrderIterator() override;
+		~BTPostOrderIterator() override;
 
 		/* ************************************************************************ */
 
@@ -369,7 +369,7 @@ namespace lasd
 
 		Data& operator*() const override; // (throw std::out_of_range when terminated)
 
-		bool Terminated() const noexcept override; // (should not throw exceptions)
+		[[nodiscard]] bool Terminated() const noexcept override; // (should not throw exceptions)
 
 		/* ************************************************************************ */
 		// Specific member functions (inherited from ForwardIterator)
@@ -420,7 +420,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~BTInOrderIterator() override;
+		~BTInOrderIterator() override;
 
 		/* ************************************************************************ */
 
@@ -443,7 +443,7 @@ namespace lasd
 
 		Data& operator*() const override; // (throw std::out_of_range when terminated)
 
-		bool Terminated() const noexcept override; // (should not throw exceptions)
+		[[nodiscard]] bool Terminated() const noexcept override; // (should not throw exceptions)
 
 		/* ************************************************************************ */
 		// Specific member functions (inherited from ForwardIterator)
@@ -492,7 +492,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~BTBreadthIterator() override;
+		~BTBreadthIterator() override;
 
 		/* ************************************************************************ */
 
@@ -515,7 +515,7 @@ namespace lasd
 
 		Data& operator*() const override; // (throw std::out_of_range when terminated)
 
-		bool Terminated() const noexcept override; // (should not throw exceptions)
+		[[nodiscard]] bool Terminated() const noexcept override; // (should not throw exceptions)
 
 		/* ************************************************************************ */
 
