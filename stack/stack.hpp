@@ -28,7 +28,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~Stack() override = default;
+		~Stack() override = default;
 
 		/* ************************************************************************ */
 
