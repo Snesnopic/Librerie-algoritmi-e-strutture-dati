@@ -60,15 +60,15 @@ namespace lasd
 				dato = std::move(d);
 			}
 
-			bool HasLeftChild() const noexcept override // (concrete function should not throw exceptions)
+			[[nodiscard]] bool HasLeftChild() const noexcept override // (concrete function should not throw exceptions)
 			{
-				return !(arrayRef->Size() <= (2 * index) + 1);
+				return arrayRef->Size() > (2 * index) + 1;
 			}
 
-			bool HasRightChild() const noexcept override // (concrete function should not throw exceptions)
+			[[nodiscard]] bool HasRightChild() const noexcept override // (concrete function should not throw exceptions)
 			{
 
-				return !(arrayRef->Size() <= (2 * index) + 2);
+				return arrayRef->Size() > (2 * index) + 2;
 			}
 
 			NodeVec& LeftChild() const override // (concrete function must throw std::out_of_range when not existent)
@@ -110,7 +110,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~BinaryTreeVec() override;
+		virtual ~BinaryTreeVec();
 
 		/* ************************************************************************ */
 
