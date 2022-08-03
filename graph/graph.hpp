@@ -19,21 +19,33 @@ namespace lasd {
     protected:
         using BreadthMappableContainer<Data>::size;
     public:
+        [[nodiscard]] unsigned long Vertices() const noexcept = 0;
+
+        [[nodiscard]] unsigned long Edges() const noexcept = 0;
+
+        void RemoveVertex(Data &v1) = 0;
+
+        unsigned long DegreeOf(const Data &v1) const = 0;
+
+        void RemoveEdge(Data& v1, Data &v2) = 0;
+
         void AddVertex(Data &v1) = 0;
 
         void AddVertex(Data &&v1) noexcept = 0;
 
-        void AddEdge(Data &v1, Data &v2) = 0;
+        void AddEdge(const Data &v1, const Data &v2) = 0;
 
-        void AddEdge(Data &v1, Data &v2, double weight) = 0;
+        void AddEdge(const Data &v1, const Data &v2, double weight) = 0;
 
-        void AddEdge(Data &v1, Data &v2, double weight, bool isDirected) = 0;
+        void AddEdge(const Data &v1, const Data &v2, double weight, bool isDirected) = 0;
 
-        void AddEdge(Data &v1, Data &v2, bool isDirected) = 0;
+        void AddEdge(const Data &v1, const Data &v2, bool isDirected) = 0;
 
-        bool AreLinked(Data &v1, Data &v2) const = 0;
+        bool AreLinked(const Data &v1, const Data &v2) const = 0;
 
-        double WalkWeight(Data &v1, Data &v2) const = 0;
+        bool AreDirectlyLinked(const Data &v1, const Data &v2) const = 0;
+
+        double WalkWeight(const Data &v1, const Data &v2) const = 0;
 
         [[nodiscard]] bool IsAcyclic() const = 0;
 
@@ -53,9 +65,9 @@ namespace lasd {
 
         using typename MappableContainer<Data>::MapFunctor;
 
-        void Map(MapFunctor f, void *par) override; // Override MappableContainer member
-        void MapBreadth(MapFunctor f, void *par) override;
-        void MapDepth(MapFunctor f, void *par) override;
+        void Map(MapFunctor f, void *par) override = 0; // Override MappableContainer member
+        void MapBreadth(MapFunctor f, void *par) override = 0;
+        void MapDepth(MapFunctor f, void *par) override = 0;
 
         /* ************************************************************************ */
 
@@ -63,9 +75,9 @@ namespace lasd {
 
         using typename FoldableContainer<Data>::FoldFunctor;
 
-        void Fold(FoldFunctor f, const void *par, void *acc) const override; // Override FoldableContainer member
-        void FoldBreadth(FoldFunctor f, const void *par, void *acc) const override;
-        void FoldDepth(FoldFunctor f, const void *par, void *acc) const override;
+        void Fold(FoldFunctor f, const void *par, void *acc) const override = 0; // Override FoldableContainer member
+        void FoldBreadth(FoldFunctor f, const void *par, void *acc) const override = 0;
+        void FoldDepth(FoldFunctor f, const void *par, void *acc) const override = 0;
 
     };
 
