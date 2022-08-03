@@ -11,6 +11,12 @@ namespace lasd
 		array = new Data[initialSize];
 		size = initialSize;
 	}
+    template<typename Data>
+    Vector<Data>::Vector(const unsigned long initialSize, const Data defaultValue) : Vector(initialSize)
+    {
+        for(auto i = 0; i<size;++i)
+            array[i] = defaultValue;
+    }
 
 	//LinearContainer constructor
 	template<typename Data>
@@ -116,23 +122,56 @@ namespace lasd
 			if (size != newSize)
 			{
 				Data *tmp = new Data[newSize];
-				for (unsigned long i = 0; i < std::min(size, newSize); i++)
+				for (auto i = 0; i < std::min(size, newSize); i++)
 				{
 					std::swap(array[i], tmp[i]);
 				}
 				delete[] array;
 				array = tmp;
-				size = std::move(newSize);
 				size = newSize;
 			}
 		}
 	}
+#include <type_traits>
+#include <utility>
 
-	template<typename Data>
+    template<class T, class EqualTo>
+    struct has_operator_equal_impl
+    {
+        template<class U, class V>
+        static auto test(U*) -> decltype(std::declval<U>() < std::declval<V>());
+        template<typename, typename>
+        static auto test(...) -> std::false_type;
+
+        using type = typename std::is_same<bool, decltype(test<T, EqualTo>(0))>::type;
+    };
+
+    template<class T, class EqualTo = T>
+    struct has_operator_lessthan : has_operator_equal_impl<T, EqualTo>::type {};
+
+    template<typename Data>
 	void Vector<Data>::Sort() noexcept
 	{
-		std::sort(array, array + size);
+        if constexpr (has_operator_lessthan<Data>::value)
+         std::sort(array, array + sizeof array / sizeof array[0]);
 	}
+    template<typename Data>
+     Vector<Data>::operator std::vector<Data>() const
+    {
+         std::vector<Data> v(array, array + sizeof(array)/sizeof(array[0]));
+         return v;
+    }
+    template<typename Data>
+    void Vector<Data>::SortAscending() noexcept
+    {
+        Sort();
+    }
+    template<typename Data>
+    void Vector<Data>::SortDescending() noexcept
+    {
+        if constexpr (has_operator_lessthan<Data>::value)
+        std::sort(array + sizeof array / sizeof array[0],array,std::greater<>());
+    }
 
 	//Clear
 	template<typename Data>

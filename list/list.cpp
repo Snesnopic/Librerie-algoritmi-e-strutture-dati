@@ -360,7 +360,33 @@ namespace lasd
 		}
 		size++;
 	}
-
+    template<typename Data>
+    List<Data>::operator std::vector<Data>() const
+    {
+        std::vector<Data> v;
+        return v;
+    }
+    template<typename Data>
+    void List<Data>::Sort() noexcept
+    {
+        Vector<Data> v(*this);
+        v.Sort();
+        List<Data> l(v);
+        *this = std::move(l);
+    }
+    template<typename Data>
+    void List<Data>::SortAscending() noexcept
+    {
+        Sort();
+    }
+    template<typename Data>
+    void List<Data>::SortDescending() noexcept
+    {
+        Vector<Data> v(*this);
+        v.SortDescending();
+        List<Data> l(v);
+        *this = std::move(l);
+    }
 //Map functions
 //Map
 	template<typename Data>
