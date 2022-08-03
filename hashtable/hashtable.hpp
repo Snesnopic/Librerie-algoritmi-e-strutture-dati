@@ -52,7 +52,7 @@ namespace lasd
 		HashTable();
 
 		// Destructor
-		virtual ~HashTable() override = default;
+		virtual ~HashTable() = default;
 
 		/* ************************************************************************ */
 
@@ -73,10 +73,10 @@ namespace lasd
 		virtual unsigned long HashKey(const Data& d) const = 0;
 
 		// Copy assignment
-		virtual HashTable& operator=(const HashTable& ht); // Copy assignment of abstract types should not be possible.
+		HashTable& operator=(const HashTable& ht); // Copy assignment of abstract types should not be possible.
 
 		// Move assignment
-		virtual HashTable& operator=(HashTable&& ht) noexcept; // Move assignment of abstract types should not be possible.
+		HashTable& operator=(HashTable&& ht) noexcept; // Move assignment of abstract types should not be possible.
 
 	};
 
