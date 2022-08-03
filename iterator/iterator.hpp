@@ -3,6 +3,7 @@
 
 /* ************************************************************************** */
 
+
 namespace lasd
 {
 
@@ -45,7 +46,7 @@ namespace lasd
 
 		virtual Data& operator*() const = 0; // (concrete function must throw std::out_of_range when terminated)
 
-		virtual bool Terminated() const noexcept = 0; // (concrete function should not throw exceptions)
+		[[nodiscard]] virtual bool Terminated() const noexcept = 0; // (concrete function should not throw exceptions)
 
 	};
 
@@ -66,7 +67,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~ForwardIterator() override = default;
+		~ForwardIterator() override = default;
 
 		/* ************************************************************************ */
 
@@ -107,7 +108,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~BackwardIterator() override = default;
+		~BackwardIterator() override = default;
 
 		/* ************************************************************************ */
 
@@ -148,7 +149,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~BidirectionalIterator() override = default;
+		~BidirectionalIterator() override = default;
 
 		/* ************************************************************************ */
 
@@ -168,14 +169,14 @@ namespace lasd
 
 		// Specific member functions
 
-		virtual bool Terminated() const noexcept override
+		[[nodiscard]] bool Terminated() const noexcept override
 		{
 			return ForwardTerminated() || BackwardTerminated();
 		} // Override Iterator member
 
-		virtual bool ForwardTerminated() const noexcept = 0; // (concrete function should not throw exceptions)
+		[[nodiscard]] virtual bool ForwardTerminated() const noexcept = 0; // (concrete function should not throw exceptions)
 
-		virtual bool BackwardTerminated() const noexcept = 0; // (concrete function should not throw exceptions)
+		[[nodiscard]] virtual bool BackwardTerminated() const noexcept = 0; // (concrete function should not throw exceptions)
 
 	};
 
@@ -192,7 +193,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~ResettableIterator() override = default;
+		~ResettableIterator() override = default;
 
 		/* ************************************************************************ */
 
@@ -215,6 +216,7 @@ namespace lasd
 		virtual void Reset() noexcept = 0; // (concrete function should not throw exceptions)
 
 	};
+
 /* ************************************************************************** */
 
 }
