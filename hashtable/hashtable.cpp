@@ -29,7 +29,7 @@ namespace lasd
 	public:
 		unsigned long operator()(const double& d) const noexcept
 		{
-			return (unsigned&)d;
+			return reinterpret_cast<const unsigned long&>(d);
 		}
 	};
 
@@ -39,7 +39,7 @@ namespace lasd
 	public:
 		unsigned long operator()(const float& d) const noexcept
 		{
-			return (unsigned&)d;
+			return reinterpret_cast<const unsigned long&>(d);
 		}
 	};
 
