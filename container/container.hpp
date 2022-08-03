@@ -48,9 +48,9 @@ namespace lasd
 
 		// Specific member functions
 
-		virtual bool Empty() const noexcept; // (concrete function should not throw exceptions)
+		[[nodiscard]] virtual bool Empty() const noexcept; // (concrete function should not throw exceptions)
 
-		virtual unsigned long Size() const noexcept; // (concrete function should not throw exceptions)
+		[[nodiscard]] virtual unsigned long Size() const noexcept; // (concrete function should not throw exceptions)
 
 		virtual void Clear() = 0;
 
@@ -73,7 +73,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~LinearContainer() override = default;
+		~LinearContainer() override = default;
 
 		/* ************************************************************************ */
 
@@ -92,12 +92,12 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Specific member functions
-        virtual operator std::vector<Data>() const = 0;
+        virtual explicit operator std::vector<Data>() const = 0;
 
 		virtual Data& Front() const; // (concrete function must throw std::length_error when empty)
 		virtual Data& Back() const; // (concrete function must throw std::length_error when empty)
 
-		virtual Data& operator[](const unsigned long index) const = 0; // (concrete function must throw std::out_of_range when out of range)
+		virtual Data& operator[](unsigned long index) const = 0; // (concrete function must throw std::out_of_range when out of range)
 
 	};
 
@@ -118,7 +118,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~SortableContainer() override = default;
+		~SortableContainer() override = default;
 
 		/* ************************************************************************ */
 
@@ -161,7 +161,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~TestableContainer() override = default;
+		~TestableContainer() override = default;
 
 		/* ************************************************************************ */
 
@@ -202,7 +202,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~DictionaryContainer() override = default;
+		virtual ~DictionaryContainer() = default;
 
 		/* ************************************************************************ */
 
@@ -250,7 +250,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~MappableContainer() override = default;
+		~MappableContainer() override = default;
 
 		/* ************************************************************************ */
 
@@ -293,7 +293,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~FoldableContainer() override =  default;
+		virtual ~FoldableContainer() =  default;
 
 		/* ************************************************************************ */
 
@@ -321,7 +321,7 @@ namespace lasd
 
 		// Specific member functions (inherited from TestableContainer)
 
-		virtual bool Exists(const Data& d) const noexcept override;
+		bool Exists(const Data& d) const noexcept override;
 
 	};
 
@@ -342,7 +342,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~PreOrderMappableContainer() override = default;
+		virtual ~PreOrderMappableContainer() = default;
 
 		/* ************************************************************************ */
 
@@ -370,7 +370,7 @@ namespace lasd
 
 		// Specific member functions (inherited from MappableContainer)
 
-		virtual void Map(MapFunctor, void *) override;
+		virtual void Map(MapFunctor, void *);
 	};
 
 /* ************************************************************************** */
@@ -390,7 +390,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~PreOrderFoldableContainer() override = default;
+		virtual ~PreOrderFoldableContainer() = default;
 
 		/* ************************************************************************ */
 
@@ -418,7 +418,7 @@ namespace lasd
 
 		// Specific member functions (inherited from FoldableContainer)
 
-		virtual void Fold(FoldFunctor, const void *, void *) const override; // Override FoldableContainer member
+		virtual void Fold(FoldFunctor, const void *, void *) const; // Override FoldableContainer member
 
 	};
 
@@ -439,7 +439,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~PostOrderMappableContainer() override = default;
+		virtual ~PostOrderMappableContainer() = default;
 
 		/* ************************************************************************ */
 
@@ -467,7 +467,7 @@ namespace lasd
 
 		// Specific member functions (inherited from MappableContainer)
 
-		virtual void Map(MapFunctor, void *) override; // Override MappableContainer member
+		virtual void Map(MapFunctor, void *); // Override MappableContainer member
 
 	};
 
@@ -488,7 +488,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~PostOrderFoldableContainer() override = default;
+		virtual ~PostOrderFoldableContainer() = default;
 
 		/* ************************************************************************ */
 
@@ -516,7 +516,7 @@ namespace lasd
 
 		// Specific member functions (inherited from FoldableContainer)
 
-		virtual void Fold(FoldFunctor, const void *, void *) const override; // Override FoldableContainer member
+		virtual void Fold(FoldFunctor, const void *, void *) const; // Override FoldableContainer member
 
 	};
 
@@ -537,7 +537,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~InOrderMappableContainer() override = default;
+		virtual ~InOrderMappableContainer() = default;
 
 		/* ************************************************************************ */
 
@@ -565,7 +565,7 @@ namespace lasd
 
 		// Specific member functions (inherited from MappableContainer)
 
-		virtual void Map(MapFunctor, void *) override; // Override MappableContainer member
+		virtual void Map(MapFunctor, void *); // Override MappableContainer member
 
 	};
 
@@ -586,7 +586,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~InOrderFoldableContainer() override = default;
+		virtual ~InOrderFoldableContainer() = default;
 
 		/* ************************************************************************ */
 
@@ -614,7 +614,7 @@ namespace lasd
 
 		// Specific member functions (inherited from FoldableContainer)
 
-		virtual void Fold(FoldFunctor, const void *, void *) const override; // Override FoldableContainer member
+		virtual void Fold(FoldFunctor, const void *, void *) const; // Override FoldableContainer member
 
 	};
 
@@ -635,7 +635,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~BreadthMappableContainer() override = default;
+		virtual ~BreadthMappableContainer() = default;
 
 		/* ************************************************************************ */
 
@@ -663,7 +663,7 @@ namespace lasd
 
 		// Specific member functions (inherited from MappableContainer)
 
-		virtual void Map(MapFunctor, void *) override; // Override MappableContainer member
+		virtual void Map(MapFunctor, void *); // Override MappableContainer member
 
 	};
 
@@ -684,7 +684,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~BreadthFoldableContainer() override = default;
+		virtual ~BreadthFoldableContainer() = default;
 
 		/* ************************************************************************ */
 
@@ -712,7 +712,7 @@ namespace lasd
 
 		// Specific member functions (inherited from FoldableContainer)
 
-		virtual void Fold(FoldFunctor, const void *, void *) const override; // Override FoldableContainer member
+		virtual void Fold(FoldFunctor, const void *, void *) const; // Override FoldableContainer member
 
 	};
 /* ************************************************************************** */
@@ -732,7 +732,7 @@ namespace lasd
     public:
 
         // Destructor
-        virtual ~DepthMappableContainer() override = default;
+        virtual ~DepthMappableContainer() = default;
 
         /* ************************************************************************ */
 
@@ -760,7 +760,7 @@ namespace lasd
 
         // Specific member functions (inherited from MappableContainer)
 
-        virtual void Map(MapFunctor, void *) override; // Override MappableContainer member
+        virtual void Map(MapFunctor, void *); // Override MappableContainer member
 
     };
 
@@ -781,7 +781,7 @@ namespace lasd
     public:
 
         // Destructor
-        virtual ~DepthFoldableContainer() override = default;
+        virtual ~DepthFoldableContainer() = default;
 
         /* ************************************************************************ */
 
@@ -809,7 +809,7 @@ namespace lasd
 
         // Specific member functions (inherited from FoldableContainer)
 
-        virtual void Fold(FoldFunctor, const void *, void *) const override; // Override FoldableContainer member
+        virtual void Fold(FoldFunctor, const void *, void *) const; // Override FoldableContainer member
 
     };
 /* ************************************************************************** */
