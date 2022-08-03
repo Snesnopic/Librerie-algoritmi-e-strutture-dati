@@ -77,7 +77,7 @@ namespace lasd
 		if (size == ht.size)
 		{
 			BST<Data> bst1;
-			for (unsigned long i = 0; i < table.Size(); i++)
+			for (unsigned long i = 0; i < table.Size(); ++i)
 			{
 				BTInOrderIterator<Data> j(table[i]);
 				while (!j.Terminated())
@@ -87,7 +87,7 @@ namespace lasd
 				}
 			}
 			BST<Data> bst2;
-			for (unsigned long i = 0; i < ht.table.Size(); i++)
+			for (unsigned long i = 0; i < ht.table.Size(); ++i)
 			{
 				BTInOrderIterator<Data> j(ht.table[i]);
 				while (!j.Terminated())
@@ -112,7 +112,7 @@ namespace lasd
 	void HashTableClsAdr<Data>::Resize(const unsigned long newSize) // Resize the hashtable to a given size
 	{
 		HashTableClsAdr<Data> newHash(newSize);
-		for (unsigned long i = 0; i < table.Size(); i++)
+		for (unsigned long i = 0; i < table.Size(); ++i)
 		{
 			if (table[i].Empty())
 				continue;
@@ -178,7 +178,7 @@ namespace lasd
 	template<typename Data>
 	void HashTableClsAdr<Data>::Map(MapFunctor f, void *par) // Override MappableContainer member
 	{
-		for (unsigned long i = 0; i < table.Size(); i++)
+		for (unsigned long i = 0; i < table.Size(); ++i)
 		{
 			if (!table[i].Empty())
 				table[i].Map(f, par);
@@ -189,7 +189,7 @@ namespace lasd
 	template<typename Data>
 	void HashTableClsAdr<Data>::Fold(FoldFunctor f, const void *par, void *acc) const // Override FoldableContainer member
 	{
-		for (unsigned long i = 0; i < table.Size(); i++)
+		for (unsigned long i = 0; i < table.Size(); ++i)
 		{
 			if (!table[i].Empty())
 				table[i].Fold(f, par, acc);

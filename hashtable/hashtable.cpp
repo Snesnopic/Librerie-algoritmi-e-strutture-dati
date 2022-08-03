@@ -50,7 +50,7 @@ namespace lasd
 		unsigned long operator()(const std::string& d) const noexcept
 		{
 			unsigned long hash = 5381;
-			for (unsigned long i = 0; i < d.length(); i++)
+			for (unsigned long i = 0; i < d.length(); ++i)
 			{
 				hash = (hash << 5) + d[i];
 			}

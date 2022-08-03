@@ -38,7 +38,7 @@ namespace lasd
 	{
 		if (tail != sv.tail)
 			return false;
-		for (long i = 0; i <= tail; i++)
+		for (long i = 0; i <= tail; ++i)
 		{
 			if (array[i] != sv.array[i])
 				return false;
@@ -136,7 +136,7 @@ namespace lasd
 	void StackVec<Data>::Expand() noexcept
 	{
 		Data *tmp = new Data[size * 2];
-		for (unsigned long i = 0; i < size; i++)
+		for (unsigned long i = 0; i < size; ++i)
 		{
 			std::swap(array[i], tmp[i]);
 		}
@@ -149,7 +149,7 @@ namespace lasd
 	void StackVec<Data>::Reduce() noexcept
 	{
 		Data *tmp = new Data[size / 2];
-		for (long i = 0; i < tail + 1; i++)
+		for (long i = 0; i < tail + 1; ++i)
 		{
 			std::swap(array[i], tmp[i]);
 		}

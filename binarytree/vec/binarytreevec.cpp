@@ -9,7 +9,7 @@ namespace lasd
 	{
 		size = lc.Size();
 		array.Resize(size);
-		for (unsigned long i = 0; i < array.Size(); i++)
+		for (unsigned long i = 0; i < array.Size(); ++i)
 		{
 			array[i] = new NodeVec(&array, i, lc[i]);
 		}
@@ -23,7 +23,7 @@ namespace lasd
 	{
 		size = btv.size;
 		array.Resize(btv.array.Size());
-		for (unsigned long i = 0; i < array.Size(); i++)
+		for (unsigned long i = 0; i < array.Size(); ++i)
 		{
 			array[i] = new NodeVec(&array, i, btv.array[i]->dato);
 		}
@@ -35,7 +35,7 @@ namespace lasd
 	{
 		std::swap(size, btv.size);
 		std::swap(array, btv.array);
-		for (unsigned long i = 0; i < array.Size(); i++)
+		for (unsigned long i = 0; i < array.Size(); ++i)
 		{
 			array[i]->arrayRef = &array;
 		}
@@ -46,7 +46,7 @@ namespace lasd
 	template<typename Data>
 	BinaryTreeVec<Data>::~BinaryTreeVec()
 	{
-        for (unsigned long i = 0; i < array.Size(); i++)
+        for (unsigned long i = 0; i < array.Size(); ++i)
         {
             if (array[i] != nullptr)
                 delete array[i];
@@ -56,7 +56,7 @@ namespace lasd
 	template<typename Data>
 	void BinaryTreeVec<Data>::Clear() // Override Container member
 	{
-		for (unsigned long i = 0; i < array.Size(); i++)
+		for (unsigned long i = 0; i < array.Size(); ++i)
 		{
 			if (array[i] != nullptr)
 				delete array[i];
@@ -73,7 +73,7 @@ namespace lasd
 		{
 			array.Resize(btv.size);
 			size = btv.size;
-			for (unsigned long i = 0; i < size; i++)
+			for (unsigned long i = 0; i < size; ++i)
 			{
 				array[i] = new NodeVec(&array, i, btv.array[i]->dato);
 			}
@@ -97,7 +97,7 @@ namespace lasd
 	template<typename Data>
 	void BinaryTreeVec<Data>::MapBreadth(MapFunctor f, void *par) // Override BreadthMappableContainer member // Override BreadthMappableContainer member
 	{
-		for (unsigned long i = 0; i < array.Size(); i++)
+		for (unsigned long i = 0; i < array.Size(); ++i)
 		{
 			if (array[i] != nullptr)
 				f(array[i]->dato, par);
@@ -110,7 +110,7 @@ namespace lasd
 	template<typename Data>
 	void BinaryTreeVec<Data>::FoldBreadth(FoldFunctor f, const void *par, void *acc) const // Override BreadthFoldableContainer member
 	{
-		for (unsigned long i = 0; i < array.Size(); i++)
+		for (unsigned long i = 0; i < array.Size(); ++i)
 		{
 			if (array[i] != nullptr)
 				f(array[i]->dato, par, acc);

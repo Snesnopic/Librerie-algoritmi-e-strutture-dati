@@ -24,7 +24,7 @@ namespace lasd
 	{
 		size = lc.Size();
 		array = new Data[size];
-		for (unsigned long i = 0; i < size; i++)
+		for (unsigned long i = 0; i < size; ++i)
 			array[i] = lc[i];
 	}
 
@@ -95,7 +95,7 @@ namespace lasd
 	{
 		if (size != v.Size())
 			return false;
-		for (unsigned long i = 0; i < size; i++)
+		for (unsigned long i = 0; i < size; ++i)
 		{
 			if (array[i] != v[i])
 				return false;
@@ -122,7 +122,7 @@ namespace lasd
 			if (size != newSize)
 			{
 				Data *tmp = new Data[newSize];
-				for (auto i = 0; i < std::min(size, newSize); i++)
+				for (auto i = 0; i < std::min(size, newSize); ++i)
 				{
 					std::swap(array[i], tmp[i]);
 				}
@@ -210,7 +210,7 @@ namespace lasd
 	template<typename Data>
 	void Vector<Data>::MapPreOrder(MapFunctor f, void *par)
 	{
-		for (unsigned long i = 0; i < size; i++)
+		for (unsigned long i = 0; i < size; ++i)
 		{
 			f(array[i], par);
 		}
@@ -219,7 +219,7 @@ namespace lasd
 	template<typename Data>
 	void Vector<Data>::MapPostOrder(MapFunctor f, void *par)
 	{
-		for (unsigned long i = 1; i <= size && size != 0; i++)
+		for (unsigned long i = 1; i <= size && size != 0; ++i)
 		{
 			f(array[size - i], par);
 		}
@@ -235,7 +235,7 @@ namespace lasd
 	template<typename Data>
 	void Vector<Data>::FoldPreOrder(FoldFunctor f, const void *par, void *acc) const
 	{
-		for (unsigned long i = 0; i < size; i++)
+		for (unsigned long i = 0; i < size; ++i)
 		{
 			f(array[i], par, acc);
 		}
@@ -244,7 +244,7 @@ namespace lasd
 	template<typename Data>
 	void Vector<Data>::FoldPostOrder(FoldFunctor f, const void *par, void *acc) const
 	{
-		for (unsigned long i = 1; i <= size && size != 0; i++)
+		for (unsigned long i = 1; i <= size && size != 0; ++i)
 		{
 			f(array[size - i], par, acc);
 		}

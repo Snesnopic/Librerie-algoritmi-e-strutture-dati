@@ -10,7 +10,7 @@ namespace lasd
 		elements = qv.elements;
 		size = elements;
 		tail = elements - 1;
-		for (unsigned long i = 0; i < elements; i++)
+		for (unsigned long i = 0; i < elements; ++i)
 			array[i] = qv.array[(i + qv.head) % qv.size];
 	}
 
@@ -21,7 +21,7 @@ namespace lasd
 		elements = qv.elements;
 		tail = elements - 1;
 		array = new Data[elements];
-		for (unsigned long i = 0; i < elements; i++)
+		for (unsigned long i = 0; i < elements; ++i)
 			array[i] = std::move(qv.array[(i + qv.head) % qv.size]);
 		qv.Clear();
 		size = elements;
@@ -38,7 +38,7 @@ namespace lasd
 			Clear();
 			elements = qv.elements;
 			array = new Data[elements];
-			for (unsigned long i = 0; i < elements; i++)
+			for (unsigned long i = 0; i < elements; ++i)
 				array[i] = qv.array[(i + qv.head) % qv.size];
 			size = elements;
 			tail = elements - 1;
@@ -56,7 +56,7 @@ namespace lasd
 			elements = qv.elements;
 			tail = elements - 1;
 			array = new Data[elements];
-			for (unsigned long i = 0; i < elements; i++)
+			for (unsigned long i = 0; i < elements; ++i)
 				array[i] = std::move(qv.array[(i + qv.head) % qv.size]);
 			qv.Clear();
 			size = elements;
@@ -72,7 +72,7 @@ namespace lasd
 	{
 		if (elements == qv.elements)
 		{
-			for (unsigned long i = 0; i < elements; i++)
+			for (unsigned long i = 0; i < elements; ++i)
 			{
 				if (array[(head + i) % size] != qv.array[(qv.head + i) % qv.size])
 					return false;
@@ -195,7 +195,7 @@ namespace lasd
 	template<typename Data>
 	void QueueVec<Data>::SwapVectors(Data *tmp) noexcept
 	{
-		for (unsigned long i = 0; i < elements; i++)
+		for (unsigned long i = 0; i < elements; ++i)
 		{
 			std::swap(array[(i + head) % size], tmp[i]);
 		}

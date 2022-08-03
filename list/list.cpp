@@ -84,7 +84,7 @@ namespace lasd
 		{
 			head = new Node(lc[0]);
 			Node *tmp = head;
-			for (unsigned long i = 1; i < lc.Size(); i++)
+			for (unsigned long i = 1; i < lc.Size(); ++i)
 			{
 				tmp->next = new Node(lc[i]);
 				tmp = tmp->next;
@@ -247,7 +247,7 @@ namespace lasd
 		if (size == 0 || index >= size)
 			throw std::out_of_range("Index out of bounds!");
 		Node *tmp = head;
-		for (unsigned long i = 0; i < index; i++)
+		for (unsigned long i = 0; i < index; ++i)
 		{
 			tmp = tmp->next;
 		}

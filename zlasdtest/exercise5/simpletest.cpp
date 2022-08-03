@@ -110,7 +110,7 @@ void stestHashTableInt(unsigned int& testnum, unsigned int& testerr)
 	try
 	{
 		lasd::Vector<int> vec(127);
-		for (unsigned int i = 0; i < 127; i++)
+		for (unsigned int i = 0; i < 127; ++i)
 		{
 			vec[i] = pow(-2, i % 24) * ((61 * i + 29) % 127);
 		}
@@ -221,7 +221,7 @@ void stestHashTableFloat(unsigned int& testnum, unsigned int& testerr)
 	try
 	{
 		lasd::List<double> lst;
-		for (unsigned int i = 0; i < 127; i++)
+		for (unsigned int i = 0; i < 127; ++i)
 		{
 			lst.InsertAtFront((pow(-2, i % 24) * ((61 * i + 29) % 127)) / (83 * pow(-3, i % 7)));
 		}
@@ -334,11 +334,11 @@ void stestHashTableString(unsigned int& testnum, unsigned int& testerr)
 	{
 		lasd::Vector<string> vec(127);
 		vec[0] = "@";
-		for (unsigned int i = 1; i < 19; i++)
+		for (unsigned int i = 1; i < 19; ++i)
 		{
 			vec[i] = vec[i - 1] + static_cast<char>(32 + ((127 * i + 31) % 95));
 		}
-		for (unsigned int i = 19; i < 127; i++)
+		for (unsigned int i = 19; i < 127; ++i)
 		{
 			vec[i] = vec[i - 1];
 			vec[i][i % 19] = static_cast<char>(32 + ((127 * i + 31) % 95));
