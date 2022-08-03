@@ -63,7 +63,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~HashTableOpnAdr() override;
+		~HashTableOpnAdr() override = default;
 
 		/* ************************************************************************ */
 
