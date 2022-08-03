@@ -73,13 +73,6 @@ namespace lasd
 		ht.Clear();
 	}
 
-	// Destructor
-	template<typename Data>
-	HashTableOpnAdr<Data>::~HashTableOpnAdr()
-	{
-		Clear();
-	}
-
 	// Copy assignment
 	template<typename Data>
 	HashTableOpnAdr<Data>& HashTableOpnAdr<Data>::operator=(const HashTableOpnAdr& ht)
