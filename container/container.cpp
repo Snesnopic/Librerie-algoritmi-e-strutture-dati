@@ -30,7 +30,7 @@ namespace lasd
 	template<typename Data>
 	bool LinearContainer<Data>::operator!=(const LinearContainer& lc) const noexcept
 	{
-		return !(*this == lc);
+		return *this != lc;
 	}
 
 	template<typename Data>
@@ -48,7 +48,12 @@ namespace lasd
 			throw std::length_error("Index out of bounds!");
 		return operator[](size - 1);
 	}
-
+    
+    template <typename Data>
+    void SortableContainer<Data>::SortAscending() noexcept
+    {
+        Sort();
+    }
 	template<typename Data>
 	void DictionaryContainer<Data>::Insert(const LinearContainer<Data>& lc)// Copy of the value
 	{
@@ -149,6 +154,20 @@ namespace lasd
 	{
 		FoldBreadth(fun, par, acc);
 	}
+
+    //BreadthMappableContainer functions
+    template<typename Data>
+    void DepthMappableContainer<Data>::Map(MapFunctor fun, void *par)
+    {
+        MapDepth(fun, par);
+    }
+
+//BreadthFoldableContainer functions
+    template<typename Data>
+    void DepthFoldableContainer<Data>::Fold(FoldFunctor fun, const void *par, void *acc) const
+    {
+        FoldDepth(fun, par, acc);
+    }
 /* ************************************************************************** */
 
 }
