@@ -3,9 +3,7 @@
 
 /* ************************************************************************** */
 
-void testSimpleExercise5();
-
-void testFullExercise5();
+void testSimpleExercise5(unsigned int& testnum, unsigned int& testerr);
 
 /* ************************************************************************** */
 
