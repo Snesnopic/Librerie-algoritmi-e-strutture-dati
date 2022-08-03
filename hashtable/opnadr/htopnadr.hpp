@@ -35,7 +35,7 @@ namespace lasd
 		Vector<bool> deleted{};
 
 		// Hash function
-		virtual unsigned long HashKey(const Data& d) const override;
+		unsigned long HashKey(const Data& d) const override;
 
 	public:
 
