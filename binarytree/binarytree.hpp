@@ -112,7 +112,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~BinaryTree() override = default;
+		virtual ~BinaryTree() = default;
 
 		/* ************************************************************************ */
 
