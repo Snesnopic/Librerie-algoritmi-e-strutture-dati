@@ -43,11 +43,9 @@ namespace lasd
 
 			NodeLnk() = default;
 
-			virtual ~NodeLnk() override
+			virtual ~NodeLnk()
 			{
-				if (right != nullptr)
 					delete right;
-				if (left != nullptr)
 					delete left;
 			}
 
@@ -60,8 +58,8 @@ namespace lasd
 					left = new NodeLnk(nl.LeftChild());
 			}
 
-			NodeLnk(NodeLnk&& nl)
-			{
+			NodeLnk(NodeLnk&& nl) noexcept
+            {
 				std::swap(dato, nl.dato);
 				std::swap(right, nl.right);
 				std::swap(left, nl.left);
@@ -77,12 +75,12 @@ namespace lasd
 				dato = std::move(d);
 			}
 
-			bool HasLeftChild() const noexcept override // (concrete function should not throw exceptions)
+			[[nodiscard]] bool HasLeftChild() const noexcept override // (concrete function should not throw exceptions)
 			{
 				return (left != nullptr);
 			}
 
-			bool HasRightChild() const noexcept override // (concrete function should not throw exceptions)
+			[[nodiscard]] bool HasRightChild() const noexcept override // (concrete function should not throw exceptions)
 			{
 				return (right != nullptr);
 			}
@@ -126,7 +124,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~BinaryTreeLnk() override;
+		virtual ~BinaryTreeLnk();
 
 		/* ************************************************************************ */
 
@@ -147,7 +145,7 @@ namespace lasd
 			return *root;
 		}
 
-		virtual bool Empty() const noexcept override;
+		[[nodiscard]] bool Empty() const noexcept override;
 		/* ************************************************************************ */
 
 		// Specific member functions (inherited from Container)
