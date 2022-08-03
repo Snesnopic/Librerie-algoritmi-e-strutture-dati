@@ -137,10 +137,10 @@ void stestVectorString(unsigned int& testnum, unsigned int& testerr)
 		MapPreOrder(loctestnum, loctesterr, vec, true, &MapStringAppend, string("!"));
 		NonEqualVector(loctestnum, loctesterr, vec, copvec, true);
 
-		copvec = move(vec);
+		copvec = std::move(vec);
 		FoldPreOrder(loctestnum, loctesterr, copvec, true, &FoldStringConcatenate, string(""), string("?"), string("?A !B !"));
 
-		lasd::Vector<string> movvec(move(vec));
+		lasd::Vector<string> movvec(std::move(vec));
 		FoldPreOrder(loctestnum, loctesterr, movvec, true, &FoldStringConcatenate, string(""), string("?"), string("?A B "));
 		SetAt(loctestnum, loctesterr, vec, false, 1, string(""));
 		vec.Resize(1);
@@ -234,11 +234,11 @@ void stestListInt(unsigned int& testnum, unsigned int& testerr)
 
 		RemoveFromFront(loctestnum, loctesterr, coplst, true);
 		FrontNRemove(loctestnum, loctesterr, coplst, true, 6);
-		coplst = move(lst);
+		coplst = std::move(lst);
 		FoldPreOrder(loctestnum, loctesterr, lst, true, &FoldAdd<int>, 0, 0, 11);
 		FoldPreOrder(loctestnum, loctesterr, coplst, true, &FoldAdd<int>, 0, 0, 17);
 
-		lasd::List<int> movlst(move(lst));
+		lasd::List<int> movlst(std::move(lst));
 		MapPreOrder(loctestnum, loctesterr, movlst, true, &MapIncrement<int>, 0);
 		FoldPreOrder(loctestnum, loctesterr, movlst, true, &FoldAdd<int>, 0, 0, 14);
 
@@ -334,7 +334,7 @@ void stestListString(unsigned int& testnum, unsigned int& testerr)
 		InsertAtFront(loctestnum, loctesterr, lst, true, string("C"));
 		NonEqualList(loctestnum, loctesterr, lst, coplst, true);
 
-		coplst = move(lst);
+		coplst = std::move(lst);
 		FoldPreOrder(loctestnum, loctesterr, coplst, true, &FoldStringConcatenate, string(""), string("?"), string("?CB A"));
 	}
 	catch (...)
@@ -485,11 +485,14 @@ void stestVectorList(unsigned int& testnum, unsigned int& testerr)
 
 /* ************************************************************************** */
 
-void testSimpleExercise1()
+void testSimpleExercise1(unsigned int& testnum, unsigned int& testerr)
 {
-	unsigned int testnum = 0, testerr = 0;
-	stestVector(testnum, testerr);
-	stestList(testnum, testerr);
-	stestVectorList(testnum, testerr);
-	cout << endl << "Exercise 1 (Simple Test) (Errors/Tests: " << testerr << "/" << testnum << ")" << endl;
+    unsigned int loctestnum = 0;
+    unsigned int loctesterr = 0;
+	stestVector(loctestnum, loctesterr);
+	stestList(loctestnum, loctesterr);
+	stestVectorList(loctestnum, loctesterr);
+	cout << endl << "Exercise 1 (Simple Test) (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
+    testnum += loctestnum;
+    testerr += loctesterr;
 }

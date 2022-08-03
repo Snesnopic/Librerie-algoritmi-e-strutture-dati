@@ -67,14 +67,14 @@ void stestBinaryTreeInt(unsigned int& testnum, unsigned int& testerr)
 		lasd::BinaryTreeVec<int> copbtvec(btvec);
 		EqualBT(loctestnum, loctesterr, copbtvec, btvec);
 		btvec.Clear();
-		btvec = move(copbtvec);
+		btvec = std::move(copbtvec);
 		NonEqualBT(loctestnum, loctesterr, copbtvec, btvec);
 		Empty(loctestnum, loctesterr, copbtvec, true);
 
 		lasd::BinaryTreeLnk<int> copbtlnk(btlnk);
 		EqualBT(loctestnum, loctesterr, copbtlnk, btlnk);
 		btlnk.Clear();
-		btlnk = move(copbtlnk);
+		btlnk = std::move(copbtlnk);
 		NonEqualBT(loctestnum, loctesterr, copbtlnk, btlnk);
 		Empty(loctestnum, loctesterr, copbtlnk, true);
 	}
@@ -197,13 +197,13 @@ void stestBinaryTreeFloat(unsigned int& testnum, unsigned int& testerr)
 		stestBinaryTreeFloat(btlnk, loctestnum, loctesterr);
 		cout << "\n";
 
-		lasd::BinaryTreeVec<double> copbtvec(move(btvec));
+		lasd::BinaryTreeVec<double> copbtvec(std::move(btvec));
 		Empty(loctestnum, loctesterr, btvec, true);
 		NonEqualBT(loctestnum, loctesterr, copbtvec, btvec);
 		btvec = copbtvec;
 		EqualBT(loctestnum, loctesterr, copbtvec, btvec);
 
-		lasd::BinaryTreeLnk<double> copbtlnk(move(btlnk));
+		lasd::BinaryTreeLnk<double> copbtlnk(std::move(btlnk));
 		Empty(loctestnum, loctesterr, btlnk, true);
 		NonEqualBT(loctestnum, loctesterr, copbtlnk, btlnk);
 		btlnk = copbtlnk;
@@ -284,11 +284,14 @@ void stestBinaryTreeString(unsigned int& testnum, unsigned int& testerr)
 
 /* ************************************************************************** */
 
-void testSimpleExercise3()
+void testSimpleExercise3(unsigned int& testnum, unsigned int& testerr)
 {
-	unsigned int testnum = 0, testerr = 0;
-	stestBinaryTreeInt(testnum, testerr);
-	stestBinaryTreeFloat(testnum, testerr);
-	stestBinaryTreeString(testnum, testerr);
-	cout << endl << "Exercise 3 (Simple Test) (Errors/Tests: " << testerr << "/" << testnum << ")" << endl;
+    unsigned int loctestnum = 0;
+    unsigned int loctesterr = 0;
+	stestBinaryTreeInt(loctestnum, loctesterr);
+	stestBinaryTreeFloat(loctestnum, loctesterr);
+	stestBinaryTreeString(loctestnum, loctesterr);
+	cout << endl << "Exercise 3 (Simple Test) (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
+    testnum += loctestnum;
+    testerr += loctesterr;
 }

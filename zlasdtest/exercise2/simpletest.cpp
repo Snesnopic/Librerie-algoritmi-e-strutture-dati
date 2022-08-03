@@ -41,7 +41,7 @@ void stestStackInt(Stk& stk, unsigned int& testnum, unsigned int& testerr)
 
 		TopNPop(loctestnum, loctesterr, stk, true, 2);
 		Top(loctestnum, loctesterr, stk, true, 1);
-		Top(loctestnum, loctesterr, (const Stk)stk, true, 1);
+		Top(loctestnum, loctesterr, static_cast<const Stk>(stk), true, 1);
 
 		Stk copstk(stk);
 		EqualStack(loctestnum, loctesterr, stk, copstk, true);
@@ -54,12 +54,12 @@ void stestStackInt(Stk& stk, unsigned int& testnum, unsigned int& testerr)
 		NonEqualStack(loctestnum, loctesterr, stk, copstk, true);
 
 		Top(loctestnum, loctesterr, copstk, true, 6);
-		copstk = move(stk);
+		copstk = std::move(stk);
 		TopNPop(loctestnum, loctesterr, copstk, true, 5);
 		Pop(loctestnum, loctesterr, copstk, true);
 		Top(loctestnum, loctesterr, copstk, true, 3);
 
-		Stk movstk(move(stk));
+		Stk movstk(std::move(stk));
 		Top(loctestnum, loctesterr, stk, false, 0);
 
 		movstk.Clear();
@@ -234,7 +234,7 @@ void stestQueueInt(Que& que, unsigned int& testnum, unsigned int& testerr)
 
 		HeadNDequeue(loctestnum, loctesterr, que, true, 4);
 		Head(loctestnum, loctesterr, que, true, 0);
-		Head(loctestnum, loctesterr, (const Que)que, true, 0);
+		Head(loctestnum, loctesterr, static_cast<const Que>(que), true, 0);
 
 		Que copque(que);
 		EqualQueue(loctestnum, loctesterr, que, copque, true);
@@ -247,12 +247,12 @@ void stestQueueInt(Que& que, unsigned int& testnum, unsigned int& testerr)
 		NonEqualQueue(loctestnum, loctesterr, que, copque, true);
 
 		Head(loctestnum, loctesterr, copque, true, 0);
-		copque = move(que);
+		copque = std::move(que);
 		HeadNDequeue(loctestnum, loctesterr, copque, true, 0);
 		Dequeue(loctestnum, loctesterr, copque, true);
 		Head(loctestnum, loctesterr, copque, true, 1);
 
-		Que movque(move(que));
+		Que movque(std::move(que));
 		Head(loctestnum, loctesterr, que, false, 0);
 
 		movque.Clear();
@@ -404,10 +404,13 @@ void stestQueue(unsigned int& testnum, unsigned int& testerr)
 
 /* ************************************************************************** */
 
-void testSimpleExercise2()
+void testSimpleExercise2(unsigned int& testnum, unsigned int& testerr)
 {
-	unsigned int testnum = 0, testerr = 0;
-	stestStack(testnum, testerr);
-	stestQueue(testnum, testerr);
-	cout << endl << "Exercise 2 (Simple Test) (Errors/Tests: " << testerr << "/" << testnum << ")" << endl;
+    unsigned int loctestnum = 0;
+    unsigned int loctesterr = 0;
+	stestStack(loctestnum, loctesterr);
+	stestQueue(loctestnum, loctesterr);
+	cout << endl << "Exercise 2 (Simple Test) (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
+    testnum += loctestnum;
+    testerr += loctesterr;
 }
