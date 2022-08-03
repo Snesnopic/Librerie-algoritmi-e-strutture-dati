@@ -383,11 +383,14 @@ void stestHashTableString(unsigned int& testnum, unsigned int& testerr)
 
 /* ************************************************************************** */
 
-void testSimpleExercise5()
+void testSimpleExercise5(unsigned int& testnum, unsigned int& testerr)
 {
-	unsigned int testnum = 0, testerr = 0;
-	stestHashTableInt(testnum, testerr);
-	stestHashTableFloat(testnum, testerr);
-	stestHashTableString(testnum, testerr);
-	cout << endl << "Exercise 5 (Simple Test) (Errors/Tests: " << testerr << "/" << testnum << ")" << endl;
+    unsigned int loctestnum = 0;
+    unsigned int loctesterr = 0;
+	stestHashTableInt(loctestnum, loctesterr);
+	stestHashTableFloat(loctestnum, loctesterr);
+	stestHashTableString(loctestnum, loctesterr);
+	cout << endl << "Exercise 5 (Simple Test) (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
+    testnum += loctestnum;
+    testerr += loctesterr;
 }

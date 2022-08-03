@@ -328,11 +328,14 @@ void stestBSTString(unsigned int& testnum, unsigned int& testerr)
 
 /* ************************************************************************** */
 
-void testSimpleExercise4()
+void testSimpleExercise4(unsigned int& testnum, unsigned int& testerr)
 {
-	unsigned int testnum = 0, testerr = 0;
-	stestBSTInt(testnum, testerr);
-	stestBSTFloat(testnum, testerr);
-	stestBSTString(testnum, testerr);
-	cout << endl << "Exercise 4 (Simple Test) (Errors/Tests: " << testerr << "/" << testnum << ")" << endl;
+    unsigned int loctestnum = 0;
+    unsigned int loctesterr = 0;
+	stestBSTInt(loctestnum, loctesterr);
+	stestBSTFloat(loctestnum, loctesterr);
+	stestBSTString(loctestnum, loctesterr);
+	cout << endl << "Exercise 4 (Simple Test) (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
+    testnum += loctestnum;
+    testerr += loctesterr;
 }
