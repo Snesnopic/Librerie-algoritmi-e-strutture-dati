@@ -153,12 +153,12 @@ namespace lasd
 	void Vector<Data>::Sort() noexcept
 	{
         if constexpr (has_operator_lessthan<Data>::value)
-         std::sort(array, array + sizeof array / sizeof array[0]);
+             std::sort(array, array + size);
 	}
     template<typename Data>
      Vector<Data>::operator std::vector<Data>() const
     {
-         std::vector<Data> v(array, array + sizeof(array)/sizeof(array[0]));
+         std::vector<Data> v(array,array+size);
          return v;
     }
     template<typename Data>
@@ -170,7 +170,7 @@ namespace lasd
     void Vector<Data>::SortDescending() noexcept
     {
         if constexpr (has_operator_lessthan<Data>::value)
-        std::sort(array + sizeof array / sizeof array[0],array,std::greater<>());
+            std::sort(array, array + size, std::greater{});
     }
 
 	//Clear
