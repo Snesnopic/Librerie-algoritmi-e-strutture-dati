@@ -22,7 +22,7 @@ void Exists(unsigned int& testnum, unsigned int& testerr, const lasd::TestableCo
 	testnum++;
 	std::cout << " " << testnum << " (" << testerr << ") Data \"" << val << "\" " << ((tst = con.Exists(val)) ? "does" : "does not") << " exist: ";
 	std::cout << ((tst = (tst == chk)) ? "Correct" : "Error") << "!" << std::endl;
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 /* ************************************************************************** */
@@ -40,12 +40,12 @@ void InsertC(unsigned int& testnum, unsigned int& testerr, lasd::DictionaryConta
 		con.Insert(val);
 		std::cout << "Correct!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -59,12 +59,12 @@ void InsertM(unsigned int& testnum, unsigned int& testerr, lasd::DictionaryConta
 		con.Insert(std::move(val));
 		std::cout << "Correct!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -78,12 +78,12 @@ void Remove(unsigned int& testnum, unsigned int& testerr, lasd::DictionaryContai
 		con.Remove(val);
 		std::cout << "Correct!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -97,12 +97,12 @@ void InsertC(unsigned int& testnum, unsigned int& testerr, lasd::DictionaryConta
 		con.Insert(lc);
 		std::cout << "Correct!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -116,12 +116,12 @@ void InsertM(unsigned int& testnum, unsigned int& testerr, lasd::DictionaryConta
 		con.Insert(std::move(lc));
 		std::cout << "Correct!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -135,12 +135,12 @@ void Remove(unsigned int& testnum, unsigned int& testerr, lasd::DictionaryContai
 		con.Remove(lc);
 		std::cout << "Correct!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 /* ************************************************************************** */
@@ -157,16 +157,16 @@ void GetFront(unsigned int& testnum, unsigned int& testerr, const lasd::LinearCo
 		std::cout << " " << testnum << " (" << testerr << ") The front of the linear container is \"" << con.Front() << "\": ";
 		std::cout << ((tst = ((con.Front() == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::length_error exc)
+	catch (std::length_error& exc)
 	{
 		std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -180,16 +180,16 @@ void SetFront(unsigned int& testnum, unsigned int& testerr, const lasd::LinearCo
 		con.Front() = val;
 		std::cout << ((tst = ((con.Front() == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::length_error exc)
+	catch (std::length_error& exc)
 	{
 		std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -202,16 +202,16 @@ void GetBack(unsigned int& testnum, unsigned int& testerr, const lasd::LinearCon
 		std::cout << " " << testnum << " (" << testerr << ") The back of the linear container is \"" << con.Back() << "\": ";
 		std::cout << ((tst = ((con.Back() == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::length_error exc)
+	catch (std::length_error& exc)
 	{
 		std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -225,16 +225,16 @@ void SetBack(unsigned int& testnum, unsigned int& testerr, const lasd::LinearCon
 		con.Back() = val;
 		std::cout << ((tst = ((con.Back() == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::length_error exc)
+	catch (std::length_error& exc)
 	{
 		std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -247,16 +247,16 @@ void GetAt(unsigned int& testnum, unsigned int& testerr, lasd::LinearContainer<D
 		std::cout << " " << testnum << " (" << testerr << ") Get of the linear container at index \"" << ind << "\" with value \"" << con[ind] << "\": ";
 		std::cout << ((tst = ((con[ind] == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::out_of_range exc)
+	catch (std::out_of_range& exc)
 	{
 		std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -270,16 +270,16 @@ void SetAt(unsigned int& testnum, unsigned int& testerr, lasd::LinearContainer<D
 		con[ind] = val;
 		std::cout << ((tst = ((con[ind] == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::out_of_range exc)
+	catch (std::out_of_range& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 /* ************************************************************************** */
@@ -298,11 +298,11 @@ void Map(unsigned int& testnum, unsigned int& testerr, lasd::MappableContainer<D
 		con.Map(fun, &par);
 		std::cout << ": " << ((tst = chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -390,23 +390,23 @@ void Fold(unsigned int& testnum, unsigned int& testerr, const lasd::FoldableCont
 		std::cout << "obtained value is \"" << val << "\": ";
 		std::cout << ((tst = ((val == finval) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
 void FoldAdd(const Data& dat, const void *_, void *acc)
 {
-	*((Data *)acc) += dat;
+	*(static_cast<Data *>(acc)) += dat;
 }
 
 template<typename Data>
 void FoldMultiply(const Data& dat, const void *_, void *acc)
 {
-	*((Data *)acc) *= dat;
+	*(static_cast<Data *>(acc)) *= dat;
 }
 
 void FoldParity(const int&, const void *, void *);
@@ -429,11 +429,11 @@ void MapPreOrder(unsigned int& testnum, unsigned int& testerr, lasd::PreOrderMap
 		con.MapPreOrder(fun, &par);
 		std::cout << ": " << ((tst = chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 /* ************************************************************************** */
@@ -454,11 +454,11 @@ void FoldPreOrder(unsigned int& testnum, unsigned int& testerr, const lasd::PreO
 		std::cout << "obtained value is \"" << val << "\": ";
 		std::cout << ((tst = ((val == finval) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 /* ************************************************************************** */
@@ -477,11 +477,11 @@ void MapPostOrder(unsigned int& testnum, unsigned int& testerr, lasd::PostOrderM
 		con.MapPostOrder(fun, &par);
 		std::cout << ": " << ((tst = chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 /* ************************************************************************** */
@@ -502,11 +502,11 @@ void FoldPostOrder(unsigned int& testnum, unsigned int& testerr, const lasd::Pos
 		std::cout << "obtained value is \"" << val << "\": ";
 		std::cout << ((tst = ((val == finval) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 /* ************************************************************************** */
@@ -525,11 +525,11 @@ void MapInOrder(unsigned int& testnum, unsigned int& testerr, lasd::InOrderMappa
 		con.MapInOrder(fun, &par);
 		std::cout << ": " << ((tst = chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 /* ************************************************************************** */
@@ -550,11 +550,11 @@ void FoldInOrder(unsigned int& testnum, unsigned int& testerr, const lasd::InOrd
 		std::cout << "obtained value is \"" << val << "\": ";
 		std::cout << ((tst = ((val == finval) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 /* ************************************************************************** */
@@ -573,11 +573,11 @@ void MapBreadth(unsigned int& testnum, unsigned int& testerr, lasd::BreadthMappa
 		con.MapBreadth(fun, &par);
 		std::cout << ": " << ((tst = chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 /* ************************************************************************** */
@@ -598,11 +598,11 @@ void FoldBreadth(unsigned int& testnum, unsigned int& testerr, const lasd::Bread
 		std::cout << "obtained value is \"" << val << "\": ";
 		std::cout << ((tst = ((val == finval) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 /* ************************************************************************** */

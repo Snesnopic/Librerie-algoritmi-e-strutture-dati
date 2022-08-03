@@ -15,12 +15,12 @@ void GetElement(unsigned int& testnum, unsigned int& testerr, const typename las
 		std::cout << " " << testnum << " (" << testerr << ") The data of the node is \"" << nod.Element() << "\": ";
 		std::cout << ((tst = ((nod.Element() == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -34,12 +34,12 @@ void SetElement(unsigned int& testnum, unsigned int& testerr, const typename las
 		nod.Element() = val;
 		std::cout << ((tst = ((nod.Element() == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -52,12 +52,12 @@ void IsLeaf(unsigned int& testnum, unsigned int& testerr, const typename lasd::B
 		std::cout << " " << testnum << " (" << testerr << ") The node is " << ((tst = nod.IsLeaf()) ? "" : "not ") << "a leaf: ";
 		std::cout << ((tst = (tst == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -70,12 +70,12 @@ void HasLeftChild(unsigned int& testnum, unsigned int& testerr, const typename l
 		std::cout << " " << testnum << " (" << testerr << ") The node does " << ((tst = nod.HasLeftChild()) ? "" : "not ") << "have a left child: ";
 		std::cout << ((tst = (tst == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -88,12 +88,12 @@ void HasRightChild(unsigned int& testnum, unsigned int& testerr, const typename 
 		std::cout << " " << testnum << " (" << testerr << ") The node does " << ((tst = nod.HasRightChild()) ? "" : "not ") << "have a right child: ";
 		std::cout << ((tst = (tst == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 /* ************************************************************************** */
@@ -108,12 +108,12 @@ void EqualBT(unsigned int& testnum, unsigned int& testerr, const lasd::BinaryTre
 		std::cout << " " << testnum << " (" << testerr << ") The two binary trees are " << ((tst = (bt1 == bt2)) ? "" : "not ") << "equal: ";
 		std::cout << (tst ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -126,12 +126,12 @@ void NonEqualBT(unsigned int& testnum, unsigned int& testerr, const lasd::Binary
 		std::cout << " " << testnum << " (" << testerr << ") The two binary trees are " << ((tst = (bt1 != bt2)) ? "not " : "") << "equal: ";
 		std::cout << (tst ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 /* ************************************************************************** */
@@ -146,16 +146,16 @@ void Root(unsigned int& testnum, unsigned int& testerr, lasd::BinaryTree<Data>& 
 		std::cout << " " << testnum << " (" << testerr << ") Root of the tree with value \"" << bt.Root().Element() << "\": ";
 		std::cout << ((tst = (((bt.Root().Element() == val) && (bt.Root().Element() == val)) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::length_error exc)
+	catch (std::length_error& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 /* ************************************************************************** */

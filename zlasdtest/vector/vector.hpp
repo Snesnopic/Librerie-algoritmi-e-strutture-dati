@@ -15,11 +15,11 @@ void EqualVector(unsigned int& testnum, unsigned int& testerr, const lasd::Vecto
 		std::cout << " " << testnum << " (" << testerr << ") The two vectors are " << ((tst = (vec1 == vec2)) ? "" : "not ") << "equal: ";
 		std::cout << ((tst = (tst == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -32,11 +32,11 @@ void NonEqualVector(unsigned int& testnum, unsigned int& testerr, const lasd::Ve
 		std::cout << " " << testnum << " (" << testerr << ") The two vectors are " << ((tst = (vec1 != vec2)) ? "not " : "") << "equal: ";
 		std::cout << ((tst = (tst == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 /* ************************************************************************** */

@@ -15,16 +15,16 @@ void GetItrValue(unsigned int& testnum, unsigned int& testerr, const lasd::Itera
 		std::cout << " " << testnum << " (" << testerr << ") The value pointed by the iterator is \"" << *itr << "\": ";
 		std::cout << ((tst = ((*itr == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::out_of_range exc)
+	catch (std::out_of_range& exc)
 	{
 		std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -38,16 +38,16 @@ void SetItrValue(unsigned int& testnum, unsigned int& testerr, const lasd::Itera
 		*itr = val;
 		std::cout << ((tst = ((*itr == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::out_of_range exc)
+	catch (std::out_of_range& exc)
 	{
 		std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -60,12 +60,12 @@ void Terminated(unsigned int& testnum, unsigned int& testerr, const lasd::Iterat
 		std::cout << " " << testnum << " (" << testerr << ") The iterator is " << ((tst = itr.Terminated()) ? "" : "not ") << "terminated: ";
 		std::cout << ((tst = (tst == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 /* ************************************************************************** */

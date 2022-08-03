@@ -15,12 +15,12 @@ void EqualBST(unsigned int& testnum, unsigned int& testerr, const lasd::BST<Data
 		std::cout << " " << testnum << " (" << testerr << ") The two bsts are " << ((tst = (bst1 == bst2)) ? "" : "not ") << "equal: ";
 		std::cout << (tst ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -33,12 +33,12 @@ void NonEqualBST(unsigned int& testnum, unsigned int& testerr, const lasd::BST<D
 		std::cout << " " << testnum << " (" << testerr << ") The two bsts are " << ((tst = (bst1 != bst2)) ? "not " : "") << "equal: ";
 		std::cout << (tst ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 /* ************************************************************************** */
@@ -53,16 +53,16 @@ void Min(unsigned int& testnum, unsigned int& testerr, lasd::BST<Data>& bst, boo
 		std::cout << " " << testnum << " (" << testerr << ") Min of the bst with value \"" << bst.Min() << "\": ";
 		std::cout << ((tst = ((bst.Min() == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::length_error exc)
+	catch (std::length_error& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -76,16 +76,16 @@ void RemoveMin(unsigned int& testnum, unsigned int& testerr, lasd::BST<Data>& bs
 		bst.RemoveMin();
 		std::cout << ((tst = chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::length_error exc)
+	catch (std::length_error& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -98,16 +98,16 @@ void MinNRemove(unsigned int& testnum, unsigned int& testerr, lasd::BST<Data>& b
 		std::cout << " " << testnum << " (" << testerr << ") MinNRemove from the bst with value \"" << bst.Min() << "\": ";
 		std::cout << ((tst = ((bst.MinNRemove() == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::length_error exc)
+	catch (std::length_error& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -120,16 +120,16 @@ void Max(unsigned int& testnum, unsigned int& testerr, lasd::BST<Data>& bst, boo
 		std::cout << " " << testnum << " (" << testerr << ") Max of the bst with value \"" << bst.Max() << "\": ";
 		std::cout << ((tst = ((bst.Max() == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::length_error exc)
+	catch (std::length_error& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -143,16 +143,16 @@ void RemoveMax(unsigned int& testnum, unsigned int& testerr, lasd::BST<Data>& bs
 		bst.RemoveMax();
 		std::cout << ((tst = chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::length_error exc)
+	catch (std::length_error& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -165,16 +165,16 @@ void MaxNRemove(unsigned int& testnum, unsigned int& testerr, lasd::BST<Data>& b
 		std::cout << " " << testnum << " (" << testerr << ") MaxNRemove from the bst with value \"" << bst.Max() << "\": ";
 		std::cout << ((tst = ((bst.MaxNRemove() == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::length_error exc)
+	catch (std::length_error& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -187,16 +187,16 @@ void Predecessor(unsigned int& testnum, unsigned int& testerr, lasd::BST<Data>& 
 		std::cout << " " << testnum << " (" << testerr << ") Predecessor of " << prd << " with value \"" << bst.Predecessor(prd) << "\": ";
 		std::cout << ((tst = ((bst.Predecessor(prd) == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::length_error exc)
+	catch (std::length_error& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -210,16 +210,16 @@ void RemovePredecessor(unsigned int& testnum, unsigned int& testerr, lasd::BST<D
 		bst.RemovePredecessor(prd);
 		std::cout << ((tst = chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::length_error exc)
+	catch (std::length_error& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -232,16 +232,16 @@ void PredecessorNRemove(unsigned int& testnum, unsigned int& testerr, lasd::BST<
 		std::cout << " " << testnum << " (" << testerr << ") Remove predecessor of " << prd << " from the the bst: \"" << bst.Predecessor(prd) << "\": ";
 		std::cout << ((tst = ((bst.PredecessorNRemove(prd) == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::length_error exc)
+	catch (std::length_error& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -254,16 +254,16 @@ void Successor(unsigned int& testnum, unsigned int& testerr, lasd::BST<Data>& bs
 		std::cout << " " << testnum << " (" << testerr << ") Successor of " << prd << " with value \"" << bst.Successor(prd) << "\": ";
 		std::cout << ((tst = ((bst.Successor(prd) == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::length_error exc)
+	catch (std::length_error& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -277,16 +277,16 @@ void RemoveSuccessor(unsigned int& testnum, unsigned int& testerr, lasd::BST<Dat
 		bst.RemoveSuccessor(prd);
 		std::cout << ((tst = chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::length_error exc)
+	catch (std::length_error& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -299,16 +299,16 @@ void SuccessorNRemove(unsigned int& testnum, unsigned int& testerr, lasd::BST<Da
 		std::cout << " " << testnum << " (" << testerr << ") Remove successor of " << prd << " from the the bst: \"" << bst.Successor(prd) << "\": ";
 		std::cout << ((tst = ((bst.SuccessorNRemove(prd) == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::length_error exc)
+	catch (std::length_error& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 /* ************************************************************************** */

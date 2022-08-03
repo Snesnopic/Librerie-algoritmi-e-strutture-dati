@@ -15,16 +15,16 @@ void Head(unsigned int& testnum, unsigned int& testerr, const lasd::Queue<Data>&
 		std::cout << " " << testnum << " (" << testerr << ") Const head of the queue with value \"" << que.Head() << "\": ";
 		std::cout << ((tst = ((que.Head() == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::length_error exc)
+	catch (std::length_error& exc)
 	{
 		std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -37,16 +37,16 @@ void Head(unsigned int& testnum, unsigned int& testerr, lasd::Queue<Data>& que, 
 		std::cout << " " << testnum << " (" << testerr << ") Head of the queue with value \"" << que.Head() << "\": ";
 		std::cout << ((tst = ((que.Head() == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::length_error exc)
+	catch (std::length_error& exc)
 	{
 		std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -60,16 +60,16 @@ void Dequeue(unsigned int& testnum, unsigned int& testerr, lasd::Queue<Data>& qu
 		que.Dequeue();
 		std::cout << ((tst = chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::length_error exc)
+	catch (std::length_error& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -82,16 +82,16 @@ void HeadNDequeue(unsigned int& testnum, unsigned int& testerr, lasd::Queue<Data
 		std::cout << " " << testnum << " (" << testerr << ") HeadNDequeue from the queue with value \"" << que.Head() << "\": ";
 		std::cout << ((tst = ((que.HeadNDequeue() == val) == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::length_error exc)
+	catch (std::length_error& exc)
 	{
 		std::cout << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		tst = false;
 		std::cout << std::endl << "Wrong exception: " << exc.what() << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -105,12 +105,12 @@ void EnqueueC(unsigned int& testnum, unsigned int& testerr, lasd::Queue<Data>& q
 		que.Enqueue(val);
 		std::cout << "Correct!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
 		tst = false;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Data>
@@ -124,12 +124,12 @@ void EnqueueM(unsigned int& testnum, unsigned int& testerr, lasd::Queue<Data>& q
 		que.Enqueue(std::move(val));
 		std::cout << "Correct!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << "Error!" << std::endl;
 		tst = false;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Que>
@@ -142,11 +142,11 @@ void EqualQueue(unsigned int& testnum, unsigned int& testerr, const Que& que1, c
 		std::cout << " " << testnum << " (" << testerr << ") The two queues are " << ((tst = (que1 == que2)) ? "" : "not ") << "equal: ";
 		std::cout << ((tst = (tst == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 template<typename Que>
@@ -159,11 +159,11 @@ void NonEqualQueue(unsigned int& testnum, unsigned int& testerr, const Que& que1
 		std::cout << " " << testnum << " (" << testerr << ") The two queues are " << ((tst = (que1 != que2)) ? "not " : "") << "equal: ";
 		std::cout << ((tst = (tst == chk)) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	catch (std::exception exc)
+	catch (std::exception& exc)
 	{
 		std::cout << "\"" << exc.what() << "\": " << ((tst = !chk) ? "Correct" : "Error") << "!" << std::endl;
 	}
-	testerr += (1 - (unsigned int)tst);
+	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
 /* ************************************************************************** */
