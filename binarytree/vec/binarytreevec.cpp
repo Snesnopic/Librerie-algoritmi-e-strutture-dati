@@ -46,8 +46,12 @@ namespace lasd
 	template<typename Data>
 	BinaryTreeVec<Data>::~BinaryTreeVec()
 	{
-		Clear();
-	}
+        for (unsigned long i = 0; i < array.Size(); i++)
+        {
+            if (array[i] != nullptr)
+                delete array[i];
+        }
+    }
 
 	template<typename Data>
 	void BinaryTreeVec<Data>::Clear() // Override Container member
