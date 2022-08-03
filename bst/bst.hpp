@@ -50,7 +50,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~BST() override = default;
+		virtual ~BST() = default;
 
 		/* ************************************************************************ */
 
@@ -91,15 +91,15 @@ namespace lasd
 
 		// Specific member functions (inherited from DictionaryContainer)
 
-		virtual bool Insert(const Data& d) override;// Override DictionaryContainer member (Copy of the value)
-		virtual bool Insert(Data&& d) noexcept override; // Override DictionaryContainer member (Move of the value)
-		virtual bool Remove(const Data& d) override; // Override DictionaryContainer member
+		bool Insert(const Data& d) override;// Override DictionaryContainer member (Copy of the value)
+		bool Insert(Data&& d) noexcept override; // Override DictionaryContainer member (Move of the value)
+		bool Remove(const Data& d) override; // Override DictionaryContainer member
 
 		/* ************************************************************************ */
 
 		// Specific member functions (inherited from TestableContainer)
 
-		virtual bool Exists(const Data& d) const noexcept override; // Override TestableContainer member
+		bool Exists(const Data& d) const noexcept override; // Override TestableContainer member
 
 	protected:
 
@@ -119,14 +119,14 @@ namespace lasd
 						ptr = FindPointerToSuccessor(root, n->dato);
 						if (ptr == nullptr)
 						{
-							NodeLnk *t = new NodeLnk(std::move(n->dato));
+							auto *t = new NodeLnk(std::move(n->dato));
 							delete n;
 							size--;
 							n = nullptr;
 							return t;
 						}
 					}
-					if (ptr != nullptr)
+					else
 					{
 						std::swap(n->dato, (*ptr)->dato);
 						return Detach(*ptr);
@@ -145,7 +145,7 @@ namespace lasd
 					if (n->HasLeftChild())
 						return Skip2Left(n);
 					size--;
-					NodeLnk *t = new NodeLnk(std::move(n->dato));
+					auto *t = new NodeLnk(std::move(n->dato));
 					delete n;
 					n = nullptr;
 					return t;
