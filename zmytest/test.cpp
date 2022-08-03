@@ -1526,7 +1526,6 @@ void matrixtest()
 
 void mytest()
 {
-    Matrix<int> a;
     bool selection = false;
 	while (!selection)
 	{
