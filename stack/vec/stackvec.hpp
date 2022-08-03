@@ -51,7 +51,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~StackVec() override = default;
+		~StackVec() override = default;
 
 		/* ************************************************************************ */
 
@@ -83,9 +83,9 @@ namespace lasd
 
 		// Specific member functions (inherited from Container)
 
-		bool Empty() const noexcept override; // Override Container member
+		[[nodiscard]] bool Empty() const noexcept override; // Override Container member
 
-		unsigned long Size() const noexcept override; // Override Container member
+		[[nodiscard]] unsigned long Size() const noexcept override; // Override Container member
 
 		void Clear() override; // Override Container member
 

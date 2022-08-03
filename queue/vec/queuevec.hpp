@@ -58,7 +58,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Destructor
-		virtual ~QueueVec() override = default;
+		~QueueVec() override = default;
 
 		/* ************************************************************************ */
 
@@ -90,9 +90,9 @@ namespace lasd
 
 		// Specific member functions (inherited from Container)
 
-		bool Empty() const noexcept override; // Override Container member
+		[[nodiscard]] bool Empty() const noexcept override; // Override Container member
 
-		unsigned long Size() const noexcept override; // Override Container member
+		[[nodiscard]] unsigned long Size() const noexcept override; // Override Container member
 
 		void Clear() noexcept override; // Override Container member
 
