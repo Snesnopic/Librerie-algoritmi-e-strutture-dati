@@ -89,6 +89,13 @@ namespace lasd
 	}
 
 /* ************************************************************************ */
+	template<typename Data>
+	QueueVec<Data>::operator std::vector<Data>() const
+	{
+		QueueVec<Data> tmp(*this);
+		std::vector<Data> v(tmp.array, tmp.array + tail + 1);
+		return v;
+	}
 
 	// Specific member functions (inherited from Queue)
 	template<typename Data>

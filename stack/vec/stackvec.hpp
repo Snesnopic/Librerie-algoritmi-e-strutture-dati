@@ -71,6 +71,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Specific member functions (inherited from Stack)
+		explicit operator std::vector<Data>() const override;
 
 		const Data& Top() const override; // Override Stack member (constant version; must throw std::length_error when empty)
 		Data& Top() override; // Override Stack member (must throw std::length_error when empty)

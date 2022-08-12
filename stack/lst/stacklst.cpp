@@ -36,6 +36,15 @@ namespace lasd
 
 /* ************************************************************************ */
 
+	template<typename Data>
+	StackLst<Data>::operator std::vector<Data>() const
+	{
+		Vector<Data> v(*this);
+		std::vector<Data> newv(v);
+		std::reverse(newv.begin(), newv.end());
+		return newv;
+	}
+
 // Specific member functions (inherited from Stack)
 	template<typename Data>
 	const Data& StackLst<Data>::Top() const // Override Stack member (constant version; must throw std::length_error when empty)

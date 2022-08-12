@@ -53,6 +53,12 @@ namespace lasd
 	}
 
 /* ************************************************************************ */
+	template<typename Data>
+	StackVec<Data>::operator std::vector<Data>() const
+	{
+		std::vector<Data> v(array, array + tail + 1);
+		return v;
+	}
 
 // Specific member functions (inherited from Stack)
 	template<typename Data>

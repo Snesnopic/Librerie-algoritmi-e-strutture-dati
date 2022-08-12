@@ -44,6 +44,14 @@ namespace lasd
 	}
 
 	template<typename Data>
+	QueueLst<Data>::operator std::vector<Data>() const
+	{
+		Vector<Data> v(*this);
+		std::vector<Data> newv(v);
+		return newv;
+	}
+
+	template<typename Data>
 	Data& QueueLst<Data>::Head() // Override Queue member (must throw std::length_error when empty)
 	{
 		return List<Data>::Front();
