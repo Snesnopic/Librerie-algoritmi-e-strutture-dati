@@ -19,13 +19,13 @@ using namespace std;
 void lasdtest()
 {
 	cout << endl << "~*~#~*~ Welcome to the LASD Test Suite ~*~#~*~ " << endl;
-    unsigned int testnum = 0;
-    unsigned int testerr = 0;
+	unsigned int testnum = 0;
+	unsigned int testerr = 0;
 	testSimpleExercise1(testnum, testerr);
 	testSimpleExercise2(testnum, testerr);
 	testSimpleExercise3(testnum, testerr);
 	testSimpleExercise4(testnum, testerr);
 	testSimpleExercise5(testnum, testerr);
-    cout << endl << "~*~#~*~ Results: "<< testerr <<" errors out of "<<testnum << " tests! ~*~#~*~ " << endl;
-    cout << endl << "Goodbye!" << endl;
+	cout << endl << "~*~#~*~ Results: " << testerr << " errors out of " << testnum << " tests! ~*~#~*~ " << endl;
+	cout << endl << "Goodbye!" << endl;
 }

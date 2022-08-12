@@ -330,12 +330,12 @@ void stestBSTString(unsigned int& testnum, unsigned int& testerr)
 
 void testSimpleExercise4(unsigned int& testnum, unsigned int& testerr)
 {
-    unsigned int loctestnum = 0;
-    unsigned int loctesterr = 0;
+	unsigned int loctestnum = 0;
+	unsigned int loctesterr = 0;
 	stestBSTInt(loctestnum, loctesterr);
 	stestBSTFloat(loctestnum, loctesterr);
 	stestBSTString(loctestnum, loctesterr);
 	cout << endl << "Exercise 4 (Simple Test) (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
-    testnum += loctestnum;
-    testerr += loctesterr;
+	testnum += loctestnum;
+	testerr += loctesterr;
 }

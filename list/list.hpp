@@ -13,7 +13,14 @@ namespace lasd
 /* ************************************************************************** */
 
 	template<typename Data>
-	class List : virtual public LinearContainer<Data>, virtual public PreOrderMappableContainer<Data>,virtual public SortableContainer<Data>, virtual public PostOrderMappableContainer<Data>, virtual public PreOrderFoldableContainer<Data>, virtual public PostOrderFoldableContainer<Data>, virtual public DictionaryContainer<Data>
+	class List
+			: virtual public LinearContainer<Data>,
+			  virtual public PreOrderMappableContainer<Data>,
+			  virtual public SortableContainer<Data>,
+			  virtual public PostOrderMappableContainer<Data>,
+			  virtual public PreOrderFoldableContainer<Data>,
+			  virtual public PostOrderFoldableContainer<Data>,
+			  virtual public DictionaryContainer<Data>
 	{
 		// Must extend LinearContainer<Data>,
 		//             PreOrderMappableContainer<Data>,
@@ -129,20 +136,22 @@ namespace lasd
 		bool Insert(const Data& d) override; // Copy of the value
 		bool Insert(Data&& d) noexcept override; // Move of the value
 		bool Remove(const Data& d) override; // Override DictionaryContainer member
+		unsigned long GetIndexOf(Data& d) const;
 
-        explicit operator std::vector<Data>() const override;
+		explicit operator std::vector<Data>() const override;
 		/* ************************************************************************ */
 
 		// Specific member functions (inherited from Container)
 
 		void Clear() override; // Override Container member
 
-        /* ************************************************************************ */
+		/* ************************************************************************ */
 		// Specific member functions (inherited from SortableContainer)
 
-		void Sort() noexcept final; // Override Container member
-        void SortAscending() noexcept final;
-        void SortDescending() noexcept final;
+		void Sort() noexcept override; // Override Container member
+		void SortAscending() noexcept override;
+
+		void SortDescending() noexcept override;
 
 
 		/* ************************************************************************ */

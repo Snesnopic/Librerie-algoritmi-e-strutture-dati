@@ -92,7 +92,7 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Specific member functions
-        virtual explicit operator std::vector<Data>() const = 0;
+		virtual explicit operator std::vector<Data>() const = 0;
 
 		virtual Data& Front() const; // (concrete function must throw std::length_error when empty)
 		virtual Data& Back() const; // (concrete function must throw std::length_error when empty)
@@ -102,8 +102,7 @@ namespace lasd
 	};
 
 
-
-    template<typename Data>
+	template<typename Data>
 	class SortableContainer : virtual public Container  // Must extend Container
 	{
 
@@ -137,9 +136,11 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Specific member functions
-        virtual void Sort() noexcept = 0;
-        virtual void SortAscending() noexcept;
-        virtual void SortDescending() noexcept = 0;
+		virtual void Sort() noexcept = 0;
+
+		virtual void SortAscending() noexcept;
+
+		virtual void SortDescending() noexcept = 0;
 
 	};
 
@@ -293,7 +294,7 @@ namespace lasd
 	public:
 
 		// Destructor
-		virtual ~FoldableContainer() =  default;
+		virtual ~FoldableContainer() = default;
 
 		/* ************************************************************************ */
 
@@ -715,103 +716,104 @@ namespace lasd
 		virtual void Fold(FoldFunctor, const void *, void *) const; // Override FoldableContainer member
 
 	};
-/* ************************************************************************** */
-
-    template<typename Data>
-    class DepthMappableContainer : virtual public MappableContainer<Data>   // Must extend MappableContainer<Data>
-    {
-
-    private:
-
-        // ...
-
-    protected:
-
-        // ...
-
-    public:
-
-        // Destructor
-        virtual ~DepthMappableContainer() = default;
-
-        /* ************************************************************************ */
-
-        // Copy assignment
-        virtual DepthMappableContainer& operator=(const DepthMappableContainer& dmc) = delete; // Copy assignment of abstract types should not be possible.
-
-        // Move assignment
-        virtual DepthMappableContainer& operator=(DepthMappableContainer&& dmc) = delete; // Move assignment of abstract types should not be possible.
-
-        /* ************************************************************************ */
-
-        // Comparison operators
-        virtual bool operator==(const DepthMappableContainer& dmc) const noexcept = delete; // Comparison of abstract types might not be possible.
-        virtual bool operator!=(const DepthMappableContainer& dmc) const noexcept = delete; // Comparison of abstract types might not be possible.
-
-        /* ************************************************************************ */
-
-        // Specific member functions
-
-        using typename MappableContainer<Data>::MapFunctor;
-
-        virtual void MapDepth(MapFunctor, void *) = 0;
-
-        /* ************************************************************************ */
-
-        // Specific member functions (inherited from MappableContainer)
-
-        virtual void Map(MapFunctor, void *); // Override MappableContainer member
-
-    };
 
 /* ************************************************************************** */
 
-    template<typename Data>
-    class DepthFoldableContainer : virtual public FoldableContainer<Data>  // Must extend FoldableContainer<Data>
-    {
+	template<typename Data>
+	class DepthMappableContainer : virtual public MappableContainer<Data>   // Must extend MappableContainer<Data>
+	{
 
-    private:
+	private:
 
-        // ...
+		// ...
 
-    protected:
+	protected:
 
-        // ...
+		// ...
 
-    public:
+	public:
 
-        // Destructor
-        virtual ~DepthFoldableContainer() = default;
+		// Destructor
+		virtual ~DepthMappableContainer() = default;
 
-        /* ************************************************************************ */
+		/* ************************************************************************ */
 
-        // Copy assignment
-        virtual DepthFoldableContainer& operator=(const DepthFoldableContainer& dfc) = delete; // Copy assignment of abstract types should not be possible.
+		// Copy assignment
+		virtual DepthMappableContainer& operator=(const DepthMappableContainer& dmc) = delete; // Copy assignment of abstract types should not be possible.
 
-        // Move assignment
-        virtual DepthFoldableContainer& operator=(DepthFoldableContainer&& dfc) = delete; // Move assignment of abstract types should not be possible.
+		// Move assignment
+		virtual DepthMappableContainer& operator=(DepthMappableContainer&& dmc) = delete; // Move assignment of abstract types should not be possible.
 
-        /* ************************************************************************ */
+		/* ************************************************************************ */
 
-        // Comparison operators
-        virtual bool operator==(const DepthFoldableContainer& dfc) const noexcept = delete; // Comparison of abstract types might not be possible.
-        virtual bool operator!=(const DepthFoldableContainer& dfc) const noexcept = delete; // Comparison of abstract types might not be possible.
+		// Comparison operators
+		virtual bool operator==(const DepthMappableContainer& dmc) const noexcept = delete; // Comparison of abstract types might not be possible.
+		virtual bool operator!=(const DepthMappableContainer& dmc) const noexcept = delete; // Comparison of abstract types might not be possible.
 
-        /* ************************************************************************ */
+		/* ************************************************************************ */
 
-        // Specific member functions
+		// Specific member functions
 
-        using typename FoldableContainer<Data>::FoldFunctor;
+		using typename MappableContainer<Data>::MapFunctor;
 
-        virtual void FoldBreadth(FoldFunctor, const void *, void *) const = 0;
+		virtual void MapDepth(MapFunctor, void *) = 0;
 
-        /* ************************************************************************ */
+		/* ************************************************************************ */
 
-        // Specific member functions (inherited from FoldableContainer)
+		// Specific member functions (inherited from MappableContainer)
 
-        virtual void Fold(FoldFunctor, const void *, void *) const; // Override FoldableContainer member
+		virtual void Map(MapFunctor, void *); // Override MappableContainer member
 
-    };
+	};
+
+/* ************************************************************************** */
+
+	template<typename Data>
+	class DepthFoldableContainer : virtual public FoldableContainer<Data>  // Must extend FoldableContainer<Data>
+	{
+
+	private:
+
+		// ...
+
+	protected:
+
+		// ...
+
+	public:
+
+		// Destructor
+		virtual ~DepthFoldableContainer() = default;
+
+		/* ************************************************************************ */
+
+		// Copy assignment
+		virtual DepthFoldableContainer& operator=(const DepthFoldableContainer& dfc) = delete; // Copy assignment of abstract types should not be possible.
+
+		// Move assignment
+		virtual DepthFoldableContainer& operator=(DepthFoldableContainer&& dfc) = delete; // Move assignment of abstract types should not be possible.
+
+		/* ************************************************************************ */
+
+		// Comparison operators
+		virtual bool operator==(const DepthFoldableContainer& dfc) const noexcept = delete; // Comparison of abstract types might not be possible.
+		virtual bool operator!=(const DepthFoldableContainer& dfc) const noexcept = delete; // Comparison of abstract types might not be possible.
+
+		/* ************************************************************************ */
+
+		// Specific member functions
+
+		using typename FoldableContainer<Data>::FoldFunctor;
+
+		virtual void FoldDepth(FoldFunctor, const void *, void *) const = 0;
+
+		/* ************************************************************************ */
+
+		// Specific member functions (inherited from FoldableContainer)
+
+		virtual void Fold(FoldFunctor, const void *, void *) const; // Override FoldableContainer member
+
+	};
 /* ************************************************************************** */
 
 }

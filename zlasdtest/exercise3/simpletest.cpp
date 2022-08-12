@@ -286,12 +286,12 @@ void stestBinaryTreeString(unsigned int& testnum, unsigned int& testerr)
 
 void testSimpleExercise3(unsigned int& testnum, unsigned int& testerr)
 {
-    unsigned int loctestnum = 0;
-    unsigned int loctesterr = 0;
+	unsigned int loctestnum = 0;
+	unsigned int loctesterr = 0;
 	stestBinaryTreeInt(loctestnum, loctesterr);
 	stestBinaryTreeFloat(loctestnum, loctesterr);
 	stestBinaryTreeString(loctestnum, loctesterr);
 	cout << endl << "Exercise 3 (Simple Test) (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
-    testnum += loctestnum;
-    testerr += loctesterr;
+	testnum += loctestnum;
+	testerr += loctesterr;
 }

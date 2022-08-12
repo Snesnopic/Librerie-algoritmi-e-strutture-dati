@@ -39,7 +39,7 @@ void MapStringNonEmptyAppend(std::string& dat, void *par)
 {
 	if (!dat.empty())
 	{
-        dat.append(*(static_cast<std::string *>(par)));
+		dat.append(*(static_cast<std::string *>(par)));
 	}
 }
 

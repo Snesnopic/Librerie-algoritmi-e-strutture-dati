@@ -45,8 +45,8 @@ namespace lasd
 
 			virtual ~NodeLnk()
 			{
-					delete right;
-					delete left;
+				delete right;
+				delete left;
 			}
 
 			NodeLnk(const NodeLnk& nl)
@@ -59,7 +59,7 @@ namespace lasd
 			}
 
 			NodeLnk(NodeLnk&& nl) noexcept
-            {
+			{
 				std::swap(dato, nl.dato);
 				std::swap(right, nl.right);
 				std::swap(left, nl.left);

@@ -406,11 +406,11 @@ void stestQueue(unsigned int& testnum, unsigned int& testerr)
 
 void testSimpleExercise2(unsigned int& testnum, unsigned int& testerr)
 {
-    unsigned int loctestnum = 0;
-    unsigned int loctesterr = 0;
+	unsigned int loctestnum = 0;
+	unsigned int loctesterr = 0;
 	stestStack(loctestnum, loctesterr);
 	stestQueue(loctestnum, loctesterr);
 	cout << endl << "Exercise 2 (Simple Test) (Errors/Tests: " << loctesterr << "/" << loctestnum << ")" << endl;
-    testnum += loctestnum;
-    testerr += loctesterr;
+	testnum += loctestnum;
+	testerr += loctesterr;
 }

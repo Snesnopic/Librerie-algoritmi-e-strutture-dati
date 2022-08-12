@@ -59,8 +59,8 @@ namespace lasd
 	template<typename Data>
 	BinaryTreeLnk<Data>::~BinaryTreeLnk()
 	{
-        delete root;
-    }
+		delete root;
+	}
 
 	/* ************************************************************************ */
 

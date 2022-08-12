@@ -121,7 +121,7 @@ namespace lasd
 	template<typename Data>
 	const Data& BST<Data>::Predecessor(const Data& d) const // (concrete function must throw std::length_error when not found)
 	{
-		NodeLnk *const*ptr = FindPointerToPredecessor(root, d);
+		NodeLnk *const *ptr = FindPointerToPredecessor(root, d);
 		if (ptr == nullptr)
 			throw std::length_error("Length error!");
 		return (*ptr)->dato;
@@ -150,7 +150,7 @@ namespace lasd
 	template<typename Data>
 	const Data& BST<Data>::Successor(const Data& d) const // (concrete function must throw std::length_error when not found)
 	{
-		NodeLnk *const*ptr = FindPointerToSuccessor(root, d);
+		NodeLnk *const *ptr = FindPointerToSuccessor(root, d);
 		if (ptr == nullptr)
 			throw std::length_error("Length error!");
 		return (*ptr)->dato;

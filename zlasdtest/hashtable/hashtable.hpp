@@ -48,8 +48,8 @@ void CountHT(unsigned int& testnum, unsigned int& testerr, const lasd::HashTable
 	bool tst;
 	try
 	{
-        unsigned int cnt = 0;
-        for (unsigned int i = 0; i < con.Size(); ++i)
+		unsigned int cnt = 0;
+		for (unsigned int i = 0; i < con.Size(); ++i)
 		{
 			if (ht.Exists(con[i]))
 			{
