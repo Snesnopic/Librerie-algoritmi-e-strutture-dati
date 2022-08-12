@@ -27,10 +27,10 @@ default_random_engine gen(random_device{}());
 
 string GeneraStringaCasuale(const unsigned int lunghezza)
 {
-	const string validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	constexpr string_view validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 	uniform_int_distribution<int> dist(0, validChars.size() - 1);
 	ostringstream oss;
-	for (auto i = 0; i < lunghezza; ++i)
+	for (unsigned long i = 0; i < lunghezza; ++i)
 	{
 		oss << validChars[dist(gen)];
 	}
@@ -738,102 +738,100 @@ void hashtabletest(HashTable<Data>& hash)
 template<typename Data>
 void matrixtest(Matrix<Data>& m)
 {
-    bool selection = false;
-    while (!selection)
-    {
-        cout << "0. Torna indietro" << endl << "1. Stampa tutti gli elementi in ordine" << endl
-        <<"2. Stampa tutti gli elementi in pre-ordine" << endl << "3. Stampa tutti gli elementi a zig-zag" << endl
-        <<"4. Controlla esistenza di un elemento" << endl << "5. Calcola la funzione fold relativa al dato" << endl
-        << "6. Applica funzione map a tutti gli elementi" << endl;
-        string input;
-        cin >> input;
-        int testtype = stoi(input);
-        switch (testtype)
-        {
-            case 0:
-                selection = true;
-                break;
-            case 1:
-                m.Map(&MapPrint<Data>, nullptr);
-                cout << endl;
-                break;
-            case 2:
-                m.MapPreOrder(&MapPrint<Data>, nullptr);
-                cout << endl;
-                break;
-            case 3:
-                m.MapBreadth(&MapPrint<Data>, nullptr);
-                cout << endl;
-                break;
-            case 4:
-            {
-                cout << endl << "Inserisci dato da cercare:   ";
-                Data search;
-                cin >> search;
-                if (m.Exists(search))
-                    cout << "Trovato!" << endl;
-                else
-                    cout << "Non trovato!" << endl;
-                break;
-            }
-            case 5:
-            {
-                if constexpr (is_same<Data, int>::value)
-                {
-                    cout << "Funzione fold per questo tipo di dato: Somma per gli interi minori di n" << endl << "Inserisci n:   ";
-                    long n{};
-                    cin >> n;
-                    long result = 0;
-                    m.Fold(&FoldSumLessThanN<int>, &n, &result);
-                    cout << result << endl;
-                }
-                if constexpr (is_same<Data, double>::value)
-                {
-                    cout << "Funzione fold per questo tipo di dato: Prodotto per i double maggiori di n;" << endl << "Inserisci n:   ";
-                    cout << endl << "Inserisci n:   ";
-                    double n;
-                    cin >> n;
-                    double result = 1;
-                    m.Fold(&FoldProductMoreThanN<double>, &n, &result);
-                    cout << result << endl;
-                }
-                if constexpr (is_same<Data, string>::value)
-                {
-                    cout << "Funzione fold per questo tipo di dato: Concatenazione con lunghezza minore o uguale a n;" << endl << "Inserisci n:   ";
-                    unsigned long n{};
-                    cin >> n;
-                    string result;
-                    m.Fold(&FoldConcatLessEqualN<Data>, &n, &result);
-                    cout << result << endl;
-                }
-                break;
-            }
-            case 6:
-                if constexpr (is_same<Data, int>::value)
-                {
-                    cout << "Funzione map per questo tipo di dato: 2n" << endl;
-                    short a = 2;
-                    m.Map(&MapMultiply<int>, &a);
-                    cout << "Fatto, prova a stampare" << endl;
-                }
-                if constexpr (is_same<Data, double>::value)
-                {
-                    cout << "Funzione map per questo tipo di dato: n^2;" << endl;
-                    short a = 2;
-                    m.Map(&MapPower<double>, &a);
-                    cout << "Fatto, prova a stampare" << endl;
-                }
-                if constexpr (is_same<Data, string>::value)
-                {
-                    cout << "Funzione map per questo tipo di dato: uppercase;" << endl;
-                    m.Map(&MapUppercase<Data>, nullptr);
-                    cout << "Fatto, prova a stampare" << endl;
-                }
-                break;
-            default:
-                cout << "Errore di input" << endl;
-        }
-    }
+	bool selection = false;
+	while (!selection)
+	{
+		cout << "0. Torna indietro" << endl << "1. Stampa tutti gli elementi in ordine" << endl << "2. Stampa tutti gli elementi in pre-ordine" << endl << "3. Stampa tutti gli elementi a zig-zag" << endl << "4. Controlla esistenza di un elemento" << endl
+			 << "5. Calcola la funzione fold relativa al dato" << endl << "6. Applica funzione map a tutti gli elementi" << endl;
+		string input;
+		cin >> input;
+		int testtype = stoi(input);
+		switch (testtype)
+		{
+			case 0:
+				selection = true;
+				break;
+			case 1:
+				m.Map(&MapPrint<Data>, nullptr);
+				cout << endl;
+				break;
+			case 2:
+				m.MapPreOrder(&MapPrint<Data>, nullptr);
+				cout << endl;
+				break;
+			case 3:
+				m.MapBreadth(&MapPrint<Data>, nullptr);
+				cout << endl;
+				break;
+			case 4:
+			{
+				cout << endl << "Inserisci dato da cercare:   ";
+				Data search;
+				cin >> search;
+				if (m.Exists(search))
+					cout << "Trovato!" << endl;
+				else
+					cout << "Non trovato!" << endl;
+				break;
+			}
+			case 5:
+			{
+				if constexpr (is_same<Data, int>::value)
+				{
+					cout << "Funzione fold per questo tipo di dato: Somma per gli interi minori di n" << endl << "Inserisci n:   ";
+					long n{};
+					cin >> n;
+					long result = 0;
+					m.Fold(&FoldSumLessThanN<int>, &n, &result);
+					cout << result << endl;
+				}
+				if constexpr (is_same<Data, double>::value)
+				{
+					cout << "Funzione fold per questo tipo di dato: Prodotto per i double maggiori di n;" << endl << "Inserisci n:   ";
+					cout << endl << "Inserisci n:   ";
+					double n;
+					cin >> n;
+					double result = 1;
+					m.Fold(&FoldProductMoreThanN<double>, &n, &result);
+					cout << result << endl;
+				}
+				if constexpr (is_same<Data, string>::value)
+				{
+					cout << "Funzione fold per questo tipo di dato: Concatenazione con lunghezza minore o uguale a n;" << endl << "Inserisci n:   ";
+					unsigned long n{};
+					cin >> n;
+					string result;
+					m.Fold(&FoldConcatLessEqualN<Data>, &n, &result);
+					cout << result << endl;
+				}
+				break;
+			}
+			case 6:
+				if constexpr (is_same<Data, int>::value)
+				{
+					cout << "Funzione map per questo tipo di dato: 2n" << endl;
+					short a = 2;
+					m.Map(&MapMultiply<int>, &a);
+					cout << "Fatto, prova a stampare" << endl;
+				}
+				if constexpr (is_same<Data, double>::value)
+				{
+					cout << "Funzione map per questo tipo di dato: n^2;" << endl;
+					short a = 2;
+					m.Map(&MapPower<double>, &a);
+					cout << "Fatto, prova a stampare" << endl;
+				}
+				if constexpr (is_same<Data, string>::value)
+				{
+					cout << "Funzione map per questo tipo di dato: uppercase;" << endl;
+					m.Map(&MapUppercase<Data>, nullptr);
+					cout << "Fatto, prova a stampare" << endl;
+				}
+				break;
+			default:
+				cout << "Errore di input" << endl;
+		}
+	}
 }
 
 
@@ -860,7 +858,7 @@ void vectortest()
 			{
 				uniform_int_distribution<int> dist(-100, 100);
 				Vector<int> v(size);
-				for (auto i = 0; i < size; ++i)
+				for (unsigned long i = 0; i < size; ++i)
 				{
 					v[i] = dist(gen);
 				}
@@ -872,7 +870,7 @@ void vectortest()
 				uniform_real_distribution<double> dist(0, 100);
 
 				Vector<double> v(size);
-				for (auto i = 0; i < size; ++i)
+				for (unsigned long i = 0; i < size; ++i)
 				{
 					v[i] = round(dist(gen) * 1000.0) / 1000.0;
 				}
@@ -884,7 +882,7 @@ void vectortest()
 				uniform_int_distribution<int> dist(2, 5);
 
 				Vector<string> v(size);
-				for (auto i = 0; i < size; ++i)
+				for (unsigned long i = 0; i < size; ++i)
 				{
 					v[i] = GeneraStringaCasuale(dist(gen));
 				}
@@ -919,7 +917,7 @@ void listtest()
 			{
 				uniform_int_distribution<int> dist(-100, 100);
 				List<int> l;
-				for (auto i = 0; i < size; ++i)
+				for (unsigned long i = 0; i < size; ++i)
 				{
 					l.InsertAtBack(dist(gen));
 				}
@@ -931,7 +929,7 @@ void listtest()
 				uniform_real_distribution<double> dist(0, 100);
 
 				List<double> l;
-				for (auto i = 0; i < size; ++i)
+				for (unsigned long i = 0; i < size; ++i)
 				{
 					l.InsertAtBack(round(dist(gen) * 1000.0) / 1000.0);
 				}
@@ -942,7 +940,7 @@ void listtest()
 			{
 				uniform_int_distribution<int> dist(2, 5);
 				List<string> l;
-				for (auto i = 0; i < size; ++i)
+				for (unsigned long i = 0; i < size; ++i)
 				{
 					l.InsertAtBack(GeneraStringaCasuale(dist(gen)));
 				}
@@ -1000,7 +998,7 @@ void stacktest()
 				if (usevec)
 				{
 					StackVec<int> s;
-					for (auto i = 0; i < size; ++i)
+					for (unsigned long i = 0; i < size; ++i)
 					{
 						s.Push(dist(gen));
 					}
@@ -1019,7 +1017,7 @@ void stacktest()
 				if (usevec)
 				{
 					StackVec<double> s;
-					for (auto i = 0; i < size; ++i)
+					for (unsigned long i = 0; i < size; ++i)
 					{
 						s.Push(round(dist(gen) * 1000.0) / 1000.0);
 					}
@@ -1028,7 +1026,7 @@ void stacktest()
 				else
 				{
 					StackLst<double> s;
-					for (auto i = 0; i < size; ++i)
+					for (unsigned long i = 0; i < size; ++i)
 					{
 						s.Push(round(dist(gen) * 1000.0) / 1000.0);
 					}
@@ -1042,7 +1040,7 @@ void stacktest()
 				if (usevec)
 				{
 					StackVec<string> s;
-					for (auto i = 0; i < size; ++i)
+					for (unsigned long i = 0; i < size; ++i)
 					{
 						s.Push(GeneraStringaCasuale(dist(gen)));
 					}
@@ -1051,7 +1049,7 @@ void stacktest()
 				else
 				{
 					StackLst<string> s;
-					for (auto i = 0; i < size; ++i)
+					for (unsigned long i = 0; i < size; ++i)
 					{
 						s.Push(GeneraStringaCasuale(dist(gen)));
 					}
@@ -1108,7 +1106,7 @@ void queuetest()
 				if (usevec)
 				{
 					QueueVec<int> q;
-					for (auto i = 0; i < size; ++i)
+					for (unsigned long i = 0; i < size; ++i)
 					{
 						q.Enqueue(dist(gen));
 					}
@@ -1117,7 +1115,7 @@ void queuetest()
 				else
 				{
 					QueueLst<int> q;
-					for (auto i = 0; i < size; ++i)
+					for (unsigned long i = 0; i < size; ++i)
 					{
 						q.Enqueue(dist(gen));
 					}
@@ -1131,7 +1129,7 @@ void queuetest()
 				if (usevec)
 				{
 					QueueVec<double> q;
-					for (auto i = 0; i < size; ++i)
+					for (unsigned long i = 0; i < size; ++i)
 					{
 						q.Enqueue(round(dist(gen) * 1000.0) / 1000.0);
 					}
@@ -1140,7 +1138,7 @@ void queuetest()
 				else
 				{
 					QueueLst<double> q;
-					for (auto i = 0; i < size; ++i)
+					for (unsigned long i = 0; i < size; ++i)
 					{
 						q.Enqueue(round(dist(gen) * 1000.0) / 1000.0);
 					}
@@ -1154,7 +1152,7 @@ void queuetest()
 				if (usevec)
 				{
 					QueueVec<string> q;
-					for (auto i = 0; i < size; ++i)
+					for (unsigned long i = 0; i < size; ++i)
 					{
 						q.Enqueue(GeneraStringaCasuale(dist(gen)));
 					}
@@ -1163,7 +1161,7 @@ void queuetest()
 				else
 				{
 					QueueLst<string> q;
-					for (auto i = 0; i < size; ++i)
+					for (unsigned long i = 0; i < size; ++i)
 					{
 						q.Enqueue(GeneraStringaCasuale(dist(gen)));
 					}
@@ -1221,7 +1219,7 @@ void binarytreetest()
 				if (usevec)
 				{
 					Vector<int> v(size);
-					for (auto i = 0; i < size; ++i)
+					for (unsigned long i = 0; i < size; ++i)
 					{
 						v[i] = dist(gen);
 					}
@@ -1231,7 +1229,7 @@ void binarytreetest()
 				else
 				{
 					List<int> l;
-					for (auto i = 0; i < size; ++i)
+					for (unsigned long i = 0; i < size; ++i)
 					{
 						l.InsertAtFront(dist(gen));
 					}
@@ -1246,7 +1244,7 @@ void binarytreetest()
 				if (usevec)
 				{
 					Vector<double> v(size);
-					for (auto i = 0; i < size; ++i)
+					for (unsigned long i = 0; i < size; ++i)
 					{
 						v[i] = round(dist(gen) * 1000.0) / 1000.0;
 					}
@@ -1256,7 +1254,7 @@ void binarytreetest()
 				else
 				{
 					List<double> l;
-					for (auto i = 0; i < size; ++i)
+					for (unsigned long i = 0; i < size; ++i)
 					{
 						l.InsertAtFront(round(dist(gen) * 1000.0) / 1000.0);
 					}
@@ -1271,7 +1269,7 @@ void binarytreetest()
 				if (usevec)
 				{
 					Vector<string> v(size);
-					for (auto i = 0; i < size; ++i)
+					for (unsigned long i = 0; i < size; ++i)
 					{
 						v[i] = GeneraStringaCasuale(dist(gen));
 					}
@@ -1281,7 +1279,7 @@ void binarytreetest()
 				else
 				{
 					List<string> l;
-					for (auto i = 0; i < size; ++i)
+					for (unsigned long i = 0; i < size; ++i)
 					{
 						l.InsertAtFront(GeneraStringaCasuale(dist(gen)));
 					}
@@ -1460,78 +1458,76 @@ void hashtabletest()
 
 void matrixtest()
 {
-    unsigned long rowSize,colSize;
-    cout << "Quanto rendere grande la matrice?" << std::endl << "Righe: ";
-    string input;
-    cin >> input;
-    rowSize = stoi(input);
-    cout << "Colonne: ";
-    cin >> input;
-    colSize = stoi(input);
-    bool selection = false;
-    while (!selection)
-    {
-        int testtype;
-        cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro" << endl;
-        cin >> input;
-        testtype = stoi(input);
-        switch (testtype)
-        {
-            case 0:
-                selection = true;
-                break;
-            case 1:
-            {
-                uniform_int_distribution<int> dist(-100, 100);
-                Matrix<int> m(rowSize,colSize);
-                for (auto i = 0; i < rowSize; ++i)
-                {
-                    for(auto j = 0; j < colSize; ++j)
-                        m[i][j] = dist(gen);
-                }
-                matrixtest(m);
-                break;
-            }
-            case 2:
-            {
-                uniform_real_distribution<double> dist(0, 100);
-
-                Matrix<double> m(rowSize,colSize);
-                for (auto i = 0; i < rowSize; ++i)
-                {
-                    for(auto j = 0; j < colSize; ++j)
-                        m[i][j] = round(dist(gen) * 1000.0) / 1000.0;
-                }
-                matrixtest(m);
-                break;
-            }
-            case 3:
-            {
-                uniform_int_distribution<int> dist(2, 5);
-
-                Matrix<string> m(rowSize,colSize);
-                for (auto i = 0; i < rowSize; ++i)
-                {
-                    for(auto j = 0; j < colSize; ++j)
-                        m[i][j] = GeneraStringaCasuale(dist(gen));
-                }
-                matrixtest(m);
-                break;
-            }
-            default:
-                cout << "Input non valido" << endl;
-        }
-    }
+	unsigned long rowSize, colSize;
+	cout << "Quanto rendere grande la matrice?" << std::endl << "Righe: ";
+	string input;
+	cin >> input;
+	rowSize = stoi(input);
+	cout << "Colonne: ";
+	cin >> input;
+	colSize = stoi(input);
+	bool selection = false;
+	while (!selection)
+	{
+		int testtype;
+		cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "3. Test su String" << endl << "0. Torna indietro" << endl;
+		cin >> input;
+		testtype = stoi(input);
+		switch (testtype)
+		{
+			case 0:
+				selection = true;
+				break;
+			case 1:
+			{
+				uniform_int_distribution<int> dist(-100, 100);
+				Matrix<int> m(rowSize, colSize);
+				for (unsigned long i = 0; i < rowSize; ++i)
+				{
+					for (unsigned long j = 0; j < colSize; ++j)
+						m[i][j] = dist(gen);
+				}
+				matrixtest(m);
+				break;
+			}
+			case 2:
+			{
+				uniform_real_distribution<double> dist(0, 100);
+				Matrix<double> m(rowSize, colSize);
+				for (unsigned long i = 0; i < rowSize; ++i)
+				{
+					for (unsigned long j = 0; j < colSize; ++j)
+						m[i][j] = round(dist(gen) * 1000.0) / 1000.0;
+				}
+				matrixtest(m);
+				break;
+			}
+			case 3:
+			{
+				uniform_int_distribution<int> dist(2, 5);
+				Matrix<string> m(rowSize, colSize);
+				for (unsigned long i = 0; i < rowSize; ++i)
+				{
+					for (unsigned long j = 0; j < colSize; ++j)
+						m[i][j] = GeneraStringaCasuale(dist(gen));
+				}
+				matrixtest(m);
+				break;
+			}
+			default:
+				cout << "Input non valido" << endl;
+		}
+	}
 }
 
 void mytest()
 {
-    bool selection = false;
+	bool selection = false;
 	while (!selection)
 	{
 		auto testtype = 0;
 		cout << endl << "Test menu' " << endl << "0. Esci" << endl << "1. Test su List" << endl << "2. Test su Vector" << endl << "3. Test su Stack" << endl << "4. Test su Queue" << endl << "5. Test su Binarytree" << endl << "6. Test su BST" << endl << "7. Test su Hashmap" << endl
-			<< "8. Test su Matrix" << endl << "9. Test del professore" << endl;
+			 << "8. Test su Matrix" << endl << "9. Test del professore" << endl;
 		string input;
 		cin >> input;
 		testtype = stoi(input);
@@ -1561,9 +1557,9 @@ void mytest()
 			case 7:
 				hashtabletest();
 				break;
-            case 8:
-                matrixtest();
-                break;
+			case 8:
+				matrixtest();
+				break;
 			case 9:
 			{
 				lasdtest();
