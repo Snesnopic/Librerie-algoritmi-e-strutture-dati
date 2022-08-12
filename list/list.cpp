@@ -72,8 +72,7 @@ namespace lasd
 	template<typename Data>
 	List<Data>::~List()
 	{
-		if (head != nullptr)
-			delete head;
+		delete head;
 	}
 
 	//LinearContainer constructor
@@ -129,8 +128,7 @@ namespace lasd
 	template<typename Data>
 	void List<Data>::Clear()
 	{
-		if (head != nullptr)
-			delete head;
+		delete head;
 		head = nullptr;
 		size = 0;
 	}
@@ -360,33 +358,53 @@ namespace lasd
 		}
 		size++;
 	}
-    template<typename Data>
-    List<Data>::operator std::vector<Data>() const
-    {
-        std::vector<Data> v;
-        return v;
-    }
-    template<typename Data>
-    void List<Data>::Sort() noexcept
-    {
-        Vector<Data> v(*this);
-        v.Sort();
-        List<Data> l(v);
-        *this = std::move(l);
-    }
-    template<typename Data>
-    void List<Data>::SortAscending() noexcept
-    {
-        Sort();
-    }
-    template<typename Data>
-    void List<Data>::SortDescending() noexcept
-    {
-        Vector<Data> v(*this);
-        v.SortDescending();
-        List<Data> l(v);
-        *this = std::move(l);
-    }
+
+	template<typename Data>
+	unsigned long List<Data>::GetIndexOf(Data& d) const
+	{
+		Node *tmp = head;
+		for (auto i = 0; i < size; ++i)
+		{
+			if (d == tmp->dato)
+				return i;
+			else
+				tmp = tmp->next;
+		}
+		throw std::exception(d + " doesn't exist in the container!");
+	}
+
+	template<typename Data>
+	List<Data>::operator std::vector<Data>() const
+	{
+		Vector<Data> v(*this);
+		std::vector<Data> newv(v);
+		return newv;
+	}
+
+	template<typename Data>
+	void List<Data>::Sort() noexcept
+	{
+		Vector<Data> v(*this);
+		v.Sort();
+		List<Data> l(v);
+		*this = std::move(l);
+	}
+
+	template<typename Data>
+	void List<Data>::SortAscending() noexcept
+	{
+		Sort();
+	}
+
+	template<typename Data>
+	void List<Data>::SortDescending() noexcept
+	{
+		Vector<Data> v(*this);
+		v.SortDescending();
+		List<Data> l(v);
+		*this = std::move(l);
+	}
+
 //Map functions
 //Map
 	template<typename Data>
