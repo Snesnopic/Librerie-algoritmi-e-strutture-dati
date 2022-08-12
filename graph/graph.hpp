@@ -9,211 +9,215 @@
 
 /* ************************************************************************** */
 
-namespace lasd {
-    template<typename Data>
-    class Graph :
-            virtual public DepthMappableContainer<Data>,
-            virtual public DepthFoldableContainer<Data>,
-            virtual public BreadthMappableContainer<Data>,
-            virtual public BreadthFoldableContainer<Data> {
-    protected:
-        using BreadthMappableContainer<Data>::size;
-    public:
-        [[nodiscard]] unsigned long Vertices() const noexcept = 0;
+namespace lasd
+{
+	template<typename Data>
+	class Graph : virtual public DepthMappableContainer<Data>, virtual public DepthFoldableContainer<Data>, virtual public BreadthMappableContainer<Data>, virtual public BreadthFoldableContainer<Data>
+	{
+	protected:
+		using BreadthMappableContainer<Data>::size;
+	public:
+		[[nodiscard]] virtual unsigned long Vertices() const noexcept = 0;
 
-        [[nodiscard]] unsigned long Edges() const noexcept = 0;
+		[[nodiscard]] virtual unsigned long Edges() const noexcept = 0;
 
-        void RemoveVertex(Data &v1) = 0;
+		virtual void RemoveVertex(Data& v1) = 0;
 
-        unsigned long DegreeOf(const Data &v1) const = 0;
+		virtual unsigned long DegreeOf(const Data& v1) const = 0;
 
-        void RemoveEdge(Data& v1, Data &v2) = 0;
+		virtual void RemoveEdge(Data& v1, Data& v2) = 0;
 
-        void AddVertex(Data &v1) = 0;
+		virtual void AddVertex(Data& v1) = 0;
 
-        void AddVertex(Data &&v1) noexcept = 0;
+		virtual void AddVertex(Data&& v1) noexcept = 0;
 
-        void AddEdge(const Data &v1, const Data &v2) = 0;
+		virtual void AddEdge(const Data& v1, const Data& v2) = 0;
 
-        void AddEdge(const Data &v1, const Data &v2, double weight) = 0;
+		virtual void AddEdge(const Data& v1, const Data& v2, double weight) = 0;
 
-        void AddEdge(const Data &v1, const Data &v2, double weight, bool isDirected) = 0;
+		virtual void AddEdge(const Data& v1, const Data& v2, double weight, bool isDirected) = 0;
 
-        void AddEdge(const Data &v1, const Data &v2, bool isDirected) = 0;
+		virtual void AddEdge(const Data& v1, const Data& v2, bool isDirected) = 0;
 
-        bool AreLinked(const Data &v1, const Data &v2) const = 0;
+		virtual bool AreLinked(const Data& v1, const Data& v2) const = 0;
 
-        bool AreDirectlyLinked(const Data &v1, const Data &v2) const = 0;
+		virtual bool AreDirectlyLinked(const Data& v1, const Data& v2) const = 0;
 
-        double WalkWeight(const Data &v1, const Data &v2) const = 0;
+		virtual double WalkWeight(const Data& v1, const Data& v2) const = 0;
 
-        [[nodiscard]] bool IsAcyclic() const = 0;
+		[[nodiscard]] virtual bool IsAcyclic() const = 0;
 
-        [[nodiscard]] bool IsConnected() const = 0;
+		[[nodiscard]] virtual bool IsConnected() const = 0;
 
-        [[nodiscard]] bool IsRegular() const = 0;
+		[[nodiscard]] virtual bool IsRegular() const = 0;
 
-        bool IsIsomorphism(Graph<Data> g) const = 0;
+		virtual bool IsIsomorphism(Graph<Data>& g) const = 0;
 
-        Graph<Data> Transpose() const = 0;
-        Graph<Data> Converse() const = 0;
-        Graph<Data> Reverse() const = 0;
+		virtual Graph<Data> Transpose() const = 0;
 
-        Vector<Data> LinksOf(Data &v1) const = 0;
+		virtual Graph<Data> Converse() const = 0;
 
-        // Specific member functions (inherited from MappableContainer)
+		virtual Graph<Data> Reverse() const = 0;
 
-        using typename MappableContainer<Data>::MapFunctor;
+		virtual Vector<Data> LinksOf(Data& v1) const = 0;
 
-        void Map(MapFunctor f, void *par) override = 0; // Override MappableContainer member
-        void MapBreadth(MapFunctor f, void *par) override = 0;
-        void MapDepth(MapFunctor f, void *par) override = 0;
+		// Specific member functions (inherited from MappableContainer)
 
-        /* ************************************************************************ */
+		using typename MappableContainer<Data>::MapFunctor;
 
-        // Specific member functions (inherited from FoldableContainer)
+		void Map(MapFunctor f, void *par) override = 0; // Override MappableContainer member
+		void MapBreadth(MapFunctor f, void *par) override = 0;
 
-        using typename FoldableContainer<Data>::FoldFunctor;
+		void MapDepth(MapFunctor f, void *par) override = 0;
 
-        void Fold(FoldFunctor f, const void *par, void *acc) const override = 0; // Override FoldableContainer member
-        void FoldBreadth(FoldFunctor f, const void *par, void *acc) const override = 0;
-        void FoldDepth(FoldFunctor f, const void *par, void *acc) const override = 0;
+		/* ************************************************************************ */
 
-    };
+		// Specific member functions (inherited from FoldableContainer)
 
-    template<typename Data>
-    class GDepthIterator : virtual public ForwardIterator<Data>, virtual public ResettableIterator<Data> {
-    private:
+		using typename FoldableContainer<Data>::FoldFunctor;
 
-        // ...
+		void Fold(FoldFunctor f, const void *par, void *acc) const override = 0; // Override FoldableContainer member
+		void FoldBreadth(FoldFunctor f, const void *par, void *acc) const override = 0;
 
-    protected:
+		void FoldDepth(FoldFunctor f, const void *par, void *acc) const override = 0;
+
+	};
+
+	template<typename Data>
+	class GDepthIterator : virtual public ForwardIterator<Data>, virtual public ResettableIterator<Data>
+	{
+	private:
+
+		// ...
+
+	protected:
 /*
         struct BinaryTree<Data>::Node *curr = nullptr;
         QueueLst<struct BinaryTree<Data>::Node *> que{};
         const BinaryTree<Data> *treePtr = nullptr;*/
-    public:
+	public:
 
-        // Specific constructors
-        explicit GDepthIterator(const Graph<Data> &bt); // An iterator over a given binary tree
-
-
-        /* ************************************************************************ */
-
-        // Copy constructor
-        GDepthIterator(const GDepthIterator &bi);
-
-        // Move constructor
-        GDepthIterator(GDepthIterator &&bi) noexcept;
-
-        /* ************************************************************************ */
-
-        // Destructor
-        ~GDepthIterator() override;
-
-        /* ************************************************************************ */
-
-        // Copy assignment
-        GDepthIterator &operator=(const GDepthIterator &bi);
-
-        // Move assignment
-        GDepthIterator &operator=(GDepthIterator &&bi) noexcept;
-
-        /* ************************************************************************ */
-
-        // Comparison operators
-        bool operator==(const GDepthIterator &bi) const noexcept;
-
-        bool operator!=(const GDepthIterator &bi) const noexcept;
-
-        /* ************************************************************************ */
-
-        // Specific member functions (inherited from Iterator)
-
-        Data &operator*() const override; // (throw std::out_of_range when terminated)
-
-        [[nodiscard]] bool Terminated() const noexcept override; // (should not throw exceptions)
-
-        /* ************************************************************************ */
-
-        // Specific member functions (inherited from ForwardIterator)
-
-        GDepthIterator &operator++() override; // (throw std::out_of_range when terminated)
+		// Specific constructors
+		explicit GDepthIterator(const Graph<Data>& bt); // An iterator over a given binary tree
 
 
-        /* ************************************************************************ */
+		/* ************************************************************************ */
 
-        // Specific member functions (inherited from ResettableIterator)
+		// Copy constructor
+		GDepthIterator(const GDepthIterator& bi);
 
-        void Reset() noexcept override; // (should not throw exceptions)
-    };
+		// Move constructor
+		GDepthIterator(GDepthIterator&& bi) noexcept;
 
-    template<typename Data>
-    class GBreadthIterator : virtual public ForwardIterator<Data>, virtual public ResettableIterator<Data> {
-    private:
+		/* ************************************************************************ */
 
-        // ...
+		// Destructor
+		~GDepthIterator() override;
 
-    protected:
-        /*
-        struct BinaryTree<Data>::Node *curr = nullptr;
-        QueueLst<struct BinaryTree<Data>::Node *> que{};
-        const BinaryTree<Data> *treePtr = nullptr;*/
-    public:
+		/* ************************************************************************ */
 
-        // Specific constructors
-        explicit GBreadthIterator(const Graph<Data> &bt); // An iterator over a given binary tree
+		// Copy assignment
+		GDepthIterator& operator=(const GDepthIterator& bi);
 
+		// Move assignment
+		GDepthIterator& operator=(GDepthIterator&& bi) noexcept;
 
-        /* ************************************************************************ */
+		/* ************************************************************************ */
 
-        // Copy constructor
-        GBreadthIterator(const GBreadthIterator &bi);
+		// Comparison operators
+		bool operator==(const GDepthIterator& bi) const noexcept;
 
-        // Move constructor
-        GBreadthIterator(GBreadthIterator &&bi) noexcept;
+		bool operator!=(const GDepthIterator& bi) const noexcept;
 
-        /* ************************************************************************ */
+		/* ************************************************************************ */
 
-        // Destructor
-        ~GBreadthIterator() override;
+		// Specific member functions (inherited from Iterator)
 
-        /* ************************************************************************ */
+		Data& operator*() const override; // (throw std::out_of_range when terminated)
 
-        // Copy assignment
-        GBreadthIterator &operator=(const GBreadthIterator &bi);
+		[[nodiscard]] bool Terminated() const noexcept override; // (should not throw exceptions)
 
-        // Move assignment
-        GBreadthIterator &operator=(GBreadthIterator &&bi) noexcept;
+		/* ************************************************************************ */
 
-        /* ************************************************************************ */
+		// Specific member functions (inherited from ForwardIterator)
 
-        // Comparison operators
-        bool operator==(const GBreadthIterator &bi) const noexcept;
-
-        bool operator!=(const GBreadthIterator &bi) const noexcept;
-
-        /* ************************************************************************ */
-
-        // Specific member functions (inherited from Iterator)
-
-        Data &operator*() const override; // (throw std::out_of_range when terminated)
-
-        [[nodiscard]] bool Terminated() const noexcept override; // (should not throw exceptions)
-
-        /* ************************************************************************ */
-
-        // Specific member functions (inherited from ForwardIterator)
-
-        GBreadthIterator &operator++() override; // (throw std::out_of_range when terminated)
+		GDepthIterator& operator++() override; // (throw std::out_of_range when terminated)
 
 
-        /* ************************************************************************ */
+		/* ************************************************************************ */
 
-        // Specific member functions (inherited from ResettableIterator)
+		// Specific member functions (inherited from ResettableIterator)
 
-        void Reset() noexcept override; // (should not throw exceptions)
-    };
+		void Reset() noexcept override; // (should not throw exceptions)
+	};
+
+	template<typename Data>
+	class GBreadthIterator : virtual public ForwardIterator<Data>, virtual public ResettableIterator<Data>
+	{
+	private:
+
+		// ...
+
+	protected:
+		/*
+		struct BinaryTree<Data>::Node *curr = nullptr;
+		QueueLst<struct BinaryTree<Data>::Node *> que{};
+		const BinaryTree<Data> *treePtr = nullptr;*/
+	public:
+
+		// Specific constructors
+		explicit GBreadthIterator(const Graph<Data>& bt); // An iterator over a given binary tree
+
+
+		/* ************************************************************************ */
+
+		// Copy constructor
+		GBreadthIterator(const GBreadthIterator& bi);
+
+		// Move constructor
+		GBreadthIterator(GBreadthIterator&& bi) noexcept;
+
+		/* ************************************************************************ */
+
+		// Destructor
+		~GBreadthIterator() override;
+
+		/* ************************************************************************ */
+
+		// Copy assignment
+		GBreadthIterator& operator=(const GBreadthIterator& bi);
+
+		// Move assignment
+		GBreadthIterator& operator=(GBreadthIterator&& bi) noexcept;
+
+		/* ************************************************************************ */
+
+		// Comparison operators
+		bool operator==(const GBreadthIterator& bi) const noexcept;
+
+		bool operator!=(const GBreadthIterator& bi) const noexcept;
+
+		/* ************************************************************************ */
+
+		// Specific member functions (inherited from Iterator)
+
+		Data& operator*() const override; // (throw std::out_of_range when terminated)
+
+		[[nodiscard]] bool Terminated() const noexcept override; // (should not throw exceptions)
+
+		/* ************************************************************************ */
+
+		// Specific member functions (inherited from ForwardIterator)
+
+		GBreadthIterator& operator++() override; // (throw std::out_of_range when terminated)
+
+
+		/* ************************************************************************ */
+
+		// Specific member functions (inherited from ResettableIterator)
+
+		void Reset() noexcept override; // (should not throw exceptions)
+	};
 }
 
 #include "graph.cpp"
