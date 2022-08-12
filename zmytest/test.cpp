@@ -94,7 +94,7 @@ template<typename Data>
 void MapUppercase(Data& dat, void *_)
 {
 	for (char& c: dat)
-		c = toupper(c);
+		c = toupper(c, std::locale());
 }
 
 template<typename Data>
