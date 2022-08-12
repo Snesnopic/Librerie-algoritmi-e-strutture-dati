@@ -122,7 +122,7 @@ namespace lasd
 			if (size != newSize)
 			{
 				Data *tmp = new Data[newSize];
-				for (auto i = 0; i < std::min(size, newSize); ++i)
+				for (unsigned long i = 0; i < std::min(size, newSize); ++i)
 				{
 					std::swap(array[i], tmp[i]);
 				}
@@ -132,8 +132,78 @@ namespace lasd
 			}
 		}
 	}
+    template<typename Data>
+    bool Vector<Data>::Insert(const Data& d)
+    {
+        Data* tmp = new Data[size + 1];
+        std::copy(array, array + size, tmp);
+        tmp[size] = d;
+        delete[] array;
+        array = tmp;
+        size++;
+        return true;
+    }
+    template<typename Data>
+    bool Vector<Data>::Insert(Data&& d) noexcept
+    {
+        Data* tmp = new Data[size + 1];
+        std::copy(array, array + size, tmp);
+        tmp[size] = std::move(d);
+        delete[] array;
+        array = tmp;
+        size++;
+        return true;
+    }
+    template<typename Data>
+    void Vector<Data>::Insert(const LinearContainer<Data>& lc)
+    {
+        Data* tmp = new Data[size + lc.Size()];
+        std::copy(array, array + size, tmp);
+        for(unsigned long i = lc.Size() ; i < size + lc.Size() ; ++i)
+            tmp[i] = lc[i - lc.Size()];
+        delete[] array;
+        array = tmp;
+        size += lc.Size();
+    }
+    template<typename Data>
+    bool Vector<Data>::Remove(const Data& d)
+    {
+        if(!this->Exists(d))
+            return false;
+        else
+        {
+            bool found = false;
+            auto j = 0;
+            Data* tmp = new Data[size - 1];
+            for(unsigned long i = 0; i < size; ++i)
+            {
+                if(array[i] != d ||  found)
+                {
+                    tmp[j] = array[i];
+                    j++;
+                }
+                else
+                {
+                    found = true;
+                }
+            }
+			delete[] array;
+			array = tmp;
+			size--;
+        }
+        return true;
+    }
+    template<typename Data>
+    unsigned long Vector<Data>::GetIndexOf(Data& d) const
+    {
+        for(unsigned long i = 0; i < size ;++i)
+        {
+            if(array[i] == d)
+                return i;
+        }
+        throw std::exception(d+" doesn't exist in the container!");
+    }
 #include <type_traits>
-#include <utility>
 
     template<class T, class EqualTo>
     struct has_operator_equal_impl

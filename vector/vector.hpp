@@ -13,7 +13,14 @@ namespace lasd
 /* ************************************************************************** */
 
 	template<typename Data>
-	class Vector : virtual public LinearContainer<Data>, virtual public SortableContainer<Data>, virtual public PreOrderMappableContainer<Data>, virtual public PostOrderMappableContainer<Data>, virtual public PreOrderFoldableContainer<Data>, virtual public PostOrderFoldableContainer<Data>
+	class Vector
+			: virtual public LinearContainer<Data>,
+			  virtual public SortableContainer<Data>,
+			  virtual public PreOrderMappableContainer<Data>,
+			  virtual public PostOrderMappableContainer<Data>,
+			  virtual public PreOrderFoldableContainer<Data>,
+			  virtual public PostOrderFoldableContainer<Data>,
+			  virtual public DictionaryContainer<Data>
 	{
 		// Must extend LinearContainer<Data>,
 		//             PreOrderMappableContainer<Data>,
@@ -40,7 +47,8 @@ namespace lasd
 
 		// Specific constructors
 		explicit Vector(unsigned long initialSize); // A vector with a given initial dimension
-        Vector(unsigned long initialSize, Data defaultValue);
+		Vector(unsigned long initialSize, Data defaultValue);
+
 		explicit Vector(const LinearContainer<Data>& lc); // A vector obtained from a LinearContainer
 
 		/* ************************************************************************ */
@@ -75,11 +83,23 @@ namespace lasd
 
 		// Specific member functions
 
+		bool Insert(const Data& d) override;
+
+		bool Insert(Data&& d) noexcept override;
+
+		void Insert(const LinearContainer<Data>& lc) override;
+
+		bool Remove(const Data& d) override;
+
 		void Resize(unsigned long newSize); // Resize the vector to a given size
-		void Sort() noexcept final; // Sort the vector in ascending order
-        void SortAscending() noexcept final;
-        void SortDescending() noexcept final;
-        explicit operator std::vector<Data>() const override;
+		void Sort() noexcept override; // Sort the vector in ascending order
+		void SortAscending() noexcept override;
+
+		void SortDescending() noexcept override;
+
+		unsigned long GetIndexOf(Data& d) const;
+
+		explicit operator std::vector<Data>() const override;
 
 		/* ************************************************************************ */
 
