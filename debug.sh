@@ -1,6 +1,6 @@
 #! /bin/bash
 
-g++ -O0 -Wall -ggdb3 -std=c++17 -g3 -o debug \
+g++ -O0 -Wall -ggdb3 -std=c++20 -g3 -o debug \
   zlasdtest/exercise1/simpletest.cpp \
   zlasdtest/exercise2/simpletest.cpp \
   zlasdtest/exercise3/simpletest.cpp \

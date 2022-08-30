@@ -1,6 +1,6 @@
 #! /bin/bash
 
-g++ -O3 -std=c++17 -o main \
+g++ -O3 -std=c++20 -o main \
   zlasdtest/exercise1/simpletest.cpp \
   zlasdtest/exercise2/simpletest.cpp \
   zlasdtest/exercise3/simpletest.cpp \
