@@ -1,3 +1,4 @@
+#include <utility>
 namespace lasd
 {
 
@@ -83,7 +84,7 @@ namespace lasd
 		if (tail < 0)
 			throw std::length_error("Length error!");
 		tail--;
-		if ((tail + 1) <= (size / 4))
+		if (std::cmp_less_equal((tail + 1) , (size / 4)))
 			Reduce();
 	}
 
@@ -101,7 +102,7 @@ namespace lasd
 	void StackVec<Data>::Push(const Data& d) // Override Stack member (copy of the value)
 	{
 		tail++;
-		if (tail == size)
+		if (std::cmp_equal(tail , size))
 			Expand();
 		array[tail] = d;
 	}
@@ -110,7 +111,7 @@ namespace lasd
 	void StackVec<Data>::Push(Data&& d) noexcept // Override Stack member (move of the value)
 	{
 		tail++;
-		if (tail == size)
+		if (std::cmp_equal(tail , size))
 			Expand();
 		array[tail] = std::move(d);
 	}
