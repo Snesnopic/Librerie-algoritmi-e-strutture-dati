@@ -306,13 +306,13 @@ namespace lasd
 	template<typename Data>
 	void Matrix<Data>::MapSpiral(MapFunctor f, void *par)
 	{
-		for (auto i = 0; i < rows + cols - 1; ++i)
+		for (long i = 0; std::cmp_less(i , rows + cols - 1); ++i)
 		{
 			if (i % 2 == 0)
 			{
-				for (auto y = 0; y < cols; ++y)
+				for (long y = 0; std::cmp_less(y , cols); ++y)
 				{
-					if (cols > i - y && i - y >= 0)
+					if (std::cmp_greater(cols , i - y) && i - y >= 0)
 					{
 						f(matrix[i - y][y], par);
 					}
@@ -320,9 +320,9 @@ namespace lasd
 			}
 			else
 			{
-				for (auto x = 0; x < rows; ++x)
+				for (long x = 0; std::cmp_less(x ,rows); ++x)
 				{
-					if (cols > i - x && i - x >= 0)
+					if (std::cmp_greater(cols , i - x) && i - x >= 0)
 					{
 						f(matrix[x][i - x], par);
 					}
@@ -387,13 +387,13 @@ namespace lasd
 	template<typename Data>
 	void Matrix<Data>::FoldSpiral(FoldFunctor f, const void *par, void *acc) const
 	{
-		for (auto i = 0; i < rows + cols - 1; ++i)
+		for (long i = 0; std::cmp_less(i , rows + cols - 1); ++i)
 		{
 			if (i % 2 == 0)
 			{
-				for (auto y = 0; y < cols; ++y)
+				for (long y = 0; std::cmp_less(y , cols); ++y)
 				{
-					if (cols > i - y && i - y >= 0)
+					if (std::cmp_greater(cols , i - y) && i - y >= 0)
 					{
 						f(matrix[i - y][y], par, acc);
 					}
@@ -401,9 +401,9 @@ namespace lasd
 			}
 			else
 			{
-				for (auto x = 0; x < rows; ++x)
+				for (long x = 0; std::cmp_less(x , rows); ++x)
 				{
-					if (cols > i - x && i - x >= 0)
+					if (std::cmp_greater(cols , i - x) && i - x >= 0)
 					{
 						f(matrix[x][i - x], par, acc);
 					}
