@@ -30,7 +30,7 @@ namespace lasd
 	template<typename Data>
 	bool LinearContainer<Data>::operator!=(const LinearContainer& lc) const noexcept
 	{
-		return *this != lc;
+		return !(*this == lc);
 	}
 
 	template<typename Data>
