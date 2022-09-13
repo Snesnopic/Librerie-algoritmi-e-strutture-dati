@@ -6,9 +6,8 @@ namespace lasd
 	//Constructors
 	//Initial size constructor
 	template<typename Data>
-	Vector<Data>::Vector(const unsigned long initialSize)
+	Vector<Data>::Vector(const unsigned long initialSize) : array(new Data[initialSize])
 	{
-		array = new Data[initialSize];
 		size = initialSize;
 	}
     template<typename Data>
@@ -30,10 +29,9 @@ namespace lasd
 
 	//Copy constructor
 	template<typename Data>
-	Vector<Data>::Vector(const Vector<Data>& v)
+	Vector<Data>::Vector(const Vector<Data>& v) : array(new Data[v.size])
 	{
 		size = v.size;
-		array = new Data[v.size];
 		std::copy(v.array, v.array + size, array);
 	}
 
@@ -170,31 +168,29 @@ namespace lasd
     {
         if(!this->Exists(d))
             return false;
-        else
-        {
-            bool found = false;
-            auto j = 0;
-            Data* tmp = new Data[size - 1];
-            for(unsigned long i = 0; i < size; ++i)
-            {
-                if(array[i] != d ||  found)
-                {
-                    tmp[j] = array[i];
-                    j++;
-                }
-                else
-                {
-                    found = true;
-                }
-            }
-			delete[] array;
-			array = tmp;
-			size--;
-        }
+
+		bool found = false;
+		auto j = 0;
+		Data* tmp = new Data[size - 1];
+		for(unsigned long i = 0; i < size; ++i)
+		{
+			if(array[i] != d ||  found)
+			{
+				tmp[j] = array[i];
+				j++;
+			}
+			else
+			{
+				found = true;
+			}
+		}
+		delete[] array;
+		array = tmp;
+		size--;
         return true;
     }
     template<typename Data>
-    unsigned long Vector<Data>::GetIndexOf(Data& d) const
+    unsigned long Vector<Data>::GetIndexOf(const Data& d) const
     {
         for(unsigned long i = 0; i < size ;++i)
         {
@@ -213,7 +209,7 @@ namespace lasd
         template<typename, typename>
         static auto test(...) -> std::false_type;
 
-        using type = typename std::is_same<bool, decltype(test<T, EqualTo>(0))>::type;
+        using type = typename std::is_same<bool, decltype(test<T, EqualTo>(nullptr))>::type;
     };
 
     template<class T, class EqualTo = T>
