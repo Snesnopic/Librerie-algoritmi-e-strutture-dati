@@ -97,7 +97,7 @@ namespace lasd
 
 		void SortDescending() noexcept override;
 
-		unsigned long GetIndexOf(Data& d) const;
+		unsigned long GetIndexOf(const Data& d) const;
 
 		explicit operator std::vector<Data>() const override;
 
