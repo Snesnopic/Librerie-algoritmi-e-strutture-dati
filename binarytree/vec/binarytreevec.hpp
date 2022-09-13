@@ -46,17 +46,13 @@ namespace lasd
 
 			NodeVec() = default;
 
-			NodeVec(Vector<NodeVec *> *arr, unsigned long i, const Data& d)
+			NodeVec(Vector<NodeVec *> *arr, unsigned long i, const Data& d) : index(i), arrayRef(arr)
 			{
-				arrayRef = arr;
-				index = i;
 				dato = d;
 			}
 
-			NodeVec(Vector<NodeVec *> *arr, unsigned long i, Data&& d)
+			NodeVec(Vector<NodeVec *> *arr, unsigned long i, Data&& d) : index(i), arrayRef(arr)
 			{
-				arrayRef = arr;
-				index = i;
 				dato = std::move(d);
 			}
 
@@ -75,16 +71,14 @@ namespace lasd
 			{
 				if (!HasLeftChild())
 					throw std::out_of_range("Out of range!");
-				else
-					return *(arrayRef->operator[]((2 * index) + 1));
+				return *(arrayRef->operator[]((2 * index) + 1));
 			}
 
 			NodeVec& RightChild() const override // (concrete function must throw std::out_of_range when not existent)
 			{
 				if (!HasRightChild())
 					throw std::out_of_range("Out of range!");
-				else
-					return *(arrayRef->operator[]((2 * index) + 2));
+				return *(arrayRef->operator[]((2 * index) + 2));
 			}
 		};
 

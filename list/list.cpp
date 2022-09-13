@@ -5,10 +5,8 @@ namespace lasd
 	//Node methods
 	//Node Data copy constructor
 	template<typename Data>
-	List<Data>::Node::Node(const Data& d)
-	{
-		dato = d;
-	}
+	List<Data>::Node::Node(const Data& d) : dato(d){}
+
 
 	//Node Data move constructor
 	template<typename Data>
@@ -19,11 +17,7 @@ namespace lasd
 
 	//Node Node copy constructor
 	template<typename Data>
-	List<Data>::Node::Node(const Node& n)
-	{
-		dato = n.dato;
-		next = n.next;
-	}
+	List<Data>::Node::Node(const Node& n) : dato(n.dato), next(n.next){}
 
 	//Node Node move constructor
 	template<typename Data>
@@ -156,8 +150,7 @@ namespace lasd
 	{
 		if (FoldableContainer<Data>::Exists(d))
 			return false;
-		else
-			InsertAtFront(d);
+		InsertAtFront(d);
 		return true;
 	}
 
@@ -166,8 +159,7 @@ namespace lasd
 	{
 		if (FoldableContainer<Data>::Exists(d))
 			return false;
-		else
-			InsertAtFront(std::move(d));
+		InsertAtFront(std::move(d));
 		return true;
 	}
 
@@ -184,21 +176,18 @@ namespace lasd
 			size--;
 			return true;
 		}
-		else
+		while (temp != nullptr && temp->dato != d)
 		{
-			while (temp != nullptr && temp->dato != d)
-			{
-				prev = temp;
-				temp = temp->next;
-			}
-			if (temp == nullptr)
-				return false;
-			prev->next = temp->next;
-			temp->next = nullptr;
-			delete temp;
-			size--;
-			return true;
+			prev = temp;
+			temp = temp->next;
 		}
+		if (temp == nullptr)
+			return false;
+		prev->next = temp->next;
+		temp->next = nullptr;
+		delete temp;
+		size--;
+		return true;
 	}
 
 //Copy assignment
@@ -363,12 +352,11 @@ namespace lasd
 	unsigned long List<Data>::GetIndexOf(Data& d) const
 	{
 		Node *tmp = head;
-		for (auto i = 0; i < size; ++i)
+		for (unsigned long i = 0; i < size; ++i)
 		{
 			if (d == tmp->dato)
 				return i;
-			else
-				tmp = tmp->next;
+			tmp = tmp->next;
 		}
 		throw std::exception(d + " doesn't exist in the container!");
 	}

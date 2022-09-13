@@ -5,10 +5,10 @@
 
 #include "../container/container.hpp"
 #include "../iterator/iterator.hpp"
-#include "../stack/stack.hpp"
+#include "../queue/lst/queuelst.hpp"
 #include "../queue/queue.hpp"
 #include "../stack/lst/stacklst.hpp"
-#include "../queue/lst/queuelst.hpp"
+#include "../stack/stack.hpp"
 
 
 /* ************************************************************************** */

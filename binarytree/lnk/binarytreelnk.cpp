@@ -15,7 +15,7 @@ namespace lasd
 			q.Enqueue(root);
 			for (unsigned long i = 1; i < lc.Size(); ++i)
 			{
-				NodeLnk *n = new NodeLnk(lc[i]);
+				auto *n = new NodeLnk(lc[i]);
 				q.Enqueue(n);
 				if (is_left)
 				{
@@ -100,8 +100,7 @@ namespace lasd
 	template<typename Data>
 	void BinaryTreeLnk<Data>::Clear()
 	{
-		if (root != nullptr)
-			delete root;
+		delete root;
 		root = nullptr;
 		size = 0;
 	}

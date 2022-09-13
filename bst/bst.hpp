@@ -2,8 +2,8 @@
 #define BST_HPP
 
 /* ************************************************************************** */
-#include <iostream>
 #include "../binarytree/lnk/binarytreelnk.hpp"
+#include <iostream>
 
 /* ************************************************************************** */
 
@@ -138,18 +138,16 @@ namespace lasd
 					std::swap(n->dato, (*ptr)->dato);
 					return Detach(*ptr);
 				}
-				else
-				{
-					if (n->HasRightChild())
-						return Skip2Right(n);
-					if (n->HasLeftChild())
-						return Skip2Left(n);
-					size--;
-					auto *t = new NodeLnk(std::move(n->dato));
-					delete n;
-					n = nullptr;
-					return t;
-				}
+
+				if (n->HasRightChild())
+					return Skip2Right(n);
+				if (n->HasLeftChild())
+					return Skip2Left(n);
+				size--;
+				auto *t = new NodeLnk(std::move(n->dato));
+				delete n;
+				n = nullptr;
+				return t;
 			}
 			return nullptr;
 		}
@@ -275,20 +273,17 @@ namespace lasd
 					tmp = ptr;
 					if (cur.right == nullptr || cur.right->dato == d)
 						return tmp;
-					else
-						ptr = &cur.right;
+					ptr = &cur.right;
 				}
 				else
 				{
 					if (cur.left == nullptr)
 						return tmp;
+					if (cur.dato > d)
+						ptr = &cur.left;
 					else
-					{
-						if (cur.dato > d)
-							ptr = &cur.left;
-						else
-							return &FindPointerToMax(cur.left);
-					}
+						return &FindPointerToMax(cur.left);
+
 				}
 			}
 		}
@@ -310,20 +305,17 @@ namespace lasd
 					tmp = ptr;
 					if (cur.left == nullptr || cur.left->dato == d)
 						return tmp;
-					else
-						ptr = &cur.left;
+					ptr = &cur.left;
 				}
 				else
 				{
 					if (cur.right == nullptr)
 						return tmp;
+					if (cur.dato < d)
+						ptr = &cur.right;
 					else
-					{
-						if (cur.dato < d)
-							ptr = &cur.right;
-						else
-							return &FindPointerToMin(cur.right);
-					}
+						return &FindPointerToMin(cur.right);
+
 				}
 			}
 		}

@@ -5,9 +5,8 @@ namespace lasd
 
 	// Copy constructor
 	template<typename Data>
-	QueueVec<Data>::QueueVec(const QueueVec& qv) : Vector<Data>(qv.elements)
+	QueueVec<Data>::QueueVec(const QueueVec& qv) : Vector<Data>(qv.elements), elements(qv.elements)
 	{
-		elements = qv.elements;
 		size = elements;
 		tail = elements - 1;
 		for (unsigned long i = 0; i < elements; ++i)
@@ -16,9 +15,8 @@ namespace lasd
 
 	// Move constructor
 	template<typename Data>
-	QueueVec<Data>::QueueVec(QueueVec&& qv) noexcept
+	QueueVec<Data>::QueueVec(QueueVec&& qv) noexcept : elements(qv.elements)
 	{
-		elements = qv.elements;
 		tail = elements - 1;
 		array = new Data[elements];
 		for (unsigned long i = 0; i < elements; ++i)

@@ -107,7 +107,7 @@ namespace lasd
 		{
 			QueueLst<Node *> queue{};
 			queue.Enqueue(&Root());
-			Node *n;
+			Node *n{};
 			while (!queue.Empty())
 			{
 				n = queue.Head();
@@ -128,7 +128,7 @@ namespace lasd
 		{
 			QueueLst<Node *> queue{};
 			queue.Enqueue(&Root());
-			Node *n;
+			Node *n{};
 			while (!queue.Empty())
 			{
 				n = queue.Head();
@@ -206,12 +206,8 @@ namespace lasd
 
 	// Copy constructor
 	template<typename Data>
-	BTPreOrderIterator<Data>::BTPreOrderIterator(const BTPreOrderIterator& poi)
-	{
-		curr = poi.curr;
-		stack = poi.stack;
-		treePtr = poi.treePtr;
-	}
+	BTPreOrderIterator<Data>::BTPreOrderIterator(const BTPreOrderIterator& poi) : curr(poi.curr), stack(poi.stack), treePtr(poi.treePtr){}
+
 
 	// Move constructor
 	template<typename Data>
@@ -333,23 +329,13 @@ namespace lasd
 		struct BinaryTree<Data>::Node *tmp = n;
 		stack.Push(tmp);
 		if (tmp->HasLeftChild())
-		{
 			return minLeaf(&tmp->LeftChild());
-		}
-		else
-		{
-			return stack.TopNPop();
-		}
+		return stack.TopNPop();
 	}
 
 	// Copy constructor
 	template<typename Data>
-	BTPostOrderIterator<Data>::BTPostOrderIterator(const BTPostOrderIterator<Data>& poi)
-	{
-		curr = poi.curr;
-		stack = poi.stack;
-		treePtr = poi.treePtr;
-	}
+	BTPostOrderIterator<Data>::BTPostOrderIterator(const BTPostOrderIterator<Data>& poi) : curr(poi.curr), stack(poi.stack), treePtr(poi.treePtr){}
 
 	// Move constructor
 	template<typename Data>
@@ -403,10 +389,7 @@ namespace lasd
 	template<typename Data>
 	bool BTPostOrderIterator<Data>::operator==(const BTPostOrderIterator<Data>& poi) const noexcept
 	{
-		if (curr == poi.curr && stack == poi.stack && treePtr == poi.treePtr)
-			return true;
-		else
-			return false;
+		return curr == poi.curr && stack == poi.stack && treePtr == poi.treePtr;
 	}
 
 	template<typename Data>
@@ -436,9 +419,8 @@ namespace lasd
 
 	// Specific member functions (inherited from ForwardIterator)
 	template<typename Data>
-	BTPostOrderIterator<Data>::BTPostOrderIterator(const BinaryTree<Data>& bt) // An iterator over a given binary tree
+	BTPostOrderIterator<Data>::BTPostOrderIterator(const BinaryTree<Data>& bt) : treePtr(&bt) // An iterator over a given binary tree
 	{
-		treePtr = &bt;
 		if (!bt.Empty())
 			curr = minLeaf(&bt.Root());
 	}
@@ -481,12 +463,7 @@ namespace lasd
 
 	// Copy constructor
 	template<typename Data>
-	BTInOrderIterator<Data>::BTInOrderIterator(const BTInOrderIterator& ii)
-	{
-		curr = ii.curr;
-		stack = ii.stack;
-		treePtr = ii.treePtr;
-	}
+	BTInOrderIterator<Data>::BTInOrderIterator(const BTInOrderIterator& ii) : curr(ii.curr), stack(ii.stack), treePtr(ii.treePtr){}
 
 	// Move constructor
 	template<typename Data>
@@ -534,10 +511,7 @@ namespace lasd
 	template<typename Data>
 	bool BTInOrderIterator<Data>::operator==(const BTInOrderIterator& ii) const noexcept
 	{
-		if (curr == ii.curr && stack == ii.stack && treePtr == ii.treePtr)
-			return true;
-		else
-			return false;
+		return curr == ii.curr && stack == ii.stack && treePtr == ii.treePtr;
 	}
 
 	template<typename Data>
@@ -559,9 +533,8 @@ namespace lasd
 	}
 
 	template<typename Data>
-	BTInOrderIterator<Data>::BTInOrderIterator(const BinaryTree<Data>& bt) // An iterator over a given binary tree
+	BTInOrderIterator<Data>::BTInOrderIterator(const BinaryTree<Data>& bt) : treePtr(&bt) // An iterator over a given binary tree
 	{
-		treePtr = &bt;
 		if (!bt.Empty())
 			curr = Min(&bt.Root());
 	}
@@ -623,12 +596,7 @@ namespace lasd
 
 	// Copy constructor
 	template<typename Data>
-	BTBreadthIterator<Data>::BTBreadthIterator(const BTBreadthIterator& bi)
-	{
-		treePtr = bi.treePtr;
-		curr = bi.curr;
-		que = bi.que;
-	}
+	BTBreadthIterator<Data>::BTBreadthIterator(const BTBreadthIterator& bi) : curr(bi.curr), que(bi.que), treePtr(bi.treePtr){}
 
 	// Move constructor
 	template<typename Data>
@@ -682,10 +650,7 @@ namespace lasd
 	template<typename Data>
 	bool BTBreadthIterator<Data>::operator==(const BTBreadthIterator& bi) const noexcept
 	{
-		if (treePtr == bi.treePtr && curr == bi.curr && que == bi.que)
-			return true;
-		else
-			return false;
+		return treePtr == bi.treePtr && curr == bi.curr && que == bi.que;
 	}
 
 	template<typename Data>
@@ -703,8 +668,7 @@ namespace lasd
 	{
 		if (Terminated())
 			throw std::out_of_range("Out of range!");
-		else
-			return curr->dato;
+		return curr->dato;
 	}
 
 	template<typename Data>

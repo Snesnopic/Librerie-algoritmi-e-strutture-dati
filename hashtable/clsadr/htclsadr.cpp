@@ -23,19 +23,17 @@ namespace lasd
 
 	// Copy constructor
 	template<typename Data>
-	HashTableClsAdr<Data>::HashTableClsAdr(const HashTableClsAdr& ht)
+	HashTableClsAdr<Data>::HashTableClsAdr(const HashTableClsAdr& ht) : table(ht.table)
 	{
 		HashTable<Data>::operator=(ht);
 		size = ht.size;
-		table = ht.table;
 	}
 
 	// Move constructor
 	template<typename Data>
-	HashTableClsAdr<Data>::HashTableClsAdr(HashTableClsAdr&& ht) noexcept
+	HashTableClsAdr<Data>::HashTableClsAdr(HashTableClsAdr&& ht) noexcept : table(std::move(ht.table))
 	{
 		HashTable<Data>::operator=(std::move(ht));
-		table = std::move(ht.table);
 	}
 
 	// Destructor
@@ -116,16 +114,13 @@ namespace lasd
 		{
 			if (table[i].Empty())
 				continue;
-			else
+			BTInOrderIterator<Data> j(table[i]);
+			while (!j.Terminated())
 			{
-				BTInOrderIterator<Data> j(table[i]);
-				while (!j.Terminated())
-				{
-					newHash.Insert(*j);
-					++j;
-				}
-				table[i].Clear();
+				newHash.Insert(*j);
+				++j;
 			}
+			table[i].Clear();
 		}
 		table.Clear();
 		std::swap(*this, newHash);
@@ -169,9 +164,7 @@ namespace lasd
 	template<typename Data>
 	bool HashTableClsAdr<Data>::Exists(const Data& d) const noexcept // Override TestableContainer member
 	{
-		if (table[HashKey(d)].Exists(d))
-			return true;
-		return false;
+		return table[HashKey(d)].Exists(d);
 	}
 
 	// Specific member functions (inherited from MappableContainer)

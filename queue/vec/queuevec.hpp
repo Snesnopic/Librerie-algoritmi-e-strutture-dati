@@ -41,11 +41,11 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Specific constructor
-		explicit QueueVec(const LinearContainer<Data>& lc) : Vector<Data>(lc)
+		// A queue obtained from a LinearContainer
+		explicit QueueVec(const LinearContainer<Data>& lc) : Vector<Data>(lc), elements(size)
 		{
-			elements = size;
 			tail = elements - 1;
-		} // A queue obtained from a LinearContainer
+		}
 
 		/* ************************************************************************ */
 

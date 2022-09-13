@@ -32,22 +32,16 @@ namespace lasd
 
 	// Copy constructor
 	template<typename Data>
-	Matrix<Data>::Matrix(const Matrix<Data>& m)
+	Matrix<Data>::Matrix(const Matrix<Data>& m) : rows(m.rows), cols(m.cols), matrix(m.matrix)
 	{
 		size = m.size;
-		matrix = m.matrix;
-		rows = m.rows;
-		cols = m.cols;
 	}
 
 	// Move constructor
 	template<typename Data>
-	Matrix<Data>::Matrix(Matrix<Data>&& m) noexcept
+	Matrix<Data>::Matrix(Matrix<Data>&& m) noexcept : rows(std::move(m.rows)), cols(std::move(m.cols)), matrix(std::move(m.matrix))
 	{
 		size = std::move(m.size);
-		matrix = std::move(m.matrix);
-		rows = std::move(m.rows);
-		cols = std::move(m.cols);
 	}
 
 	/* ************************************************************************ */

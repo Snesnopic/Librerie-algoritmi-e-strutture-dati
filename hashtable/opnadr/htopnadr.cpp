@@ -65,11 +65,9 @@ namespace lasd
 
 	// Move constructor
 	template<typename Data>
-	HashTableOpnAdr<Data>::HashTableOpnAdr(HashTableOpnAdr&& ht) noexcept
+	HashTableOpnAdr<Data>::HashTableOpnAdr(HashTableOpnAdr&& ht) noexcept : table(std::move(ht.table)), deleted(std::move(ht.deleted))
 	{
 		HashTable<Data>::operator=(std::move(ht));
-		table = std::move(ht.table);
-		deleted = std::move(ht.deleted);
 		ht.Clear();
 	}
 
