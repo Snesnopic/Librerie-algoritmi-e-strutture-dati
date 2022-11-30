@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.14)
-project(LASD VERSION 5.7 DESCRIPTION "Libreria Algoritmi e Strutture Dati")
+project(LASD DESCRIPTION "Libreria Algoritmi e Strutture Dati")
 
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_FLAGS -Wall)
-set(CMAKE_CXX_FLAGS -O0)
-set(CMAKE_CXX_FLAGS -ggdb3)
+SET(CMAKE_CXX_STANDARD 20)
+SET(CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 include_directories(.)
 include_directories(binarytree)
@@ -19,6 +19,7 @@ include_directories(queue/vec)
 include_directories(graph)
 include_directories(graph/graphmtrx)
 include_directories(graph/graphlst)
+include_directories(bimap)
 include_directories(stack)
 include_directories(stack/lst)
 include_directories(stack/vec)
@@ -45,7 +46,7 @@ include_directories(zlasdtest/vector)
 include_directories(zlasdtest/bst)
 include_directories(zmytest)
 
-add_executable(Librerie_algoritmi_e_strutture_dati
+add_executable(LASD
         zlasdtest/container/container.cpp
         zlasdtest/exercise1/simpletest.cpp
         zlasdtest/exercise2/simpletest.cpp
@@ -55,3 +56,6 @@ add_executable(Librerie_algoritmi_e_strutture_dati
         zlasdtest/test.cpp
         zmytest/test.cpp
         main.cpp)
+
+
+
