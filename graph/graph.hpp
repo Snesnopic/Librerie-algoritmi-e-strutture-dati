@@ -5,17 +5,17 @@
 
 #include "../container/container.hpp"
 #include "../iterator/iterator.hpp"
-#include "vector.hpp"
+#include "../vector/vector.hpp"
 
 /* ************************************************************************** */
 
 namespace lasd
 {
 	template<typename Data>
-	class Graph : virtual public DepthMappableContainer<Data>, virtual public DepthFoldableContainer<Data>, virtual public BreadthMappableContainer<Data>, virtual public BreadthFoldableContainer<Data>
+	class Graph : virtual public Container//: virtual public DepthMappableContainer<Data>, virtual public DepthFoldableContainer<Data>, virtual public BreadthMappableContainer<Data>, virtual public BreadthFoldableContainer<Data>
 	{
 	protected:
-		using BreadthMappableContainer<Data>::size;
+		using Container::size;
 	public:
 		[[nodiscard]] virtual unsigned long Vertices() const noexcept = 0;
 
@@ -27,7 +27,7 @@ namespace lasd
 
 		virtual void RemoveEdge(Data& v1, Data& v2) = 0;
 
-		virtual void AddVertex(Data& v1) = 0;
+		virtual void AddVertex(const Data& v1) = 0;
 
 		virtual void AddVertex(Data&& v1) noexcept = 0;
 
@@ -39,10 +39,10 @@ namespace lasd
 
 		virtual void AddEdge(const Data& v1, const Data& v2, bool isDirected) = 0;
 
-		virtual bool AreLinked(const Data& v1, const Data& v2) const = 0;
+		//virtual bool AreLinked(const Data& v1, const Data& v2) const = 0;
 
 		virtual bool AreDirectlyLinked(const Data& v1, const Data& v2) const = 0;
-
+/*
 		virtual double WalkWeight(const Data& v1, const Data& v2) const = 0;
 
 		[[nodiscard]] virtual bool IsAcyclic() const = 0;
@@ -58,29 +58,29 @@ namespace lasd
 		virtual Graph<Data> Converse() const = 0;
 
 		virtual Graph<Data> Reverse() const = 0;
-
+*/
 		virtual Vector<Data> LinksOf(Data& v1) const = 0;
 
 		// Specific member functions (inherited from MappableContainer)
-
+/*
 		using typename MappableContainer<Data>::MapFunctor;
 
 		void Map(MapFunctor f, void *par) override = 0; // Override MappableContainer member
 		void MapBreadth(MapFunctor f, void *par) override = 0;
 
 		void MapDepth(MapFunctor f, void *par) override = 0;
-
+*/
 		/* ************************************************************************ */
 
 		// Specific member functions (inherited from FoldableContainer)
+/*
+			using typename FoldableContainer<Data>::FoldFunctor;
 
-		using typename FoldableContainer<Data>::FoldFunctor;
+			void Fold(FoldFunctor f, const void *par, void *acc) const override = 0; // Override FoldableContainer member
+			void FoldBreadth(FoldFunctor f, const void *par, void *acc) const override = 0;
 
-		void Fold(FoldFunctor f, const void *par, void *acc) const override = 0; // Override FoldableContainer member
-		void FoldBreadth(FoldFunctor f, const void *par, void *acc) const override = 0;
-
-		void FoldDepth(FoldFunctor f, const void *par, void *acc) const override = 0;
-
+			void FoldDepth(FoldFunctor f, const void *par, void *acc) const override = 0;
+	*/
 	};
 
 	template<typename Data>
