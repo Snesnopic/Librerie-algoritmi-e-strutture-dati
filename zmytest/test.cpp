@@ -1,22 +1,23 @@
+#include "../binarytree/lnk/binarytreelnk.hpp"
+#include "../binarytree/vec/binarytreevec.hpp"
+#include "../bst/bst.hpp"
 #include "../container/container.hpp"
-#include "../vector/vector.hpp"
+#include "../hashtable/clsadr/htclsadr.hpp"
+#include "../hashtable/opnadr/htopnadr.hpp"
 #include "../list/list.hpp"
-#include "../zlasdtest/test.hpp"
+#include "../matrix/matrix.hpp"
 #include "../queue/lst/queuelst.hpp"
 #include "../queue/vec/queuevec.hpp"
 #include "../stack/lst/stacklst.hpp"
 #include "../stack/vec/stackvec.hpp"
-#include "../binarytree/lnk/binarytreelnk.hpp"
-#include "../binarytree/vec/binarytreevec.hpp"
-#include "../bst/bst.hpp"
-#include "../hashtable/clsadr/htclsadr.hpp"
-#include "../hashtable/opnadr/htopnadr.hpp"
-#include "../matrix/matrix.hpp"
-#include <type_traits>
+#include "../vector/vector.hpp"
+#include "../zlasdtest/test.hpp"
+#include "../graph/graphlst/graphlst.hpp"
+#include <cmath>
 #include <iostream>
 #include <random>
-#include <cmath>
 #include <sstream>
+#include <type_traits>
 
 using namespace std;
 using namespace lasd;
@@ -1522,6 +1523,8 @@ void matrixtest()
 
 void mytest()
 {
+	GraphLst<int> graphLst;
+	graphLst.AddVertex(1);
 	bool selection = false;
 	while (!selection)
 	{
