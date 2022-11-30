@@ -6,18 +6,24 @@ namespace lasd
 	template <typename KeyType, typename ValueType>
 	void Bimap<KeyType,ValueType>::Set(const KeyType& key, const ValueType& value)
 	{
-		normalMap.insert(key, value);
-		reverseMap[value].insert(key);
+		normalMap.emplace(key, value);
+		reverseMap.emplace(value, key);
 	}
 
 	template <typename KeyType, typename ValueType>
-	KeyType& Bimap<KeyType,ValueType>::KeyOfValue(const ValueType &value)
+	void Bimap<KeyType,ValueType>::Set(KeyType&& key, ValueType&& value)
+	{
+		normalMap.emplace(std::move(key), std::move(value));
+		reverseMap.emplace(std::move(value), std::move(key));
+	}
+	template <typename KeyType, typename ValueType>
+	const KeyType& Bimap<KeyType,ValueType>::KeyOfValue(const ValueType& value) const
 	{
 		return reverseMap.at(value);
 	}
 
 	template <typename KeyType, typename ValueType>
-	ValueType& Bimap<KeyType,ValueType>::ValueOfKey(const KeyType &key)
+	const ValueType& Bimap<KeyType,ValueType>::ValueOfKey(const KeyType& key) const
 	{
 		return normalMap.at(key);
 	}
@@ -25,17 +31,11 @@ namespace lasd
 	template <typename KeyType, typename ValueType>
 	bool Bimap<KeyType,ValueType>::RemoveKey(const KeyType& key)
 	{
-
-		auto exists = HasValue(key);
+		auto exists = normalMap.contains(key);
 		if (exists)
 		{
-			auto &value = valueForKey(key);
-			auto &keys = keysForValue(value);
-			keys.erase(key);
-			if (keys.empty())
-				reverseMap.erase(value);
-
 			normalMap.erase(key);
+			reverseMap.erase(ValueOfKey(key));
 		}
 		return exists;
 	}
@@ -43,12 +43,10 @@ namespace lasd
 	template <typename KeyType, typename ValueType>
 	bool Bimap<KeyType,ValueType>::RemoveValue(const ValueType& value)
 	{
-		auto exists = HasValue(value);
+		auto exists = reverseMap.contains(value);
 		if (exists)
 		{
-			auto &keys = keysForValue(value);
-			for (auto item : keys)
-				normalMap.erase(item);
+			normalMap.erase(KeyOfValue(value));
 			reverseMap.erase(value);
 		}
 		return exists;
@@ -83,4 +81,16 @@ namespace lasd
 	{
 		return normalMap;
 	};
+/*
+	template <typename KeyType, typename ValueType>
+	KeyType& Bimap<KeyType,ValueType>::operator[](const ValueType& value) const
+	{
+		return reverseMap[value];
+	}
+
+	template <typename KeyType, typename ValueType>
+	ValueType& Bimap<KeyType,ValueType>::operator[](const KeyType& key) const
+	{
+		return normalMap[key];
+	}*/
 }
