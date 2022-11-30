@@ -1,3 +1,4 @@
+#include "../vector/vector.hpp"
 namespace lasd
 {
 
