@@ -28,9 +28,9 @@ namespace lasd
 
 		const std::map<ValueType, KeyType>& ValueMap() const;
 		const std::map<KeyType, ValueType>& KeyMap() const;
-        /*
+
 		KeyType& operator[](const ValueType& value) const;
-		ValueType& operator[](const KeyType& key) const;*/
+		ValueType& operator[](const KeyType& key) const;
 	};
 }
 #include "bimap.cpp"

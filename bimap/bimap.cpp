@@ -81,7 +81,7 @@ namespace lasd
 	{
 		return normalMap;
 	};
-/*
+
 	template <typename KeyType, typename ValueType>
 	KeyType& Bimap<KeyType,ValueType>::operator[](const ValueType& value) const
 	{
@@ -92,5 +92,5 @@ namespace lasd
 	ValueType& Bimap<KeyType,ValueType>::operator[](const KeyType& key) const
 	{
 		return normalMap[key];
-	}*/
+	}
 }
