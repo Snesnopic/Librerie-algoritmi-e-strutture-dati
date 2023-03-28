@@ -92,7 +92,7 @@ namespace lasd
 	template<typename Data>
 	bool Matrix<Data>::operator==(const Matrix& m) const noexcept
 	{
-		if (size != m.size && cols != m.cols && rows != m.rows)
+		if (size == m.size && cols == m.cols && rows == m.rows)
 		{
 			for (unsigned long i = 0; i < rows; ++i)
 			{
@@ -111,7 +111,7 @@ namespace lasd
 	template<typename Data>
 	bool Matrix<Data>::operator!=(const Matrix& m) const noexcept
 	{
-		return *this != m;
+		return !(*this == m);
 	}
 
 	/* ************************************************************************ */
