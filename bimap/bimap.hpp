@@ -27,8 +27,8 @@ namespace lasd
 		[[nodiscard]] unsigned long Size() const;
 
 		const std::map<ValueType, KeyType>& ValueMap() const;
-		const std::unordered_map<KeyType, ValueType>& KeyMap() const;
-		/*
+		const std::map<KeyType, ValueType>& KeyMap() const;
+        /*
 		KeyType& operator[](const ValueType& value) const;
 		ValueType& operator[](const KeyType& key) const;*/
 	};

@@ -77,7 +77,7 @@ namespace lasd
 	};
 
 	template <typename KeyType, typename ValueType>
-	const std::unordered_map<KeyType, ValueType>& Bimap<KeyType,ValueType>::KeyMap() const
+	const std::map<KeyType, ValueType>& Bimap<KeyType,ValueType>::KeyMap() const
 	{
 		return normalMap;
 	};
