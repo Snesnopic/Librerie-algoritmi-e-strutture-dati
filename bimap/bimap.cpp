@@ -13,8 +13,10 @@ namespace lasd
 	template <typename KeyType, typename ValueType>
 	void Bimap<KeyType,ValueType>::Set(KeyType&& key, ValueType&& value)
 	{
-		normalMap.emplace(std::move(key), std::move(value));
-		reverseMap.emplace(std::move(value), std::move(key));
+        auto keyTemp = std::move(key);
+        auto valueTemp = std::move(value);
+		normalMap.emplace(keyTemp, valueTemp);
+		reverseMap.emplace(valueTemp, keyTemp);
 	}
 	template <typename KeyType, typename ValueType>
 	const KeyType& Bimap<KeyType,ValueType>::KeyOfValue(const ValueType& value) const
