@@ -73,9 +73,9 @@ namespace lasd
     ValMatrix<Data> ValMatrix<Data>::Transpose()
     {
         ValMatrix<Data> newMatrix(cols,rows);
-        for(int i = 0; i < rows; ++i)
+        for(std::size_t i = 0; i < rows; ++i)
         {
-            for(int j = 0; j < cols; ++j)
+            for(std::size_t j = 0; j < cols; ++j)
             {
                 newMatrix[j][i] = matrix[i][j];
             }
@@ -89,9 +89,9 @@ namespace lasd
         if(rows == other.rows && cols == other.cols)
         {
             ValMatrix<Data> newMatrix(rows,cols);
-            for(int i = 0; i < rows; ++i)
+            for(std::size_t i = 0; i < rows; ++i)
             {
-                for(int j = 0; j < cols; ++j)
+                for(std::size_t j = 0; j < cols; ++j)
                 {
                     newMatrix[i][j] = matrix[i][j] + other.matrix[i][j];
                 }
@@ -114,9 +114,9 @@ namespace lasd
         if(rows == other.rows && cols == other.cols)
         {
             ValMatrix<Data> newMatrix(rows,cols);
-            for(int i = 0; i < rows; ++i)
+            for(std::size_t i = 0; i < rows; ++i)
             {
-                for(int j = 0; j < cols; ++j)
+                for(std::size_t j = 0; j < cols; ++j)
                 {
                     newMatrix[i][j] = matrix[i][j] * other;
                 }
@@ -129,12 +129,12 @@ namespace lasd
     ValMatrix<Data> ValMatrix<Data>::SubMatrixRemoving(std::size_t rowToExclude,std::size_t colToExclude)
     {
         ValMatrix<Data> subMatrix;
-        for(int i = 0; i < rows; ++i)
+        for(std::size_t i = 0; i < rows; ++i)
         {
             if(i != rowToExclude)
             {
                 Vector<Data> rowVec;
-                for(int j = 0; j < cols; ++j)
+                for(std::size_t j = 0; j < cols; ++j)
                 {
                     if(j != colToExclude)
                     {
@@ -157,8 +157,8 @@ namespace lasd
             return (matrix[0][0] * matrix[1][1]) - (matrix[0][1] * matrix[1][0]);
 
         Data det{};
-        int sign = 1;
-        for(int i = 0; i < rows; ++i)
+        short sign = 1;
+        for(std::size_t i = 0; i < rows; ++i)
         {
             auto subMatrix = SubMatrixRemoving(0,i);
             det += sign * matrix[0][i] * subMatrix.Determinant();
