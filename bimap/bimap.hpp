@@ -8,8 +8,8 @@ namespace lasd
 	class Bimap
 	{
 	protected:
-		std::map<KeyType, ValueType> normalMap{};
-		std::map<ValueType, KeyType> reverseMap{};
+		std::unordered_map<KeyType, ValueType> normalMap{};
+		std::unordered_map<ValueType, KeyType> reverseMap{};
 
 	public:
 		void Set(const KeyType& key, const ValueType& value);
@@ -26,8 +26,8 @@ namespace lasd
 
 		[[nodiscard]] unsigned long Size() const;
 
-		const std::map<ValueType, KeyType>& ValueMap() const;
-		const std::map<KeyType, ValueType>& KeyMap() const;
+		const std::unordered_map<ValueType, KeyType>& ValueMap() const;
+		const std::unordered_map<KeyType, ValueType>& KeyMap() const;
 
 		KeyType& operator[](const ValueType& value) const;
 		ValueType& operator[](const KeyType& key) const;
