@@ -2,7 +2,6 @@
 #define LASD_VALMATRIX_HPP
 
 #include "../matrix.hpp"
-#include <valarray>
 
 namespace lasd
 {
