@@ -13,6 +13,7 @@
 #include "../vector/vector.hpp"
 #include "../zlasdtest/test.hpp"
 #include "../graph/graphlst/graphlst.hpp"
+#include "valmatrix.hpp"
 #include <cmath>
 #include <iostream>
 #include <random>
@@ -835,6 +836,64 @@ void matrixtest(Matrix<Data>& m)
 	}
 }
 
+template<typename Data>
+void valmatrixtest(ValMatrix<Data>& m)
+{
+    bool selection = false;
+    while (!selection)
+    {
+        cout << "0. Torna indietro" << endl << "1. Stampa tutti gli elementi in ordine" << endl << "2. Stampa tutti gli elementi in pre-ordine" << endl << "3. Stampa tutti gli elementi a zig-zag" << endl << "4. Calcola il determinante" << endl
+             << "5. Stampa la matrice inversa" << endl << "6. Applica funzione map a tutti gli elementi" << endl;
+        string input;
+        cin >> input;
+        int testtype = stoi(input);
+        switch (testtype)
+        {
+            case 0:
+                selection = true;
+                break;
+            case 1:
+                m.Map(&MapPrint<Data>, nullptr);
+                cout << endl;
+                break;
+            case 2:
+                m.MapPreOrder(&MapPrint<Data>, nullptr);
+                cout << endl;
+                break;
+            case 3:
+                m.MapBreadth(&MapPrint<Data>, nullptr);
+                cout << endl;
+                break;
+            case 4:
+            {
+                cout << endl << "Il determinante è:   " << m.Determinant() << endl;
+                break;
+            }
+            case 5:
+            {
+                m.Inverse().Map(&MapPrint<Data>, nullptr);
+            }
+            case 6:
+                if constexpr (is_same<Data, int>::value)
+                {
+                    cout << "Funzione map per questo tipo di dato: 2n" << endl;
+                    short a = 2;
+                    m.Map(&MapMultiply<int>, &a);
+                    cout << "Fatto, prova a stampare" << endl;
+                }
+                if constexpr (is_same<Data, double>::value)
+                {
+                    cout << "Funzione map per questo tipo di dato: n^2;" << endl;
+                    short a = 2;
+                    m.Map(&MapPower<double>, &a);
+                    cout << "Fatto, prova a stampare" << endl;
+                }
+                break;
+            default:
+                cout << "Errore di input" << endl;
+        }
+    }
+}
 
 void vectortest()
 {
@@ -1521,16 +1580,68 @@ void matrixtest()
 	}
 }
 
+void valmatrixtest()
+{
+    unsigned long rowSize, colSize;
+    cout << "Quanto rendere grande la matrice?" << std::endl << "Righe: ";
+    string input;
+    cin >> input;
+    rowSize = stoi(input);
+    cout << "Colonne: ";
+    cin >> input;
+    colSize = stoi(input);
+    bool selection = false;
+    while (!selection)
+    {
+        int testtype;
+        cout << endl << "Che tipo di dato vuoi usare?" << endl << "1. Test su Int" << endl << "2. Test su Double" << endl << "0. Torna indietro" << endl;
+        cin >> input;
+        testtype = stoi(input);
+        switch (testtype)
+        {
+            case 0:
+                selection = true;
+                break;
+            case 1:
+            {
+                uniform_int_distribution<int> dist(-100, 100);
+                ValMatrix<int> m(rowSize, colSize);
+                for (unsigned long i = 0; i < rowSize; ++i)
+                {
+                    for (unsigned long j = 0; j < colSize; ++j)
+                        m[i][j] = dist(gen);
+                }
+                valmatrixtest(m);
+                break;
+            }
+            case 2:
+            {
+                uniform_real_distribution<double> dist(0, 100);
+                ValMatrix<double> m(rowSize, colSize);
+                for (unsigned long i = 0; i < rowSize; ++i)
+                {
+                    for (unsigned long j = 0; j < colSize; ++j)
+                        m[i][j] = round(dist(gen) * 1000.0) / 1000.0;
+                }
+                valmatrixtest(m);
+                break;
+            }
+            default:
+                cout << "Input non valido" << endl;
+        }
+    }
+}
+
+
 void mytest()
 {
-	GraphLst<int> graphLst;
-	graphLst.AddVertex(1);
 	bool selection = false;
 	while (!selection)
 	{
 		auto testtype = 0;
-		cout << endl << "Test menu' " << endl << "0. Esci" << endl << "1. Test su List" << endl << "2. Test su Vector" << endl << "3. Test su Stack" << endl << "4. Test su Queue" << endl << "5. Test su Binarytree" << endl << "6. Test su BST" << endl << "7. Test su Hashmap" << endl
-			 << "8. Test su Matrix" << endl << "9. Test del professore" << endl;
+		cout << endl << "Test menu' " << endl << "0. Esci" << endl << "1. Test su List" << endl << "2. Test su Vector"
+        << endl << "3. Test su Stack" << endl << "4. Test su Queue" << endl << "5. Test su Binarytree" << endl << "6. Test su BST" << endl << "7. Test su Hashmap" << endl
+			 << "8. Test su Matrix" << endl <<"9. Test su ValMatrix" << endl <<"10. Test del professore" << endl;
 		string input;
 		cin >> input;
 		testtype = stoi(input);
@@ -1563,11 +1674,12 @@ void mytest()
 			case 8:
 				matrixtest();
 				break;
-			case 9:
-			{
+            case 9:
+                valmatrixtest();
+                break;
+			case 10:
 				lasdtest();
 				break;
-			}
 			default:
 				cout << "Input non valido" << endl;
 		}
