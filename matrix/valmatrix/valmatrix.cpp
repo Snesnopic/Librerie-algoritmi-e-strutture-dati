@@ -129,12 +129,12 @@ namespace lasd
     ValMatrix<Data> ValMatrix<Data>::SubMatrixRemoving(std::size_t rowToExclude,std::size_t colToExclude)
     {
         ValMatrix<Data> subMatrix;
-        for(int i = 0; i < rows; i++)
+        for(int i = 0; i < rows; ++i)
         {
             if(i != rowToExclude)
             {
                 Vector<Data> rowVec;
-                for(int j = 0; j < cols; j++)
+                for(int j = 0; j < cols; ++j)
                 {
                     if(j != colToExclude)
                     {

@@ -177,7 +177,7 @@ namespace lasd
 			if(array[i] != d ||  found)
 			{
 				tmp[j] = array[i];
-				j++;
+				++j;
 			}
 			else
 			{
