@@ -184,7 +184,7 @@ namespace lasd
 	Vector<Data>& Matrix<Data>::Row(const unsigned long rowIndex) const
 	{
 		if (rowIndex >= rows)
-			throw std::length_error("Index out of bounds!");
+			throw std::out_of_range("Index out of bounds!");
 
 		return matrix[rowIndex];
 	}
@@ -193,7 +193,7 @@ namespace lasd
 	Vector<Data>& Matrix<Data>::Col(const unsigned long colIndex) const
 	{
 		if (colIndex >= cols)
-			throw std::length_error("Index out of bounds!");
+			throw std::out_of_range("Index out of bounds!");
 
 		Vector<Data> v(rows);
 		for (unsigned long i = 0; i < rows; ++i)
@@ -207,7 +207,7 @@ namespace lasd
 	Matrix<Data>& Matrix<Data>::SubMatrix(const unsigned long endRow, const unsigned long endCol)
 	{
 		if (endRow > rows || endCol > cols)
-			throw std::length_error("Index out of bounds!");
+			throw std::out_of_range("Index out of bounds!");
 		Matrix<Data> m(endRow, endCol);
 		for (unsigned long i = 0; i < endRow; ++i)
 		{
