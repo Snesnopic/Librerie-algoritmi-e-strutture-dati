@@ -13,7 +13,7 @@
 #include "../vector/vector.hpp"
 #include "../zlasdtest/test.hpp"
 #include "../graph/graphlst/graphlst.hpp"
-#include "valmatrix.hpp"
+#include "../matrix/valmatrix/valmatrix.hpp"
 #include <cmath>
 #include <iostream>
 #include <random>
