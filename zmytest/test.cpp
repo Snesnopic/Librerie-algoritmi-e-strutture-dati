@@ -32,7 +32,7 @@ string GeneraStringaCasuale(const unsigned int lunghezza)
 	constexpr string_view validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 	uniform_int_distribution<int> dist(0, validChars.size() - 1);
 	ostringstream oss;
-	for (unsigned long i = 0; i < lunghezza; ++i)
+	for (std::size_t i = 0; i < lunghezza; ++i)
 	{
 		oss << validChars[dist(gen)];
 	}
@@ -70,7 +70,7 @@ void FoldProductMoreThanN(const Data& dat, const void *_, void *acc)
 template<typename Data>
 void FoldConcatLessEqualN(const Data& dat, const void *_, void *acc)
 {
-	if (dat.length() <= *(static_cast<const unsigned long *>(_)))
+	if (dat.length() <= *(static_cast<const std::size_t *>(_)))
 		*(static_cast<Data *>(acc)) += dat;
 }
 
@@ -160,7 +160,7 @@ void vectortest(Vector<Data>& v)
 				if constexpr (is_same<Data, string>::value)
 				{
 					cout << "Funzione fold per questo tipo di dato: Concatenazione con lunghezza minore o uguale a n;" << endl << "Inserisci n:   ";
-					unsigned long n{};
+					std::size_t n{};
 					cin >> n;
 					string result;
 					v.Fold(&FoldConcatLessEqualN<Data>, &n, &result);
@@ -251,7 +251,7 @@ void listtest(List<Data>& l)
 				if constexpr (is_same<Data, string>::value)
 				{
 					cout << "Funzione fold per questo tipo di dato: Concatenazione con lunghezza minore o uguale a n;" << endl << "Inserisci n:   ";
-					unsigned long n{};
+					std::size_t n{};
 					cin >> n;
 					string result;
 					l.Fold(&FoldConcatLessEqualN<Data>, &n, &result);
@@ -497,7 +497,7 @@ void binarytreetest(BinaryTree<Data>& bt)
 				if constexpr (is_same<Data, string>::value)
 				{
 					cout << "Funzione fold per questo tipo di dato: Concatenazione con lunghezza minore o uguale a n;" << endl << "Inserisci n:   ";
-					unsigned long n{};
+					std::size_t n{};
 					cin >> n;
 					string result;
 					bt.Fold(&FoldConcatLessEqualN<Data>, &n, &result);
@@ -613,7 +613,7 @@ void bsttest(BST<Data>& bst)
 				if constexpr (is_same<Data, string>::value)
 				{
 					cout << "Funzione fold per questo tipo di dato: Concatenazione con lunghezza minore o uguale a n;" << endl << "Inserisci n:   ";
-					unsigned long n{};
+					std::size_t n{};
 					cin >> n;
 					string result;
 					bst.Fold(&FoldConcatLessEqualN<Data>, &n, &result);
@@ -709,7 +709,7 @@ void hashtabletest(HashTable<Data>& hash)
 				if constexpr (is_same<Data, string>::value)
 				{
 					cout << "Funzione fold per questo tipo di dato: Concatenazione con lunghezza minore o uguale a n;" << endl << "Inserisci n:   ";
-					unsigned long n{};
+					std::size_t n{};
 					cin >> n;
 					string result;
 					hash.Fold(&FoldConcatLessEqualN<Data>, &n, &result);
@@ -800,7 +800,7 @@ void matrixtest(Matrix<Data>& m)
 				if constexpr (is_same<Data, string>::value)
 				{
 					cout << "Funzione fold per questo tipo di dato: Concatenazione con lunghezza minore o uguale a n;" << endl << "Inserisci n:   ";
-					unsigned long n{};
+					std::size_t n{};
 					cin >> n;
 					string result;
 					m.Fold(&FoldConcatLessEqualN<Data>, &n, &result);
@@ -897,7 +897,7 @@ void valmatrixtest(ValMatrix<Data>& m)
 
 void vectortest()
 {
-	unsigned long size;
+	std::size_t size;
 	cout << "Quanto rendere grande il vettore?: ";
 	string input;
 	cin >> input;
@@ -918,7 +918,7 @@ void vectortest()
 			{
 				uniform_int_distribution<int> dist(-100, 100);
 				Vector<int> v(size);
-				for (unsigned long i = 0; i < size; ++i)
+				for (std::size_t i = 0; i < size; ++i)
 				{
 					v[i] = dist(gen);
 				}
@@ -930,7 +930,7 @@ void vectortest()
 				uniform_real_distribution<double> dist(0, 100);
 
 				Vector<double> v(size);
-				for (unsigned long i = 0; i < size; ++i)
+				for (std::size_t i = 0; i < size; ++i)
 				{
 					v[i] = round(dist(gen) * 1000.0) / 1000.0;
 				}
@@ -942,7 +942,7 @@ void vectortest()
 				uniform_int_distribution<int> dist(2, 5);
 
 				Vector<string> v(size);
-				for (unsigned long i = 0; i < size; ++i)
+				for (std::size_t i = 0; i < size; ++i)
 				{
 					v[i] = GeneraStringaCasuale(dist(gen));
 				}
@@ -957,7 +957,7 @@ void vectortest()
 
 void listtest()
 {
-	unsigned long size;
+	std::size_t size;
 	cout << "Quanto rendere grande la lista?: ";
 	cin >> size;
 	bool selection = false;
@@ -977,7 +977,7 @@ void listtest()
 			{
 				uniform_int_distribution<int> dist(-100, 100);
 				List<int> l;
-				for (unsigned long i = 0; i < size; ++i)
+				for (std::size_t i = 0; i < size; ++i)
 				{
 					l.InsertAtBack(dist(gen));
 				}
@@ -989,7 +989,7 @@ void listtest()
 				uniform_real_distribution<double> dist(0, 100);
 
 				List<double> l;
-				for (unsigned long i = 0; i < size; ++i)
+				for (std::size_t i = 0; i < size; ++i)
 				{
 					l.InsertAtBack(round(dist(gen) * 1000.0) / 1000.0);
 				}
@@ -1000,7 +1000,7 @@ void listtest()
 			{
 				uniform_int_distribution<int> dist(2, 5);
 				List<string> l;
-				for (unsigned long i = 0; i < size; ++i)
+				for (std::size_t i = 0; i < size; ++i)
 				{
 					l.InsertAtBack(GeneraStringaCasuale(dist(gen)));
 				}
@@ -1036,7 +1036,7 @@ void stacktest()
 		}
 	}
 	testtype = 0;
-	unsigned long size;
+	std::size_t size;
 	cout << "Quanto rendere grande lo stack?: ";
 	string input;
 	cin >> input;
@@ -1058,7 +1058,7 @@ void stacktest()
 				if (usevec)
 				{
 					StackVec<int> s;
-					for (unsigned long i = 0; i < size; ++i)
+					for (std::size_t i = 0; i < size; ++i)
 					{
 						s.Push(dist(gen));
 					}
@@ -1077,7 +1077,7 @@ void stacktest()
 				if (usevec)
 				{
 					StackVec<double> s;
-					for (unsigned long i = 0; i < size; ++i)
+					for (std::size_t i = 0; i < size; ++i)
 					{
 						s.Push(round(dist(gen) * 1000.0) / 1000.0);
 					}
@@ -1086,7 +1086,7 @@ void stacktest()
 				else
 				{
 					StackLst<double> s;
-					for (unsigned long i = 0; i < size; ++i)
+					for (std::size_t i = 0; i < size; ++i)
 					{
 						s.Push(round(dist(gen) * 1000.0) / 1000.0);
 					}
@@ -1100,7 +1100,7 @@ void stacktest()
 				if (usevec)
 				{
 					StackVec<string> s;
-					for (unsigned long i = 0; i < size; ++i)
+					for (std::size_t i = 0; i < size; ++i)
 					{
 						s.Push(GeneraStringaCasuale(dist(gen)));
 					}
@@ -1109,7 +1109,7 @@ void stacktest()
 				else
 				{
 					StackLst<string> s;
-					for (unsigned long i = 0; i < size; ++i)
+					for (std::size_t i = 0; i < size; ++i)
 					{
 						s.Push(GeneraStringaCasuale(dist(gen)));
 					}
@@ -1144,7 +1144,7 @@ void queuetest()
 		}
 	}
 	testtype = 0;
-	unsigned long size;
+	std::size_t size;
 	cout << "Quanto rendere grande la queue?: ";
 	string input;
 	cin >> input;
@@ -1166,7 +1166,7 @@ void queuetest()
 				if (usevec)
 				{
 					QueueVec<int> q;
-					for (unsigned long i = 0; i < size; ++i)
+					for (std::size_t i = 0; i < size; ++i)
 					{
 						q.Enqueue(dist(gen));
 					}
@@ -1175,7 +1175,7 @@ void queuetest()
 				else
 				{
 					QueueLst<int> q;
-					for (unsigned long i = 0; i < size; ++i)
+					for (std::size_t i = 0; i < size; ++i)
 					{
 						q.Enqueue(dist(gen));
 					}
@@ -1189,7 +1189,7 @@ void queuetest()
 				if (usevec)
 				{
 					QueueVec<double> q;
-					for (unsigned long i = 0; i < size; ++i)
+					for (std::size_t i = 0; i < size; ++i)
 					{
 						q.Enqueue(round(dist(gen) * 1000.0) / 1000.0);
 					}
@@ -1198,7 +1198,7 @@ void queuetest()
 				else
 				{
 					QueueLst<double> q;
-					for (unsigned long i = 0; i < size; ++i)
+					for (std::size_t i = 0; i < size; ++i)
 					{
 						q.Enqueue(round(dist(gen) * 1000.0) / 1000.0);
 					}
@@ -1212,7 +1212,7 @@ void queuetest()
 				if (usevec)
 				{
 					QueueVec<string> q;
-					for (unsigned long i = 0; i < size; ++i)
+					for (std::size_t i = 0; i < size; ++i)
 					{
 						q.Enqueue(GeneraStringaCasuale(dist(gen)));
 					}
@@ -1221,7 +1221,7 @@ void queuetest()
 				else
 				{
 					QueueLst<string> q;
-					for (unsigned long i = 0; i < size; ++i)
+					for (std::size_t i = 0; i < size; ++i)
 					{
 						q.Enqueue(GeneraStringaCasuale(dist(gen)));
 					}
@@ -1258,7 +1258,7 @@ void binarytreetest()
 		}
 	}
 	testtype = 0;
-	unsigned long size;
+	std::size_t size;
 	cout << "Quanto rendere grande l'albero?: ";
 	cin >> size;
 	bool selection = false;
@@ -1279,7 +1279,7 @@ void binarytreetest()
 				if (usevec)
 				{
 					Vector<int> v(size);
-					for (unsigned long i = 0; i < size; ++i)
+					for (std::size_t i = 0; i < size; ++i)
 					{
 						v[i] = dist(gen);
 					}
@@ -1289,7 +1289,7 @@ void binarytreetest()
 				else
 				{
 					List<int> l;
-					for (unsigned long i = 0; i < size; ++i)
+					for (std::size_t i = 0; i < size; ++i)
 					{
 						l.InsertAtFront(dist(gen));
 					}
@@ -1304,7 +1304,7 @@ void binarytreetest()
 				if (usevec)
 				{
 					Vector<double> v(size);
-					for (unsigned long i = 0; i < size; ++i)
+					for (std::size_t i = 0; i < size; ++i)
 					{
 						v[i] = round(dist(gen) * 1000.0) / 1000.0;
 					}
@@ -1314,7 +1314,7 @@ void binarytreetest()
 				else
 				{
 					List<double> l;
-					for (unsigned long i = 0; i < size; ++i)
+					for (std::size_t i = 0; i < size; ++i)
 					{
 						l.InsertAtFront(round(dist(gen) * 1000.0) / 1000.0);
 					}
@@ -1329,7 +1329,7 @@ void binarytreetest()
 				if (usevec)
 				{
 					Vector<string> v(size);
-					for (unsigned long i = 0; i < size; ++i)
+					for (std::size_t i = 0; i < size; ++i)
 					{
 						v[i] = GeneraStringaCasuale(dist(gen));
 					}
@@ -1339,7 +1339,7 @@ void binarytreetest()
 				else
 				{
 					List<string> l;
-					for (unsigned long i = 0; i < size; ++i)
+					for (std::size_t i = 0; i < size; ++i)
 					{
 						l.InsertAtFront(GeneraStringaCasuale(dist(gen)));
 					}
@@ -1356,7 +1356,7 @@ void binarytreetest()
 
 void bsttest()
 {
-	unsigned long size;
+	std::size_t size;
 	cout << "Quanto rendere grande l'albero?: ";
 	cin >> size;
 	bool selection = false;
@@ -1437,7 +1437,7 @@ void hashtabletest()
 		}
 	}
 	testtype = 0;
-	unsigned long size;
+	std::size_t size;
 	cout << "Quanto rendere grande l'hash table?: ";
 	cin >> size;
 	bool selection = false;
@@ -1518,7 +1518,7 @@ void hashtabletest()
 
 void matrixtest()
 {
-	unsigned long rowSize, colSize;
+	std::size_t rowSize, colSize;
 	cout << "Quanto rendere grande la matrice?" << std::endl << "Righe: ";
 	string input;
 	cin >> input;
@@ -1542,9 +1542,9 @@ void matrixtest()
 			{
 				uniform_int_distribution<int> dist(-100, 100);
 				Matrix<int> m(rowSize, colSize);
-				for (unsigned long i = 0; i < rowSize; ++i)
+				for (std::size_t i = 0; i < rowSize; ++i)
 				{
-					for (unsigned long j = 0; j < colSize; ++j)
+					for (std::size_t j = 0; j < colSize; ++j)
 						m[i][j] = dist(gen);
 				}
 				matrixtest(m);
@@ -1554,9 +1554,9 @@ void matrixtest()
 			{
 				uniform_real_distribution<double> dist(0, 100);
 				Matrix<double> m(rowSize, colSize);
-				for (unsigned long i = 0; i < rowSize; ++i)
+				for (std::size_t i = 0; i < rowSize; ++i)
 				{
-					for (unsigned long j = 0; j < colSize; ++j)
+					for (std::size_t j = 0; j < colSize; ++j)
 						m[i][j] = round(dist(gen) * 1000.0) / 1000.0;
 				}
 				matrixtest(m);
@@ -1566,9 +1566,9 @@ void matrixtest()
 			{
 				uniform_int_distribution<int> dist(2, 5);
 				Matrix<string> m(rowSize, colSize);
-				for (unsigned long i = 0; i < rowSize; ++i)
+				for (std::size_t i = 0; i < rowSize; ++i)
 				{
-					for (unsigned long j = 0; j < colSize; ++j)
+					for (std::size_t j = 0; j < colSize; ++j)
 						m[i][j] = GeneraStringaCasuale(dist(gen));
 				}
 				matrixtest(m);
@@ -1582,7 +1582,7 @@ void matrixtest()
 
 void valmatrixtest()
 {
-    unsigned long rowSize, colSize;
+    std::size_t rowSize, colSize;
     cout << "Quanto rendere grande la matrice?" << std::endl << "Righe: ";
     string input;
     cin >> input;
@@ -1606,9 +1606,9 @@ void valmatrixtest()
             {
                 uniform_int_distribution<int> dist(-100, 100);
                 ValMatrix<int> m(rowSize, colSize);
-                for (unsigned long i = 0; i < rowSize; ++i)
+                for (std::size_t i = 0; i < rowSize; ++i)
                 {
-                    for (unsigned long j = 0; j < colSize; ++j)
+                    for (std::size_t j = 0; j < colSize; ++j)
                         m[i][j] = dist(gen);
                 }
                 valmatrixtest(m);
@@ -1618,9 +1618,9 @@ void valmatrixtest()
             {
                 uniform_real_distribution<double> dist(0, 100);
                 ValMatrix<double> m(rowSize, colSize);
-                for (unsigned long i = 0; i < rowSize; ++i)
+                for (std::size_t i = 0; i < rowSize; ++i)
                 {
-                    for (unsigned long j = 0; j < colSize; ++j)
+                    for (std::size_t j = 0; j < colSize; ++j)
                         m[i][j] = round(dist(gen) * 1000.0) / 1000.0;
                 }
                 valmatrixtest(m);
