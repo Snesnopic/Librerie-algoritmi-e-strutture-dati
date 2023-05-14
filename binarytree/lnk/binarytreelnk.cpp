@@ -13,7 +13,7 @@ namespace lasd
 			bool is_left = true;
 			NodeLnk *cur = nullptr;
 			q.Enqueue(root);
-			for (unsigned long i = 1; i < lc.Size(); ++i)
+			for (std::size_t i = 1; i < lc.Size(); ++i)
 			{
 				auto *n = new NodeLnk(lc[i]);
 				q.Enqueue(n);

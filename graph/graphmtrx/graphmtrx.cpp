@@ -3,7 +3,7 @@
 namespace lasd
 {
 	template<typename Data>
-	GraphMtrx<Data>::GraphMtrx(const Vector<Data>& vertices, unsigned long expectedSize)
+	GraphMtrx<Data>::GraphMtrx(const Vector<Data>& vertices, std::size_t expectedSize)
 	{
 		indices = vertices;
 		size = std::max(expectedSize, indices.Size());
@@ -13,7 +13,7 @@ namespace lasd
 	GraphMtrx<Data>::GraphMtrx(const Vector<Data>& vertices):GraphMtrx(vertices, vertices.Size()) {};
 
 	template<typename Data>
-	GraphMtrx<Data>::GraphMtrx(unsigned long expectedSize): GraphMtrx(indices, expectedSize) {};
+	GraphMtrx<Data>::GraphMtrx(std::size_t expectedSize): GraphMtrx(indices, expectedSize) {};
 
 	template<typename Data>
 	GraphMtrx<Data>::GraphMtrx(const GraphMtrx<Data>& gm)
@@ -32,13 +32,13 @@ namespace lasd
 	}
 
 	template<typename Data>
-	[[nodiscard]] unsigned long GraphMtrx<Data>::Vertices() const noexcept
+	[[nodiscard]] std::size_t GraphMtrx<Data>::Vertices() const noexcept
 	{
 
 	}
 
 	template<typename Data>
-	[[nodiscard]] unsigned long GraphMtrx<Data>::Edges() const noexcept
+	[[nodiscard]] std::size_t GraphMtrx<Data>::Edges() const noexcept
 	{
 
 	}
@@ -50,7 +50,7 @@ namespace lasd
 	}
 
 	template<typename Data>
-	unsigned long GraphMtrx<Data>::DegreeOf(const Data& v1) const
+	std::size_t GraphMtrx<Data>::DegreeOf(const Data& v1) const
 	{
 
 	}

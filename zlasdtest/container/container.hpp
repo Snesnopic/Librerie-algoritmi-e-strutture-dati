@@ -9,7 +9,7 @@
 
 void Empty(unsigned int&, unsigned int&, const lasd::Container&, bool);
 
-void Size(unsigned int&, unsigned int&, const lasd::Container&, bool, unsigned long);
+void Size(unsigned int&, unsigned int&, const lasd::Container&, bool, std::size_t);
 
 /* ************************************************************************** */
 
@@ -238,7 +238,7 @@ void SetBack(unsigned int& testnum, unsigned int& testerr, const lasd::LinearCon
 }
 
 template<typename Data>
-void GetAt(unsigned int& testnum, unsigned int& testerr, lasd::LinearContainer<Data>& con, bool chk, const unsigned long& ind, const Data& val)
+void GetAt(unsigned int& testnum, unsigned int& testerr, lasd::LinearContainer<Data>& con, bool chk, const std::size_t& ind, const Data& val)
 {
 	bool tst;
 	testnum++;
@@ -260,7 +260,7 @@ void GetAt(unsigned int& testnum, unsigned int& testerr, lasd::LinearContainer<D
 }
 
 template<typename Data>
-void SetAt(unsigned int& testnum, unsigned int& testerr, lasd::LinearContainer<Data>& con, bool chk, const unsigned long& ind, const Data& val)
+void SetAt(unsigned int& testnum, unsigned int& testerr, lasd::LinearContainer<Data>& con, bool chk, const std::size_t& ind, const Data& val)
 {
 	bool tst;
 	testnum++;

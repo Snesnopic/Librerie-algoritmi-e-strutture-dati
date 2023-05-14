@@ -35,7 +35,7 @@ namespace lasd
 		Vector<bool> deleted{};
 
 		// Hash function
-		unsigned long HashKey(const Data& d) const override;
+		std::size_t HashKey(const Data& d) const override;
 
 	public:
 
@@ -45,11 +45,11 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Specific constructors
-		explicit HashTableOpnAdr(unsigned long s); // A hash table of a given size
+		explicit HashTableOpnAdr(std::size_t s); // A hash table of a given size
 
 		explicit HashTableOpnAdr(const LinearContainer<Data>& lc); // A hash table obtained from a LinearContainer
 
-		HashTableOpnAdr(unsigned long s, const LinearContainer<Data>& lc);// A hash table of a given size obtained from a LinearContainer
+		HashTableOpnAdr(std::size_t s, const LinearContainer<Data>& lc);// A hash table of a given size obtained from a LinearContainer
 
 
 		/* ************************************************************************ */
@@ -84,7 +84,7 @@ namespace lasd
 
 		// Specific member functions (inherited from HashTable)
 
-		void Resize(unsigned long s) override; // Resize the hashtable to a given size
+		void Resize(std::size_t s) override; // Resize the hashtable to a given size
 
 		/* ************************************************************************ */
 

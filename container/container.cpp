@@ -8,7 +8,7 @@ namespace lasd
 		return (size == 0);
 	}
 
-	inline unsigned long Container::Size() const noexcept
+	inline std::size_t Container::Size() const noexcept
 	{
 		return size;
 	}
@@ -19,7 +19,7 @@ namespace lasd
 	{
 		if (size != lc.Size())
 			return false;
-		for (unsigned long i = 0; i < size; ++i)
+		for (std::size_t i = 0; i < size; ++i)
 		{
 			if (operator[](i) != lc[i])
 				return false;
@@ -58,7 +58,7 @@ namespace lasd
 	template<typename Data>
 	void DictionaryContainer<Data>::Insert(const LinearContainer<Data>& lc)// Copy of the value
 	{
-		for (unsigned long i = 0; i < lc.Size(); ++i)
+		for (std::size_t i = 0; i < lc.Size(); ++i)
 		{
 			Insert(lc[i]);
 		}
@@ -67,7 +67,7 @@ namespace lasd
 	template<typename Data>
 	void DictionaryContainer<Data>::Insert(LinearContainer<Data>&& lc) noexcept // Move of the value
 	{
-		for (unsigned long i = 0; i < lc.Size(); ++i)
+		for (std::size_t i = 0; i < lc.Size(); ++i)
 		{
 			Insert(std::move(lc[i]));
 		}
@@ -76,7 +76,7 @@ namespace lasd
 	template<typename Data>
 	void DictionaryContainer<Data>::Remove(const LinearContainer<Data>& lc) // Override DictionaryContainer member
 	{
-		for (unsigned long i = 0; i < lc.Size(); ++i)
+		for (std::size_t i = 0; i < lc.Size(); ++i)
 		{
 			Remove(lc[i]);
 		}

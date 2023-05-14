@@ -46,8 +46,8 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Specific constructors
-		explicit Vector(unsigned long initialSize); // A vector with a given initial dimension
-		Vector(unsigned long initialSize, Data defaultValue);
+		explicit Vector(std::size_t initialSize); // A vector with a given initial dimension
+		Vector(std::size_t initialSize, Data defaultValue);
 
 		explicit Vector(const LinearContainer<Data>& lc); // A vector obtained from a LinearContainer
 
@@ -91,13 +91,13 @@ namespace lasd
 
 		bool Remove(const Data& d) override;
 
-		void Resize(unsigned long newSize); // Resize the vector to a given size
+		void Resize(std::size_t newSize); // Resize the vector to a given size
 		void Sort() noexcept override; // Sort the vector in ascending order
 		void SortAscending() noexcept override;
 
 		void SortDescending() noexcept override;
 
-		unsigned long GetIndexOf(const Data& d) const;
+		std::size_t GetIndexOf(const Data& d) const;
 
 		explicit operator std::vector<Data>() const override;
 
@@ -114,7 +114,7 @@ namespace lasd
 		Data& Front() const override; // Override LinearContainer member (must throw std::length_error when empty)
 		Data& Back() const override; // Override LinearContainer member (must throw std::length_error when empty)
 
-		Data& operator[](unsigned long index) const override; // Override LinearContainer member (must throw std::out_of_range when out of range)
+		Data& operator[](std::size_t index) const override; // Override LinearContainer member (must throw std::out_of_range when out of range)
 
 		/* ************************************************************************ */
 

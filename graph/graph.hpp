@@ -17,13 +17,13 @@ namespace lasd
 	protected:
 		using Container::size;
 	public:
-		[[nodiscard]] virtual unsigned long Vertices() const noexcept = 0;
+		[[nodiscard]] virtual std::size_t Vertices() const noexcept = 0;
 
-		[[nodiscard]] virtual unsigned long Edges() const noexcept = 0;
+		[[nodiscard]] virtual std::size_t Edges() const noexcept = 0;
 
 		virtual void RemoveVertex(Data& v1) = 0;
 
-		virtual unsigned long DegreeOf(const Data& v1) const = 0;
+		virtual std::size_t DegreeOf(const Data& v1) const = 0;
 
 		virtual void RemoveEdge(Data& v1, Data& v2) = 0;
 

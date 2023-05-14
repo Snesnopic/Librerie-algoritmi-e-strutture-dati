@@ -126,7 +126,7 @@ namespace lasd
 	}
 
 	template<typename Data>
-	unsigned long StackVec<Data>::Size() const noexcept // Override Container member
+	std::size_t StackVec<Data>::Size() const noexcept // Override Container member
 	{
 		return (tail + 1);
 	}
@@ -143,7 +143,7 @@ namespace lasd
 	void StackVec<Data>::Expand() noexcept
 	{
 		Data *tmp = new Data[size * 2];
-		for (unsigned long i = 0; i < size; ++i)
+		for (std::size_t i = 0; i < size; ++i)
 		{
 			std::swap(array[i], tmp[i]);
 		}

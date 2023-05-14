@@ -136,7 +136,7 @@ namespace lasd
 		bool Insert(const Data& d) override; // Copy of the value
 		bool Insert(Data&& d) noexcept override; // Move of the value
 		bool Remove(const Data& d) override; // Override DictionaryContainer member
-		unsigned long GetIndexOf(Data& d) const;
+		std::size_t GetIndexOf(Data& d) const;
 
 		explicit operator std::vector<Data>() const override;
 		/* ************************************************************************ */
@@ -159,7 +159,7 @@ namespace lasd
 
 		Data& Front() const override; // Override LinearContainer member (must throw std::length_error when empty)
 		Data& Back() const override; // Override LinearContainer member (must throw std::length_error when empty)
-		Data& operator[](unsigned long index) const override; // Override LinearContainer member (must throw std::out_of_range when out of range)
+		Data& operator[](std::size_t index) const override; // Override LinearContainer member (must throw std::out_of_range when out of range)
 
 		/* ************************************************************************ */
 		// Specific member functions (inherited from MappableContainer)

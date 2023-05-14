@@ -17,7 +17,7 @@ void Empty(unsigned int& testnum, unsigned int& testerr, const lasd::Container& 
 	testerr += (1 - static_cast<unsigned int>(tst));
 }
 
-void Size(unsigned int& testnum, unsigned int& testerr, const lasd::Container& con, bool chk, unsigned long siz)
+void Size(unsigned int& testnum, unsigned int& testerr, const lasd::Container& con, bool chk, std::size_t siz)
 {
 	bool tst;
 	testnum++;

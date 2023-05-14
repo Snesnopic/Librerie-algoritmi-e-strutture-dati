@@ -29,7 +29,7 @@ namespace lasd
 		using Vector<Data>::size;
 		long head = 0;
 		long tail = -1;
-		unsigned long elements = 0;
+		std::size_t elements = 0;
 
 		// ...
 
@@ -93,7 +93,7 @@ namespace lasd
 
 		[[nodiscard]] bool Empty() const noexcept override; // Override Container member
 
-		[[nodiscard]] unsigned long Size() const noexcept override; // Override Container member
+		[[nodiscard]] std::size_t Size() const noexcept override; // Override Container member
 
 		void Clear() noexcept override; // Override Container member
 

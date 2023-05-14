@@ -86,7 +86,7 @@ namespace lasd
 
 		[[nodiscard]] bool Empty() const noexcept override; // Override Container member
 
-		[[nodiscard]] unsigned long Size() const noexcept override; // Override Container member
+		[[nodiscard]] std::size_t Size() const noexcept override; // Override Container member
 
 		void Clear() override; // Override Container member
 

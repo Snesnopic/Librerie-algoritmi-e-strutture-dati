@@ -78,7 +78,7 @@ namespace lasd
 		{
 			head = new Node(lc[0]);
 			Node *tmp = head;
-			for (unsigned long i = 1; i < lc.Size(); ++i)
+			for (std::size_t i = 1; i < lc.Size(); ++i)
 			{
 				tmp->next = new Node(lc[i]);
 				tmp = tmp->next;
@@ -230,12 +230,12 @@ namespace lasd
 
 //Random operator
 	template<typename Data>
-	Data& List<Data>::operator[](const unsigned long index) const
+	Data& List<Data>::operator[](const std::size_t index) const
 	{
 		if (size == 0 || index >= size)
 			throw std::out_of_range("Index out of bounds!");
 		Node *tmp = head;
-		for (unsigned long i = 0; i < index; ++i)
+		for (std::size_t i = 0; i < index; ++i)
 		{
 			tmp = tmp->next;
 		}
@@ -350,10 +350,10 @@ namespace lasd
 	}
 
 	template<typename Data>
-	unsigned long List<Data>::GetIndexOf(Data& d) const
+	std::size_t List<Data>::GetIndexOf(Data& d) const
 	{
 		Node *tmp = head;
-		for (unsigned long i = 0; i < size; ++i)
+		for (std::size_t i = 0; i < size; ++i)
 		{
 			if (d == tmp->dato)
 				return i;

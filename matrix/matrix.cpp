@@ -5,10 +5,10 @@ namespace lasd
 	/* ************************************************************************ */
 	// Specific constructors
 	template<typename Data>
-	Matrix<Data>::Matrix(const unsigned long rowSize, const unsigned long colSize)
+	Matrix<Data>::Matrix(const std::size_t rowSize, const std::size_t colSize)
 	{
 		matrix.Resize(rowSize);
-		for (unsigned long i = 0; i < matrix.Size(); ++i)
+		for (std::size_t i = 0; i < matrix.Size(); ++i)
 			matrix[i].Resize(colSize);
 		size = rowSize * colSize;
 		rows = rowSize;
@@ -16,11 +16,11 @@ namespace lasd
 	}
 
 	template<typename Data>
-	Matrix<Data>::Matrix(const unsigned long rowSize, const unsigned long colSize, const Data defaultValue) : Matrix(rowSize, colSize)
+	Matrix<Data>::Matrix(const std::size_t rowSize, const std::size_t colSize, const Data defaultValue) : Matrix(rowSize, colSize)
 	{
-		for (unsigned long i = 0; i < matrix.Size(); ++i)
+		for (std::size_t i = 0; i < matrix.Size(); ++i)
 		{
-			for (unsigned long j = 0; j < matrix[0].Size(); ++j)
+			for (std::size_t j = 0; j < matrix[0].Size(); ++j)
 			{
 				matrix[i][j] = defaultValue;
 			}
@@ -51,7 +51,7 @@ namespace lasd
 	template<typename Data>
 	Matrix<Data>::~Matrix()
 	{
-		for (unsigned long i = 0; i < matrix.Size(); ++i)
+		for (std::size_t i = 0; i < matrix.Size(); ++i)
 		{
 			matrix[i].Clear();
 		}
@@ -95,9 +95,9 @@ namespace lasd
 	{
 		if (size == m.size && cols == m.cols && rows == m.rows)
 		{
-			for (unsigned long i = 0; i < rows; ++i)
+			for (std::size_t i = 0; i < rows; ++i)
 			{
-				for (unsigned long j = 0; j < cols; ++j)
+				for (std::size_t j = 0; j < cols; ++j)
 				{
 					if (matrix[i][j] != m.matrix[i][j])
 						return false;
@@ -120,7 +120,7 @@ namespace lasd
 	// Specific member functions
 
 	template<typename Data>
-	void Matrix<Data>::Resize(const unsigned long newRowSize, const unsigned long newColSize) // Resize the matrix to a given size
+	void Matrix<Data>::Resize(const std::size_t newRowSize, const std::size_t newColSize) // Resize the matrix to a given size
 	{
 		if (newRowSize == 0 || newColSize == 0)
 			Clear();
@@ -128,32 +128,32 @@ namespace lasd
 		{
 			matrix.Resize(newRowSize);
 			rows = newRowSize;
-			for (unsigned long i = 0; i < rows; ++i)
+			for (std::size_t i = 0; i < rows; ++i)
 				matrix[i].Resize(newColSize);
 			cols = newColSize;
 		}
 	}
 
 	template<typename Data>
-	void Matrix<Data>::ResizeRows(const unsigned long newRowSize)
+	void Matrix<Data>::ResizeRows(const std::size_t newRowSize)
 	{
 		Resize(newRowSize, cols);
 	}
 
 	template<typename Data>
-	void Matrix<Data>::ResizeCols(const unsigned long newColSize)
+	void Matrix<Data>::ResizeCols(const std::size_t newColSize)
 	{
 		Resize(rows, newColSize);
 	}
 
 	template<typename Data>
-	inline unsigned long Matrix<Data>::Rows() const noexcept
+	inline std::size_t Matrix<Data>::Rows() const noexcept
 	{
 		return rows;
 	}
 
 	template<typename Data>
-	inline unsigned long Matrix<Data>::Columns() const noexcept
+	inline std::size_t Matrix<Data>::Columns() const noexcept
 	{
 		return cols;
 	}
@@ -173,7 +173,7 @@ namespace lasd
 	Vector<Data>& Matrix<Data>::AntiDiagonal() const
 	{
 		Vector<Data> v(std::min(rows, cols));
-		for (unsigned long i = 0; i < std::min(rows, cols); ++i)
+		for (std::size_t i = 0; i < std::min(rows, cols); ++i)
 		{
 			v[i] = matrix[i][(cols - 1) - i];
 		}
@@ -181,7 +181,7 @@ namespace lasd
 	}
 
 	template<typename Data>
-	Vector<Data>& Matrix<Data>::Row(const unsigned long rowIndex) const
+	Vector<Data>& Matrix<Data>::Row(const std::size_t rowIndex) const
 	{
 		if (rowIndex >= rows)
 			throw std::out_of_range("Index out of bounds!");
@@ -190,13 +190,13 @@ namespace lasd
 	}
 
 	template<typename Data>
-	Vector<Data>& Matrix<Data>::Col(const unsigned long colIndex) const
+	Vector<Data>& Matrix<Data>::Col(const std::size_t colIndex) const
 	{
 		if (colIndex >= cols)
 			throw std::out_of_range("Index out of bounds!");
 
 		Vector<Data> v(rows);
-		for (unsigned long i = 0; i < rows; ++i)
+		for (std::size_t i = 0; i < rows; ++i)
 		{
 			v[i] = matrix[i][colIndex];
 		}
@@ -204,14 +204,14 @@ namespace lasd
 	}
 
 	template<typename Data>
-	Matrix<Data>& Matrix<Data>::SubMatrix(const unsigned long endRow, const unsigned long endCol)
+	Matrix<Data>& Matrix<Data>::SubMatrix(const std::size_t endRow, const std::size_t endCol)
 	{
 		if (endRow > rows || endCol > cols)
 			throw std::out_of_range("Index out of bounds!");
 		Matrix<Data> m(endRow, endCol);
-		for (unsigned long i = 0; i < endRow; ++i)
+		for (std::size_t i = 0; i < endRow; ++i)
 		{
-			for (unsigned long j = 0; j < endCol; ++j)
+			for (std::size_t j = 0; j < endCol; ++j)
 			{
 				m.matrix[i][j] = matrix[i][j];
 			}
@@ -230,7 +230,7 @@ namespace lasd
 		size = 0;
 		rows = 0;
 		cols = 0;
-		for (unsigned long i = 0; i < matrix.Size(); ++i)
+		for (std::size_t i = 0; i < matrix.Size(); ++i)
 		{
 			matrix[i].Clear();
 		}
@@ -242,7 +242,7 @@ namespace lasd
 	// Specific member functions (inherited from LinearContainer)
 
 	template<typename Data>
-	Vector<Data>& Matrix<Data>::operator[](const unsigned long rowIndex) const // Override LinearContainer member (must throw std::out_of_range when out of range)
+	Vector<Data>& Matrix<Data>::operator[](const std::size_t rowIndex) const // Override LinearContainer member (must throw std::out_of_range when out of range)
 	{
 		return Row(rowIndex);
 	}
@@ -268,7 +268,7 @@ namespace lasd
 	template<typename Data>
 	void Matrix<Data>::MapRowWise(MapFunctor f, void *par)
 	{
-		for (unsigned long i = 0; i < rows; ++i)
+		for (std::size_t i = 0; i < rows; ++i)
 		{
 			matrix[i].MapPreOrder(f, par);
 		}
@@ -283,9 +283,9 @@ namespace lasd
 	template<typename Data>
 	void Matrix<Data>::MapColumnWise(MapFunctor f, void *par)
 	{
-		for (unsigned long i = 0; i < cols; ++i)
+		for (std::size_t i = 0; i < cols; ++i)
 		{
-			for (unsigned long j = 0; j < rows; ++j)
+			for (std::size_t j = 0; j < rows; ++j)
 			{
 				f(matrix[j][i], par);
 			}
@@ -349,7 +349,7 @@ namespace lasd
 	template<typename Data>
 	void Matrix<Data>::FoldRowWise(FoldFunctor f, const void *par, void *acc) const
 	{
-		for (unsigned long i = 0; i < rows; ++i)
+		for (std::size_t i = 0; i < rows; ++i)
 		{
 			matrix[i].FoldPreOrder(f, par, acc);
 		}
@@ -364,9 +364,9 @@ namespace lasd
 	template<typename Data>
 	void Matrix<Data>::FoldColumnWise(FoldFunctor f, const void *par, void *acc) const
 	{
-		for (unsigned long i = 0; i < cols; ++i)
+		for (std::size_t i = 0; i < cols; ++i)
 		{
-			for (unsigned long j = 0; j < rows; ++j)
+			for (std::size_t j = 0; j < rows; ++j)
 			{
 				f(matrix[j][i], par, acc);
 			}

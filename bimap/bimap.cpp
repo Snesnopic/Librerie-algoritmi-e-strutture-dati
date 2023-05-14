@@ -67,7 +67,7 @@ namespace lasd
 	}
 
 	template <typename KeyType, typename ValueType>
-	[[nodiscard]] unsigned long Bimap<KeyType,ValueType>::Size() const
+	[[nodiscard]] std::size_t Bimap<KeyType,ValueType>::Size() const
 	{
 		return normalMap.size();
 	}

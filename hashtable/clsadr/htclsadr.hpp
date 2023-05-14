@@ -35,7 +35,7 @@ namespace lasd
 		Vector<BST<Data>> table{};
 
 		// ...
-		unsigned long HashKey(const Data& d) const override;
+		std::size_t HashKey(const Data& d) const override;
 
 	public:
 
@@ -45,14 +45,14 @@ namespace lasd
 		/* ************************************************************************ */
 
 		// Specific constructors
-		explicit HashTableClsAdr(unsigned long s); // A hash table of a given size
+		explicit HashTableClsAdr(std::size_t s); // A hash table of a given size
 
 		explicit HashTableClsAdr(const LinearContainer<Data>& lc) : HashTableClsAdr()// A hash table obtained from a LinearContainer
 		{
 			Insert(lc);
 		}
 
-		HashTableClsAdr(unsigned long s, const LinearContainer<Data>& lc); // A hash table of a given size obtained from a LinearContainer
+		HashTableClsAdr(std::size_t s, const LinearContainer<Data>& lc); // A hash table of a given size obtained from a LinearContainer
 
 
 		/* ************************************************************************ */
@@ -87,7 +87,7 @@ namespace lasd
 
 		// Specific member functions (inherited from HashTable)
 
-		void Resize(unsigned long newSize) override; // Resize the hashtable to a given size
+		void Resize(std::size_t newSize) override; // Resize the hashtable to a given size
 
 		/* ************************************************************************ */
 

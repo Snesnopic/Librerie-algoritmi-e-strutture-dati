@@ -41,17 +41,17 @@ namespace lasd
 
 		public:
 			using BinaryTree<Data>::Node::dato;
-			unsigned long index{};
+			std::size_t index{};
 			Vector<NodeVec *> *arrayRef = nullptr;
 
 			NodeVec() = default;
 
-			NodeVec(Vector<NodeVec *> *arr, unsigned long i, const Data& d) : index(i), arrayRef(arr)
+			NodeVec(Vector<NodeVec *> *arr, std::size_t i, const Data& d) : index(i), arrayRef(arr)
 			{
 				dato = d;
 			}
 
-			NodeVec(Vector<NodeVec *> *arr, unsigned long i, Data&& d) : index(i), arrayRef(arr)
+			NodeVec(Vector<NodeVec *> *arr, std::size_t i, Data&& d) : index(i), arrayRef(arr)
 			{
 				dato = std::move(d);
 			}

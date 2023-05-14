@@ -21,7 +21,7 @@ namespace lasd
 	{
 
 	public:
-		unsigned long operator()(const Data& d) const noexcept;
+		std::size_t operator()(const Data& d) const noexcept;
 
 	};
 
@@ -64,13 +64,13 @@ namespace lasd
 
 		// Specific member function
 
-		virtual void Resize(unsigned long i) = 0; // Resize the hashtable to a given size
+		virtual void Resize(std::size_t i) = 0; // Resize the hashtable to a given size
 
 
 
 		// Auxiliary member functions
 	protected:
-		virtual unsigned long HashKey(const Data& d) const = 0;
+		virtual std::size_t HashKey(const Data& d) const = 0;
 
 		// Copy assignment
 		HashTable& operator=(const HashTable& ht); // Copy assignment of abstract types should not be possible.

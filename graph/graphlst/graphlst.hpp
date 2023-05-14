@@ -17,9 +17,9 @@ namespace lasd
 		private:
 		struct KeyGen
 		{
-			unsigned long key;
+			std::size_t key;
 			KeyGen() : key(0){};
-			unsigned long operator()(unsigned long x = 1)
+			std::size_t operator()(std::size_t x = 1)
 			{
 				return (key += x);
 			}
@@ -46,7 +46,7 @@ namespace lasd
 	public:
 		GraphLst() = default;
 
-		GraphLst(const Vector<Data>& vertices, unsigned long expectedSize);
+		GraphLst(const Vector<Data>& vertices, std::size_t expectedSize);
 
 		explicit GraphLst(const Vector<Data>& vertices);
 
@@ -54,13 +54,13 @@ namespace lasd
 
 		GraphLst(GraphLst<Data>&& gm) noexcept;
 
-		[[nodiscard]] unsigned long Vertices() const noexcept override;
+		[[nodiscard]] std::size_t Vertices() const noexcept override;
 
-		[[nodiscard]] unsigned long Edges() const noexcept override;
+		[[nodiscard]] std::size_t Edges() const noexcept override;
 
 		void RemoveVertex(Data& v1) override;
 
-		unsigned long DegreeOf(const Data& v1) const override;
+		std::size_t DegreeOf(const Data& v1) const override;
 
 		void RemoveEdge(Data& v1, Data& v2) override;
 

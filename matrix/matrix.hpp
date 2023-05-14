@@ -18,8 +18,8 @@ namespace lasd
 			: virtual public PreOrderMappableContainer<Data>, virtual public InOrderMappableContainer<Data>, virtual public PreOrderFoldableContainer<Data>, virtual public InOrderFoldableContainer<Data>, virtual public BreadthMappableContainer<Data>, virtual public BreadthFoldableContainer<Data>
 	{
 	protected:
-		unsigned long rows = 0;
-		unsigned long cols = 0;
+		std::size_t rows = 0;
+		std::size_t cols = 0;
 		using PreOrderFoldableContainer<Data>::size;
 		Vector<Vector<Data>> matrix;
 	public:
@@ -27,9 +27,9 @@ namespace lasd
 		Matrix() = default;
 		/* ************************************************************************ */
 		// Specific constructors
-		Matrix(unsigned long rowSize, unsigned long colSize);
+		Matrix(std::size_t rowSize, std::size_t colSize);
 
-		Matrix(unsigned long rowSize, unsigned long colSize, Data defaultValue);
+		Matrix(std::size_t rowSize, std::size_t colSize, Data defaultValue);
 
 
 		/* ************************************************************************ */
@@ -64,25 +64,25 @@ namespace lasd
 
 		// Specific member functions
 
-		void Resize(unsigned long newRowSize, unsigned long newColSize); // Resize the matrix to a given size
+		void Resize(std::size_t newRowSize, std::size_t newColSize); // Resize the matrix to a given size
 
-		void ResizeRows(unsigned long newRowSize);
+		void ResizeRows(std::size_t newRowSize);
 
-		void ResizeCols(unsigned long newColSize);
+		void ResizeCols(std::size_t newColSize);
 
-		[[nodiscard]] unsigned long Rows() const noexcept;
+		[[nodiscard]] std::size_t Rows() const noexcept;
 
-		[[nodiscard]] unsigned long Columns() const noexcept;
+		[[nodiscard]] std::size_t Columns() const noexcept;
 
 		Vector<Data>& MainDiagonal() const;
 
 		Vector<Data>& AntiDiagonal() const;
 
-		Vector<Data>& Row(unsigned long rowIndex) const;
+		Vector<Data>& Row(std::size_t rowIndex) const;
 
-		Vector<Data>& Col(unsigned long colIndex) const;
+		Vector<Data>& Col(std::size_t colIndex) const;
 
-		Matrix& SubMatrix(unsigned long endRow, unsigned long endCol);
+		Matrix& SubMatrix(std::size_t endRow, std::size_t endCol);
 
 
 		/* ************************************************************************ */
@@ -95,7 +95,7 @@ namespace lasd
 
 		// Specific member functions (inherited from LinearContainer)
 
-		Vector<Data>& operator[](unsigned long rowIndex) const; // Override LinearContainer member (must throw std::out_of_range when out of range)
+		Vector<Data>& operator[](std::size_t rowIndex) const; // Override LinearContainer member (must throw std::out_of_range when out of range)
 
 
 		/* ************************************************************************ */

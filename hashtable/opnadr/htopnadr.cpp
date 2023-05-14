@@ -3,17 +3,17 @@ namespace lasd
 
 /* ************************************************************************** */
 	template<typename Data>
-	unsigned long HashTableOpnAdr<Data>::HashKey(const Data& d) const // Hash function
+	std::size_t HashTableOpnAdr<Data>::HashKey(const Data& d) const // Hash function
 	{
 		return (((a * hash(d)) + b) % p) % table.Size();
 	}
 
 	template<typename Data>
-	HashTableOpnAdr<Data>::HashTableOpnAdr(unsigned long s) // A hash table of a given size
+	HashTableOpnAdr<Data>::HashTableOpnAdr(std::size_t s) // A hash table of a given size
 	{
 		table.Resize(s);
 		deleted.Resize(s);
-		for (unsigned long i = 0; i < s; ++i)
+		for (std::size_t i = 0; i < s; ++i)
 		{
 			table[i] = nullptr;
 			deleted[i] = false;
@@ -23,12 +23,12 @@ namespace lasd
 	template<typename Data>
 	HashTableOpnAdr<Data>::HashTableOpnAdr(const LinearContainer<Data>& lc) // A hash table obtained from a LinearContainer
 	{
-		unsigned long s = 127;
+		std::size_t s = 127;
 		if (s < lc.Size())
 			s = lc.Size();
 		table.Resize(s);
 		deleted.Resize(s);
-		for (unsigned long i = 0; i < s; ++i)
+		for (std::size_t i = 0; i < s; ++i)
 		{
 			table[i] = nullptr;
 			deleted[i] = false;
@@ -37,13 +37,13 @@ namespace lasd
 	}
 
 	template<typename Data>
-	HashTableOpnAdr<Data>::HashTableOpnAdr(unsigned long s, const LinearContainer<Data>& lc)// A hash table of a given size obtained from a LinearContainer
+	HashTableOpnAdr<Data>::HashTableOpnAdr(std::size_t s, const LinearContainer<Data>& lc)// A hash table of a given size obtained from a LinearContainer
 	{
 		if (s < lc.Size())
 			s = lc.Size();
 		table.Resize(s);
 		deleted.Resize(s);
-		for (unsigned long i = 0; i < s; ++i)
+		for (std::size_t i = 0; i < s; ++i)
 		{
 			table[i] = nullptr;
 			deleted[i] = false;
@@ -56,7 +56,7 @@ namespace lasd
 	HashTableOpnAdr<Data>::HashTableOpnAdr(const HashTableOpnAdr& ht)
 	{
 		HashTable<Data>::operator=(ht);
-		for (unsigned long i = 0; i < ht.table.Size(); ++i)
+		for (std::size_t i = 0; i < ht.table.Size(); ++i)
 		{
 			if (ht.table[i] != nullptr && !ht.deleted[i])
 				Insert(*(ht.table[i]));
@@ -76,7 +76,7 @@ namespace lasd
 	HashTableOpnAdr<Data>& HashTableOpnAdr<Data>::operator=(const HashTableOpnAdr& ht)
 	{
 		HashTable<Data>::operator=(ht);
-		for (unsigned long i = 0; i < ht.table.Size(); ++i)
+		for (std::size_t i = 0; i < ht.table.Size(); ++i)
 		{
 			if (ht.table[i] != nullptr && !ht.deleted[i])
 				Insert(*(ht.table[i]));
@@ -101,7 +101,7 @@ namespace lasd
 	{
 		if (size == ht.size)
 		{
-			for (unsigned long i = 0; i < table.Size(); ++i)
+			for (std::size_t i = 0; i < table.Size(); ++i)
 			{
 				if (table[i] != nullptr && !deleted[i])
 				{
@@ -122,12 +122,12 @@ namespace lasd
 
 	// Specific member functions (inherited from HashTable)
 	template<typename Data>
-	void HashTableOpnAdr<Data>::Resize(unsigned long s)  // Resize the hashtable to a given size
+	void HashTableOpnAdr<Data>::Resize(std::size_t s)  // Resize the hashtable to a given size
 	{
 		if (s >= size)        //>= perché compiendo una Resize su una Hash con la stessa size di prima possiamo rimuovere i valori contrassegnati 'eliminati'
 		{
 			HashTableOpnAdr newHash(s);
-			for (unsigned long i = 0; i < table.Size(); ++i)
+			for (std::size_t i = 0; i < table.Size(); ++i)
 			{
 				if (table[i] != nullptr && !deleted[i])
 				{
@@ -144,10 +144,10 @@ namespace lasd
 	{
 		if (size >= table.Size() / 2)
 			Resize((table.Size() * 2) + 1);
-		unsigned long j = HashKey(d);
-		for (unsigned long i = 0; i < table.Size(); ++i)
+		std::size_t j = HashKey(d);
+		for (std::size_t i = 0; i < table.Size(); ++i)
 		{
-			unsigned long index = (j + i) % table.Size();
+			std::size_t index = (j + i) % table.Size();
 			if (table[index] != nullptr)
 			{
 				if (*table[index] == d)
@@ -177,10 +177,10 @@ namespace lasd
 	{
 		if (size >= table.Size() / 2)
 			Resize((table.Size() * 2) + 1);
-		unsigned long j = HashKey(d);
-		for (unsigned long i = 0; i < table.Size(); ++i)
+		std::size_t j = HashKey(d);
+		for (std::size_t i = 0; i < table.Size(); ++i)
 		{
-			unsigned long index = (j + i) % table.Size();
+			std::size_t index = (j + i) % table.Size();
 			if (table[index] != nullptr)
 			{
 				if (*table[index] == d)
@@ -208,10 +208,10 @@ namespace lasd
 	template<typename Data>
 	bool HashTableOpnAdr<Data>::Remove(const Data& d) // Override DictionaryContainer member
 	{
-		unsigned long j = HashKey(d);
-		for (unsigned long i = 0; i < table.Size(); ++i)
+		std::size_t j = HashKey(d);
+		for (std::size_t i = 0; i < table.Size(); ++i)
 		{
-			unsigned long index = (j + i) % table.Size();
+			std::size_t index = (j + i) % table.Size();
 			if (table[index] == nullptr)
 				return false;
 			if (*(table[index]) == d && !deleted[index])
@@ -228,10 +228,10 @@ namespace lasd
 	template<typename Data>
 	bool HashTableOpnAdr<Data>::Exists(const Data& d) const noexcept  // Override TestableContainer member
 	{
-		unsigned long j = HashKey(d);
-		for (unsigned long i = 0; i < table.Size(); ++i)
+		std::size_t j = HashKey(d);
+		for (std::size_t i = 0; i < table.Size(); ++i)
 		{
-			unsigned long index = (j + i) % table.Size();
+			std::size_t index = (j + i) % table.Size();
 			if (table[index] == nullptr)
 				return false;
 			if (*(table[index]) == d && !deleted[index])
@@ -244,7 +244,7 @@ namespace lasd
 	template<typename Data>
 	void HashTableOpnAdr<Data>::Map(MapFunctor f, void *par) // Override MappableContainer member
 	{
-		for (unsigned long i = 0; i < table.Size(); ++i)
+		for (std::size_t i = 0; i < table.Size(); ++i)
 		{
 			if (table[i] != nullptr && !deleted[i])
 				f(*table[i], par);
@@ -255,7 +255,7 @@ namespace lasd
 	template<typename Data>
 	void HashTableOpnAdr<Data>::Fold(FoldFunctor f, const void *par, void *acc) const // Override FoldableContainer member
 	{
-		for (unsigned long i = 0; i < table.Size(); ++i)
+		for (std::size_t i = 0; i < table.Size(); ++i)
 		{
 			if (table[i] != nullptr && !deleted[i])
 				f(*table[i], par, acc);
@@ -266,7 +266,7 @@ namespace lasd
 	template<typename Data>
 	void HashTableOpnAdr<Data>::Clear() noexcept // Override Container member
 	{
-		for (unsigned long i = 0; i < table.Size(); ++i)
+		for (std::size_t i = 0; i < table.Size(); ++i)
 		{
 			if (table[i] != nullptr)
 			{

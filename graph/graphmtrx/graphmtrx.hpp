@@ -18,11 +18,11 @@ namespace lasd
 	public:
 		GraphMtrx() = default;
 
-		GraphMtrx(Vector<Data> vertices, unsigned long expectedSize);
+		GraphMtrx(Vector<Data> vertices, std::size_t expectedSize);
 
 		GraphMtrx(Vector<Data> vertices);
 
-		GraphMtrx(unsigned long expectedSize);
+		GraphMtrx(std::size_t expectedSize);
 
 		GraphMtrx(const GraphMtrx<Data>& gm);
 
@@ -30,13 +30,13 @@ namespace lasd
 
 
 	public:
-		[[nodiscard]] unsigned long Vertices() const noexcept override;
+		[[nodiscard]] std::size_t Vertices() const noexcept override;
 
-		[[nodiscard]] unsigned long Edges() const noexcept override;
+		[[nodiscard]] std::size_t Edges() const noexcept override;
 
 		void RemoveVertex(Data& v1) override;
 
-		unsigned long DegreeOf(const Data& v1) const override;
+		std::size_t DegreeOf(const Data& v1) const override;
 
 		void RemoveEdge(Data& v1, Data& v2) override;
 

@@ -24,7 +24,7 @@ namespace lasd
 		bool HasKey(const KeyType& key) const;
 		bool HasValue(const ValueType& value) const;
 
-		[[nodiscard]] unsigned long Size() const;
+		[[nodiscard]] std::size_t Size() const;
 
 		const std::unordered_map<ValueType, KeyType>& ValueMap() const;
 		const std::unordered_map<KeyType, ValueType>& KeyMap() const;

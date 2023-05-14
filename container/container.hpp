@@ -23,7 +23,7 @@ namespace lasd
 
 	protected:
 
-		unsigned long size = 0;
+		std::size_t size = 0;
 
 	public:
 
@@ -50,7 +50,7 @@ namespace lasd
 
 		[[nodiscard]] virtual bool Empty() const noexcept; // (concrete function should not throw exceptions)
 
-		[[nodiscard]] virtual unsigned long Size() const noexcept; // (concrete function should not throw exceptions)
+		[[nodiscard]] virtual std::size_t Size() const noexcept; // (concrete function should not throw exceptions)
 
 		virtual void Clear() = 0;
 
@@ -97,7 +97,7 @@ namespace lasd
 		virtual Data& Front() const; // (concrete function must throw std::length_error when empty)
 		virtual Data& Back() const; // (concrete function must throw std::length_error when empty)
 
-		virtual Data& operator[](unsigned long index) const = 0; // (concrete function must throw std::out_of_range when out of range)
+		virtual Data& operator[](std::size_t index) const = 0; // (concrete function must throw std::out_of_range when out of range)
 
 	};
 

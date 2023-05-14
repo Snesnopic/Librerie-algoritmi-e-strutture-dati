@@ -4,7 +4,7 @@ namespace lasd
     template<typename Data>
     ValMatrix<Data>::~ValMatrix()
     {
-        for (unsigned long i = 0; i < matrix.Size(); ++i)
+        for (std::size_t i = 0; i < matrix.Size(); ++i)
         {
             matrix[i].Clear();
         }
@@ -49,9 +49,9 @@ namespace lasd
     {
         if (size == m.size && cols == m.cols && rows == m.rows)
         {
-            for (unsigned long i = 0; i < rows; ++i)
+            for (std::size_t i = 0; i < rows; ++i)
             {
-                for (unsigned long j = 0; j < cols; ++j)
+                for (std::size_t j = 0; j < cols; ++j)
                 {
                     if (matrix[i][j] != m.matrix[i][j])
                         return false;
@@ -126,7 +126,7 @@ namespace lasd
         }
     }
     template<typename Data>
-    ValMatrix<Data> ValMatrix<Data>::SubMatrixRemoving(unsigned long rowToExclude,unsigned long colToExclude)
+    ValMatrix<Data> ValMatrix<Data>::SubMatrixRemoving(std::size_t rowToExclude,std::size_t colToExclude)
     {
         ValMatrix<Data> subMatrix;
         for(int i = 0; i < rows; i++)

@@ -3,19 +3,19 @@ namespace lasd
 
 /* ************************************************************************** */
 	template<typename Data>
-	unsigned long HashTableClsAdr<Data>::HashKey(const Data& d) const // Hash function
+	std::size_t HashTableClsAdr<Data>::HashKey(const Data& d) const // Hash function
 	{
 		return (((a * hash(d)) + b) % p) % table.Size();
 	}
 
 	template<typename Data>
-	HashTableClsAdr<Data>::HashTableClsAdr(unsigned long s)
+	HashTableClsAdr<Data>::HashTableClsAdr(std::size_t s)
 	{
 		table.Resize(s);
 	}
 
 	template<typename Data>
-	HashTableClsAdr<Data>::HashTableClsAdr(unsigned long s, const LinearContainer<Data>& lc) // A hash table of a given size obtained from a LinearContainer
+	HashTableClsAdr<Data>::HashTableClsAdr(std::size_t s, const LinearContainer<Data>& lc) // A hash table of a given size obtained from a LinearContainer
 	{
 		table.Resize(s);
 		Insert(lc);
@@ -75,7 +75,7 @@ namespace lasd
 		if (size == ht.size)
 		{
 			BST<Data> bst1;
-			for (unsigned long i = 0; i < table.Size(); ++i)
+			for (std::size_t i = 0; i < table.Size(); ++i)
 			{
 				BTInOrderIterator<Data> j(table[i]);
 				while (!j.Terminated())
@@ -85,7 +85,7 @@ namespace lasd
 				}
 			}
 			BST<Data> bst2;
-			for (unsigned long i = 0; i < ht.table.Size(); ++i)
+			for (std::size_t i = 0; i < ht.table.Size(); ++i)
 			{
 				BTInOrderIterator<Data> j(ht.table[i]);
 				while (!j.Terminated())
@@ -107,10 +107,10 @@ namespace lasd
 
 	// Specific member functions (inherited from HashTable)
 	template<typename Data>
-	void HashTableClsAdr<Data>::Resize(const unsigned long newSize) // Resize the hashtable to a given size
+	void HashTableClsAdr<Data>::Resize(const std::size_t newSize) // Resize the hashtable to a given size
 	{
 		HashTableClsAdr<Data> newHash(newSize);
-		for (unsigned long i = 0; i < table.Size(); ++i)
+		for (std::size_t i = 0; i < table.Size(); ++i)
 		{
 			if (table[i].Empty())
 				continue;
@@ -171,7 +171,7 @@ namespace lasd
 	template<typename Data>
 	void HashTableClsAdr<Data>::Map(MapFunctor f, void *par) // Override MappableContainer member
 	{
-		for (unsigned long i = 0; i < table.Size(); ++i)
+		for (std::size_t i = 0; i < table.Size(); ++i)
 		{
 			if (!table[i].Empty())
 				table[i].Map(f, par);
@@ -182,7 +182,7 @@ namespace lasd
 	template<typename Data>
 	void HashTableClsAdr<Data>::Fold(FoldFunctor f, const void *par, void *acc) const // Override FoldableContainer member
 	{
-		for (unsigned long i = 0; i < table.Size(); ++i)
+		for (std::size_t i = 0; i < table.Size(); ++i)
 		{
 			if (!table[i].Empty())
 				table[i].Fold(f, par, acc);

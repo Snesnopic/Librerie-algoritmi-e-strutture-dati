@@ -6,12 +6,12 @@ namespace lasd
 	//Constructors
 	//Initial size constructor
 	template<typename Data>
-	Vector<Data>::Vector(const unsigned long initialSize) : array(new Data[initialSize])
+	Vector<Data>::Vector(const std::size_t initialSize) : array(new Data[initialSize])
 	{
 		size = initialSize;
 	}
     template<typename Data>
-    Vector<Data>::Vector(const unsigned long initialSize, const Data defaultValue) : Vector(initialSize)
+    Vector<Data>::Vector(const std::size_t initialSize, const Data defaultValue) : Vector(initialSize)
     {
         for(auto i = 0; i<size;++i)
             array[i] = defaultValue;
@@ -23,7 +23,7 @@ namespace lasd
 	{
 		size = lc.Size();
 		array = new Data[size];
-		for (unsigned long i = 0; i < size; ++i)
+		for (std::size_t i = 0; i < size; ++i)
 			array[i] = lc[i];
 	}
 
@@ -53,7 +53,7 @@ namespace lasd
 	//Operators
 	//Random access operator
 	template<typename Data>
-	Data& Vector<Data>::operator[](const unsigned long index) const
+	Data& Vector<Data>::operator[](const std::size_t index) const
 	{
 		if (index >= size)
 			throw std::out_of_range("Index out of bounds!");
@@ -93,7 +93,7 @@ namespace lasd
 	{
 		if (size != v.Size())
 			return false;
-		for (unsigned long i = 0; i < size; ++i)
+		for (std::size_t i = 0; i < size; ++i)
 		{
 			if (array[i] != v[i])
 				return false;
@@ -111,7 +111,7 @@ namespace lasd
 	//Vector functions
 	//Resize
 	template<typename Data>
-	void Vector<Data>::Resize(const unsigned long newSize)
+	void Vector<Data>::Resize(const std::size_t newSize)
 	{
 		if (newSize == 0)
 			Clear();
@@ -120,7 +120,7 @@ namespace lasd
 			if (size != newSize)
 			{
 				Data *tmp = new Data[newSize];
-				for (unsigned long i = 0; i < std::min(size, newSize); ++i)
+				for (std::size_t i = 0; i < std::min(size, newSize); ++i)
 				{
 					std::swap(array[i], tmp[i]);
 				}
@@ -157,7 +157,7 @@ namespace lasd
     {
         Data* tmp = new Data[size + lc.Size()];
         std::copy(array, array + size, tmp);
-        for(unsigned long i = lc.Size() ; i < size + lc.Size() ; ++i)
+        for(std::size_t i = lc.Size() ; i < size + lc.Size() ; ++i)
             tmp[i] = lc[i - lc.Size()];
         delete[] array;
         array = tmp;
@@ -172,7 +172,7 @@ namespace lasd
 		bool found = false;
 		auto j = 0;
 		Data* tmp = new Data[size - 1];
-		for(unsigned long i = 0; i < size; ++i)
+		for(std::size_t i = 0; i < size; ++i)
 		{
 			if(array[i] != d ||  found)
 			{
@@ -190,9 +190,9 @@ namespace lasd
         return true;
     }
     template<typename Data>
-    unsigned long Vector<Data>::GetIndexOf(const Data& d) const
+    std::size_t Vector<Data>::GetIndexOf(const Data& d) const
     {
-        for(unsigned long i = 0; i < size ;++i)
+        for(std::size_t i = 0; i < size ;++i)
         {
             if(array[i] == d)
                 return i;
@@ -276,7 +276,7 @@ namespace lasd
 	template<typename Data>
 	void Vector<Data>::MapPreOrder(MapFunctor f, void *par)
 	{
-		for (unsigned long i = 0; i < size; ++i)
+		for (std::size_t i = 0; i < size; ++i)
 		{
 			f(array[i], par);
 		}
@@ -285,7 +285,7 @@ namespace lasd
 	template<typename Data>
 	void Vector<Data>::MapPostOrder(MapFunctor f, void *par)
 	{
-		for (unsigned long i = 1; i <= size && size != 0; ++i)
+		for (std::size_t i = 1; i <= size && size != 0; ++i)
 		{
 			f(array[size - i], par);
 		}
@@ -301,7 +301,7 @@ namespace lasd
 	template<typename Data>
 	void Vector<Data>::FoldPreOrder(FoldFunctor f, const void *par, void *acc) const
 	{
-		for (unsigned long i = 0; i < size; ++i)
+		for (std::size_t i = 0; i < size; ++i)
 		{
 			f(array[i], par, acc);
 		}
@@ -310,7 +310,7 @@ namespace lasd
 	template<typename Data>
 	void Vector<Data>::FoldPostOrder(FoldFunctor f, const void *par, void *acc) const
 	{
-		for (unsigned long i = 1; i <= size && size != 0; ++i)
+		for (std::size_t i = 1; i <= size && size != 0; ++i)
 		{
 			f(array[size - i], par, acc);
 		}

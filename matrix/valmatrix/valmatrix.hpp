@@ -9,7 +9,7 @@ namespace lasd
     class ValMatrix: virtual public Matrix<Data>
     {
     private:
-        ValMatrix<Data> SubMatrixRemoving(unsigned long rowToExclude,unsigned long colToExclude);
+        ValMatrix<Data> SubMatrixRemoving(std::size_t rowToExclude,std::size_t colToExclude);
     protected:
         using Matrix<Data>::rows;
         using Matrix<Data>::cols;

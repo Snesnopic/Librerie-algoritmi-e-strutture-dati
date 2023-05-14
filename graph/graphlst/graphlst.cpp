@@ -3,10 +3,10 @@
 namespace lasd
 {
 	template<typename Data>
-	GraphLst<Data>::GraphLst(const Vector<Data>& vertices, unsigned long expectedSize)
+	GraphLst<Data>::GraphLst(const Vector<Data>& vertices, std::size_t expectedSize)
 	{
 		graph.Resize(std::max(expectedSize,vertices.Size()));
-		for(unsigned long i = 0; i < vertices.Size() ; ++i)
+		for(std::size_t i = 0; i < vertices.Size() ; ++i)
 		{
 			AddVertex(vertices[i]);
 		}
@@ -28,16 +28,16 @@ namespace lasd
 	}
 
 	template<typename Data>
-	[[nodiscard]] unsigned long GraphLst<Data>::Vertices() const noexcept
+	[[nodiscard]] std::size_t GraphLst<Data>::Vertices() const noexcept
 	{
 		return graph.Size();
 	}
 
 	template<typename Data>
-	[[nodiscard]] unsigned long GraphLst<Data>::Edges() const noexcept
+	[[nodiscard]] std::size_t GraphLst<Data>::Edges() const noexcept
 	{
-		unsigned long sum = 0;
-		for(unsigned long i = 0; i < graph.Size(); ++i)
+		std::size_t sum = 0;
+		for(std::size_t i = 0; i < graph.Size(); ++i)
 		{
 			sum += graph[i].Size();
 		}
@@ -51,7 +51,7 @@ namespace lasd
 	}
 
 	template<typename Data>
-	unsigned long GraphLst<Data>::DegreeOf(const Data& v1) const
+	std::size_t GraphLst<Data>::DegreeOf(const Data& v1) const
 	{
 		return 0;
 	}
@@ -103,7 +103,7 @@ namespace lasd
 		AddVertex(v2);
 		auto&& v = graph[nameMap.ValueOfKey(v1)];
 		bool exists = false;
-		for(unsigned long i = 0; i < v.Size() && !exists; ++i)
+		for(std::size_t i = 0; i < v.Size() && !exists; ++i)
 		{
 			if(v[i].destination == nameMap.ValueOfKey(v2))
 			{
@@ -138,7 +138,7 @@ namespace lasd
 		{
 			auto&& v = graph[nameMap.ValueOfKey(v1)];
 			bool exists = false;
-			for(unsigned long i = 0; i < v.Size() && !exists; ++i)
+			for(std::size_t i = 0; i < v.Size() && !exists; ++i)
 			{
 				if(v[i].destination == nameMap.ValueOfKey(v2))
 				{
@@ -223,7 +223,7 @@ namespace lasd
 		{
 
 			auto&& v = graph[nameMap.ValueOfKey(v1)];
-			for(unsigned long i = 0; i < v.Size(); ++i)
+			for(std::size_t i = 0; i < v.Size(); ++i)
 			{
 
 			}
