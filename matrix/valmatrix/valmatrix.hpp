@@ -9,7 +9,7 @@ namespace lasd
     class ValMatrix: virtual public Matrix<Data>
     {
     private:
-        ValMatrix<Data> SubMatrixRemoving(std::size_t rowToExclude,std::size_t colToExclude);
+        ValMatrix<Data> SubMatrixRemoving(std::size_t rowToExclude,std::size_t colToExclude) const;
     protected:
         using Matrix<Data>::rows;
         using Matrix<Data>::cols;
@@ -46,11 +46,11 @@ namespace lasd
 
         /* ************************************************************************ */
         ValMatrix<Data> Transpose();
-        ValMatrix<Data>& operator+(const ValMatrix<Data>& other);
-        ValMatrix<Data>& operator*(const ValMatrix<Data>& other);
-        ValMatrix<Data>& operator*(const auto& other);
-        Data Determinant();
-        ValMatrix<Data>& Inverse();
+        ValMatrix<Data> operator+(const ValMatrix<Data>& other) const;
+        ValMatrix<Data> operator*(const ValMatrix<Data>& other) const;
+        ValMatrix<Data> operator*(const auto& other) const;
+        Data Determinant() const;
+        ValMatrix<Data> Inverse() const;
     };
 
 
