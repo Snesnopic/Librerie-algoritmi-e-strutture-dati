@@ -128,20 +128,22 @@ namespace lasd
     template<typename Data>
     ValMatrix<Data> ValMatrix<Data>::SubMatrixRemoving(std::size_t rowToExclude,std::size_t colToExclude)
     {
-        ValMatrix<Data> subMatrix;
+        ValMatrix<Data> subMatrix(rows-1,cols-1);
+        std::size_t subi = 0;
         for(std::size_t i = 0; i < rows; ++i)
         {
             if(i != rowToExclude)
             {
-                Vector<Data> rowVec;
+                std::size_t subj = 0;
                 for(std::size_t j = 0; j < cols; ++j)
                 {
                     if(j != colToExclude)
                     {
-                        rowVec.Insert(matrix[i][j]);
+                        subMatrix[subi][subj] = matrix[i][j];
+                        subj++;
                     }
                 }
-                subMatrix.matrix.Insert(rowVec);
+                subi++;
             }
         }
         return subMatrix;
@@ -150,7 +152,7 @@ namespace lasd
     Data ValMatrix<Data>::Determinant()
     {
         if(rows != cols)
-            throw std::length_error("");
+            throw std::length_error("The matrix isn't a square matrix!");
         if(rows == 1)
             return matrix[0][0];
         if(rows == 2)
@@ -160,8 +162,7 @@ namespace lasd
         short sign = 1;
         for(std::size_t i = 0; i < rows; ++i)
         {
-            auto subMatrix = SubMatrixRemoving(0,i);
-            det += sign * matrix[0][i] * subMatrix.Determinant();
+            det += sign * matrix[i][0] * SubMatrixRemoving(i,0).Determinant();
             sign *= -1;
         }
 
