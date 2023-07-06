@@ -84,7 +84,7 @@ namespace lasd
     }
 
     template<typename Data>
-    ValMatrix<Data>& ValMatrix<Data>::operator+(const ValMatrix<Data>& other)
+    ValMatrix<Data> ValMatrix<Data>::operator+(const ValMatrix<Data>& other) const
     {
         if(rows == other.rows && cols == other.cols)
         {
@@ -103,30 +103,37 @@ namespace lasd
     }
 
     template<typename Data>
-    ValMatrix<Data>& ValMatrix<Data>::operator*(const ValMatrix<Data>& other)
+    ValMatrix<Data> ValMatrix<Data>::operator*(const ValMatrix<Data>& other) const
     {
-
-    }
-
-    template<typename Data>
-    ValMatrix<Data>& ValMatrix<Data>::operator*(const auto& other)
-    {
-        if(rows == other.rows && cols == other.cols)
-        {
-            ValMatrix<Data> newMatrix(rows,cols);
-            for(std::size_t i = 0; i < rows; ++i)
-            {
-                for(std::size_t j = 0; j < cols; ++j)
-                {
-                    newMatrix[i][j] = matrix[i][j] * other;
-                }
-
-            }
-            return newMatrix;
+        if (cols != other.rows) {
+            throw std::length_error("Tried to multiply two matrices with incompatible sizes!");
         }
+        ValMatrix<Data> result(rows, other.cols);
+        for (std::size_t i = 0; i < rows; ++i) {
+            for (std::size_t j = 0; j < other.cols; ++j) {
+                for (std::size_t k = 0; k < cols; ++k) {
+                    result[i][j] += matrix[i][k] * other.matrix[k][j];
+                }
+            }
+        }
+        return result;
+    }
+
+    template<typename Data>
+    ValMatrix<Data> ValMatrix<Data>::operator*(const auto& other) const
+    {
+        ValMatrix<Data> newMatrix(rows,cols);
+        for(std::size_t i = 0; i < rows; ++i)
+        {
+            for(std::size_t j = 0; j < cols; ++j)
+            {
+                newMatrix[i][j] = matrix[i][j] * other;
+            }
+        }
+        return newMatrix;
     }
     template<typename Data>
-    ValMatrix<Data> ValMatrix<Data>::SubMatrixRemoving(std::size_t rowToExclude,std::size_t colToExclude)
+    ValMatrix<Data> ValMatrix<Data>::SubMatrixRemoving(std::size_t rowToExclude,std::size_t colToExclude) const
     {
         ValMatrix<Data> subMatrix(rows-1,cols-1);
         std::size_t subi = 0;
@@ -149,7 +156,7 @@ namespace lasd
         return subMatrix;
     }
     template<typename Data>
-    Data ValMatrix<Data>::Determinant()
+    Data ValMatrix<Data>::Determinant() const
     {
         if(rows != cols)
             throw std::length_error("The matrix isn't a square matrix!");
@@ -170,7 +177,7 @@ namespace lasd
     }
 
     template<typename Data>
-    ValMatrix<Data>& ValMatrix<Data>::Inverse()
+    ValMatrix<Data> ValMatrix<Data>::Inverse() const
     {
 
     }
